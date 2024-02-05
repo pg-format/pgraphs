@@ -1,0 +1,53 @@
+{
+  "nodes": [
+    {
+      "id": "1",
+      "labels": [
+        "person"
+      ],
+      "properties": {
+        "name": [
+          "Bob"
+        ]
+      }
+    },
+    {
+      "id": "2",
+      "labels": [
+        "person"
+      ],
+      "properties": {
+        "name": [
+          "Alice"
+        ]
+      }
+    }
+  ],
+  "edges": [
+    {
+      "from": "1",
+      "to": "2",
+      "labels": [
+        "friend"
+      ],
+      "properties": {
+        "since": [
+          "2013"
+        ]
+      },
+      "undirected": true
+    },
+    {
+      "from": "1",
+      "to": "2",
+      "labels": [
+        "likes"
+      ],
+      "properties": {
+        "since": [
+          "2015"
+        ]
+      }
+    }
+  ]
+}

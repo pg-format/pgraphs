@@ -1,0 +1,4 @@
+1  :person  name:Bob
+2  :person  name:Alice
+1  --  2  :friend  since:2013
+1  ->  2  :likes   since:2015

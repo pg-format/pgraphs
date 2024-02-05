@@ -1,0 +1,227 @@
+{
+  "nodes": [
+    {
+      "id": "10001",
+      "labels": [
+        "person"
+      ],
+      "properties": {
+        "name": [
+          "A"
+        ]
+      }
+    },
+    {
+      "id": "a b",
+      "labels": [
+        "person"
+      ],
+      "properties": {
+        "name": [
+          "E"
+        ]
+      }
+    },
+    {
+      "id": "a--",
+      "labels": [
+        "person"
+      ],
+      "properties": {
+        "name": [
+          "G"
+        ]
+      }
+    },
+    {
+      "id": "a->",
+      "labels": [
+        "person"
+      ],
+      "properties": {
+        "name": [
+          "F"
+        ]
+      }
+    },
+    {
+      "id": "a:b",
+      "labels": [
+        "person"
+      ],
+      "properties": {
+        "name": [
+          "D"
+        ]
+      }
+    },
+    {
+      "id": "abc",
+      "labels": [
+        "person"
+      ],
+      "properties": {
+        "name": [
+          "C"
+        ]
+      }
+    },
+    {
+      "id": "abcde",
+      "labels": [
+        "person"
+      ],
+      "properties": {
+        "name": [
+          "B"
+        ]
+      }
+    }
+  ],
+  "edges": [
+    {
+      "from": "10001",
+      "to": "abcde",
+      "labels": [
+        "likes"
+      ],
+      "properties": {
+        "since": [
+          "2010"
+        ]
+      }
+    },
+    {
+      "from": "10001",
+      "to": "abc",
+      "labels": [
+        "likes"
+      ],
+      "properties": {
+        "since": [
+          "2010"
+        ]
+      }
+    },
+    {
+      "from": "10001",
+      "to": "a:b",
+      "labels": [
+        "likes"
+      ],
+      "properties": {
+        "since": [
+          "2010"
+        ]
+      }
+    },
+    {
+      "from": "10001",
+      "to": "a b",
+      "labels": [
+        "likes"
+      ],
+      "properties": {
+        "since": [
+          "2010"
+        ]
+      }
+    },
+    {
+      "from": "10001",
+      "to": "a->",
+      "labels": [
+        "likes"
+      ],
+      "properties": {
+        "since": [
+          "2010"
+        ]
+      }
+    },
+    {
+      "from": "10001",
+      "to": "a--",
+      "labels": [
+        "likes"
+      ],
+      "properties": {
+        "since": [
+          "2010"
+        ]
+      }
+    },
+    {
+      "from": "abcde",
+      "to": "10001",
+      "labels": [
+        "likes"
+      ],
+      "properties": {
+        "since": [
+          "2010"
+        ]
+      }
+    },
+    {
+      "from": "abc",
+      "to": "10001",
+      "labels": [
+        "likes"
+      ],
+      "properties": {
+        "since": [
+          "2010"
+        ]
+      }
+    },
+    {
+      "from": "a:b",
+      "to": "10001",
+      "labels": [
+        "likes"
+      ],
+      "properties": {
+        "since": [
+          "2010"
+        ]
+      }
+    },
+    {
+      "from": "a b",
+      "to": "10001",
+      "labels": [
+        "likes"
+      ],
+      "properties": {
+        "since": [
+          "2010"
+        ]
+      }
+    },
+    {
+      "from": "a->",
+      "to": "10001",
+      "labels": [
+        "likes"
+      ],
+      "properties": {
+        "since": [
+          "2010"
+        ]
+      }
+    },
+    {
+      "from": "a--",
+      "to": "10001",
+      "labels": [
+        "likes"
+      ],
+      "properties": {
+        "since": [
+          "2010"
+        ]
+      }
+    }
+  ]
+}

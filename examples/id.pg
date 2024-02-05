@@ -1,0 +1,21 @@
+10001  :person  name:A
+abcde  :person  name:B
+"abc"  :person  name:C
+"a:b"  :person  name:D
+"a b"  :person  name:E
+"a->"  :person  name:F
+"a--"  :person  name:G
+
+10001  ->  abcde  :likes  since:2010
+10001  ->  "abc"  :likes  since:2010
+10001  ->  "a:b"  :likes  since:2010
+10001  ->  "a b"  :likes  since:2010
+10001  ->  "a->"  :likes  since:2010
+10001  ->  "a--"  :likes  since:2010
+
+abcde  ->  10001  :likes  since:2010
+"abc"  ->  10001  :likes  since:2010
+"a:b"  ->  10001  :likes  since:2010
+"a b"  ->  10001  :likes  since:2010
+"a->"  ->  10001  :likes  since:2010
+"a--"  ->  10001  :likes  since:2010

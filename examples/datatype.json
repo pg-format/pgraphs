@@ -1,0 +1,134 @@
+{
+  "nodes": [
+    {
+      "id": "node01",
+      "labels": [],
+      "properties": {
+        "prop_int": [
+          "1234"
+        ],
+        "prop_double": [
+          "1234.0"
+        ],
+        "prop_string_1": [
+          "1234"
+        ],
+        "prop_string_2": [
+          "abcd"
+        ]
+      }
+    },
+    {
+      "id": "node02",
+      "labels": [],
+      "properties": {
+        "prop_int": [
+          "1234"
+        ],
+        "prop_double": [
+          "1234.0"
+        ],
+        "prop_string_1": [
+          "1234"
+        ],
+        "prop_string_2": [
+          "abcd"
+        ]
+      }
+    },
+    {
+      "id": "node03",
+      "labels": [],
+      "properties": {
+        "prop_url": [
+          "http://abc.abc/abc"
+        ]
+      }
+    },
+    {
+      "id": "node04",
+      "labels": [],
+      "properties": {
+        "prop_list_int": [
+          "10",
+          "20"
+        ],
+        "prop_list_string": [
+          "abcd",
+          "efgh"
+        ]
+      }
+    }
+  ],
+  "edges": [
+    {
+      "from": "node01",
+      "to": "node02",
+      "labels": [
+        "friend_of"
+      ],
+      "properties": {
+        "prop_int": [
+          "1234"
+        ],
+        "prop_double": [
+          "1234.0"
+        ],
+        "prop_string_1": [
+          "1234"
+        ],
+        "prop_string_2": [
+          "abcd"
+        ]
+      }
+    },
+    {
+      "from": "node01",
+      "to": "node02",
+      "labels": [
+        "boss_of"
+      ],
+      "properties": {
+        "prop_int": [
+          "1234"
+        ],
+        "prop_double": [
+          "1234.0"
+        ],
+        "prop_string_1": [
+          "1234"
+        ],
+        "prop_string_2": [
+          "abcd"
+        ]
+      }
+    },
+    {
+      "from": "node01",
+      "to": "node03",
+      "labels": [
+        "site"
+      ],
+      "properties": {
+        "prop_url": [
+          "http://abc.abc/abc"
+        ]
+      }
+    },
+    {
+      "from": "node01",
+      "to": "node04",
+      "labels": [],
+      "properties": {
+        "prop_list_int": [
+          "10",
+          "20"
+        ],
+        "prop_list_string": [
+          "abcd",
+          "efgh"
+        ]
+      }
+    }
+  ]
+}
