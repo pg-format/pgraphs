@@ -17,8 +17,19 @@ Property Graphs (also known as Labeled Property Graphs) are used as abstract
 data structure in Graph databases and related applications. This package
 implements the Property Graph Exchange Format (PG).
 
-*This implementation is work in progress. It slightly differs from the format described in
-<https://arxiv.org/abs/1907.03936>!*
+Alternative property graph serialization formats include
+[YARS-PG](https://github.com/lszeremeta/yarspg) and
+[GDL](https://github.com/s1ck/gdl), both more complex than PG.
+
+Many more graph formats exist (
+[GraphSON](https://tinkerpop.apache.org/docs/3.7.1/dev/io/#graphson),
+[JGF](http://jsongraphformat.info/),
+[GraphML](http://graphml.graphdrawing.org/),
+[dot](https://graphviz.org/doc/info/lang.html),
+[GML](https://en.wikipedia.org/wiki/Graph_Modelling_Language)...)
+some of which might also be able to serialize property graphs.
+
+*This implementation is work in progress. It may slightly differ from the format described in <https://arxiv.org/abs/1907.03936>!*
 
 ### PG format
 
