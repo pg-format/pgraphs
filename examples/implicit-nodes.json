@@ -1,0 +1,28 @@
+{
+  "nodes": [
+    {
+      "id": "a",
+      "labels": [],
+      "properties": {}
+    },
+    {
+      "id": "b",
+      "labels": [],
+      "properties": {}
+    }
+  ],
+  "edges": [
+    {
+      "from": "a",
+      "to": "b",
+      "labels": [
+        "label"
+      ],
+      "properties": {
+        "prop": [
+          "val"
+        ]
+      }
+    }
+  ]
+}

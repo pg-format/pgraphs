@@ -76,6 +76,12 @@ export const parse = (pgstring) => {
           edge.undirected = true
         }
         edges.push(edge)
+        if (!(id in nodes)) {
+          nodes[id] = { id, labels: [], properties: {} }
+        }
+        if (!(id2 in nodes)) {
+          nodes[id2] = { id: id2, labels: [], properties: {} }
+        }
       }
     }
   })
