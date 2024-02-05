@@ -11,8 +11,8 @@ export const parse = (pgstring) => {
     if (!line.match(/^\s*(#.*)?$/)) { // comments and blank lines
       const { edge, node } = parseLine(line)
       if (node) {
- //       const { id, labels, properties } = node
- //       const id = unquote(node.id)
+        //       const { id, labels, properties } = node
+        //       const id = unquote(node.id)
         nodes[node.id] = node
       } else if (edge) {
         const { from, to, labels, properties, direction } = edge

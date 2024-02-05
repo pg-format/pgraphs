@@ -21,3 +21,16 @@ describe("parse", () => {
   })
 })
  
+const invalid = [
+  "\"",
+  "\"\"",   // empty node id
+  "x :", // empty label
+]
+
+describe("parsing errors", () => {
+  for(let fails of invalid) {
+    it(fails, () => {
+      assert.throws(() => parse(fails))
+    })
+  }
+})

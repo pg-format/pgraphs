@@ -1,0 +1,12 @@
+# plain node id
+a
+
+# same node id will override existing node
+a :person
+
+# same node id will override existing node
+a  foo:bar
+
+# empty property value
+x c:
+

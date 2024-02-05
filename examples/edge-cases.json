@@ -1,0 +1,23 @@
+{
+  "nodes": [
+    {
+      "id": "a",
+      "labels": [],
+      "properties": {
+        "foo": [
+          "bar"
+        ]
+      }
+    },
+    {
+      "id": "x",
+      "labels": [],
+      "properties": {
+        "c": [
+          ""
+        ]
+      }
+    }
+  ],
+  "edges": []
+}

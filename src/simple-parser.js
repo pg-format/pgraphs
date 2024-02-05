@@ -8,34 +8,35 @@ const extractItems = function (line) {
   let regexEdge = /^("[^"]+"|[^"\s]+)\s+(->|--)\s+("[^"]+"|[^"\s]+)/
   let id1, id2, undirected
   let result
+  let index = 0
   
-  if (!(result = regexEdge.exec(line))) {
-    if (!(result = regexNode.exec(line))) {
-      console.log("ERROR - this line is neither node nor edge: " + line)
-      return
-    } else {
-      id1 = rmdq(result[1])
-      id2 = null
-      undirected = null
-    }
-  } else {
+  if ((result = regexEdge.exec(line))) {
     id1 = rmdq(result[1])
     id2 = rmdq(result[3])
     undirected = (result[2] == "->") ? false : true
+  } else if ((result = regexNode.exec(line))) {
+    id1 = rmdq(result[1])
+    id2 = null
+    undirected = null
+  } else {
+    throw new Error("This line is neither node nor edge: " + line)
   }
+  index = result[0].length
 
   // LABELS
   let labels = new Set()
-  let regexLabels = /\s:("[^"]+"|[^:"\s]+)/g
+  let regexLabels = /\s+:("[^"]+"|[^:"\s]+)/g
   while ((result = regexLabels.exec(line))) {
     labels.add(rmdq(result[1]))
+    index = result.index + result[0].length
   }
   // PROPERTIES
   let properties = new Map()
-  let regexProperties = /\s("[^"]+"|[^"\s:]+):("[^"]*"|[^"\s]*)/g
+  let regexProperties = /\s+("[^"]+"|[^"\s:]+):("[^"]*"|[^"\s]*)/g
   while ((result = regexProperties.exec(line))) {
     let key = rmdq(result[1])
     let value = result[2]
+    index = result.index + result[0].length
     if (!(properties.has(key))) {
       let values = new Set()
       values.add(value)
@@ -44,6 +45,11 @@ const extractItems = function (line) {
       let values = properties.get(key).add(value)
       properties.set(key, values)
     } 
+  }
+
+  // TODO: allow comments after node/edge?
+  if (index != line.length) {
+    throw new Error("Invalid syntax in line: " + line)
   }
 
   return [id1, id2, undirected, Array.from(labels), properties]
