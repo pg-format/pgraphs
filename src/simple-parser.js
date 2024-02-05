@@ -5,7 +5,7 @@ const rmdq = s => s.replace(/^"(.+)"$/, "$1")
 
 const extractItems = function (line) {
   let regexNode = /^("[^"]+"|[^"\s]+)/
-  let regexEdge = /^("[^"]+"|[^"\s]+)\s+(->|--)\s+("[^"]+"|[^"\s]+)/
+  let regexEdge = /^("[^"]+"|[^"\s]+)\s+(<-|->|--)\s+("[^"]+"|[^"\s]+)/
   let id1, id2, undirected
   let result
   let index = 0
@@ -13,7 +13,14 @@ const extractItems = function (line) {
   if ((result = regexEdge.exec(line))) {
     id1 = rmdq(result[1])
     id2 = rmdq(result[3])
-    undirected = (result[2] == "->") ? false : true
+    undirected = false
+    if (result[2] === "<-") {
+      let tmp = id1
+      id1 = id2
+      id2 = tmp
+    } else if (result[2] === "--") {
+      undirected = true
+    }
   } else if ((result = regexNode.exec(line))) {
     id1 = rmdq(result[1])
     id2 = null
