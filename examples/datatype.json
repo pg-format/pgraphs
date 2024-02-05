@@ -5,10 +5,10 @@
       "labels": [],
       "properties": {
         "prop_int": [
-          "1234"
+          1234
         ],
         "prop_double": [
-          "1234.0"
+          12.34
         ],
         "prop_string_1": [
           "1234"
@@ -23,10 +23,10 @@
       "labels": [],
       "properties": {
         "prop_int": [
-          "1234"
+          1234
         ],
         "prop_double": [
-          "1234.0"
+          12.34
         ],
         "prop_string_1": [
           "1234"
@@ -50,8 +50,8 @@
       "labels": [],
       "properties": {
         "prop_list_int": [
-          "10",
-          "20"
+          10,
+          20
         ],
         "prop_list_string": [
           "abcd",
@@ -69,10 +69,10 @@
       ],
       "properties": {
         "prop_int": [
-          "1234"
+          1234
         ],
         "prop_double": [
-          "1234.0"
+          12.34
         ],
         "prop_string_1": [
           "1234"
@@ -90,10 +90,10 @@
       ],
       "properties": {
         "prop_int": [
-          "1234"
+          1234
         ],
         "prop_double": [
-          "1234.0"
+          12.34
         ],
         "prop_string_1": [
           "1234"
@@ -121,8 +121,8 @@
       "labels": [],
       "properties": {
         "prop_list_int": [
-          "10",
-          "20"
+          10,
+          20
         ],
         "prop_list_string": [
           "abcd",

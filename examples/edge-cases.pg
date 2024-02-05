@@ -10,3 +10,13 @@ a  foo:bar
 # empty property value
 x c:
 
+# boolean data type
+true :true true:true true:"true" TRUE:TRUE
+false :false false:false false:"false" FALSE:FALSE
+
+# null type
+null :null null:null null:"null" NULL:NULL
+
+# numbers
+1: :1 1:1 1:"1"
+-2.3 :-2.3 -2.3:-2.3 -2.3:"-2.3"

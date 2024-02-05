@@ -30,12 +30,16 @@ const extractItems = function (line) {
     labels.add(rmdq(result[1]))
     index = result.index + result[0].length
   }
+
   // PROPERTIES
   let properties = new Map()
   let regexProperties = /\s+("[^"]+"|[^"\s:]+):("[^"]*"|[^"\s]*)/g
   while ((result = regexProperties.exec(line))) {
     let key = rmdq(result[1])
     let value = result[2]
+    if (value.match(/^(true|false|null|".*"|-?[0-9]+(\.[0-9]+)?)$/)) {
+      value = JSON.parse(value)
+    }
     index = result.index + result[0].length
     if (!(properties.has(key))) {
       let values = new Set()
@@ -71,7 +75,7 @@ export const parse = (pgstring) => {
 
       const properties = {}
       for (let [key, values] of props) {
-        properties[key] = Array.from(values).map(rmdq)
+        properties[key] = Array.from(values)
       }
 
       if (id2 == null) {

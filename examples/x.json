@@ -1,0 +1,19 @@
+{
+  "nodes": [
+    {
+      "id": "node04",
+      "labels": [],
+      "properties": {
+        "prop_list_int": [
+          "10",
+          "20"
+        ],
+        "prop_list_string": [
+          "abcd",
+          "efgh"
+        ]
+      }
+    }
+  ],
+  "edges": [ ]
+}

@@ -1,11 +1,80 @@
 {
   "nodes": [
     {
+      "id": "-2.3",
+      "labels": [
+        "-2.3"
+      ],
+      "properties": {
+        "-2.3": [
+          -2.3,
+          "-2.3"
+        ]
+      }
+    },
+    {
+      "id": "1:",
+      "labels": [
+        "1"
+      ],
+      "properties": {
+        "1": [
+          1,
+          "1"
+        ]
+      }
+    },
+    {
       "id": "a",
       "labels": [],
       "properties": {
         "foo": [
           "bar"
+        ]
+      }
+    },
+    {
+      "id": "false",
+      "labels": [
+        "false"
+      ],
+      "properties": {
+        "false": [
+          false,
+          "false"
+        ],
+        "FALSE": [
+          "FALSE"
+        ]
+      }
+    },
+    {
+      "id": "null",
+      "labels": [
+        "null"
+      ],
+      "properties": {
+        "null": [
+          null,
+          "null"
+        ],
+        "NULL": [
+          "NULL"
+        ]
+      }
+    },
+    {
+      "id": "true",
+      "labels": [
+        "true"
+      ],
+      "properties": {
+        "true": [
+          true,
+          "true"
+        ],
+        "TRUE": [
+          "TRUE"
         ]
       }
     },

@@ -1,23 +1,31 @@
-const quote = s => /"|\s/.test(s) ? JSON.stringify(s) : s
-const quoteKey = s => /"|:|\s/.test(s) ? JSON.stringify(s) : s
+export const quoteLabel = s => /"|\s/.test(s) ? JSON.stringify(s) : s
+
+export const quoteKey = s => /"|:|\s/.test(s) ? JSON.stringify(s) : s
+
+const valuePattern = /"|\s|^-?[0-9]+(\.[0-9]+)?|true|false|null$/
+
+const quoteValue = s =>  
+  (typeof s === "string" && !valuePattern.test(s)) ? s : JSON.stringify(s)
 
 export const serializeLabels = labels =>
-  labels.map(label => ":" + quote(label)).join(" ")
+  labels.map(label => ":" + quoteLabel(label)).join(" ")
 
 export const serializeProperties = properties =>
   Object.entries(properties)
     .map(([key,values]) => 
-      values.map(value => quote(key) + ":" + quote(value)).join(" "),
+      values.map(
+        value => quoteKey(key) + ":" + quoteValue(value),
+      ).join(" "),
     ).join(" ")
 
 export const serializeNode = ({id, labels, properties}) => [
-  quote(id),
+  quoteLabel(id),
   serializeLabels(labels || []),
   serializeProperties(properties || {}),
 ].filter(s => s!== "").join(" ")
 
 export const serializeEdge = ({from, to, labels, properties, undirected}) => [
-  quote(from),
+  quoteLabel(from),
   undirected ? "--" : "->",
   quoteKey(to),
   serializeLabels(labels || []),

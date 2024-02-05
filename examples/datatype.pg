@@ -1,7 +1,7 @@
-node01  prop_int:1234     prop_double:1234.0	 prop_string_1:"1234"    prop_string_2:abcd
-node02  "prop_int":1234   "prop_double":1234.0   "prop_string_1":"1234"  "prop_string_2":abcd
-node01  ->  node02  :friend_of  prop_int:1234    prop_double:1234.0    prop_string_1:"1234"    prop_string_2:abcd
-node01  ->  node02  :"boss_of"  "prop_int":1234  "prop_double":1234.0  "prop_string_1":"1234"  "prop_string_2":abcd
+node01  prop_int:1234     prop_double:12.34	 prop_string_1:"1234"    prop_string_2:abcd
+node02  "prop_int":1234   "prop_double":12.34   "prop_string_1":"1234"  "prop_string_2":abcd
+node01  ->  node02  :friend_of  prop_int:1234    prop_double:12.34    prop_string_1:"1234"    prop_string_2:abcd
+node01  ->  node02  :"boss_of"  "prop_int":1234  "prop_double":12.34  "prop_string_1":"1234"  "prop_string_2":abcd
 
 # Property value is a URL
 node03  prop_url:"http://abc.abc/abc"

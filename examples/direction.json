@@ -32,7 +32,7 @@
       ],
       "properties": {
         "since": [
-          "2013"
+          2013
         ]
       },
       "undirected": true
@@ -45,7 +45,7 @@
       ],
       "properties": {
         "since": [
-          "2015"
+          2015
         ]
       }
     }
