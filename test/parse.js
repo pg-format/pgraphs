@@ -23,8 +23,9 @@ describe("parse", () => {
  
 const invalid = [
   "\"",
-  "\"\"",   // empty node id
-  "x :", // empty label
+  "\"\"",    // empty node id
+  "x :",     // empty label
+  "x :\"\"", // empty label
 ]
 
 describe("parsing errors", () => {

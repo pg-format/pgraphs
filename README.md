@@ -4,7 +4,72 @@
 
 This package implements parser and serializer of PG format for (labeled) property graphs. 
 
-## Installation
+## Table of Contents
+
+- [Background](#background)
+- [Install](#install)
+- [Usage](#usage)
+- [License](#license)
+
+## Background
+
+Property Graphs (also known as Labeled Property Graphs) are used as abstract
+data structure in Graph databases and related applications. This package
+implements the Property Graph Exchange Format (PG).
+
+*This implementation is work in progress. It slightly differs from the format described in
+<https://arxiv.org/abs/1907.03936>!*
+
+### PG format
+
+A PG file serializes a progerty graph, consisting of **nodes** and **edges** as
+Unicode string. The format is based on lines, separated by newlines (`U+000A` or
+`U+000D` followed by `U+000A`).
+
+...TODO... 
+
+### PG-JSON format
+
+The PG-JSON format is described by JSON Schema file `schema.json` in this
+repository. Additional rules not covered by the schema:
+
+- node ids must be unique
+- nodes referenced in edges must be defined
+
+### Example
+
+The same graph in PG format and PG-JSON format:
+
+~~~
+# NODES
+101 :person  name:Alice  country:"United States"
+102 :person  :student  name:Bob  country:Japan
+
+# EDGES
+101 -- 102  :same_school  :same_class  since:2012
+101 -> 102  :likes  since:2015
+~~~
+
+~~~json
+{
+  "nodes": [{
+    "id": "101", "labels": [ "person" ],
+    "properties": { "name": [ "Alice" ], "country": [ "United States" ] }
+   },{
+    "id": "102", "labels": [ "person", "student" ],
+    "properties": { "name": [ "Bob" ], "country": [ "Japan" ] }
+  }],
+  "edges": [{
+    "from": "101", "to": "102", "undirected": true,
+    "labels": [ "same_school", "same_class" ], "properties": { "since": [ 2012 ] }
+   },{
+    "from": "101", "to": "102",
+    "labels": [ "likes" ], "properties": { "since": [ 2015 ] }
+  }]
+}
+~~~
+
+## Install
 
 This package has not been published at npm so you need to clone it from its git repository.
 
@@ -23,7 +88,7 @@ const pgstring = serialize(graph)
 const graph = parse(pgstring)
 ~~~
 
-## CLI
+### CLI
 
 `./bin/pg2json.js` and `./bin/json2pg.js` parse and serialize, respectively.
 

@@ -1,0 +1,7 @@
+# NODES
+101 :person  name:Alice  country:"United States"
+102 :person  :student  name:Bob  country:Japan
+
+# EDGES
+101 -- 102  :same_school  :same_class  since:2012
+101 -> 102  :likes  since:2015

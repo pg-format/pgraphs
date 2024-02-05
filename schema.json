@@ -1,0 +1,85 @@
+{
+  "title": "Property Graph Exchange Format",
+  "type": "object",
+  "properties": {
+    "nodes": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "$ref": "#/$defs/id"
+          },
+          "labels": {
+            "$ref": "#/$defs/labels"
+          },
+          "properties": {
+            "$ref": "#/$defs/properties"
+          }
+        },
+        "required": [ "id", "labels", "properties" ],
+        "additionalProperties": false
+      }
+    },
+    "edges": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "from": {
+            "$ref": "#/$defs/id"
+          },
+          "to": {
+            "$ref": "#/$defs/id"
+          },
+          "labels": {
+            "$ref": "#/$defs/labels"
+          },
+          "properties": {
+            "$ref": "#/$defs/properties"
+          },
+          "undirected": {
+            "type": "boolean"
+          }
+        },
+        "required": [ "from", "to", "labels", "properties" ],
+        "additionalProperties": false
+      }
+    }
+  },
+  "required": [ "nodes", "edges" ],
+  "required": [ "nodes","edges" ],
+  "additionalProperties": false,
+  "$defs": {
+    "id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "properties": {
+      "type": "object",
+      "patternProperties": {
+        ".": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "oneOf": [
+              { "type": "string" },
+              { "type": "number" },
+              { "type": "boolean" },
+              { "type": "null" }
+            ] 
+          }
+        }
+      },
+      "additionalProperties": false
+    },
+    "labels": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    }
+  }
+}
