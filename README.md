@@ -7,6 +7,7 @@ This package implements parser and serializer of PG format for (labeled) propert
 ## Table of Contents
 
 - [Background](#background)
+  - [Property graphs](#property-graphs)
   - [PG format](#pg-format)
   - [PG JSON](#pg-json)
   - [Example](#example)
@@ -19,29 +20,107 @@ This package implements parser and serializer of PG format for (labeled) propert
 
 ## Background
 
+### Property Graphs
+
 **Property Graphs** (also known as **Labeled Property Graphs**) are used as
-abstract data structure in Graph databases and related applications. This
-package implements the **Property Graph Exchange Format (PG)**.
+abstract data structure in graph databases and related applications. This
+package implements the **Property Graph Exchange Format (PG)** with parsers
+and serializers from and to various formats.
 
 A property graph consists of **nodes** and **edges** between these nodes. Each
 edge can be directed or undirected.  Each of the nodes and edges can have a set
 of zero or more **labels** and a set of and zero or more properties.
 **Properties** are key-value pairs where the same key may have multiple values.
-**Values** are Unicode strings or scalar values of other data types (number,
-boolean, null).
+**Values** are Unicode strings or scalar values of other data types.
 
-*This implementation is work in progress. It may slightly differ from the format described in <https://arxiv.org/abs/1907.03936>!*
+Implementations of property graphs slightly differ in support of data types,
+restrictions on labels etc. The property graph model PG is aimed to be a
+superset of property graph models of common graph databases. The model and its
+serializations [PG format](#pg-format) and [PG-JSON](#pg-json) have first been
+proposed by Hirokazu Chiba, Ryota Yamanaka, and Shota Matsumoto
+([2019](https://arxiv.org/abs/1907.03936), [2022](https://arxiv.org/abs/2203.06393)).
 
 ### PG format
 
-A PG file serializes a property graph as Unicode string. The format is based on
-lines, separated by newlines (`U+000A` or `U+000D` followed by `U+000A`).
+*This implementation is work in progress. It may slightly differ from the format described in <https://arxiv.org/abs/1907.03936>!*
 
-...TODO... 
+PG format is a text-based serialization of [property graphs](#property-graphs).
+A PG file encodes a property graph as Unicode string. The encoding can formally
+be specified with the following grammar in
+[EBNF](https://www.w3.org/TR/xml/#sec-notation).
+
+A parser must replace both the two-character sequence `#xD #xA` and any `#xD`
+that is not followed by `#xA` to a single `#xA` line break character before
+further processing. After this normalization accepted characters include all
+Unicode characters, excluding the surrogate blocks, FFFE, and FFFF. Parsers
+may accept additional code points by ignoring them or by replacing them with the
+Unicode replacement character `#FFFD`.
+
+~~~
+Char	    ::= #x9 | #xA | [#x20-#xD7FF] | [#xE000-#xFFFD] | [#x10000-#x10FFFF]
+~~~
+
+An encoded graph consists of a (possibly empty) sequence of nodes, edges and
+skipped lines. These elements are separated by line breaks. A final line break
+is optional.
+
+~~~
+pg          ::= ( element ( #xA element )* )? #A?
+element     ::= node | edge | skipped
+~~~
+
+Skipped lines are empty or consist of spaces and/or a comment:
+
+~~~
+skipped     ::= ( #x20 | #x9 )* Comment?
+Comment     ::= '#' ( Char - #A )*
+~~~
+
+Whitespace is required or allowed between some parts of nodes and edges. Whitespace can contain line breaks
+and skipped lines only when following line is intended by at least one space:
+
+~~~
+ws          ::= ( Space | ( #A skipped )* #A Space+ )+
+Space       ::= ( #x20 | #x9 )+
+~~~
+
+A node consists of an identifier, followed by optional labels and/or properties:
+
+~~~
+node        ::= id ( ws label )* ( ws property )* Space?
+~~~
+
+An edge consists of an identifier, followed a direction, another identifier,
+and optional labels and/or properties:
+
+~~~
+edge        ::= id ws? direction ws? id ( ws label )* ( ws property )* Space?
+direction   ::= '--' | '->' | '<-'
+label       ::= ':' name
+property    ::= name ':' value
+~~~
+
+Identifiers, labels, and property names can be given as string or unescaped:
+
+~~~
+id          ::= string | ( Char - ( Space | '"' ) )+
+label       ::= string | ( Char - ( Space | '"'  ":" ) )+
+~~~
+
+Values are defined equivalent to scalar values in JSON:
+
+~~~
+value       ::= Boolean | Null | number | string
+Boolean     ::= 'true' | 'false' 
+Null        ::= 'null'
+number      ::= '-'? Digit+ ( '.' Digit+ )?
+Digit       ::= '0' | '1' | '2' | '3' | '4' | '5' | '6' | '7' | '8' | '9'
+string      ::= '"' ... '"'         ; TODO: define string escaping
+~~~
 
 ### PG-JSON
 
-**PG-JSON** is a serialization of the property graph data model in JSON. A graph is encoded as JSON object with exactely two fields:
+**PG-JSON** is a serialization of the same property graph data model in JSON. A graph is encoded as JSON object with exactely two fields:
 
 - `nodes` an array of nodes
 - `edges` an array of edges
