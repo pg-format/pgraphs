@@ -12,34 +12,28 @@ This package implements parser and serializer of PG format for (labeled) propert
   - [Example](#example)
 - [Install](#install)
 - [Usage](#usage)
-
+- [See also](#see-also)
 - [License](#license)
 
 ## Background
 
-Property Graphs (also known as Labeled Property Graphs) are used as abstract
-data structure in Graph databases and related applications. This package
-implements the Property Graph Exchange Format (PG).
+**Property Graphs** (also known as **Labeled Property Graphs**) are used as
+abstract data structure in Graph databases and related applications. This
+package implements the **Property Graph Exchange Format (PG)**.
 
-Alternative property graph serialization formats include
-[YARS-PG](https://github.com/lszeremeta/yarspg) and
-[GDL](https://github.com/s1ck/gdl), both more complex than PG.
-
-Many more graph formats exist (
-[GraphSON](https://tinkerpop.apache.org/docs/3.7.1/dev/io/#graphson),
-[JGF](http://jsongraphformat.info/),
-[GraphML](http://graphml.graphdrawing.org/),
-[dot](https://graphviz.org/doc/info/lang.html),
-[GML](https://en.wikipedia.org/wiki/Graph_Modelling_Language)...)
-some of which might also be able to serialize property graphs.
+A property graph consists of **nodes** and **edges** between these nodes. Each
+edge can be directed or undirected.  Each of the nodes and edges can have a set
+of zero or more **labels** and a set of and zero or more properties.
+**Properties** are key-value pairs where the same key may have multiple values.
+**Values** are Unicode strings or scalar values of other data types (number,
+boolean, null).
 
 *This implementation is work in progress. It may slightly differ from the format described in <https://arxiv.org/abs/1907.03936>!*
 
 ### PG format
 
-A PG file serializes a property graph, consisting of **nodes** and **edges** as
-Unicode string. The format is based on lines, separated by newlines (`U+000A` or
-`U+000D` followed by `U+000A`).
+A PG file serializes a property graph as Unicode string. The format is based on
+lines, separated by newlines (`U+000A` or `U+000D` followed by `U+000A`).
 
 ...TODO... 
 
@@ -140,12 +134,37 @@ const graph = parse(pgstring)
 }
 ~~~
 
+## See also
+
+Common graph databases with support of labeled property graphs include:
+
+- [Neo4J](https://neo4j.com/) (limitations: edges have one mandatory label, multiple properties of same name must have same data type)
+- [Memgraph](https://memgraph.com/) is compatible with Neo4J
+- [Oracle Property Graph](https://docs.oracle.com/en/database/oracle/property-graph/index.html) (implements [PGQL](https://pgql-lang.org/): empty string labels seem to be allowed)
+- [Azure Cosmos DB for Gremlin](https://learn.microsoft.com/azure/cosmos-db/gremlin/) (limitations: edges have one mandatory label, no null type...) and other databases supporting [Apache TinkerPop](https://tinkerpop.apache.org/)
+- [ArangoDB](https://arangodb.com/)
+- ...
+
+Alternative property graph serialization formats include
+
+- [YARS-PG](https://github.com/lszeremeta/yarspg) and
+- [GDL](https://github.com/s1ck/gdl)
+
+Both are more complex than PG.
+
+Many more graph formats exist (
+[GraphSON](https://tinkerpop.apache.org/docs/3.7.1/dev/io/#graphson),
+[JGF](http://jsongraphformat.info/),
+[GraphML](http://graphml.graphdrawing.org/),
+[dot](https://graphviz.org/doc/info/lang.html),
+[GML](https://en.wikipedia.org/wiki/Graph_Modelling_Language)...)
+some of which might also be able to serialize property graphs.
+
 ## License
 
 Licensed under the MIT License.
 
-Created by Hirokazu Chiba, Ryota Yamanaka, and Shota Matsumoto
-
+PG has been created by Hirokazu Chiba, Ryota Yamanaka, and Shota Matsumoto.
 See <https://arxiv.org/abs/1907.03936> for reference.
 
-Code forked from <https://github.com/g2glab/pg/> by Jakob Voß
+Implementation forked from <https://github.com/g2glab/pg/> by Jakob Voß.
