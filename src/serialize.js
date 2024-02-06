@@ -1,4 +1,4 @@
-export const quoteLabel = s => /"|\s/.test(s) ? JSON.stringify(s) : s
+export const quoteLabel = s => /"|\s|^$/.test(s) ? JSON.stringify(s) : s
 
 export const quoteKey = s => /"|:|\s/.test(s) ? JSON.stringify(s) : s
 

@@ -10,6 +10,9 @@ a  foo:bar
 # empty property value
 x c:
 
+# empty string label
+a :""
+
 # boolean data type
 true :true true:true true:"true" TRUE:TRUE
 false :false false:false false:"false" FALSE:FALSE

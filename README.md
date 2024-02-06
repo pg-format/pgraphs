@@ -49,7 +49,7 @@ lines, separated by newlines (`U+000A` or `U+000D` followed by `U+000A`).
 Each node is a JSON object with exactely three fields:
 
 - `id` the internal node identifier, being a non-empty string. Node identifiers must be unique per graph.
-- `labels` a (possibly empty) array of labels, each being a non-empty string. Labels must be unique per node.
+- `labels` a (possibly empty) array of labels, each being a string. Labels must be unique per node.
 - `properties` a (possibly empty) JSON object mapping non empty strings to non-empty arrays of scalar JSON values (string, number, boolean, or null)
 
 Each edge is a JSON object with one optional and four mandatory fields:
@@ -57,7 +57,7 @@ Each edge is a JSON object with one optional and four mandatory fields:
 - `undirected` (optional) a boolean value whether the edge is undirected
 - `from` an identifier of a node in this graph
 - `to` an identifier of a node in this graph
-- `labels` a (possibly empty) array of labels, each being a non-empty string. Labels must be unique per edge.
+- `labels` a (possibly empty) array of labels, each being a string. Labels must be unique per edge.
 - `properties` a (possibly empty) JSON object with properties with same definition as above in node objects.
 
 The PG-JSON format is also defined by JSON Schema file

@@ -24,8 +24,7 @@ describe("parse", () => {
 const invalid = [
   "\"",
   "\"\"",       // empty node id
-  "x :",        // empty label
-  "x :\"\"",    // empty label
+  "x :",        // missing label
   "\"\"",       // malformed escaped string
   "\"\\\\\"\"", // malformed escaped string
 ]

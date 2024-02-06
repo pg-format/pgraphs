@@ -5,7 +5,7 @@ const parseName = s => /^".*"$/.test(s) ? JSON.parse(s) : s
 
 const extractItems = function (line) {
   const regexNode = /^("(\\\\|\\"|[^"])+"|[^"\s]+)/
-  let regexEdge = /^("[^"]+"|[^"\s]+)\s+(<-|->|--)\s+("[^"]+"|[^"\s]+)/
+  const regexEdge = /^("[^"]+"|[^"\s]+)\s+(<-|->|--)\s+("[^"]+"|[^"\s]+)/
   let id1, id2, undirected
   let result
   let index = 0
@@ -32,7 +32,7 @@ const extractItems = function (line) {
 
   // LABELS
   let labels = new Set()
-  let regexLabels = /\s+:("(\\\\|\\"|[^"])+"|[^:"\s]+)/g
+  const regexLabels = /\s+:("(\\\\|\\"|[^"])*"|[^:"\s]+)/g
   while ((result = regexLabels.exec(line))) {
     labels.add(parseName(result[1]))
     index = result.index + result[0].length

@@ -33,7 +33,6 @@ const invalid = [
   {nodes:[node("x"),node("y")],edges:[{from:"x",to:"y",labels:[],properties:{},X:1}]},
   // empty string id, label, property key
   {nodes:[{id:"",labels:[],properties:{}}],edges:[]},
-  {nodes:[{id:"x",labels:[""],properties:{}}],edges:[]},
   {nodes:[{id:"x",labels:[],properties:{"":[1]}}],edges:[]},
 ]
 
