@@ -12,6 +12,8 @@ This package implements parser and serializer of PG format for (labeled) propert
   - [Example](#example)
 - [Install](#install)
 - [Usage](#usage)
+  - [API](#api)
+  - [CLI](#cli)
 - [See also](#see-also)
 - [License](#license)
 
@@ -103,6 +105,12 @@ The same graph in PG format and PG-JSON format:
 
 This package has not been published at npm so you need to clone it from its git repository.
 
+~~~
+git clone https://github.com/gbv/pg.git
+cd pg
+npm install
+~~~
+
 ## Usage
 
 ### API
@@ -133,6 +141,8 @@ const graph = parse(pgstring)
   "password": "secret"
 }
 ~~~
+
+The script requires to install node package `neo4j-driver` (this is done automatically by calling `npm install`).
 
 ## See also
 
