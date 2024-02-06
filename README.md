@@ -7,6 +7,9 @@ This package implements parser and serializer of PG format for (labeled) propert
 ## Table of Contents
 
 - [Background](#background)
+  - [PG format](#pg-format)
+  - [PG JSON](#pg-json)
+
 - [Install](#install)
 - [Usage](#usage)
 - [License](#license)
@@ -33,19 +36,40 @@ some of which might also be able to serialize property graphs.
 
 ### PG format
 
-A PG file serializes a progerty graph, consisting of **nodes** and **edges** as
+A PG file serializes a property graph, consisting of **nodes** and **edges** as
 Unicode string. The format is based on lines, separated by newlines (`U+000A` or
 `U+000D` followed by `U+000A`).
 
 ...TODO... 
 
-### PG-JSON format
+### PG-JSON
 
-The PG-JSON format is described by JSON Schema file `schema.json` in this
-repository. Additional rules not covered by the schema:
+**PG-JSON** is a serialization of the property graph data model in JSON. A graph is encoded as JSON object with exactely two fields:
 
-- node ids must be unique
+- `nodes` an array of nodes
+- `edges` an array of edges
+
+Each node is a JSON object with exactely three fields:
+
+- `id` the internal node identifier, being a non-empty string. Node identifiers must be unique per graph.
+- `labels` a (possibly empty) array of labels, each being a non-empty string. Labels must be unique per node.
+- `properties` a (possibly empty) JSON object mapping non empty strings to non-empty arrays of scalar JSON values (string, number, boolean, or null)
+
+Each edge is a JSON object with one optional and four mandatory fields:
+
+- `undirected` (optional) a boolean value whether the edge is undirected
+- `from` an identifier of a node in this graph
+- `to` an identifier of a node in this graph
+- `labels` a (possibly empty) array of labels, each being a non-empty string. Labels must be unique per edge.
+- `properties` a (possibly empty) JSON object with properties with same definition as above in node objects.
+
+The PG-JSON format is also defined by JSON Schema file
+[`schema.json`](schema.json) in this repository. Rules not covered
+by the schema:
+
+- node ids must be unique per graph
 - nodes referenced in edges must be defined
+- edges must be unique per graph
 
 ### Example
 
