@@ -4,7 +4,7 @@ import { localPath, readFile } from "./utils.js"
 import Ajv from "ajv"
 
 const ajv = new Ajv()
-const schema = JSON.parse(readFile("../schema.json"))
+const schema = JSON.parse(readFile("../pg-schema.json"))
 const validate = ajv.compile(schema)
 
 describe("valid PG-JSON", () => {

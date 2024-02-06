@@ -61,7 +61,7 @@ Each edge is a JSON object with one optional and four mandatory fields:
 - `properties` a (possibly empty) JSON object with properties with same definition as above in node objects.
 
 The PG-JSON format is also defined by JSON Schema file
-[`schema.json`](schema.json) in this repository. Rules not covered
+[`pg-schema.json`](pg-schema.json) in this repository. Rules not covered
 by the schema:
 
 - node ids must be unique per graph
