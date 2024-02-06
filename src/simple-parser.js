@@ -1,18 +1,18 @@
 // Simple implementation without grammar and support of edge cases
 
 // remove double quotes
-const rmdq = s => s.replace(/^"(.+)"$/, "$1")
+const parseName = s => /^".*"$/.test(s) ? JSON.parse(s) : s
 
 const extractItems = function (line) {
-  let regexNode = /^("[^"]+"|[^"\s]+)/
+  const regexNode = /^("(\\\\|\\"|[^"])+"|[^"\s]+)/
   let regexEdge = /^("[^"]+"|[^"\s]+)\s+(<-|->|--)\s+("[^"]+"|[^"\s]+)/
   let id1, id2, undirected
   let result
   let index = 0
   
   if ((result = regexEdge.exec(line))) {
-    id1 = rmdq(result[1])
-    id2 = rmdq(result[3])
+    id1 = parseName(result[1])
+    id2 = parseName(result[3])
     undirected = false
     if (result[2] === "<-") {
       let tmp = id1
@@ -22,7 +22,7 @@ const extractItems = function (line) {
       undirected = true
     }
   } else if ((result = regexNode.exec(line))) {
-    id1 = rmdq(result[1])
+    id1 = parseName(result[1])
     id2 = null
     undirected = null
   } else {
@@ -32,18 +32,18 @@ const extractItems = function (line) {
 
   // LABELS
   let labels = new Set()
-  let regexLabels = /\s+:("[^"]+"|[^:"\s]+)/g
+  let regexLabels = /\s+:("(\\\\|\\"|[^"])+"|[^:"\s]+)/g
   while ((result = regexLabels.exec(line))) {
-    labels.add(rmdq(result[1]))
+    labels.add(parseName(result[1]))
     index = result.index + result[0].length
   }
 
   // PROPERTIES
   let properties = new Map()
-  let regexProperties = /\s+("[^"]+"|[^"\s:]+):("[^"]*"|[^"\s]*)/g
+  let regexProperties = /\s+("(\\\\|\\"|[^"])+"|[^"\s:]+):("(\\\\|\\"|[^"])*"|[^"\s]*)/g
   while ((result = regexProperties.exec(line))) {
-    let key = rmdq(result[1])
-    let value = result[2]
+    let key = parseName(result[1])
+    let value = result[3]
     if (value.match(/^(true|false|null|".*"|-?[0-9]+(\.[0-9]+)?)$/)) {
       value = JSON.parse(value)
     }
