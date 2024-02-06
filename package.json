@@ -8,6 +8,7 @@
     "chai": "^5.0.0",
     "eslint": "^8.8.0",
     "mocha": "^10.2.0",
+    "neo4j-driver": "^5.17.0",
     "peggy": "^3.0.2"
   },
   "main": "index.js",

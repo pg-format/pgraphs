@@ -9,9 +9,10 @@ This package implements parser and serializer of PG format for (labeled) propert
 - [Background](#background)
   - [PG format](#pg-format)
   - [PG JSON](#pg-json)
-
+  - [Example](#example)
 - [Install](#install)
 - [Usage](#usage)
+
 - [License](#license)
 
 ## Background
@@ -110,6 +111,8 @@ This package has not been published at npm so you need to clone it from its git 
 
 ## Usage
 
+### API
+
 ~~~
 import { parse, serialize } from "pgraph"
 
@@ -126,6 +129,16 @@ const graph = parse(pgstring)
 ### CLI
 
 `./bin/pg2json.js` and `./bin/json2pg.js` parse and serialize, respectively.
+
+`./bin/neo2pg.js` can be used to dump the default graph from a Neo4J database. First argument must be a JSON file with credentials like this:
+
+~~~json
+{
+  "uri": "neo4j://example.org",
+  "user": "alice",
+  "password": "secret"
+}
+~~~
 
 ## License
 
