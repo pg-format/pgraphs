@@ -21,6 +21,18 @@ describe("parse", () => {
   })
 })
  
+const valid = [
+  "a\rb"
+]
+
+describe("parsing more edge cases", () => {
+  for(let pg of valid) {
+    it('is valid', () => {
+      assert.ok(parse(pg))
+    })
+  }
+})
+
 const invalid = [
   "\"",
   "\"\"",       // empty node id

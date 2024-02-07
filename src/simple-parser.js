@@ -69,7 +69,7 @@ const extractItems = function (line) {
 export const parse = (pgstring) => {
   const nodes = {}, edges = []
 
-  const lines = pgstring.split("\n")
+  const lines = pgstring.split(/[\r\n]+/)
 
   lines.forEach(line => { 
     if (!line.match(/^\s*(#.*)?$/)) { // comments and blank lines
