@@ -58,47 +58,65 @@ const extractItems = function (line) {
     } 
   }
 
-  // TODO: allow comments after node/edge?
   if (index != line.length) {
-    throw new Error("Invalid syntax in line: " + line)
+    const rest = line.substr(index)
+    if (!/^\s+$/.test(rest)) {
+      throw new Error(`Invalid content after element: ${JSON.stringify(rest)}`)
+    }
   }
 
   return [id1, id2, undirected, Array.from(labels), properties]
 }
 
+const skippedPattern = /^\s*(#.*)?$/
+
 export const parse = (pgstring) => {
   const nodes = {}, edges = []
 
+  // TODO: include line numbers in errors
   const lines = pgstring.split(/[\r\n]+/)
+    .filter(line => !skippedPattern.test(line))
+    .reduce(
+      (list, line) => {
+        if (/^\s+/.test(line)) {
+          if (list.length === 0) {
+            throw new Error("Line must not start with spaces")
+          }
+          list[list.length - 1] += line
+        } else {
+          list.push(line)
+        }
+        return list
+      },
+      [])
 
   lines.forEach(line => { 
-    if (!line.match(/^\s*(#.*)?$/)) { // comments and blank lines
-      const item = extractItems(line)
-      if (!item) {
-        return
+
+    const item = extractItems(line)
+    if (!item) {
+      return
+    }
+
+    let [id, id2, undirected, labels, props] = item
+
+    const properties = {}
+    for (let [key, values] of props) {
+      properties[key] = Array.from(values)
+    }
+
+    if (id2 == null) {
+      nodes[id] = { id, labels, properties }
+    } else {
+      const edge = { from: id, to: id2, labels, properties } 
+      if (undirected) {
+        edge.undirected = true
       }
-
-      let [id, id2, undirected, labels, props] = item
-
-      const properties = {}
-      for (let [key, values] of props) {
-        properties[key] = Array.from(values)
+      edges.push(edge)
+      if (!(id in nodes)) {
+        nodes[id] = { id, labels: [], properties: {} }
       }
-
-      if (id2 == null) {
-        nodes[id] = { id, labels, properties }
-      } else {
-        const edge = { from: id, to: id2, labels, properties } 
-        if (undirected) {
-          edge.undirected = true
-        }
-        edges.push(edge)
-        if (!(id in nodes)) {
-          nodes[id] = { id, labels: [], properties: {} }
-        }
-        if (!(id2 in nodes)) {
-          nodes[id2] = { id: id2, labels: [], properties: {} }
-        }
+      if (!(id2 in nodes)) {
+        nodes[id2] = { id: id2, labels: [], properties: {} }
       }
     }
   })

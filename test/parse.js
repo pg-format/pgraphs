@@ -22,12 +22,12 @@ describe("parse", () => {
 })
  
 const valid = [
-  "a\rb"
+  "a\rb",
 ]
 
 describe("parsing more edge cases", () => {
   for(let pg of valid) {
-    it('is valid', () => {
+    it("is valid", () => {
       assert.ok(parse(pg))
     })
   }
@@ -39,6 +39,7 @@ const invalid = [
   "x :",        // missing label
   "\"\"",       // malformed escaped string
   "\"\\\\\"\"", // malformed escaped string
+  " a",         // line must not start with spaces
 ]
 
 describe("parsing errors", () => {

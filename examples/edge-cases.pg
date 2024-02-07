@@ -28,3 +28,13 @@ null :null null:null null:"null" NULL:NULL
 "\"" :"\""      "\"":"\""
 "\\" :"\\"      "\\":"\\"
 "\\\"" :"\\\""  "\\\"":"\\\""
+
+# folded lines
+0
+  :label1
+  # another
+  :label1
+
+# this comment is not intended, this is not best practice but allowed
+
+ x:y 
