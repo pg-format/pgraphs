@@ -30,8 +30,8 @@ and serializers from and to various formats.
 A property graph consists of **nodes** and **edges** between these nodes. Each
 edge can be directed or undirected.  Each of the nodes and edges can have a set
 of zero or more **labels** and a set of and zero or more properties.
-**Properties** are key-value pairs where the same key may have multiple values.
-**Values** are Unicode strings or scalar values of other data types.
+**properties** are key-value pairs where the same key may have multiple values.
+**values** are Unicode strings or scalar values of other data types.
 
 Implementations of property graphs slightly differ in support of data types,
 restrictions on labels etc. The property graph model PG is aimed to be a
@@ -96,26 +96,29 @@ and optional labels and/or properties:
 ~~~
 edge        ::= id ws? direction ws? id ( ws label )* ( ws property )* Space?
 direction   ::= '--' | '->' | '<-'
-label       ::= ':' name
-property    ::= name ':' value
+label       ::= ':' id
+property    ::= ( id ':' ws ( scalar | plain ) )
+              | ( nocolon+ |  string ) ':' ws? ( scalar | nocolon+ )
 ~~~
 
-Identifiers, labels, and property names can be given as string or unescaped:
+Identifiers, labels, and property names can be given as string or in plain form (that is not including space or quotation mark and not not starting or ending with colon):
 
 ~~~
-id          ::= string | ( Char - ( Space | '"' ) )+
-label       ::= string | ( Char - ( Space | '"'  ":" ) )+
+id          ::= string | plain
+plain       ::= nocolon ( ( Char - ( Space | '"' ) )+ nocolon )?
+nocolon     ::= ( Char - ( Space | '"' | ':' ) )+
 ~~~
 
 Values are defined equivalent to scalar values in JSON:
 
 ~~~
-value       ::= Boolean | Null | number | string
+scalar      ::= Boolean | Null | number | string
 Boolean     ::= 'true' | 'false' 
 Null        ::= 'null'
 number      ::= '-'? Digit+ ( '.' Digit+ )?
 Digit       ::= '0' | '1' | '2' | '3' | '4' | '5' | '6' | '7' | '8' | '9'
 string      ::= '"' ... '"'         ; TODO: define string escaping
+plainstring ::= 
 ~~~
 
 ### PG-JSON
@@ -127,7 +130,7 @@ string      ::= '"' ... '"'         ; TODO: define string escaping
 
 Each node is a JSON object with exactely three fields:
 
-- `id` the internal node identifier, being a non-empty string. Node identifiers must be unique per graph.
+- `id` the internal node identifier, being a string. Node identifiers must be unique per graph.
 - `labels` a (possibly empty) array of labels, each being a string. Labels must be unique per node.
 - `properties` a (possibly empty) JSON object mapping non empty strings to non-empty arrays of scalar JSON values (string, number, boolean, or null)
 

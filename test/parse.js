@@ -22,7 +22,9 @@ describe("parse", () => {
 })
  
 const valid = [
-  "a\rb",
+  "\"\"",       // empty node id
+  "a\rb",       // plain /r is newline
+  "a:b",
 ]
 
 describe("parsing more edge cases", () => {
@@ -35,11 +37,14 @@ describe("parsing more edge cases", () => {
 
 const invalid = [
   "\"",
-  "\"\"",       // empty node id
   "x :",        // missing label
-  "\"\"",       // malformed escaped string
+  "\"\\",       // malformed escaped string
   "\"\\\\\"\"", // malformed escaped string
   " a",         // line must not start with spaces
+  "a b:c:d",    // property with ambiguous separation of key and value
+  "a:",         // node id starting or ending with color
+  ":a",
+  "a\"b",
 ]
 
 describe("parsing errors", () => {
@@ -49,3 +54,20 @@ describe("parsing errors", () => {
     })
   }
 })
+
+describe("special whitespace characters", () => {
+  const whitespace = {
+    "vertical tab": "\v",
+    "form feed": "\f",
+    "non-break space": "\xA0",
+    "zero-width space": "\uFEFF",
+  }
+  for(let [name,space] of Object.entries(whitespace)) {
+    it(name, () => {
+      const id = `x${space}:y`
+      const graph = { nodes: [{ id, labels: [], properties: {} }], edges: [] }
+      assert.deepEqual(parse(id),graph)
+    })
+  }
+})
+

@@ -8,7 +8,7 @@ a :person
 a  foo:bar
 
 # empty property value
-x c:
+x c:""
 
 # empty string label
 a :""

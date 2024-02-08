@@ -1,81 +1,102 @@
 // Simple implementation without grammar and support of edge cases
 
 // remove double quotes
-const parseName = s => /^".*"$/.test(s) ? JSON.parse(s) : s
+const parseId = s => /^".*"$/.test(s) ? JSON.parse(s) : s
 
-const extractItems = function (line) {
-  const regexNode = /^("(\\\\|\\"|[^"])+"|[^"\s]+)/
-  const regexEdge = /^("[^"]+"|[^"\s]+)\s+(<-|->|--)\s+("[^"]+"|[^"\s]+)/
-  let id1, id2, undirected
-  let result
-  let index = 0
+const SPACE = /( |\t)+/             // differs from /\s+/
+const SKIPPED = /^\s*(#.*)?$/
+const STRING = /"(\\\\|\\"|[^"])*"/
+const DIRECTION = /(--|->|<-)/
+const PLAIN = new RegExp("[^\" \\t:]+([^\" \\t]+[^\" \\t:]+)?")
+const ID = new RegExp(`(${STRING.source}|${PLAIN.source})`)
+const NODE = new RegExp(`^${ID.source}`)
+const EDGE = new RegExp(`^${ID.source}${SPACE.source}${DIRECTION.source}${SPACE.source}${ID.source}`)
+const LABEL = new RegExp(`${SPACE.source}:${ID.source}`, "g")
+const SCALAR = new RegExp(`^(${STRING.source}|true|false|null|-?[0-9]+(\\.[0-9]+)?)`)
+const NOCOLON = new RegExp("^[^\": \\t]+")
+
+const extractItem = function (line) {
+  let id1, id2, undirected, match, index = 0
   
-  if ((result = regexEdge.exec(line))) {
-    id1 = parseName(result[1])
-    id2 = parseName(result[3])
-    undirected = false
-    if (result[2] === "<-") {
-      let tmp = id1
-      id1 = id2
-      id2 = tmp
-    } else if (result[2] === "--") {
-      undirected = true
-    }
-  } else if ((result = regexNode.exec(line))) {
-    id1 = parseName(result[1])
-    id2 = null
-    undirected = null
-  } else {
-    throw new Error("This line is neither node nor edge: " + line)
-  }
-  index = result[0].length
-
-  // LABELS
-  let labels = new Set()
-  const regexLabels = /\s+:("(\\\\|\\"|[^"])*"|[^:"\s]+)/g
-  while ((result = regexLabels.exec(line))) {
-    labels.add(parseName(result[1]))
-    index = result.index + result[0].length
-  }
-
-  // PROPERTIES
-  let properties = new Map()
-  let regexProperties = /\s+("(\\\\|\\"|[^"])+"|[^"\s:]+):("(\\\\|\\"|[^"])*"|[^"\s]*)/g
-  while ((result = regexProperties.exec(line))) {
-    let key = parseName(result[1])
-    let value = result[3]
-    if (value.match(/^(true|false|null|".*"|-?[0-9]+(\.[0-9]+)?)$/)) {
-      value = JSON.parse(value)
-    }
-    index = result.index + result[0].length
-    if (!(properties.has(key))) {
-      let values = new Set()
-      values.add(value)
-      properties.set(key, values)
+  if ((match = EDGE.exec(line))) {          // EDGE
+    if (match[5] === "<-") {
+      id2 = parseId(match[1])
+      id1 = parseId(match[7])
     } else {
-      let values = properties.get(key).add(value)
-      properties.set(key, values)
+      id1 = parseId(match[1])
+      id2 = parseId(match[7])
+      if (match[5] === "--") {
+        undirected = true
+      }
+    }
+  } else if ((match = NODE.exec(line))) {   // NODE
+    id1 = parseId(match[1])
+  } else {
+    throw new Error(`Expecting node nor edge, got ${JSON.stringify(line)}`)
+  }
+  index = match[0].length
+
+  const labels = new Set()                  // LABELS
+  while ((match = LABEL.exec(line))) {
+    labels.add(parseId(match[2]))
+    index = match.index + match[0].length
+  }
+
+  const properties = new Map()              // PROPERTIES
+  while ((match = /^[ \t]+/.exec(line.substr(index)))) {
+    index += match[0].length
+    if (index === line.length) {
+      break
+    }
+
+    let rest = line.substr(index)
+    let key, value, spaced = false
+
+    const SPACED_KEY = new RegExp(`^(${ID.source}):${SPACE.source}`)
+    const KEY = new RegExp(`^([^": \\t]+|${STRING.source}):`)
+    const PLAIN_VALUE = new RegExp(`^(${PLAIN.source})`) // allowed only after space
+
+    if ((match = SPACED_KEY.exec(rest))) {
+      key = parseId(match[1])
+      spaced = true
+    } else if ((match = KEY.exec(rest))) {
+      key = parseId(match[1])
+    } else {
+      throw new Error(`Invalid property key: ${JSON.stringify(rest)}`)
+    }
+    index += match[0].length
+    rest = line.substr(index)
+      
+    if (( match = SCALAR.exec(rest))) { // allowed with and without space
+      value = JSON.parse(match[0])
+    } else if ( (spaced && (match = PLAIN_VALUE.exec(rest))) || ( match = NOCOLON.exec(rest) )) {
+      value = match[0]
+    } else {
+      throw new Error(`Invalid or missing property value: ${JSON.stringify(rest)}`)
+    }
+    index += match[0].length
+
+    // add property
+    if (properties.has(key)) {
+      properties.get(key).add(value)
+    } else {
+      properties.set(key, new Set([value]))
     } 
   }
 
   if (index != line.length) {
-    const rest = line.substr(index)
-    if (!/^\s+$/.test(rest)) {
-      throw new Error(`Invalid content after element: ${JSON.stringify(rest)}`)
-    }
+    throw new Error(`Invalid content after element: ${JSON.stringify(line.substr(index))}`)
   }
 
   return [id1, id2, undirected, Array.from(labels), properties]
 }
-
-const skippedPattern = /^\s*(#.*)?$/
 
 export const parse = (pgstring) => {
   const nodes = {}, edges = []
 
   // TODO: include line numbers in errors
   const lines = pgstring.split(/[\r\n]+/)
-    .filter(line => !skippedPattern.test(line))
+    .filter(line => !SKIPPED.test(line))
     .reduce(
       (list, line) => {
         if (/^\s+/.test(line)) {
@@ -92,12 +113,7 @@ export const parse = (pgstring) => {
 
   lines.forEach(line => { 
 
-    const item = extractItems(line)
-    if (!item) {
-      return
-    }
-
-    let [id, id2, undirected, labels, props] = item
+    let [id, id2, undirected, labels, props] = extractItem(line)
 
     const properties = {}
     for (let [key, values] of props) {
