@@ -14,7 +14,7 @@ describe("parse", () => {
           const json = JSON.parse(readFile(jsonFile))
           assert.deepEqual(graph,json)
         } else {
-          console.log(JSON.stringify(graph))
+          // console.log(JSON.stringify(graph))
         }
       })
     }
