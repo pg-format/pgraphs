@@ -1,7 +1,7 @@
 import { assert } from "chai"
 import fs from "fs"
 import { localPath, readFile } from "./utils.js"
-import { parse } from "../index.js"
+import { parse, ParsingError } from "../index.js"
 
 describe("parse", () => {
   fs.readdirSync(localPath("../examples")).forEach(file => {
@@ -35,22 +35,25 @@ describe("parsing more edge cases", () => {
   }
 })
 
-const invalid = [
-  "\"",
-  "x :",        // missing label
-  "\"\\",       // malformed escaped string
-  "\"\\\\\"\"", // malformed escaped string
-  " a",         // line must not start with spaces
-  "a b:c:d",    // property with ambiguous separation of key and value
-  "a:",         // node id starting or ending with color
-  ":a",
-  "a\"b",
-]
+const invalid = {
+  "\"": "line 1 must start with node or edge",
+  "\"\\": "line 1 must start with node or edge", // malformed escaped string
+  "\"\\\\\"\"": "invalid node identifier at line 1 character 5 is \"",
+  ":a": "node identifier must not start with colon at line 1",
+  "a\"b": "invalid node identifier at line 1 character 2 is \"",
+  " a": "line 1 must not start with whitespace",
+  "x :": "invalid label or property key at line 1, character 3 is :",
+  "x -": "invalid label or property key at line 1, character 3 is -",
+  "x k:": "missing property value at line 1, character 5",
+  "x k:\"xy": "invalid property value at line 1, character 5: \"\\\"xy\"",
+  "a b:c:d": "invalid content at line 1, character 6: \":d\"",
+  "a:": "invalid node identifier at line 1 character 2 is :",
+}
 
 describe("parsing errors", () => {
-  for(let fails of invalid) {
-    it(fails, () => {
-      assert.throws(() => parse(fails))
+  for(let [input, error] of Object.entries(invalid)) {
+    it(input, () => {
+      assert.throws(() => parse(input), ParsingError, error)
     })
   }
 })

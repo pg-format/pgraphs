@@ -12,6 +12,10 @@ for await (let chunk of from) {
 }
 const input = chunks.map(s => s.toString()).join("")
 
-const graph = parse(input)
-
-process.stdout.write(JSON.stringify(graph, null, 2))
+try {
+  const graph = parse(input)
+  process.stdout.write(JSON.stringify(graph, null, 2))
+} catch(e) {
+  console.error(e.toString())
+  process.exit(1)
+}

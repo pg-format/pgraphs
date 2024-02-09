@@ -1,0 +1,61 @@
+# A property graph consists of nodes and edges, each described on a line:
+
+node
+node -> another-node
+
+# comments and empty or whitespace-only lines (spaces and/or tabs) are ignored.
+  # comments, unlike nodes and edges, can be intended with whitespace.
+
+# A node identifier can be given as plain string not containing whitespace
+# nor quotation marks, and it must not start or end with a colon:
+
+!#$%&'()*+,-./0123456789:;<=>?@
+
+# Node identifiers can also be given as quoted string following JSON syntax:
+
+"This is a valid \"node identifier\""
+
+# A node identifier can be any Unicode string, including the empty string:
+
+""
+
+# Edges consists of two nodes and a direction at least:
+
+a -> b  # directed
+a -- b  # undirected
+a <- b  # directed, reverse
+
+# Whitespace is needed between elements of nodes and edges.
+a # Whitespace can be followed by a comment
+  -> x # line breaks are allowed only if the following line is intended
+
+x ->
+  y # note the space!
+
+# Both nodes and edges can have labels and properties (in that order).
+# A label starts with a colon, followed by its name:
+
+node :label1 :another:label
+
+# The label name can be given as quoted string or as plain string not
+# containing whitespace nor quotation marks and not ending with a colon.
+
+node -> another-node :"label with impractial name:"
+
+# Properties are key-value pairs, separated by colon and optional whitespace.
+# Keys and values must not start or end with a colon,
+# but both can be quoted to allow arbitrary strings:
+
+a key:value key: value2 "another key":"value :"
+
+# Unquoted number values, 'true', 'false', and 'null' are read as typed values.
+
+b enabled:true age:42 status:null
+
+# Whitespace after the colon is required with unquoted key/value containing a colon:
+
+# FIXME: comments in between properties
+x a: b:c    # key "a:"  value "b:c"
+#  a:b: c    # key "a:b" value "c"
+
+

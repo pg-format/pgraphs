@@ -76,11 +76,13 @@ skipped     ::= ( #x20 | #x9 )* Comment?
 Comment     ::= '#' ( Char - #A )*
 ~~~
 
-Whitespace is required or allowed between some parts of nodes and edges. Whitespace can contain line breaks
-and skipped lines only when following line is intended by at least one space:
+Whitespace is required or allowed between some parts of nodes and edges.
+Whitespace can contain comments, line breaks and skipped lines only when
+following line is intended by at least one space:
 
 ~~~
-ws          ::= ( Space | ( #A skipped )* #A Space+ )+
+ws          ::= ( Space | folding )+ ( Space | Comment | folding )*
+folding     ::= ( #A skipped )* #A Space+ )+
 Space       ::= ( #x20 | #x9 )+
 ~~~
 
