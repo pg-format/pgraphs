@@ -184,12 +184,11 @@ Common graph databases with support of labeled property graphs include:
 - [ArangoDB](https://arangodb.com/)
 - ...
 
-Alternative property graph serialization formats include
+Alternative property graph serialization formats, all more complex than PG, include:
 
 - [YARS-PG](https://github.com/lszeremeta/yarspg) and
 - [GDL](https://github.com/s1ck/gdl)
-
-Both are more complex than PG.
+- [gram](https://github.com/gram-data/gram-js)
 
 Many more graph formats exist (
 [GraphSON](https://tinkerpop.apache.org/docs/3.7.1/dev/io/#graphson),
