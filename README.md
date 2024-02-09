@@ -11,7 +11,6 @@ This package implements parser and serializer of PG format for (labeled) propert
 - [Usage](#usage)
   - [API](#api)
   - [CLI](#cli)
-- [See also](#see-also)
 - [License](#license)
 
 ## Background
