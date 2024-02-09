@@ -199,4 +199,5 @@ Many more graph formats exist (
 [GML](https://en.wikipedia.org/wiki/Graph_Modelling_Language)...)
 some of which might also be able to serialize property graphs.
 
+See also Tomaszuk et al. (2019) <https://doi.org/10.1007/978-3-030-19093-4_27> for a summary of property graph serializations.
 
