@@ -111,7 +111,7 @@ HEX         ::= Digit | 'A' | 'B' | 'C' | 'D' | 'E' | 'F'
 
 ## PG-JSON
 
-**PG-JSON** is a serialization of the same property graph data model in JSON. A graph is encoded as JSON object with exactely two fields:
+**PG-JSON** is a serialization of the property graph data model in JSON. A graph is encoded as JSON object with exactely two fields:
 
 - `nodes` an array of nodes
 - `edges` an array of edges
@@ -137,6 +137,11 @@ by the schema:
 - node ids must be unique per graph
 - nodes referenced in edges must be defined
 - edges must be unique per graph
+
+## PG-NDJSON
+
+**PG-NDJSON** is a serialization of the property graph data model in newline-delimited JSON (NDJSON). A graph is encoded as sequence of lines with a JSON object encoding
+either a node or an edge, respectively. The format of these objects is identical to the corresponding node or edge objects in PG-JSON.
 
 ## Example
 
@@ -189,6 +194,15 @@ Alternative property graph serialization formats, all more complex than PG, incl
 - [YARS-PG](https://github.com/lszeremeta/yarspg) and
 - [GDL](https://github.com/s1ck/gdl)
 - [gram](https://github.com/gram-data/gram-js)
+
+The [Neo4J APOC import/export JSON format](https://neo4j.com/labs/apoc/4.1/export/json/) is similar to PG-NJSON. It differs in the following aspects:
+
+- there is an additional key `type` with value `node` or `edge`
+- edge labels are strings instead of array of strings each edge has exactely one label
+- property values are scalar instead of array of scalars if there is only one property value
+- property values can also be extended types serialized as JSON object
+- key `property` is omitted in nodes and edges without properties
+- edge keys are named `start` and `end` instead of `from` and `to` and they hold a JSON object with node `id` and `labels` instead of the plain identifier
 
 Many more graph formats exist (
 [GraphSON](https://tinkerpop.apache.org/docs/3.7.1/dev/io/#graphson),
