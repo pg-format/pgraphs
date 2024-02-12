@@ -1,6 +1,6 @@
 {
   "name": "pgraph",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "description": "Property Graph Exchange Format",
   "license": "MIT",
   "devDependencies": {
@@ -13,6 +13,9 @@
   },
   "main": "index.js",
   "type": "module",
+  "bin": {
+    "pgraph": "./bin/pgraph.js"
+  },
   "scripts": {
     "test": "mocha",
     "lint": "eslint --fix './**/*.js'",

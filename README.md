@@ -32,13 +32,14 @@ superset of property graph models of common graph databases. The model and its
 serializations **PG format** and **PG-JSON** have first been
 proposed by Hirokazu Chiba, Ryota Yamanaka, and Shota Matsumoto
 ([2019](https://arxiv.org/abs/1907.03936), [2022](https://arxiv.org/abs/2203.06393)).
+The additional format **PG-NDJSON** has been derived from PG-JSON.
 
 A [formal description of Property Graph Exchange Format ](./docs/pg-format.md)
 and [an illustrating example](./docs/pg-format.pg) can be found [in the `docs`
 directory](./docs) of this repository. There is also a JSON Schema
 [`pg-schema.json`](pg-schema.json) to define and validate PG-JSON.
 
-To give an example, the same graph in PG format and PG-JSON format:
+To give an example, the same graph in PG format, PG-JSON and PG-NDJSON:
 
 ~~~
 # NODES
@@ -67,6 +68,13 @@ To give an example, the same graph in PG format and PG-JSON format:
     "labels": [ "likes" ], "properties": { "since": [ 2015 ] }
   }]
 }
+~~~
+
+~~~json
+{"id":"101","labels":["person"],"properties":{"name":["Alice"],"country":["United States"]}}
+{"id":"102","labels":["person","student"],"properties":{"name":["Bob"],"country":["Japan"]}}
+{"from":"101","to":"102","undirected":true,"labels":["same_school","same_class"],"properties":{"since":[2012]}}
+{"from":"101","to":"102","labels":["likes"],"properties":{"since":[2015]}}
 ~~~
 
 ## Install
@@ -101,7 +109,20 @@ try {
 
 ### CLI
 
-`./bin/pg2json.js` and `./bin/json2pg.js` parse and serialize, respectively.
+The script `bin/pgraph.js` is installed as command `pgraph` to convert between property graph serializations:
+
+~~~
+Usage: pgraph [options] [<input> [<output]]
+
+Convert between property graph serializations.
+
+Options:
+  -f, --from [format]  input format (pg|json|ndjson)
+  -t, --to [format]    output format (pg|json|ndjson)
+  -v, --verbose        verbose error messages
+  -h, --help           show usage information
+  -V, --version        show the version number
+~~~
 
 `./bin/neo2pg.js` can be used to dump the default graph from a Neo4J database. First argument must be a JSON file with credentials like this:
 
