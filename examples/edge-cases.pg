@@ -7,8 +7,8 @@ a :person
 # same node id will override existing node
 a  foo:bar
 
-# empty property value
-x c:""
+# empty property key and value
+x "":""
 
 # empty string label
 a :""
@@ -38,3 +38,11 @@ null :null null:null null:"null" NULL:NULL
 # this comment is not intended, this is not best practice but allowed
 
  x:y 
+
+x # comment
+ -> # comment
+ y # comment
+ a:b # comment
+ c: # comment
+ d
+

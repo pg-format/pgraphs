@@ -1,0 +1,124 @@
+{
+  "nodes": [
+    {
+      "id": "",
+      "labels": [],
+      "properties": {}
+    },
+    {
+      "id": "!#$%&'()*+,-./0123456789:;<=>?@",
+      "labels": [],
+      "properties": {}
+    },
+    {
+      "id": "This is a valid \"node identifier\"",
+      "labels": [],
+      "properties": {}
+    },
+    {
+      "id": "a",
+      "labels": [],
+      "properties": {
+        "key": [
+          "value",
+          "value2"
+        ],
+        "another key": [
+          "value :"
+        ]
+      }
+    },
+    {
+      "id": "another-node",
+      "labels": [],
+      "properties": {}
+    },
+    {
+      "id": "b",
+      "labels": [],
+      "properties": {
+        "enabled": [
+          true
+        ],
+        "age": [
+          42
+        ],
+        "status": [
+          null
+        ]
+      }
+    },
+    {
+      "id": "node",
+      "labels": [
+        "label1",
+        "another:label"
+      ],
+      "properties": {}
+    },
+    {
+      "id": "x",
+      "labels": [],
+      "properties": {
+        "a": [
+          "b:c"
+        ],
+        "a:b": [
+          "c"
+        ]
+      }
+    },
+    {
+      "id": "y",
+      "labels": [],
+      "properties": {}
+    }
+  ],
+  "edges": [
+    {
+      "from": "node",
+      "to": "another-node",
+      "labels": [],
+      "properties": {}
+    },
+    {
+      "from": "a",
+      "to": "b",
+      "labels": [],
+      "properties": {}
+    },
+    {
+      "from": "a",
+      "to": "b",
+      "labels": [],
+      "properties": {},
+      "undirected": true
+    },
+    {
+      "from": "b",
+      "to": "a",
+      "labels": [],
+      "properties": {}
+    },
+    {
+      "from": "a",
+      "to": "x",
+      "labels": [],
+      "properties": {}
+    },
+    {
+      "from": "x",
+      "to": "y",
+      "labels": [],
+      "properties": {}
+    },
+    {
+      "from": "node",
+      "to": "another-node",
+      "labels": [
+        "label with impractial name:"
+      ],
+      "properties": {}
+    }
+  ]
+}

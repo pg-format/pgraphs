@@ -17,7 +17,7 @@ cli.usage("pgraph [options] [<input> [<output]]")
     }
     args = [args[0] ?? "-", args[1] ?? "-"]
     const input = args[0] == "-" ?  process.stdin : fs.createReadStream(args[0])
-    const output = args[1] == "-" ?  process.stdout : fs.createReadStream(args[0])
+    const output = args[1] == "-" ?  process.stdout : fs.createWriteStream(args[1])
 
     // guess formats
     if (!opt.from && args[0].match(/\./)) { 

@@ -3,16 +3,19 @@ import { ParsingError } from "../error.js"
 // remove double quotes
 const parseId = s => /^".*"$/.test(s) ? JSON.parse(s) : s
 
-const SPACE = /( |\t)+(#.*)?/
-const WSTART = /^[ \t]+(#.*)?/
-const SKIPPED = /^\s*(#.*)?$/
+const SKIPPED = /^\s*(#.*)?$/   // empty line with optional comment
+const SPACE = /[ \t\n]+/  // newline is introduced for folded lines to end comments
+const COMMENT = /#[^\n]*(\n[ \t\n]*)?/  // including appended folded line space
+
+const WS = new RegExp(`${SPACE.source}(${COMMENT.source})?`)
+const LTRIM = /^[ \t\n]+(#[^\n]*(\n[ \t\n]*)?)?/
 const STRING = /"(\\\\|\\"|[^"])*"/
 const DIRECTION = /(--|->|<-)/
-const PLAIN = new RegExp("[^\" \\t:]+([^\" \\t]+[^\" \\t:]+)?")
+const PLAIN = new RegExp("[^\" \\t\\n:]+([^\" \\t\\n]+[^\" \\t\\n:]+)?")
 const ID = new RegExp(`(${STRING.source}|${PLAIN.source})`)
 const NODE = new RegExp(`^${ID.source}`)
-const EDGE = new RegExp(`^${ID.source}${SPACE.source}${DIRECTION.source}${SPACE.source}${ID.source}`)
-const LABEL = new RegExp(`^${SPACE.source}:${ID.source}`)
+const EDGE = new RegExp(`^${ID.source}${WS.source}${DIRECTION.source}${WS.source}${ID.source}`)
+const LABEL = new RegExp(`^${WS.source}:${ID.source}`)
 const SCALAR = new RegExp(`^(${STRING.source}|true|false|null|-?[0-9]+(\\.[0-9]+)?)`)
 const NOCOLON = new RegExp("^[^\": \\t]+")
 
@@ -42,13 +45,13 @@ const extractItem = function (line, lnum) {
   index = match[0].length
 
   const labels = new Set()                  // LABELS
-  while ((match = LABEL.exec(line.substr(index)))) {
+  while ((match = LABEL.exec(line.substr(index)))) {      
     labels.add(parseId(match[3]))
     index += match[0].length
   }
 
   const properties = new Map()              // PROPERTIES
-  while ((match = WSTART.exec(line.substr(index)))) {
+  while ((match = LTRIM.exec(line.substr(index)))) {
     index += match[0].length
     if (index === line.length) {
       break
@@ -57,11 +60,11 @@ const extractItem = function (line, lnum) {
     let rest = line.substr(index)
     let key, value, spaced = false
 
-    const SPACED_KEY = new RegExp(`^(${ID.source}):${SPACE.source}`)
+    const WSD_KEY = new RegExp(`^(${ID.source}):${WS.source}`)
     const KEY = new RegExp(`^([^": \\t]+|${STRING.source}):`)
     const PLAIN_VALUE = new RegExp(`^(${PLAIN.source})`) // allowed only after space
 
-    if ((match = SPACED_KEY.exec(rest))) {
+    if ((match = WSD_KEY.exec(rest))) {
       key = parseId(match[1])
       spaced = true
     } else if ((match = KEY.exec(rest))) {
@@ -116,7 +119,7 @@ export default (pgstring) => {
           throw new ParsingError("LINE must not start with whitespace", index+1)
         }
         // FIXME: comment at line end
-        lines[lines.length - 1].line += line
+        lines[lines.length - 1].line += "\n" + line
       } else {
         lines.push({ line, index: index+1 })
       }

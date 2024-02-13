@@ -124,11 +124,30 @@
       "id": "x",
       "labels": [],
       "properties": {
-        "c": [
+        "": [
           ""
         ]
       }
+    },
+    {
+      "id": "y",
+      "labels": [],
+      "properties": {}
     }
   ],
-  "edges": []
+  "edges": [
+    {
+      "from": "x",
+      "to": "y",
+      "labels": [],
+      "properties": {
+        "a": [
+          "b"
+        ],
+        "c": [
+          "d"
+        ]
+      }
+    }
+  ]
 }

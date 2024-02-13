@@ -54,8 +54,6 @@ b enabled:true age:42 status:null
 
 # Whitespace after the colon is required with unquoted key/value containing a colon:
 
-# FIXME: current parser does not allow comments before folded lines:
-# x a: b:c    # key "a:"  value "b:c"
-#   a:b: c    # key "a:b" value "c"
-
+x a: b:c    # key "a:"  value "b:c"
+  a:b: c    # key "a:b" value "c"
 
