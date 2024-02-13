@@ -7,7 +7,8 @@ node -> another-node
   # comments, unlike nodes and edges, can be intended with whitespace.
 
 # A node identifier can be given as plain string not containing whitespace
-# nor quotation marks, and it must not start or end with a colon:
+# nor quotation marks, and it must not start or end with a colon, nor with
+# opening or closing parentheses, respectively:
 
 !#$%&'()*+,-./0123456789:;<=>?@
 
@@ -38,13 +39,13 @@ x ->
 node :label1 :another:label
 
 # The label name can be given as quoted string or as plain string not
-# containing whitespace nor quotation marks and not ending with a colon.
+# containing whitespace nor quotation marks and not ending with a colon
+# or opening or closing parentheses, respectively.
 
 node -> another-node :"label with impractial name:"
 
 # Properties are key-value pairs, separated by colon and optional whitespace.
-# Keys and values must not start or end with a colon,
-# but both can be quoted to allow arbitrary strings:
+# Keys and values can be quoted or given as plain string with same rules like labels.
 
 a key:value key: value2 "another key":"value :"
 
