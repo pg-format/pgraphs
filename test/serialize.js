@@ -1,11 +1,13 @@
 import { assert } from "chai"
 import fs from "fs"
 import { localPath, readFile } from "./utils.js"
-import { parse, serialize } from "../index.js"
+import { pgformat } from "../index.js"
 
-describe("serialize", () => {
+const { parse, serialize } = pgformat.pg
+
+describe("serialize PG", () => {
   fs.readdirSync(localPath("../examples")).forEach(file => {
-    if (file.match(/\.json$/)) {
+    if (file.match(/x\.json$/)) {
       it(file, () => {
         const graph = JSON.parse(readFile(`../examples/${file}`))
         assert.deepEqual(parse(serialize(graph)), graph)

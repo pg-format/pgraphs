@@ -20,5 +20,8 @@
     "test": "mocha",
     "lint": "eslint --fix './**/*.js'",
     "generate-parser": "peggy --allowed-start-rules NodeOrEdge --format es -o src/pg_line_parser.js ./src/pg.pegjs"
+  },
+  "dependencies": {
+    "dotparser": "^1.1.1"
   }
 }

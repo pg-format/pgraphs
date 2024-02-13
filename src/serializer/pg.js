@@ -12,7 +12,7 @@ const quoteValue = s =>
 export const serializeLabels = labels =>
   labels.map(label => ":" + quoteLabel(label)).join(" ")
 
-export const serializeProperties = properties =>
+export const serializeProperties = properties => 
   Object.entries(properties)
     .map(([key,values]) => 
       values.map(

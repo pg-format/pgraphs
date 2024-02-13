@@ -11,6 +11,7 @@ This package implements parser and serializer of PG format for (labeled) propert
 - [Usage](#usage)
   - [API](#api)
   - [CLI](#cli)
+- [Example](#example)
 - [License](#license)
 
 ## Background
@@ -39,7 +40,72 @@ and [an illustrating example](./docs/pg-format.pg) can be found [in the `docs`
 directory](./docs) of this repository. There is also a JSON Schema
 [`pg-schema.json`](pg-schema.json) to define and validate PG-JSON.
 
-To give an example, the same graph in PG format, PG-JSON and PG-NDJSON:
+See [below for an example](#example) of the same graph in multiple serializations.
+
+## Install
+
+This package has not been published at npm so you need to clone it from its git repository.
+
+~~~
+git clone https://github.com/gbv/pg.git
+cd pg
+npm install
+~~~
+
+## Usage
+
+### API
+
+~~~
+import { pgformat, ParsingError } from "pgraph"
+
+const graph = {
+  nodes: [ ... ],
+  edges: [ ... ] 
+}
+
+try {
+  const pgstring = pgformat.pg.serialize(graph)
+  const graph = pgformat.pg.parse(pgstring)
+} catch (ParsingError e) {
+  console.log(`Parsing failed in line ${e.line}`)
+}
+~~~
+
+### CLI
+
+The script `bin/pgraph.js` is installed as command `pgraph` to convert between property graph serializations:
+
+~~~
+Usage: pgraph [options] [<input> [<output]]
+
+Convert between property graph serializations.
+
+Options:
+  -f, --from [format]  input format (pg|json|ndjson|dot)
+  -t, --to [format]    output format (pg|json|ndjson|dot)
+  -v, --verbose        verbose error messages
+  -h, --help           show usage information
+  -V, --version        show the version number
+~~~
+
+`./bin/neo2pg.js` can be used to dump the default graph from a Neo4J database. First argument must be a JSON file with credentials like this:
+
+~~~json
+{
+  "uri": "neo4j://example.org",
+  "user": "alice",
+  "password": "secret"
+}
+~~~
+
+The script requires to install node package `neo4j-driver` (this is done
+automatically by calling `npm install` but not if this package is installed as
+dependency of another project).
+
+## Example
+
+The same graph in PG format, PG-JSON and PG-NDJSON:
 
 ~~~
 # NODES
@@ -77,66 +143,25 @@ To give an example, the same graph in PG format, PG-JSON and PG-NDJSON:
 {"from":"101","to":"102","labels":["likes"],"properties":{"since":[2015]}}
 ~~~
 
-## Install
+When exported to GraphViz dot format, labels are ignored:
 
-This package has not been published at npm so you need to clone it from its git repository.
-
-~~~
-git clone https://github.com/gbv/pg.git
-cd pg
-npm install
-~~~
-
-## Usage
-
-### API
-
-~~~
-import { parse, serialize, ParsingError } from "pgraph"
-
-const graph = {
-  nodes: [ ... ],
-  edges: [ ... ] 
-}
-
-try {
-  const pgstring = serialize(graph)
-  const graph = parse(pgstring)
-} catch (ParsingError e) {
-  console.log(`Parsing failed in line ${e.line}`)
+~~~dot
+graph {
+  101 [country="United States" name=Alice];
+  102 [country=Japan name=Bob];
+  101 -- 102 [since=2012];
+  101 -> 102 [since=2015];
 }
 ~~~
 
-### CLI
-
-The script `bin/pgraph.js` is installed as command `pgraph` to convert between property graph serializations:
+Parsed again from dot to PG format all edges are undirected, except for digraphs:
 
 ~~~
-Usage: pgraph [options] [<input> [<output]]
-
-Convert between property graph serializations.
-
-Options:
-  -f, --from [format]  input format (pg|json|ndjson)
-  -t, --to [format]    output format (pg|json|ndjson)
-  -v, --verbose        verbose error messages
-  -h, --help           show usage information
-  -V, --version        show the version number
+101 country:"United States" name:Alice
+102 country:Japan name:Bob
+101 -- 102 since:2012
+101 -- 102 since:2015
 ~~~
-
-`./bin/neo2pg.js` can be used to dump the default graph from a Neo4J database. First argument must be a JSON file with credentials like this:
-
-~~~json
-{
-  "uri": "neo4j://example.org",
-  "user": "alice",
-  "password": "secret"
-}
-~~~
-
-The script requires to install node package `neo4j-driver` (this is done
-automatically by calling `npm install` but not if this package is installed as
-dependency of another project).
 
 ## License
 

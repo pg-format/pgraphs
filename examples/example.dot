@@ -1,0 +1,6 @@
+graph {
+  101 [country="United States" name=Alice];
+  102 [country=Japan name=Bob];
+  101 -- 102 [since=2012];
+  101 -> 102 [since=2015];
+}

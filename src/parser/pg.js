@@ -1,4 +1,4 @@
-import { ParsingError } from "./error.js"
+import { ParsingError } from "../error.js"
 
 // remove double quotes
 const parseId = s => /^".*"$/.test(s) ? JSON.parse(s) : s
@@ -105,10 +105,9 @@ const extractItem = function (line, lnum) {
   return [id1, id2, undirected, Array.from(labels), properties]
 }
 
-export const parse = (pgstring) => {
+export default (pgstring) => {
   const nodes = {}, edges = []
 
-  // TODO: include line numbers in errors
   const lines = []
   pgstring.split(/[\r\n]+/).forEach((line, index) => {
     if (!SKIPPED.test(line)) {
@@ -155,4 +154,3 @@ export const parse = (pgstring) => {
     edges,
   }
 }
-
