@@ -27,6 +27,7 @@ const valid = [
   "\"\"",       // empty node id
   "a\rb",       // plain /r is newline
   "a:b",
+  "a(b",
 ]
 
 describe("parsing more edge cases", () => {
@@ -50,6 +51,9 @@ const invalid = {
   "x k:\"xy": "invalid property value at line 1, character 5: \"\\\"xy\"",
   "a b:c:d": "invalid content at line 1, character 6: \":d\"",
   "a:": "invalid node identifier at line 1 character 2 is :",
+  "(a": "line 1 must start with node or edge",
+  "()": "line 1 must start with node or edge",
+  "\n\na)": "invalid node identifier at line 3 character 2 is )",
 }
 
 describe("parsing errors", () => {

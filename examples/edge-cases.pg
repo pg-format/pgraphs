@@ -29,6 +29,9 @@ null :null null:null null:"null" NULL:NULL
 "\\" :"\\"      "\\":"\\"
 "\\\"" :"\\\""  "\\\"":"\\\""
 
+# parentheses
+"()" :"()" "()":"()"
+
 # folded lines
 0
   :label1

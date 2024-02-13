@@ -1,6 +1,6 @@
-export const quoteLabel = s => /"|\s|^$/.test(s) ? JSON.stringify(s) : s
+export const quoteLabel = s => /"|\s|^$|^[:(]|[:)]$/.test(s) ? JSON.stringify(s) : s
 
-export const quoteKey = s => /"|:|\s/.test(s) ? JSON.stringify(s) : s
+export const quoteKey = s => /"|:|\s|(|)/.test(s) ? JSON.stringify(s) : s
 
 const valuePattern = /"|\s|^-?[0-9]+(\.[0-9]+)?|true|false|null$/
 

@@ -39,7 +39,7 @@ may accept additional code points by ignoring them or by replacing them with the
 Unicode replacement character `#FFFD`.
 
 ~~~
-Char	    ::= #x9 | #xA | [#x20-#xD7FF] | [#xE000-#xFFFD] | [#x10000-#x10FFFF]
+CHAR	    ::= #x9 | #xA | [#x20-#xD7FF] | [#xE000-#xFFFD] | [#x10000-#x10FFFF]
 ~~~
 
 An encoded graph consists of a (possibly empty) sequence of nodes, edges and
@@ -47,65 +47,65 @@ skipped lines. These elements are separated by line breaks. A final line break
 is optional.
 
 ~~~
-pg          ::= ( element Space? ( #xA element Space? )* )? #A?
-element     ::= node | edge | skipped
+PG          ::= ( ELEMENT SPACE? ( #xA ELEMENT SPACE? )* )? #A?
+ELEMENT     ::= NODE | EDGE | SKIPPED
 ~~~
 
 Skipped lines are empty or consist of spaces and/or a comment:
 
 ~~~
-skipped     ::= ( #x20 | #x9 )* Comment?
-Comment     ::= '#' ( Char - #A )*
+SKIPPED     ::= ( #x20 | #x9 )* COMMENT?
+COMMENT     ::= '#' ( CHAR - #A )*
 ~~~
 
-Whitespace is required or allowed between some parts of nodes and edges.
+Whitespace is required or allowed between some parts of NODEs and EDGEs.
 Whitespace can contain comments, line breaks and skipped lines only when
 following line is intended by at least one space:
 
 ~~~
-WS          ::= ( Space | folding )+ ( Space | Comment | folding )*
-folding     ::= ( #A skipped )* #A Space+ )+
-Space       ::= ( #x20 | #x9 )+
+WS          ::= ( SPACE | FOLDING )+ ( SPACE | COMMENT | FOLDING )*
+FOLDING     ::= ( #A SKIPPED )* #A SPACE+ )+
+SPACE       ::= ( #x20 | #x9 )+
 ~~~
 
-A node consists of an identifier, followed by optional labels and/or properties:
+A NODE consists of an identifier, followed by optional labels and/or properties:
 
 ~~~
-node        ::= id ( WS label )* ( WS property )*
+NODE        ::= ID ( WS LABEL )* ( WS PROPERTY )*
 ~~~
 
-An edge consists of an identifier, followed a direction, another identifier,
+An EDGE consists of an identifier, followed a direction, another identifier,
 and optional labels and/or properties:
 
 ~~~
-edge        ::= id WS? direction WS? id ( WS label )* ( WS property )*
-direction   ::= '--' | '->' | '<-'
-label       ::= ':' id
-property    ::= ( id ':' WS ( scalar | plain ) )
-              | ( nocolon+ |  string ) ':' WS? ( scalar | nocolon+ )
+EDGE        ::= ID WS? DIRECTION WS? ID ( WS LABEL )* ( WS PROPERTY )*
+DIRECTION   ::= '--' | '->' | '<-'
+LABEL       ::= ':' ID
+PROPERTY    ::= ( ID ':' WS ( scalar | plain ) )
+              | ( ALLOWED+ |  string ) ':' WS? ( scalar | ALLOWED+ )
 ~~~
 
-Identifiers, labels, and property names can be given as string or in plain form (that is not including space or quotation mark and not not starting or ending with a colon):
+Identifiers, labels, and property names can be given as string or in plain form (that is not including space or quotation mark and not not starting or ending with a colon or with parentheses):
 
 ~~~
-id          ::= string | plain
-plain       ::= nocolon ( ( Char - ( Space | '"' ) )+ nocolon )?
-nocolon     ::= ( Char - ( Space | '"' | ':' ) )+
+ID          ::= STRING | PLAIN
+PLAIN       ::= ALLOWED ( ( CHAR - ( SPACE | '"' ) )* ALLOWED )?
+ALLOWED     ::= ( CHAR - ( SPACE | '"' | ':' | '(' | ')' ) )+
 ~~~
 
 Values are defined equivalent to scalar values in JSON (RFC 4627):
 
 ~~~
-scalar      ::= Boolean | Null | number | string
-Boolean     ::= 'true' | 'false' 
-Null        ::= 'null'
-number      ::= '-'? ( Digit - '0' ) Digit* ( '.' Digit+ )? 
-Digit       ::= '0' | '1' | '2' | '3' | '4' | '5' | '6' | '7' | '8' | '9'
-string      ::= '"' ( unescaped | escaped )* '"'
-unescaped   ::= #x20-21 | #x23-58 | #x5D-#x10FFFF
-escaped     ::= '\"' | '\\' | '\/' | '\b' | '\f' | '\n' | '\r' | '\t' 
+SCALAR      ::= BOOLEAN | NULL | NUMBER | STRING
+BOOLEAN     ::= 'true' | 'false' 
+NULL        ::= 'null'
+NUMBER      ::= '-'? ( DIGIT - '0' ) DIGIT* ( '.' DIGIT+ )? 
+DIGIT       ::= '0' | '1' | '2' | '3' | '4' | '5' | '6' | '7' | '8' | '9'
+STRING      ::= '"' ( UNESCAPED | ESCAPED )* '"'
+UNESCAPED   ::= #x20-21 | #x23-58 | #x5D-#x10FFFF
+ESCAPED     ::= '\"' | '\\' | '\/' | '\b' | '\f' | '\n' | '\r' | '\t' 
               | '\u' HEX HEX HEX HEX 
-HEX         ::= Digit | 'A' | 'B' | 'C' | 'D' | 'E' | 'F' 
+HEX         ::= DIGIT | 'A' | 'B' | 'C' | 'D' | 'E' | 'F' 
                       | 'a' | 'b' | 'c' | 'd' | 'e' | 'f'
 ~~~
 

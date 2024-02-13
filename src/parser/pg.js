@@ -11,13 +11,13 @@ const WS = new RegExp(`${SPACE.source}(${COMMENT.source})?`)
 const LTRIM = /^[ \t\n]+(#[^\n]*(\n[ \t\n]*)?)?/
 const STRING = /"(\\\\|\\"|[^"])*"/
 const DIRECTION = /(--|->|<-)/
-const PLAIN = new RegExp("[^\" \\t\\n:]+([^\" \\t\\n]+[^\" \\t\\n:]+)?")
+const PLAIN = new RegExp("[^\" \\t\\n:(]([^\" \\t\\n]*[^\" \\t\\n:)])?")
 const ID = new RegExp(`(${STRING.source}|${PLAIN.source})`)
 const NODE = new RegExp(`^${ID.source}`)
 const EDGE = new RegExp(`^${ID.source}${WS.source}${DIRECTION.source}${WS.source}${ID.source}`)
 const LABEL = new RegExp(`^${WS.source}:${ID.source}`)
 const SCALAR = new RegExp(`^(${STRING.source}|true|false|null|-?[0-9]+(\\.[0-9]+)?)`)
-const NOCOLON = new RegExp("^[^\": \\t]+")
+const ALLOWED = new RegExp("^[^\": \\t()]+")
 
 const extractItem = function (line, lnum) {
   let id1, id2, undirected, match, index = 0
@@ -82,7 +82,7 @@ const extractItem = function (line, lnum) {
 
     if (( match = SCALAR.exec(rest))) { // allowed with and without space
       value = JSON.parse(match[0])
-    } else if ( (spaced && (match = PLAIN_VALUE.exec(rest))) || ( match = NOCOLON.exec(rest) )) {
+    } else if ( (spaced && (match = PLAIN_VALUE.exec(rest))) || ( match = ALLOWED.exec(rest) )) {
       value = match[0]
     } else {
       throw new ParsingError("invalid property value at LINE, POS: TEXT", lnum, index, line)
@@ -112,7 +112,7 @@ export default (pgstring) => {
   const nodes = {}, edges = []
 
   const lines = []
-  pgstring.split(/[\r\n]+/).forEach((line, index) => {
+  pgstring.split(/\r\n|\n|\r/).forEach((line, index) => {
     if (!SKIPPED.test(line)) {
       if (/^\s+/.test(line)) {
         if (lines.length === 0) {
@@ -127,7 +127,6 @@ export default (pgstring) => {
   })
 
   lines.forEach(({ line, index }) => { 
-
     let [id, id2, undirected, labels, props] = extractItem(line, index)
 
     const properties = {}
