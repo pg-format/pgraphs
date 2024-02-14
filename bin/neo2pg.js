@@ -2,7 +2,7 @@
 
 import fs from "fs"
 import neo4j from "neo4j-driver"
-import { serializeNode, serializeEdge } from "../index.js"
+import { serializeNode, serializeEdge } from "../src/serializer/pg.js"
 
 // read configuration
 const config = process.argv[2]
@@ -14,7 +14,11 @@ if (!fs.existsSync(config)) {
 const server = JSON.parse(fs.readFileSync(config))
 
 // initialize database connection
-const driver = neo4j.driver(server.uri, neo4j.auth.basic(server.user, server.password))
+const driver = neo4j.driver(
+    server.uri,
+    neo4j.auth.basic(server.user, server.password),
+    { disableLosslessIntegers: true } // convert large integers to JavaScript (FIXME?)
+)
 const session = driver.session({ defaultAccessMode: neo4j.session.READ })
 
 const onError = error => { 
@@ -26,9 +30,12 @@ const onError = error => {
 var nodeCount = 0
 const nodeId = {}
 
+// TODO handle all data types
 const propertiesMustHaveArrayValues = properties => {
   for (const [key, value] of Object.entries(properties)) {
-    properties[key] = Array.isArray(value) ? value : [ value ]
+    const values = Array.isArray(value) ? value : [ value ]
+    properties[key] = values
+
   }
 }
 
@@ -58,11 +65,11 @@ const processEdge = ({ type, properties, startNodeElementId, endNodeElementId })
 }
 
 session.run("MATCH (n) RETURN n").subscribe({
-  onError, onNext: record => processNode(record.toObject().n),
+  onError, onNext: record => processNode(record.get("n")),
   onCompleted: () => {
     console.log("")
     session.run("MATCH ()-[r]->() RETURN r").subscribe({
-      onError, onNext: record => processEdge(record.toObject().r),
+      onError, onNext: record => processEdge(record.get("r")),
       onCompleted: async () => session.close().then(() => driver.close()),
     })
   },
