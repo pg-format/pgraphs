@@ -1,3 +1,4 @@
+import fs from "fs"
 import { pgformat } from "../src/pgformat.js"
 
 // read entire input to string
@@ -21,6 +22,13 @@ export async function pgraph(input, output, opts) {
     throw new Error(`Unknown output format: ${opts.to}`)
   }
 
+  if (typeof input == "string") {
+    input = fs.createReadStream(input)
+  }
+  if (typeof output == "string") {
+    output = fs.createWriteStream(output)
+  }
+ 
   const graph = from.parse(await readStream(input))
   output.write(to.serialize(graph))
 }

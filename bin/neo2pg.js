@@ -15,9 +15,9 @@ const server = JSON.parse(fs.readFileSync(config))
 
 // initialize database connection
 const driver = neo4j.driver(
-    server.uri,
-    neo4j.auth.basic(server.user, server.password),
-    { disableLosslessIntegers: true } // convert large integers to JavaScript (FIXME?)
+  server.uri,
+  neo4j.auth.basic(server.user, server.password),
+  { disableLosslessIntegers: true }, // convert large integers to JavaScript (FIXME?)
 )
 const session = driver.session({ defaultAccessMode: neo4j.session.READ })
 

@@ -6,6 +6,8 @@ import serializeNdjson from "./serializer/ndjson.js"
 import parseDot from "./parser/dot.js"
 import serializeDot from "./serializer/dot.js"
 
+import serializeGraphML from "./serializer/graphml.js"
+
 import { serialize } from "./serializer/pg.js"
 
 export const pgformat = {
@@ -28,5 +30,9 @@ export const pgformat = {
     name: "GraphViz dot",
     parse: parseDot,
     serialize: serializeDot,
+  },
+  xml: {
+    name: "GraphML",
+    serialize: serializeGraphML,
   },
 }

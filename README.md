@@ -82,11 +82,12 @@ Usage: pgraph [options] [<input> [<output]]
 Convert between property graph serializations.
 
 Options:
-  -f, --from [format]  input format (pg|json|ndjson|dot)
-  -t, --to [format]    output format (pg|json|ndjson|dot)
+  -f, --from [format]  input format (dot|json|ndjson|pg)
+  -t, --to [format]    output format (dot|json|ndjson|pg|xml)
   -v, --verbose        verbose error messages
   -h, --help           show usage information
   -V, --version        show the version number
+Usage: pgraph [options] [<input> [<output]]
 ~~~
 
 `./bin/neo2pg.js` can be used to dump the default graph from a Neo4J database. First argument must be a JSON file with credentials like this:
@@ -161,6 +162,31 @@ Parsed again from dot to PG format all edges are undirected, except for digraphs
 102 country:Japan name:Bob
 101 -- 102 since:2012
 101 -- 102 since:2015
+~~~
+
+When exported to GraphML, labels are ignored as well and all values are converted to strings
+(support of data types has not been implemented yet):
+
+~~~xml
+<?xml version="1.0" encoding="UTF-8"?>
+<graphml xmlns="http://graphml.graphdrawing.org/xmlns">
+  <graph edgedefault="undirected">
+    <node id="101">
+      <data key="name">Alice</data>
+      <data key="country">United States</data>
+    </node>
+    <node id="102">
+      <data key="name">Bob</data>
+      <data key="country">Japan</data>
+    </node>
+    <edge source="101" target="102">
+      <data key="since">2012</data>
+    </edge>
+    <edge source="101" target="102">
+      <data key="since">2015</data>
+    </edge>
+  </graph>
+</graphml>
 ~~~
 
 ## License
