@@ -7,11 +7,18 @@ import { pgformat } from "../index.js"
 const importable = Object.keys(pgformat).filter(key => "parse" in pgformat[key]).sort().join("|")
 const exportable = Object.keys(pgformat).filter(key => "serialize" in pgformat[key]).sort().join("|")
 
+const formats = Object.keys(pgformat).sort().map(id => {
+  const { name, parse, serialize } = pgformat[id]
+  return "  " + (parse ? "from " + (serialize ? "and " : "") 
+    : "") + (serialize ? "to " : "") + `${name} (${id})` 
+}).join("\n")
+
 cli.usage("pgraph [options] [<input> [<output]]")
   .description("Convert between property graph serializations.")
   .option(`-f, --from [format]   input format (${importable})`)
   .option(`-t, --to [format]     output format (${exportable})`)
   .option("-v, --verbose         verbose error messages")
+  .details(`Format conversion is supported:\n${formats}`)
   .action(async (args, opt) => {
 
     // check arguments

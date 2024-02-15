@@ -81,6 +81,10 @@ class CLI extends Options {
     this.cfg.description = s; return this 
   }
 
+  details (s) {
+    this.cfg.details = s; return this 
+  }
+
   action (f) {
     this.cfg.action = f; return this 
   }
@@ -92,6 +96,9 @@ class CLI extends Options {
 ${description}
 `)
     this.showOptions()
+    if (this.cfg.details) {
+      console.log("\n"+this.cfg.details)
+    }
     process.exit()
   }
 
