@@ -2,7 +2,8 @@
 
 > Property Graph Exchange Format (PG) parser and serializer
 
-This package implements parser and serializer of PG format for (labeled) property graphs. 
+This package implements parsers and serializers to convert between labeled
+property graph formats. See [below for an examples](#examples).
 
 ## Table of Contents
 
@@ -11,36 +12,39 @@ This package implements parser and serializer of PG format for (labeled) propert
 - [Usage](#usage)
   - [API](#api)
   - [CLI](#cli)
-- [Example](#example)
+- [Examples](#examples)
+  - [PG format](#pg-format)
+  - [PG JSON and NDJSON](#pg-json-and-ndjson)
+  - [GraphViz DOT](#graphviz-dot)
+  - [GraphML](#graphml)
+  - [YARS-PG](#yars-pg)
 - [License](#license)
 
 ## Background
 
-**Property Graphs** (also known as **Labeled Property Graphs**) are used as
-abstract data structure in graph databases and related applications. This
-package implements the **Property Graph Exchange Format (PG)** with parsers
-and serializers from and to various formats.
+A **property graph** (also known as **labeled property graph**) is an abstract
+data structure used in graph databases and related applications. It consists of
+**nodes** and **edges** between these nodes. Each edge can be directed or
+undirected.  Each of the nodes and edges can have a set of zero or more
+**labels** and a set of and zero or more properties. **properties** are
+key-value pairs where the same key may have multiple values. **values** are
+Unicode strings or scalar values of other data types.
 
-A property graph consists of **nodes** and **edges** between these nodes. Each
-edge can be directed or undirected.  Each of the nodes and edges can have a set
-of zero or more **labels** and a set of and zero or more properties.
-**properties** are key-value pairs where the same key may have multiple values.
-**values** are Unicode strings or scalar values of other data types.
+Property graphs applications and formats differ in their model by different
+support of data types, restrictions on labels etc. This package implements the
+**Property Graph Exchange Format (PG)**, aimed to be a superset of common
+models, with parsers and serializers from and to various formats.
 
-Implementations of property graphs slightly differ in support of data types,
-restrictions on labels etc. The property graph model PG is aimed to be a
-superset of property graph models of common graph databases. The model and its
-serializations **PG format** and **PG-JSON** have first been
-proposed by Hirokazu Chiba, Ryota Yamanaka, and Shota Matsumoto
-([2019](https://arxiv.org/abs/1907.03936), [2022](https://arxiv.org/abs/2203.06393)).
-The additional format **PG-NDJSON** has been derived from PG-JSON.
+A first version of the PG model and its serializations **PG format** and
+**PG-JSON** have been proposed by Hirokazu Chiba, Ryota Yamanaka, and Shota
+Matsumoto ([2019](https://arxiv.org/abs/1907.03936),
+[2022](https://arxiv.org/abs/2203.06393)). Additional information included in
+this package:
 
-A [formal description of Property Graph Exchange Format ](./docs/pg-format.md)
-and [an illustrating example](./docs/pg-format.pg) can be found [in the `docs`
-directory](./docs) of this repository. There is also a JSON Schema
-[`pg-schema.json`](pg-schema.json) to define and validate PG-JSON.
-
-See [below for an example](#example) of the same graph in multiple serializations.
+- [formal description of PG model and format](docs/pg-format.md)
+- [illustrating example of PG format](./docs/pg-format.pg)
+- [JSON Schema of PG-JSON](pg-schema.json)
+- [Example directory](examples), also used for unit tests
 
 ## Install
 
@@ -74,7 +78,7 @@ try {
 
 ### CLI
 
-The script `bin/pgraph.js` is installed as command `pgraph` to convert between property graph serializations:
+The script `bin/pgraph.js` is installed as command `pgraph`:
 
 ~~~
 Usage: pgraph [options] [<input> [<output]]
@@ -83,14 +87,23 @@ Convert between property graph serializations.
 
 Options:
   -f, --from [format]  input format (dot|json|ndjson|pg)
-  -t, --to [format]    output format (dot|json|ndjson|pg|xml)
+  -t, --to [format]    output format (dot|json|ndjson|pg|xml|yarspg)
   -v, --verbose        verbose error messages
   -h, --help           show usage information
   -V, --version        show the version number
-Usage: pgraph [options] [<input> [<output]]
+
+Format conversion is supported:
+  from and to GraphViz dot (dot)
+  from and to PG-JSON (json)
+  from and to PG-NDJSON (ndjson)
+  from and to PG format (pg)
+  to GraphML (xml)
+  to YARS-PG 3.0.0 with optional labels (yarspg)
 ~~~
 
-`./bin/neo2pg.js` can be used to dump the default graph from a Neo4J database. First argument must be a JSON file with credentials like this:
+Experimental script `./bin/neo2pg.js` can be used to dump the default graph
+from a Neo4J database. First argument must be a JSON file with credentials like
+this:
 
 ~~~json
 {
@@ -106,23 +119,29 @@ dependency of another project).
 
 ## Example
 
-The same graph in PG format, PG-JSON and PG-NDJSON:
+### PG format
+
+The [following graph](examples/example.pg) in **PG format** with two nodes and
+two edges uses features such as multiple labels, and property values, numbers
+and boolean values:
 
 ~~~
-# NODES
-101 :person  name:Alice  country:"United States"
+101 :person  name:Alice name:Carol country:"United States"
 102 :person  :student  name:Bob  country:Japan
-
-# EDGES
 101 -- 102  :same_school  :same_class  since:2012
-101 -> 102  :likes  since:2015
+101 -> 102  :likes  since:2015  engaged:false
 ~~~
+
+### PG JSON and NDJSON
+
+The same graph [in PG-JSON](examples/example.json) and [in
+PG-NDJSON](examples/example.ndjson):
 
 ~~~json
 {
   "nodes": [{
     "id": "101", "labels": [ "person" ],
-    "properties": { "name": [ "Alice" ], "country": [ "United States" ] }
+    "properties": { "name": [ "Alice", "Carol" ], "country": [ "United States" ] }
    },{
     "id": "102", "labels": [ "person", "student" ],
     "properties": { "name": [ "Bob" ], "country": [ "Japan" ] }
@@ -132,19 +151,21 @@ The same graph in PG format, PG-JSON and PG-NDJSON:
     "labels": [ "same_school", "same_class" ], "properties": { "since": [ 2012 ] }
    },{
     "from": "101", "to": "102",
-    "labels": [ "likes" ], "properties": { "since": [ 2015 ] }
+    "labels": [ "likes" ], "properties": { "engaged": [ false ], "since": [ 2015 ] }
   }]
 }
 ~~~
 
 ~~~json
-{"id":"101","labels":["person"],"properties":{"name":["Alice"],"country":["United States"]}}
+{"id":"101","labels":["person"],"properties":{"name":["Alice","Carol"],"country":["United States"]}}
 {"id":"102","labels":["person","student"],"properties":{"name":["Bob"],"country":["Japan"]}}
-{"from":"101","to":"102","undirected":true,"labels":["same_school","same_class"],"properties":{"since":[2012]}}
-{"from":"101","to":"102","labels":["likes"],"properties":{"since":[2015]}}
+{"from":"101","to":"102","labels":["same_school","same_class"],"properties":{"since":[2012]},"undirected":true}
+{"from":"101","to":"102","labels":["likes"],"properties":{"since":[2015],"engaged":[false]}}
 ~~~
 
-When exported to GraphViz dot format, labels are ignored:
+### GraphViz DOT
+
+When exported [to GraphViz DOT](examples/example.dot) format, labels are ignored:
 
 ~~~dot
 graph {
@@ -164,8 +185,11 @@ Parsed again from dot to PG format all edges are undirected, except for digraphs
 101 -- 102 since:2015
 ~~~
 
-When exported to GraphML, labels are ignored as well and all values are converted to strings
-(support of data types has not been implemented yet):
+### GraphML
+
+When exported [to GraphML](examples/example.xml), labels are ignored as well
+and all values are converted to strings (support of data types has not been
+implemented yet):
 
 ~~~xml
 <?xml version="1.0" encoding="UTF-8"?>
@@ -187,6 +211,18 @@ When exported to GraphML, labels are ignored as well and all values are converte
     </edge>
   </graph>
 </graphml>
+~~~
+
+### YARS-PG
+
+At the moment only version 3.0.0 is supported. The graph [in this
+format](examples/example.yarspg) is very similar to [PG format](#pg-format):
+
+~~~
+<"101">{"person"}["country":"United States","name":["Alice","Carol"]]
+<"102">{"person","student"}["country":"Japan","name":"Bob"]
+("101")-["same_school"]["since":2012]-("102")
+("101")-["likes"]["engaged":false,"since":2015]-("102")
 ~~~
 
 ## License

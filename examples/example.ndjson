@@ -1,0 +1,4 @@
+{"id":"101","labels":["person"],"properties":{"name":["Alice","Carol"],"country":["United States"]}}
+{"id":"102","labels":["person","student"],"properties":{"name":["Bob"],"country":["Japan"]}}
+{"from":"101","to":"102","labels":["same_school","same_class"],"properties":{"since":[2012]},"undirected":true}
+{"from":"101","to":"102","labels":["likes"],"properties":{"since":[2015],"engaged":[false]}}

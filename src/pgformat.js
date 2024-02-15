@@ -7,6 +7,7 @@ import parseDot from "./parser/dot.js"
 import serializeDot from "./serializer/dot.js"
 
 import serializeGraphML from "./serializer/graphml.js"
+import serializeYARSPG from "./serializer/yarspg.js"
 
 import { serialize } from "./serializer/pg.js"
 
@@ -34,5 +35,9 @@ export const pgformat = {
   xml: {
     name: "GraphML",
     serialize: serializeGraphML,
+  },
+  yarspg: {
+    name: "YARS-PG 3.0.0 with optional labels",
+    serialize: serializeYARSPG,
   },
 }

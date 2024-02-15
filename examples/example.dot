@@ -1,6 +1,6 @@
 graph {
-  101 [country="United States" name=Alice];
+  101 [country="United States" name=Alice name=Carol];
   102 [country=Japan name=Bob];
   101 -- 102 [since=2012];
-  101 -> 102 [since=2015];
+  101 -- 102 [engaged=false since=2015];
 }
