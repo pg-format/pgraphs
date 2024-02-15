@@ -2,7 +2,7 @@ export const quoteLabel = s => /"|\s|^$|^[:(]|[:)]$/.test(s) ? JSON.stringify(s)
 
 export const quoteKey = s => /"|:|\s|(|)/.test(s) ? JSON.stringify(s) : s
 
-const valuePattern = /"|\s|^-?[0-9]+(\.[0-9]+)?|true|false|null$/
+const valuePattern = /"|\s|^(-?[0-9]+(\.[0-9]+)?|true|false|null)$|^\(|\)$/
 
 const quoteValue = s =>  
   (typeof s === "string" && s !== "" && !valuePattern.test(s)) ? 

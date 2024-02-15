@@ -117,7 +117,7 @@ The script requires to install node package `neo4j-driver` (this is done
 automatically by calling `npm install` but not if this package is installed as
 dependency of another project).
 
-## Example
+## Examples
 
 ### PG format
 
@@ -187,26 +187,27 @@ Parsed again from dot to PG format all edges are undirected, except for digraphs
 
 ### GraphML
 
-When exported [to GraphML](examples/example.xml), labels are ignored as well
-and all values are converted to strings (support of data types has not been
-implemented yet):
+When exported [to GraphML](examples/example.xml), labels are ignored and all
+values are converted to strings:
 
 ~~~xml
 <?xml version="1.0" encoding="UTF-8"?>
 <graphml xmlns="http://graphml.graphdrawing.org/xmlns">
   <graph edgedefault="undirected">
     <node id="101">
-      <data key="name">Alice</data>
       <data key="country">United States</data>
+      <data key="name">Alice</data>
+      <data key="name">Carol</data>
     </node>
     <node id="102">
-      <data key="name">Bob</data>
       <data key="country">Japan</data>
+      <data key="name">Bob</data>
     </node>
     <edge source="101" target="102">
       <data key="since">2012</data>
     </edge>
     <edge source="101" target="102">
+      <data key="engaged">false</data>
       <data key="since">2015</data>
     </edge>
   </graph>
