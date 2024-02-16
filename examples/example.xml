@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<graphml xmlns="http://graphml.graphdrawing.org/xmlns">
+  <graph edgedefault="undirected">
+    <node id="101">
+      <data key="country">United States</data>
+      <data key="name">Alice</data>
+      <data key="name">Carol</data>
+    </node>
+    <node id="102">
+      <data key="country">Japan</data>
+      <data key="name">Bob</data>
+    </node>
+    <edge source="101" target="102">
+      <data key="since">2012</data>
+    </edge>
+    <edge source="101" target="102">
+      <data key="engaged">false</data>
+      <data key="since">2015</data>
+    </edge>
+  </graph>
+</graphml>

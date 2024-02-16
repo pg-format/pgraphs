@@ -8,6 +8,8 @@ import serializeDot from "./serializer/dot.js"
 
 import serializeGraphML from "./serializer/graphml.js"
 import serializeYARSPG from "./serializer/yarspg.js"
+import serializeNeoCSV from "./serializer/neocsv.js"
+import serializeFlat from "./serializer/flat.js"
 
 import { serialize } from "./serializer/pg.js"
 
@@ -40,4 +42,12 @@ export const pgformat = {
     name: "YARS-PG 3.0.0 with optional labels",
     serialize: serializeYARSPG,
   },
+  neocsv: {
+    name: "Neo4J CSV import files (experimental)",
+    serialize: serializeNeoCSV,
+  },
+//  flat: {
+//    name: "Oracle Flat File Format (experimental)",
+//    serialize: serializeFlat,
+//  },
 }

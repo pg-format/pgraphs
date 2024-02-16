@@ -4,21 +4,18 @@ import cli from "../src/cli.js"
 import { pgraph } from "../src/pgraph.js"
 import { pgformat } from "../index.js"
 
-const importable = Object.keys(pgformat).filter(key => "parse" in pgformat[key]).sort().join("|")
-const exportable = Object.keys(pgformat).filter(key => "serialize" in pgformat[key]).sort().join("|")
-
-const formats = Object.keys(pgformat).sort().map(id => {
+const formats = Object.keys(pgformat).map(id => {
   const { name, parse, serialize } = pgformat[id]
-  return "  " + (parse ? "from " + (serialize ? "and " : "") 
-    : "") + (serialize ? "to " : "") + `${name} (${id})` 
+  return "  " + id.padEnd(8) + (parse ? "from" + (serialize ? "/" : "") 
+    : "") + (serialize ? "to" : "") + " " + name
 }).join("\n")
 
 cli.usage("pgraph [options] [<input> [<output]]")
   .description("Convert between property graph serializations.")
-  .option(`-f, --from [format]   input format (${importable})`)
-  .option(`-t, --to [format]     output format (${exportable})`)
+  .option("-f, --from [format]   input format")
+  .option("-t, --to [format]     output format")
   .option("-v, --verbose         verbose error messages")
-  .details(`Format conversion is supported:\n${formats}`)
+  .details(`Supported conversion formats:\n${formats}`)
   .action(async (args, opt) => {
 
     // check arguments

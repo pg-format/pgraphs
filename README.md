@@ -86,19 +86,20 @@ Usage: pgraph [options] [<input> [<output]]
 Convert between property graph serializations.
 
 Options:
-  -f, --from [format]  input format (dot|json|ndjson|pg)
-  -t, --to [format]    output format (dot|json|ndjson|pg|xml|yarspg)
+  -f, --from [format]  input format
+  -t, --to [format]    output format
   -v, --verbose        verbose error messages
   -h, --help           show usage information
   -V, --version        show the version number
 
-Format conversion is supported:
-  from and to GraphViz dot (dot)
-  from and to PG-JSON (json)
-  from and to PG-NDJSON (ndjson)
-  from and to PG format (pg)
-  to GraphML (xml)
-  to YARS-PG 3.0.0 with optional labels (yarspg)
+Supported formats:
+  pg      from/to PG format
+  json    from/to PG-JSON
+  ndjson  from/to PG-NDJSON
+  dot     from/to GraphViz dot
+  xml     to GraphML
+  yarspg  to YARS-PG 3.0.0 with optional labels
+  neocsv  to Neo4J CSV import files (experimental)
 ~~~
 
 Experimental script `./bin/neo2pg.js` can be used to dump the default graph
@@ -224,6 +225,25 @@ format](examples/example.yarspg) is very similar to [PG format](#pg-format):
 <"102">{"person","student"}["country":"Japan","name":"Bob"]
 ("101")-["same_school"]["since":2012]-("102")
 ("101")-["likes"]["engaged":false,"since":2015]-("102")
+~~~
+
+### Neo4J CSV import
+
+Neo4J supports bulk import from CSV files. In this case pgraph requires a base
+name (optionally including directory) which is extended with `.nodes.headers`,
+`.nodes.tsv`, `.edges.header`, and `.edges.tsv` to filenames. The example graph
+is serialized as following, in four files:
+
+~~~tsv
+:ID	:LABEL	name:string[]	country:string
+
+101	person	Alice;Carol	United States
+102	person;student	Bob	Japan
+
+:START_ID	:END_ID	:TYPE	since:int	engaged:boolean
+
+101	102	same_school	2012
+101	102	likes	2015	false
 ~~~
 
 ## License
