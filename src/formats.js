@@ -6,11 +6,14 @@ import serializeNdjson from "./serializer/ndjson.js"
 import parseDot from "./parser/dot.js"
 import serializeDot from "./serializer/dot.js"
 
+
 import serializeGraphML from "./serializer/graphml.js"
 import serializeYARSPG from "./serializer/yarspg.js"
 import serializeYARSPG3 from "./serializer/yarspg3.js"
 import serializeNeoCSV from "./serializer/neocsv.js"
-import serializeFlat from "./serializer/flat.js"
+//import serializeFlat from "./serializer/flat.js"
+
+import parseNeo4J from "./parser/neo4j.js"
 
 import { serialize } from "./serializer/pg.js"
 
@@ -50,6 +53,10 @@ export const pgformat = {
   neocsv: {
     name: "Neo4J CSV import files (experimental)",
     serialize: serializeNeoCSV,
+  },
+  neo4j: {
+    name: "Neo4J server (via config file)",
+    parse: parseNeo4J,
   },
 //  flat: {
 //    name: "Oracle Flat File Format (experimental)",

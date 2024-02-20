@@ -1,5 +1,4 @@
-
-// YARS-PG 3.0.0 with optional labels
+// YARS-PG 5.0.0 without graph schema
 
 import { IDMap } from "../utils.js"
 

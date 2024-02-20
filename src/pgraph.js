@@ -1,5 +1,5 @@
 import fs from "fs"
-import { pgformat } from "../src/pgformat.js"
+import { pgformat } from "../src/formats.js"
 
 // read entire input to string
 const readStream = async input => {
@@ -34,11 +34,18 @@ export async function pgraph(source, target, opts) {
     throw new Error(`Output in ${opts.to} format requires string target`)
   }
  
-  const graph = from.parse(await readStream(source))
+  const writeGraph = graph => {
+    if (typeof target === "string") {
+      to.serialize(graph, target)
+    } else {
+      target.write(to.serialize(graph))
+    }
+  }
 
-  if (typeof target === "string") {
-    to.serialize(graph, target)
+  const graph = from.parse(await readStream(source))
+  if (graph instanceof Promise) {
+    return await graph.then(writeGraph)
   } else {
-    target.write(to.serialize(graph))
+    writeGraph(graph)
   }
 }

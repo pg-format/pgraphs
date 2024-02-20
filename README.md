@@ -18,6 +18,7 @@ property graph formats. See [below for an examples](#examples).
   - [GraphViz DOT](#graphviz-dot)
   - [GraphML](#graphml)
   - [YARS-PG](#yars-pg)
+  - [Neo4J](#neo4j)
 - [License](#license)
 
 ## Background
@@ -101,11 +102,13 @@ Supported formats:
   yarspg  to YARS-PG 5.0.0 without data types
   yarspg3 to YARS-PG 3.0.0 with optional labels
   neocsv  to Neo4J CSV import files (experimental)
+  neo4j   from Neo4J server (via config file)
 ~~~
 
-Experimental script `./bin/neo2pg.js` can be used to dump the default graph
-from a Neo4J database. First argument must be a JSON file with credentials like
-this:
+The `neo4j` input format expects a JSON file with Neo4J database URI and
+credentials like this and requires to install node package `neo4j-driver` (this
+is done automatically by calling `npm install` but not if this package is
+installed as dependency of another project):
 
 ~~~json
 {
@@ -114,10 +117,6 @@ this:
   "password": "secret"
 }
 ~~~
-
-The script requires to install node package `neo4j-driver` (this is done
-automatically by calling `npm install` but not if this package is installed as
-dependency of another project).
 
 ## Examples
 
@@ -128,8 +127,8 @@ two edges uses features such as multiple labels, and property values, numbers
 and boolean values:
 
 ~~~
-101 :person  name:Alice name:Carol country:"United States"
-102 :person  :student  name:Bob  country:Japan
+101 :person name:Alice name:Carol country:"United States"
+102 :person :student  name:Bob  country:Japan
 101 -- 102  :same_school  :same_class  since:2012
 101 -> 102  :likes  since:2015  engaged:false
 ~~~
@@ -239,12 +238,12 @@ format](examples/example.yarspg) is very similar to [PG format](#pg-format):
 ("101")-["likes"]["engaged":false,"since":2015]-("102")
 ~~~
 
-### Neo4J CSV import
+### Neo4J
 
-Neo4J supports bulk import from CSV files. In this case pgraph requires a base
-name (optionally including directory) which is extended with `.nodes.headers`,
-`.nodes.tsv`, `.edges.header`, and `.edges.tsv` to filenames. The example graph
-is serialized as following, in four files:
+Neo4J supports bulk import from CSV files. For `neocsv` output, pgraph requires
+a base name (optionally including directory) which is extended with
+`.nodes.headers`, `.nodes.tsv`, `.edges.header`, and `.edges.tsv` to filenames.
+The example graph is serialized as following, in four files:
 
 ~~~tsv
 :ID	:LABEL	name:string[]	country:string
@@ -256,6 +255,19 @@ is serialized as following, in four files:
 
 101	102	same_school	2012
 101	102	likes	2015	false
+~~~
+
+This graph imported into a Neo4J database and exported again (with output
+format `neo4j`) is serialized as following in PG. Apart from identifiers the
+import and export between PG and Neo4J is round-trip safe. Exporting arbitrary
+Neo4J graphs, however, may have some limitations when extened data types are
+used.
+
+~~~
+1 :person country:"United States" name:Alice name:Carol
+2 :person :student country:Japan name:Bob
+1 -> 2 :same_school since:2012
+1 -> 2 :likes engaged:false since:2015
 ~~~
 
 ## License

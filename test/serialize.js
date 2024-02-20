@@ -15,6 +15,12 @@ describe("serialize PG", () => {
       })
     }
   })
+
+  const graph = {
+    nodes: [{ id: "1", labels: ["a"], properties: { a: ["b"], x: ["y z"], "x:y": ["z"] }}],
+    edges: [], 
+  }
+  assert.equal(serialize(graph), "1 :a a:b x:\"y z\" \"x:y\":z\n")
 })
  
 const files = fs.readdirSync(localPath("../examples"))
