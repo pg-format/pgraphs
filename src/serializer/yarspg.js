@@ -1,14 +1,24 @@
+
 // YARS-PG 3.0.0 with optional labels
 
-const stringEscape = { "\\": "\\\\", "\"": "\\\"" }
-const serializeString = s => "\"" + s.replaceAll(/[\n\r]/g," ").replaceAll(/["\\]/g, c => stringEscape[c]) + "\""
+import { IDMap } from "../utils.js"
 
-const serializeValue = value => 
-  typeof value === "string" ? serializeString(value) : value 
+const stringEscape = {
+  "\t": "\\t",
+  "\b": "\\b",
+  "\n": "\\n",
+  "\r": "\\r",
+  "\f": "\\f",
+  "\"": "\\\"",
+  ";": "\\;",
+  "\\": "\\\\", 
+}
+const stringEscapeChars = /[\t\b\n\r\f";\\]/g
+const string = s => `"${s.toString().replaceAll(stringEscapeChars, c => stringEscape[c])}"`
 
 const serializeKeyValue = (key, value) =>
-  serializeString(key) + ":" +
-  (value.length == 1 ? serializeValue(value[0]) : "[" + value.map(serializeValue).join(",") + "]")
+  string(key) + ":" +
+  (value.length == 1 ? string(value[0]) : "[" + value.map(string).join(",") + "]")
     
 const serializeProperties = properties => {
   const keys = Object.keys(properties)
@@ -16,19 +26,23 @@ const serializeProperties = properties => {
          keys.sort().map(key => serializeKeyValue(key, properties[key])) + "]" : ""
 }
 
-const serializeNode = ({id, labels, properties}) => 
-  "<" + serializeString(id) + ">" +
-  (labels.length ? `{${labels.map(serializeString).join(",")}}` : "") +
-  serializeProperties(properties)
+export default ({nodes, edges}) => {
+  const ids = new IDMap("node")
 
-const serializeEdge = ({from, to, directed, labels, properties}) => 
-  "(" + serializeString(from) + ")-" +
-    (labels.length ? `[${serializeString(labels[0])}]` : "") +
+  const serializeNode = ({id, labels, properties}) => 
+    "(" + ids.map(id) +
+    (labels.length ? `{${labels.map(string).join(",")}}` : "") +
+    serializeProperties(properties) + ")"
+
+  const serializeEdge = ({from, to, directed, labels, properties}) => 
+    "(" + ids.map(from) + ")-" +
+    (labels.length ? `[${string(labels[0])}]` : "") +
     serializeProperties(properties) +
     (directed ? "->" : "-") +
-    "(" + serializeString(to) + ")"
+    "(" + ids.map(to) + ")"
 
-export default ({nodes, edges}) => [
-  ...nodes.map(serializeNode),
-  ...edges.map(serializeEdge),
-].join("\n")+"\n"
+  return [
+    ...nodes.map(serializeNode),
+    ...edges.map(serializeEdge),
+  ].join("\n")+"\n"
+}

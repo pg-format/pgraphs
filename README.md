@@ -98,7 +98,8 @@ Supported formats:
   ndjson  from/to PG-NDJSON
   dot     from/to GraphViz dot
   xml     to GraphML
-  yarspg  to YARS-PG 3.0.0 with optional labels
+  yarspg  to YARS-PG 5.0.0 without data types
+  yarspg3 to YARS-PG 3.0.0 with optional labels
   neocsv  to Neo4J CSV import files (experimental)
 ~~~
 
@@ -217,7 +218,18 @@ values are converted to strings:
 
 ### YARS-PG
 
-At the moment only version 3.0.0 is supported. The graph [in this
+Export to YARS-PG 5.0.0 is limited to nodes and edges without schema, so all
+property values are mapped to strings:
+
+~~~
+(node1{"person"}["country":"United States","name":["Alice","Carol"]])
+(node2{"person","student"}["country":"Japan","name":"Bob"])
+(node1)-["same_school"]["since":"2012"]-(node2)
+(node1)-["likes"]["engaged":"false","since":"2015"]-(node2)
+~~~
+
+YARS-PG 3.0.0 supported data types without a schema but labels were mandatory.
+The exported format variant lifts this restriction, so the graph [in this
 format](examples/example.yarspg) is very similar to [PG format](#pg-format):
 
 ~~~
