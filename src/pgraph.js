@@ -1,5 +1,6 @@
 import fs from "fs"
 import { pgformat } from "../src/formats.js"
+import { GraphTarget, StreamTarget } from "../src/target.js"
 
 // read entire input to string
 const readStream = async input => {
@@ -31,11 +32,11 @@ export async function pgraph(source, target, opts) {
       target = fs.createWriteStream(target)
     }
   } else if (to.serialize.multi) {
-    throw new Error(`Output in ${opts.to} format requires string target`)
+    target = new StreamTarget(target)
   }
  
   const writeGraph = graph => {
-    if (typeof target === "string") {
+    if (typeof target === "string" || target instanceof GraphTarget) {
       to.serialize(graph, target)
     } else {
       target.write(to.serialize(graph))

@@ -1,16 +1,32 @@
 import fs from "fs"
 
-export class MultiTarget {
+export class GraphTarget { }
+
+export class MultiTarget extends GraphTarget {
   constructor(base) {
+    super()
     this.base = base
   }
   open(suffix) {
-    return fs.createWriteStream(this.base + suffix)
+    const file = this.base + suffix
+    console.log(file)
+    return fs.createWriteStream(file)
   }
 }
 
-export class StringTargets {
+export class StreamTarget extends GraphTarget  {
+  constructor(stream) {
+    super()
+    this.stream = stream
+  }
+  open() {
+    return this.stream
+  }
+}
+
+export class StringTargets extends GraphTarget  {
   constructor() {
+    super()
     this.result = {}
   }
   open(suffix) {
