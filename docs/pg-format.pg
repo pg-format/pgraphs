@@ -6,11 +6,11 @@ node -> another-node
 # comments and empty or whitespace-only lines (spaces and/or tabs) are ignored.
   # comments, unlike nodes and edges, can be intended with whitespace.
 
-# A node identifier can be given as plain string not containing whitespace
-# nor quotation marks, and it must not start or end with a colon, nor with
-# opening or closing parentheses, respectively:
+# A node identifier can be given as plain string not containing whitespace nor
+# quotation marks or comman, and it must not start or end with a colon, nor
+# with opening or closing parentheses, respectively:
 
-!#$%&'()*+,-./0123456789:;<=>?@
+!#$%&'()*+-./0123456789:;<=>?@
 
 # Node identifiers can also be given as quoted string following JSON syntax:
 
@@ -39,8 +39,8 @@ x ->
 node :label1 :another:label
 
 # The label name can be given as quoted string or as plain string not
-# containing whitespace nor quotation marks and not ending with a colon
-# or opening or closing parentheses, respectively.
+# containing whitespace nor quotation marks or comman, and not ending with a
+# colon nor comma, nor opening or closing parentheses, respectively.
 
 node -> another-node :"label with impractial name:"
 

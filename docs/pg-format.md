@@ -85,12 +85,14 @@ PROPERTY    ::= ( ID ':' WS ( scalar | plain ) )
               | ( ALLOWED+ |  string ) ':' WS? ( scalar | ALLOWED+ )
 ~~~
 
-Identifiers, labels, and property names can be given as string or in plain form (that is not including space or quotation mark and not not starting or ending with a colon or with parentheses):
+Identifiers, labels, and property names can be given as string or in plain form
+(that is not including space or comma or quotation mark and not not starting or
+ending with a colon, comma or parentheses):
 
 ~~~
 ID          ::= STRING | PLAIN
-PLAIN       ::= ALLOWED ( ( CHAR - ( SPACE | '"' ) )* ALLOWED )?
-ALLOWED     ::= ( CHAR - ( SPACE | '"' | ':' | '(' | ')' ) )+
+PLAIN       ::= ALLOWED ( ( CHAR - ( SPACE | '"' | ',' ) )* ALLOWED )?
+ALLOWED     ::= ( CHAR - ( SPACE | '"' | ':' | '(' | ')' | ',' ) )+
 ~~~
 
 Values are defined equivalent to scalar values in JSON (RFC 4627):
