@@ -19,6 +19,7 @@ property graph formats. See [below for an examples](#examples).
   - [GraphML](#graphml)
   - [YARS-PG](#yars-pg)
   - [CSV](#csv)
+  - [Neptune CSV](#neptune-csv)
 - [License](#license)
 
 ## Background
@@ -93,17 +94,17 @@ Options:
   -h, --help           show usage information
   -V, --version        show the version number
 
-Supported formats:
-  pg      from/to PG format
+Supported conversion formats:
+  pg      from/to PG format (default input)
   json    from/to PG-JSON
-  ndjson  from/to PG-NDJSON
+  ndjson  from/to PG-NDJSON (default output)
   dot     from/to GraphViz dot
+  neo4j   from Neo4J server (via config file)
   xml     to GraphML
   yarspg  to YARS-PG 5.0.0 without data types
   yarspg3 to YARS-PG 3.0.0 with optional labels
-  csv     to Neo4J/OpenCypher CSV files
-  tsv     to Neo4J TSV files (experimental)
-  neo4j   from Neo4J server (via config file)
+  csv     to OpenCypher/Neo4J CSV files
+  neptune to Neptune CSV import (aka Gremlin load data format)
 ~~~
 
 The `neo4j` input format expects a JSON file with Neo4J database URI and
@@ -282,6 +283,26 @@ removal of semicolons, and support of additional data types.
 
 [CSV header format]: https://neo4j.com/docs/operations-manual/current/tools/neo4j-admin/neo4j-admin-import/#import-tool-header-format 
 [OpenCypher CSV format]: https://docs.aws.amazon.com/neptune/latest/userguide/bulk-load-tutorial-format-opencypher.html
+
+### Neptune CSV
+
+Amazon Neptune graph database also supports import of property graph data in
+a CSV format called [Gremlin load data
+format](https://docs.aws.amazon.com/neptune/latest/userguide/bulk-load-tutorial-format-gremlin.html)
+(but only by Amazon, not by Apache TinkerPop community). This CSV format is very similar to
+the more common [CSV](#csv) format but it also allows to use semicolon in values, escaped as `\;`.
+
+The example graph is serialized as following, in two files:
+
+~~~csv
+~id,~label,name:String[],country:String
+101,person,Alice;Carol,United States
+102,person;student,Bob,Japan
+
+~id,~from,~to,~label,since:Int,engaged:Bool
+0,101,102,same_school,2012
+1,101,102,likes,2015,false
+~~~
 
 ## License
 

@@ -6,17 +6,13 @@ import serializeNdjson from "./serializer/ndjson.js"
 import parseDot from "./parser/dot.js"
 import serializeDot from "./serializer/dot.js"
 
-
 import serializeGraphML from "./serializer/graphml.js"
 import serializeYARSPG from "./serializer/yarspg.js"
 import serializeYARSPG3 from "./serializer/yarspg3.js"
 import serializeCSV from "./serializer/csv.js"
+import serializeNeptune from "./serializer/neptune.js"
 //import serializeFlat from "./serializer/flat.js"
 
-/*const serializeTSV = (graph, target, opt) =>
-  serializeCSV(graph, target, {...opt, delimiter: "\t", arrayDelimiter: "\x1F" })
-serializeTSV.multi = true
-*/
 
 import parseNeo4J from "./parser/neo4j.js"
 
@@ -43,6 +39,10 @@ export const pgformat = {
     parse: parseDot,
     serialize: serializeDot,
   },
+  neo4j: {
+    name: "Neo4J server (via config file)",
+    parse: parseNeo4J,
+  },
   xml: {
     name: "GraphML",
     serialize: serializeGraphML,
@@ -59,13 +59,9 @@ export const pgformat = {
     name: "OpenCypher/Neo4J CSV files",
     serialize: serializeCSV,
   },
-  //tsv: {
-  //  name: "OpenCypher/Neo4J TSV files",
-  //  serialize: serializeTSV,
-  //},
-  neo4j: {
-    name: "Neo4J server (via config file)",
-    parse: parseNeo4J,
+  neptune: {
+    name: "Neptune CSV import (aka Gremlin load data format)",
+    serialize: serializeNeptune,
   },
 //  flat: {
 //    name: "Oracle Flat File Format (experimental)",
