@@ -18,7 +18,7 @@ property graph formats. See [below for an examples](#examples).
   - [GraphViz DOT](#graphviz-dot)
   - [GraphML](#graphml)
   - [YARS-PG](#yars-pg)
-  - [Neo4J](#neo4j)
+  - [CSV](#csv)
 - [License](#license)
 
 ## Background
@@ -101,7 +101,8 @@ Supported formats:
   xml     to GraphML
   yarspg  to YARS-PG 5.0.0 without data types
   yarspg3 to YARS-PG 3.0.0 with optional labels
-  neocsv  to Neo4J CSV import files (experimental)
+  csv     to Neo4J/OpenCypher CSV files
+  tsv     to Neo4J TSV files (experimental)
   neo4j   from Neo4J server (via config file)
 ~~~
 
@@ -238,30 +239,39 @@ format](examples/example.yarspg) is very similar to [PG format](#pg-format):
 ("101")-["likes"]["engaged":false,"since":2015]-("102")
 ~~~
 
-### Neo4J
+### CSV
 
-Neo4J supports bulk import from CSV files. For `neocsv` output, pgraph requires
-a base name (optionally including directory) which is extended with
-`.nodes.headers`, `.nodes.tsv`, `.edges.header`, and `.edges.tsv` to filenames.
+Property graphs can be stored in form of separate CSV files for nodes and
+edges, respectively. An nearly common form these files is supported by Neo4J as
+[CSV header format] and by Amazon Neptune as [OpenCypher CSV format]. pgraph
+creates four files in `csv` format using the `output` as base name (with
+optional directory):
+
+- base + `.nodes.headers` and base + `.nodes.csv` with node data
+- base + `.edges.header`, and base + `.edges.csv` with edge data
+
 The example graph is serialized as following, in four files:
 
-~~~tsv
-:ID	:LABEL	name:string[]	country:string
+~~~csv
+:START_ID,:END_ID,:TYPE,since:int,engaged:boolean
 
-101	person	Alice;Carol	United States
-102	person;student	Bob	Japan
+101,102,same_school,2012
+101,102,likes,2015,false
 
-:START_ID	:END_ID	:TYPE	since:int	engaged:boolean
+:ID,:LABEL,name:string[],country:string
 
-101	102	same_school	2012
-101	102	likes	2015	false
+101,person,Alice;Carol,United States
+102,person;student,Bob,Japan
 ~~~
 
-This graph imported into a Neo4J database and exported again (with output
-format `neo4j`) is serialized as following in PG. Apart from identifiers the
-import and export between PG and Neo4J is round-trip safe. Exporting arbitrary
-Neo4J graphs, however, may have some limitations when extened data types are
-used.
+Repeated labels and property values are separated by semicolon so 
+this character is automactially stripped from labels and property
+values. Configuration of this character is not supported yet.
+
+Imported back into a Neo4J database and exported again (with output format
+`neo4j`) is serialized as following in PG. Thus conversion of property graphs
+between PG and Neo4J or Neptune should be round-trip apart from identifiers,
+removal of semicolons, and support of additional data types.
 
 ~~~
 1 :person country:"United States" name:Alice name:Carol
@@ -269,6 +279,9 @@ used.
 1 -> 2 :same_school since:2012
 1 -> 2 :likes engaged:false since:2015
 ~~~
+
+[CSV header format]: https://neo4j.com/docs/operations-manual/current/tools/neo4j-admin/neo4j-admin-import/#import-tool-header-format 
+[OpenCypher CSV format]: https://docs.aws.amazon.com/neptune/latest/userguide/bulk-load-tutorial-format-opencypher.html
 
 ## License
 

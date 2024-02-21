@@ -19,9 +19,11 @@
   "scripts": {
     "test": "mocha",
     "lint": "eslint --fix './**/*.js'",
+    "update-example": "pgraph examples/example.pg -t csv examples/csv/example",
     "generate-parser": "peggy --allowed-start-rules NodeOrEdge --format es -o src/pg_line_parser.js ./src/pg.pegjs"
   },
   "dependencies": {
+    "@pinemach/csv": "^1.0.4",
     "dotparser": "^1.1.1"
   }
 }

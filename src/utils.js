@@ -1,3 +1,6 @@
+import { Writer } from "@pinemach/csv"
+export const CSVWriter = Writer
+
 // Maps arbitrary identifier strings to enumerated identifiers 
 export class IDMap extends Map {
   constructor(base="") {
@@ -15,3 +18,5 @@ export class IDMap extends Map {
     }
   }
 }   
+
+

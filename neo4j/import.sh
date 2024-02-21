@@ -4,8 +4,11 @@ set -euo pipefail
 cwd=$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" &> /dev/null && pwd)
 
 base=import/example
+delimiter=","
+ext=csv
+arrayDelimiter=";"
 
-importcommand="./bin/neo4j-admin database import full --overwrite-destination --nodes=$base.nodes.header,$base.nodes.tsv --relationships=$base.edges.header,$base.edges.tsv --delimiter=TAB"
+importcommand="./bin/neo4j-admin database import full --overwrite-destination --nodes=$base.nodes.header,$base.nodes.$ext --relationships=$base.edges.header,$base.edges.$ext --delimiter=\"$delimiter\" --array-delimiter=\"$arrayDelimiter\""
 
 echo "stopping neo4j"
 docker stop neo4j

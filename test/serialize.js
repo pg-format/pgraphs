@@ -48,14 +48,16 @@ describe("serialize lossy formats", () => {
 describe("serialize multifile formats", () => {
   for (let format of files.filter(file => !file.match(/[.]/))) {
     const name = "example"
-    it(`${name} in ${format}`, () => {
-      const graph = graphs[`${name}.json`]
-      const target = new StringTargets()
-      pgformat[format].serialize(graph, target)
-      fs.readdirSync(localPath(`../examples/${format}`)).forEach(file => {
-        assert.equal(target.result[file.substr(name.length)], readFile(`../examples/${format}/${file}`))
+    if (pgformat[format]?.serialize) {
+      it(`${name} in ${format}`, () => {
+        const graph = graphs[`${name}.json`]
+        const target = new StringTargets()
+        pgformat[format].serialize(graph, target)
+        fs.readdirSync(localPath(`../examples/${format}`)).forEach(file => {
+          assert.equal(target.result[file.substr(name.length)], readFile(`../examples/${format}/${file}`))
+        })
       })
-    })
+    }
   }
 })
 

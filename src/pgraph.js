@@ -14,7 +14,7 @@ const readStream = async input => {
 // convert input stream to output stream
 export async function pgraph(source, target, opts) {
   const from = pgformat[opts.from || "pg"]
-  const to = pgformat[opts.to || "json"]
+  const to = pgformat[opts.to || "ndjson"]
 
   if (!from) {
     throw new Error(`Unknown source format: ${opts.from}`)
