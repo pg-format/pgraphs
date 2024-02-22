@@ -16,11 +16,15 @@ describe("serialize PG", () => {
     }
   })
 
-  const graph = {
-    nodes: [{ id: "1", labels: ["a"], properties: { a: ["b"], x: ["y z"], "x:y": ["z"] }}],
-    edges: [], 
-  }
-  assert.equal(serialize(graph), "1 :a a:b x:\"y z\" \"x:y\":z\n")
+  it("special examples", () => {
+    const examples = {
+      "1 :a a:b x:\"y z\" \"x:y\":z": [{ id: "1", labels: ["a"], properties: { a: ["b"], x: ["y z"], "x:y": ["z"] }}],
+      "1:2 :\"[]\" \")(\":\",\"": [{ id: "1:2", labels: ["[]"], properties: {")(":[","]}}],
+    }
+    for (let [pg, nodes] of Object.entries(examples)) {
+      assert.equal(serialize({ nodes, edges: [] }), pg+"\n")
+    }
+  })
 })
  
 const files = fs.readdirSync(localPath("../examples"))

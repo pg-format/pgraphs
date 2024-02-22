@@ -40,7 +40,7 @@ export const pgformat = {
     serialize: serializeDot,
   },
   neo4j: {
-    name: "Neo4J server (via config file)",
+    name: "Neo4J server (via Cypher query)",
     parse: parseNeo4J,
   },
   xml: {

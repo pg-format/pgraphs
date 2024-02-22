@@ -16,7 +16,7 @@ const ID = new RegExp(`(${STRING.source}|${PLAIN.source})`)
 const NODE = new RegExp(`^${ID.source}`)
 const EDGE = new RegExp(`^${ID.source}${WS.source}${DIRECTION.source}${WS.source}${ID.source}`)
 const LABEL = new RegExp(`^${WS.source}:${ID.source}`)
-const SCALAR = new RegExp(`^(${STRING.source}|true|false|null|-?[0-9]+(\\.[0-9]+)?)`)
+const SCALAR = new RegExp(`^(${STRING.source}|true|false|null|-?[0-9]+(\\.[0-9]+)?)([eE][+-]?[0-9]+)?`)
 const ALLOWED = new RegExp("^[^\": \\t()]+")
 
 const extractItem = function (line, lnum) {

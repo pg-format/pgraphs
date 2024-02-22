@@ -38,7 +38,7 @@ Unicode characters, excluding the surrogate blocks, FFFE, and FFFF. Parsers
 may accept additional code points by ignoring them or by replacing them with the
 Unicode replacement character `#FFFD`.
 
-~~~
+~~~ebnf
 CHAR	    ::= #x9 | #xA | [#x20-#xD7FF] | [#xE000-#xFFFD] | [#x10000-#x10FFFF]
 ~~~
 
@@ -46,14 +46,14 @@ An encoded graph consists of a (possibly empty) sequence of nodes, edges and
 skipped lines. These elements are separated by line breaks. A final line break
 is optional.
 
-~~~
+~~~ebnf
 PG          ::= ( ELEMENT SPACE? ( #xA ELEMENT SPACE? )* )? #A?
 ELEMENT     ::= NODE | EDGE | SKIPPED
 ~~~
 
 Skipped lines are empty or consist of spaces and/or a comment:
 
-~~~
+~~~ebnf
 SKIPPED     ::= ( #x20 | #x9 )* COMMENT?
 COMMENT     ::= '#' ( CHAR - #A )*
 ~~~
@@ -62,7 +62,7 @@ Whitespace is required or allowed between some parts of NODEs and EDGEs.
 Whitespace can contain comments, line breaks and skipped lines only when
 following line is intended by at least one space:
 
-~~~
+~~~ebnf
 WS          ::= ( SPACE | FOLDING )+ ( SPACE | COMMENT | FOLDING )*
 FOLDING     ::= ( #A SKIPPED )* #A SPACE+ )+
 SPACE       ::= ( #x20 | #x9 )+
@@ -70,38 +70,50 @@ SPACE       ::= ( #x20 | #x9 )+
 
 A NODE consists of an identifier, followed by optional labels and/or properties:
 
-~~~
+~~~ebnf
 NODE        ::= ID ( WS LABEL )* ( WS PROPERTY )*
 ~~~
 
 An EDGE consists of an identifier, followed a direction, another identifier,
 and optional labels and/or properties:
 
-~~~
+~~~ebnf
 EDGE        ::= ID WS? DIRECTION WS? ID ( WS LABEL )* ( WS PROPERTY )*
 DIRECTION   ::= '--' | '->' | '<-'
 LABEL       ::= ':' ID
-PROPERTY    ::= ( ID ':' WS ( scalar | plain ) )
-              | ( ALLOWED+ |  string ) ':' WS? ( scalar | ALLOWED+ )
+PROPERTY    ::= WITHSPACE | CONDENSE
+~~~
+
+Property assignments can have multiple forms:
+
+~~~ebnf
+WITHSPACED  ::= ID ':' WS ( SCALAR | PLAIN )
+CONDENSE    ::= ( PLAINCHAR+ | STRING ) ':' WS? ( SCALAR | PLAINCHAR+ )
 ~~~
 
 Identifiers, labels, and property names can be given as string or in plain form
-(that is not including space or comma or quotation mark and not not starting or
-ending with a colon, comma or parentheses):
+without quotation marks. Plain strings must not include space, comma, nor
+quotation mark and they must not begin nor end with a bracket character:
 
-~~~
+~~~ebnf
 ID          ::= STRING | PLAIN
-PLAIN       ::= ALLOWED ( ( CHAR - ( SPACE | '"' | ',' ) )* ALLOWED )?
-ALLOWED     ::= ( CHAR - ( SPACE | '"' | ':' | '(' | ')' | ',' ) )+
+PLAIN       ::= PLAINCHAR ( ( CHAR - ( SPACE | '"' | ',' ) )* PLAINCHAR )?
+PLAINCHAR   ::= CHAR - ( SPACE | '"' | ':' | ',' | BRACKET )
+BRACKET     ::= '(' | ')' | '[' | ']' | '{' | '}' | '<' | '>'
 ~~~
+
+The exclusion of bracket characters is motivated by the ability to make use of
+these special characters to define extensions such as queries, variables, and
+templates (all beyond the scope of PG format).
 
 Values are defined equivalent to scalar values in JSON (RFC 4627):
 
-~~~
+~~~ebnf
 SCALAR      ::= BOOLEAN | NULL | NUMBER | STRING
 BOOLEAN     ::= 'true' | 'false' 
 NULL        ::= 'null'
-NUMBER      ::= '-'? ( DIGIT - '0' ) DIGIT* ( '.' DIGIT+ )? 
+NUMBER      ::= '-'? ( DIGIT - '0' ) DIGIT* ( '.' DIGIT+ )? EXPONENT?
+EXPONENT    ::= ( 'e' | 'E' ) ( '+' | '-' )? DIGIT+
 DIGIT       ::= '0' | '1' | '2' | '3' | '4' | '5' | '6' | '7' | '8' | '9'
 STRING      ::= '"' ( UNESCAPED | ESCAPED )* '"'
 UNESCAPED   ::= #x20-21 | #x23-58 | #x5D-#x10FFFF

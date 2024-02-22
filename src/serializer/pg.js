@@ -1,4 +1,9 @@
-export const quoteLabel = s => /["\s,]|^$|^[:(]|[:)]$/.test(s) ? JSON.stringify(s) : s
+
+// PLAIN ::= PLAINCHAR ( ( CHAR - ( SPACE | '"' | ',' ) )* PLAINCHAR )?
+const plainChar = "[^\\s\":,()\\]\\[{}<>]"
+const plain = new RegExp(`^${plainChar}([^\\s",]*${plainChar})?$`)
+
+export const quoteLabel = s => plain.test(s) ? s : JSON.stringify(s)
 
 export const quoteKey = s => /[":\s(),]|^$/.test(s) ? JSON.stringify(s) : s
 
