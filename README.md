@@ -3,7 +3,7 @@
 > Property Graph Exchange Format (PG) parser and serializer
 
 This package implements parsers and serializers to convert between labeled
-property graph formats. See [below for an examples](#examples).
+property graph formats. See [below for examples](#formats).
 
 ## Table of Contents
 
@@ -12,7 +12,7 @@ property graph formats. See [below for an examples](#examples).
 - [Usage](#usage)
   - [API](#api)
   - [CLI](#cli)
-- [Examples](#examples)
+- [Formats](#formats)
   - [PG format](#pg-format)
   - [PG JSON and NDJSON](#pg-json-and-ndjson)
   - [GraphViz DOT](#graphviz-dot)
@@ -33,10 +33,10 @@ undirected.  Each of the nodes and edges can have a set of zero or more
 key-value pairs where the same key may have multiple values. **values** are
 Unicode strings or scalar values of other data types.
 
-Property graphs applications and formats differ in their model by different
-support of data types, restrictions on labels etc. This package implements the
-**Property Graph Exchange Format (PG)**, aimed to be a superset of common
-models, with parsers and serializers from and to various formats.
+Property graphs [applications and formats](#formats) differ in their model by
+different support of data types, restrictions on labels etc. This package
+implements the **Property Graph Exchange Format (PG)**, aimed to be a superset
+of common models, with parsers and serializers from and to various formats.
 
 A first version of the PG model and its serializations **PG format** and
 **PG-JSON** have been proposed by Hirokazu Chiba, Ryota Yamanaka, and Shota
@@ -122,7 +122,11 @@ installed as dependency of another project):
 }
 ~~~
 
-## Examples
+## Formats
+
+Several formats and conventions exist to store labeled property graphs. Each
+format comes with a syntax and a limited or extended data model of property
+graphs: not every feature can be expressed in every format.
 
 ### PG format
 
