@@ -1,6 +1,6 @@
 import { assert } from "chai"
 import fs from "fs"
-import { localPath, readFile } from "./utils.js"
+import { localPath, readExample } from "./utils.js"
 import { pgformat } from "../index.js"
 import { StringTargets } from "../src/target.js"
 
@@ -10,7 +10,7 @@ describe("serialize PG", () => {
   fs.readdirSync(localPath("../examples")).forEach(file => {
     if (file.match(/\.json$/)) {
       it(file, () => {
-        const graph = JSON.parse(readFile(`../examples/${file}`))
+        const graph = JSON.parse(readExample(file))
         assert.deepEqual(parse(serialize(graph)), graph)
       })
     }
@@ -31,20 +31,25 @@ const files = fs.readdirSync(localPath("../examples"))
 
 const graphs = Object.fromEntries(
   files.filter(f => f.match(/\.json$/)).map(file => [
-    file, JSON.parse(readFile(`../examples/${file}`)),
+    file, JSON.parse(readExample(file)),
   ]),
 )
 
 describe("serialize lossy formats", () => {
   for (let file of files) {
     const [name, type] = file.split(".")
-    const { serialize } = pgformat[type] || {}
+    const { parse, serialize } = pgformat[type] || {}
     const graph = graphs[`${name}.json`]
     if (graph && serialize && !/^(json|ndjson|pg)$/.test(type)) {
       it(file, () => {
         const s = serialize(graph)
-        assert.equal( readFile(`../examples/${file}`), s )
+        assert.equal( readExample(file), s )
       })
+      if (parse) {
+        it(`parse ${file}`, () => {
+          assert.ok(parse(readExample(file))?.nodes.length)
+        })
+      }
     }
   }
 })
@@ -58,7 +63,7 @@ describe("serialize multifile formats", () => {
         const target = new StringTargets()
         pgformat[format].serialize(graph, target)
         fs.readdirSync(localPath(`../examples/${format}`)).forEach(file => {
-          assert.equal(target.result[file.substr(name.length)], readFile(`../examples/${format}/${file}`))
+          assert.equal(target.result[file.substr(name.length)], readExample(`${format}/${file}`))
         })
       })
     }

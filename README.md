@@ -20,6 +20,7 @@ property graph formats. See [below for an examples](#examples).
   - [YARS-PG](#yars-pg)
   - [CSV](#csv)
   - [Neptune CSV](#neptune-csv)
+  - [TGF](#tgf)
 - [License](#license)
 
 ## Background
@@ -99,7 +100,8 @@ Supported conversion formats:
   json    from/to PG-JSON
   ndjson  from/to PG-NDJSON (default output)
   dot     from/to GraphViz dot
-  neo4j   from Neo4J server (via config file)
+  tgf     from/to Trivial Graph Format
+  neo4j   from Neo4J server (via Cypher query)
   xml     to GraphML
   yarspg  to YARS-PG 5.0.0 without data types
   yarspg3 to YARS-PG 3.0.0 with optional labels
@@ -302,6 +304,30 @@ The example graph is serialized as following, in two files:
 ~id,~from,~to,~label,since:Int,engaged:Bool
 0,101,102,same_school,2012
 1,101,102,likes,2015,false
+~~~
+
+### TGF
+
+The [Trivial Graph Format](https://en.wikipedia.org/wiki/Trivial_Graph_Format)
+(TGF) is a text-based format to exchange labeled graphs. It does not support
+properties, multiple labels nor line breaks in labels. The example graph is
+serialized as following:
+
+~~~tgf
+1 person
+2 person
+#
+1 2 same_school
+1 2 likes
+~~~
+
+Parsed back from TGF and serialized as PG format, this is equivalent to:
+
+~~~
+1 :person
+2 :person
+1 -> 2 :same_school
+1 -> 2 :likes
 ~~~
 
 ## License

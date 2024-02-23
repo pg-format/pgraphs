@@ -19,4 +19,7 @@ export class IDMap extends Map {
   }
 }   
 
-
+export const graph = (nodes, edges) => ({
+  nodes: Object.keys(nodes).sort().map(id => nodes[id]),
+  edges,
+})

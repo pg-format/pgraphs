@@ -1,4 +1,5 @@
 import dotparser from "dotparser"
+import { graph } from "../utils.js"
 
 /**
  * Parse and convert DOT to PG.
@@ -35,8 +36,5 @@ export default (string) => {
     }
   }
 
-  return {
-    nodes: Object.keys(nodes).sort().map(id => nodes[id]),
-    edges,
-  }
+  return graph(nodes, edges)
 }

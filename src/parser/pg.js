@@ -1,4 +1,5 @@
 import { ParsingError } from "../error.js"
+import { graph } from "../utils.js"
 
 // remove double quotes
 const parseId = s => /^".*"$/.test(s) ? JSON.parse(s) : s
@@ -151,8 +152,5 @@ export default (pgstring) => {
     }
   })
 
-  return {
-    nodes: Object.keys(nodes).sort().map(id => nodes[id]),
-    edges,
-  }
+  return graph(nodes, edges)
 }

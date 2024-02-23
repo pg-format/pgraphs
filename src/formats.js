@@ -12,7 +12,8 @@ import serializeYARSPG3 from "./serializer/yarspg3.js"
 import serializeCSV from "./serializer/csv.js"
 import serializeNeptune from "./serializer/neptune.js"
 //import serializeFlat from "./serializer/flat.js"
-
+import parseTGF from "./parser/tgf.js"
+import serializeTGF from "./serializer/tgf.js"
 
 import parseNeo4J from "./parser/neo4j.js"
 
@@ -38,6 +39,11 @@ export const pgformat = {
     name: "GraphViz dot",
     parse: parseDot,
     serialize: serializeDot,
+  },
+  tgf: {
+    name: "Trivial Graph Format",
+    parse: parseTGF,
+    serialize: serializeTGF,
   },
   neo4j: {
     name: "Neo4J server (via Cypher query)",
