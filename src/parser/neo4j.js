@@ -1,7 +1,7 @@
 import { IDMap } from "../utils.js"
 
 // TODO: import via promise
-import neo4j from "neo4j-driver"
+import neo4j from "neo4j-driver-lite"
 
 // TODO handle all data types
 const propertiesMustHaveArrayValues = properties => {
@@ -24,8 +24,6 @@ export default async json => {
   const ids = new IDMap()
   const nodes = [], edges = []
 
-  // TODO: better return result as stream
-
   const processNode = ({ labels, properties, elementId }) => {
     propertiesMustHaveArrayValues(properties)
     nodes.push({
@@ -45,15 +43,19 @@ export default async json => {
     })
   }
 
+  const query = `MATCH (n)
+OPTIONAL MATCH (n)-[r]-(m)
+RETURN COLLECT(DISTINCT n) AS nodes, COLLECT(DISTINCT r) AS edges`
+
   return new Promise((resolve, onError) => {
-    session.run("MATCH (n) RETURN n").subscribe({
-      onError, onNext: record => processNode(record.get("n")),
-      onCompleted: () => {
-        session.run("MATCH ()-[r]->() RETURN r").subscribe({
-          onError, onNext: record => processEdge(record.get("r")),
-          onCompleted: async () => session.close().then(() => driver.close()).then(() => resolve({ nodes, edges })),
-        })
+    session.run(query).subscribe({
+      onNext: record => {
+        record.get("nodes").forEach(processNode)
+        record.get("edges").forEach(processEdge)
       },
+      onError, 
+      onCompleted: async () =>
+        session.close().then(() => driver.close()).then(() => resolve({ nodes, edges })),
     })
   })
 }
