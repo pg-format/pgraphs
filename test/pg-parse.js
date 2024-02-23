@@ -54,6 +54,7 @@ const invalid = {
   "(a": "line 1 must start with node or edge",
   "()": "line 1 must start with node or edge",
   "\n\na)": "invalid node identifier at line 3 character 2 is )",
+  "a:;b": "invalid node identifier at line 1",
 }
 
 describe("parsing errors", () => {

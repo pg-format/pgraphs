@@ -10,7 +10,7 @@ node -> another-node
 # quotation marks or comman, and it must not start or end with a colon, nor
 # with opening or closing parentheses, respectively:
 
-!#$%&'()*+-./0123456789:;<=>?@
+!#$%&'()*+-./0123456789:<=>?@
 
 # Node identifiers can also be given as quoted string following JSON syntax:
 

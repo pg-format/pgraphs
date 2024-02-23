@@ -1,11 +1,11 @@
 
-// PLAIN ::= PLAINCHAR ( ( CHAR - ( SPACE | '"' | ',' ) )* PLAINCHAR )?
-const plainChar = "[^\\s\":,()\\]\\[{}<>]"
-const plain = new RegExp(`^${plainChar}([^\\s",]*${plainChar})?$`)
+const plainChar = /[^\s":,;()\]\[{}<>]/
+const plain = new RegExp(`^${plainChar.source}([^\\s",;]*${plainChar.source})?$`)
 
 export const quoteLabel = s => plain.test(s) ? s : JSON.stringify(s)
 
-export const quoteKey = s => /[":\s(),]|^$/.test(s) ? JSON.stringify(s) : s
+export const quoteKey = s =>
+  (s === "" || !plain.test(s) || /:/.test(s)) ? JSON.stringify(s) : s
 
 const valuePattern = /["\s,]|^(-?[0-9]+(\.[0-9]+)?|true|false|null)$|^\(|\)$/
 
@@ -35,7 +35,7 @@ export const serializeNode = ({id, labels, properties}) => [
 export const serializeEdge = ({from, to, labels, properties, undirected}) => [
   quoteLabel(from),
   undirected ? "--" : "->",
-  quoteKey(to),
+  quoteLabel(to),
   serializeLabels(labels || []),
   serializeProperties(properties || {}),
 ].filter(s => s!== "").join(" ")
