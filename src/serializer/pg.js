@@ -1,5 +1,5 @@
 
-const plainChar = /[^\s":,;()\]\[{}<>]/
+const plainChar = /[^\s":,;()\][{}<>]/
 const plain = new RegExp(`^${plainChar.source}([^\\s",;]*${plainChar.source})?$`)
 
 export const quoteLabel = s => plain.test(s) ? s : JSON.stringify(s)

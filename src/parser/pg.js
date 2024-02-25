@@ -12,9 +12,11 @@ const WS = new RegExp(`${SPACE.source}(${COMMENT.source})?`)
 const LTRIM = /^[ \t\n]+(#[^\n]*(\n[ \t\n]*)?)?/
 const STRING = /"(\\\\|\\"|[^"])*"/
 const DIRECTION = /(--|->|<-)/
-const PLAINCHAR = "[^\\s\\n\":,;()\\[\\]{}<>]"
-const PLAIN = new RegExp(PLAINCHAR+"([^\" \\t\\n,;]*"+PLAINCHAR+")?")
-const ID = new RegExp(`(${STRING.source}|${PLAIN.source})`)
+const PLAIN_START = "[^ \\t\\n\":,;(]"
+const PLAIN_CHAR = "[^ \\t\\n,;]"
+const PLAIN_END = "[^ \\t\\n,;:]"
+const PLAIN = new RegExp(`${PLAIN_START}+(${PLAIN_CHAR}*${PLAIN_END})?`)
+const ID = new RegExp(`(${STRING.source}|[^ \t\n"(:][^ \t\n]*)`)
 const NODE = new RegExp(`^${ID.source}`)
 const EDGE = new RegExp(`^${ID.source}${WS.source}${DIRECTION.source}${WS.source}${ID.source}`)
 const LABEL = new RegExp(`^${WS.source}:${ID.source}`)
@@ -25,13 +27,13 @@ const extractItem = function (line, lnum) {
   let id1, id2, undirected, match, index = 0
   
   if ((match = EDGE.exec(line))) {          // EDGE
-    if (match[6] === "<-") {
+    if (match[5] === "<-") {
       id2 = parseId(match[1])
-      id1 = parseId(match[9])
+      id1 = parseId(match[8])
     } else {
       id1 = parseId(match[1])
-      id2 = parseId(match[9])
-      if (match[6] === "--") {
+      id2 = parseId(match[8])
+      if (match[5] === "--") {
         undirected = true
       }
     }

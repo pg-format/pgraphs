@@ -7,10 +7,10 @@ node -> another-node
   # comments, unlike nodes and edges, can be intended with whitespace.
 
 # A node identifier can be given as plain string not containing whitespace nor
-# quotation marks or comman, and it must not start or end with a colon, nor
-# with opening or closing parentheses, respectively:
+# comma or semicolon, and it must not start or end with a colon, nor
+# start with opening parenthesis:
 
-!#$%&'()*+-./0123456789:<=>?@
+!#$%&'()[]<>*+-./0123456789:<=>?@
 
 # Node identifiers can also be given as quoted string following JSON syntax:
 

@@ -93,14 +93,13 @@ CONDENSE    ::= ( PLAINCHAR+ | STRING ) ':' WS? ( SCALAR | PLAINCHAR+ )
 
 Identifiers, labels, and property names can be given as string or in plain form
 without quotation marks. Plain strings must not include space, comma,
-semicolon, nor quotation mark and they must not begin nor end with a bracket
-character:
+semicolon, nor start with quotation mark or opening parenthesis or end with colon:
 
 ~~~ebnf
 ID          ::= STRING | PLAIN
-PLAIN       ::= PLAINCHAR ( ( CHAR - ( SPACE | '"' | ',' | ';' ) )* PLAINCHAR )?
-PLAINCHAR   ::= CHAR - ( SPACE | '"' | ':' | ',' | ';' | BRACKET )
-BRACKET     ::= '(' | ')' | '[' | ']' | '{' | '}' | '<' | '>'
+PLAIN       ::= PLAIN_START ( PLAIN_CHAR* ( PLAINCHAR - ':' ) )?
+PLAIN_START ::= CHAR - ( SPACE | '"' | ':' | ',' | ';' | '(' )
+PLAIN_CHAR  ::= CHAR - ( SPACE | '"' | ',' | ';' )
 ~~~
 
 The exclusion of bracket characters is motivated by the ability to make use of

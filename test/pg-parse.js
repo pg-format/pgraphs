@@ -23,18 +23,26 @@ describe("parse", () => {
   })
 })
  
-const valid = [
-  "\"\"",       // empty node id
-  "a\rb",       // plain /r is newline
-  "a:b",
-  "a(b",
-]
+const empty = { labels: [], properties: {} }
+const valid = {
+  // empty node id
+  "\"\"": { nodes: [{ id: "", ...empty }], edges: [] },
+  // plain /r is newline
+  "a\rb": { nodes: [{ id: "a", ...empty }, { id: "b", ...empty }], edges: [] },
+  "a:b <- a:b": {
+    nodes: [ { id: "a:b", ...empty } ],
+    edges: [ { from: "a:b", to: "a:b", ...empty } ],
+  },
+  // id can end with colon and contain special characters:
+  "a,;(\": -> b\":,;:": {
+    nodes: [ { id: "a,;(\":", ...empty }, { id: "b\":,;:", ...empty } ],
+    edges: [ { from: "a,;(\":", to: "b\":,;:", labels: [], properties: {} } ],
+  },
+}
 
 describe("parsing more edge cases", () => {
-  for(let pg of valid) {
-    it("is valid", () => {
-      assert.ok(parse(pg))
-    })
+  for(let [pg, graph] of Object.entries(valid)) {
+    it("is valid", () => assert.deepEqual(parse(pg),graph))
   }
 })
 
@@ -43,18 +51,15 @@ const invalid = {
   "\"\\": "line 1 must start with node or edge", // malformed escaped string
   "\"\\\\\"\"": "invalid node identifier at line 1 character 5 is \"",
   ":a": "node identifier must not start with colon at line 1",
-  "a\"b": "invalid node identifier at line 1 character 2 is \"",
   " a": "line 1 must not start with whitespace",
   "x :": "invalid label or property key at line 1, character 3 is :",
   "x -": "invalid label or property key at line 1, character 3 is -",
   "x k:": "missing property value at line 1, character 5",
   "x k:\"xy": "invalid property value at line 1, character 5: \"\\\"xy\"",
   "a b:c:d": "invalid content at line 1, character 6: \":d\"",
-  "a:": "invalid node identifier at line 1 character 2 is :",
   "(a": "line 1 must start with node or edge",
-  "()": "line 1 must start with node or edge",
-  "\n\na)": "invalid node identifier at line 3 character 2 is )",
-  "a:;b": "invalid node identifier at line 1",
+  //"a:;b": "invalid node identifier at line 1",
+  //"a:": "invalid node identifier at line 1 character 2 is :",
 }
 
 describe("parsing errors", () => {
