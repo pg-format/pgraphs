@@ -35,7 +35,7 @@
  * by yED: https://yed.yworks.com/support/manual/import_excel.html
  */
 
-import parse from "./parser/pg.js"
+import { parse } from "./parser/pg.js"
 
 import parseNdjson from "./parser/pg-ndjson.js"
 import serializeNdjson from "./serializer/ndjson.js"
@@ -59,7 +59,14 @@ import { serialize } from "./serializer/pg.js"
 export const pgformat = {
   pg: {
     name: "PG format (default input)",
-    parse,
+    parse: function(text) {
+      try {
+        return parse(text) 
+      } catch(e) {
+        const { line, column } = e.location.start
+        throw new Error(`${e.message} Line ${line}:${column}.`)
+      }
+    },
     serialize,
   },
   json: {

@@ -9,7 +9,8 @@
     "eslint": "^8.8.0",
     "mocha": "^10.2.0",
     "neo4j-driver-lite": "^5.17.0",
-    "peggy": "^3.0.2"
+    "peggy": "^3.0.2",
+    "peggy-tracks": "^3.0.0"
   },
   "main": "index.js",
   "type": "module",
@@ -20,7 +21,8 @@
     "test": "mocha",
     "lint": "eslint --fix './**/*.js'",
     "update-example": "pgraph examples/example.pg -t csv examples/csv/example",
-    "generate-parser": "peggy --allowed-start-rules NodeOrEdge --format es -o src/pg_line_parser.js ./src/pg.pegjs"
+    "parser": "peggy --allowed-start-rules PG --format es -o src/parser/pg.js ./src/pg.pegjs",
+    "diagram": "peggy-tracks -o diagram.svg src/pg.pegjs"
   },
   "dependencies": {
     "@pinemach/csv": "^1.0.4",

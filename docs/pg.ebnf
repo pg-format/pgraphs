@@ -1,0 +1,65 @@
+/**
+ * EBNF Grammar of PG format.
+ * Validated with Railroad Diagram Generator at https://www.bottlecaps.de/rr/ui
+ */
+
+/* After normalization of line breaks, accepted characters include all
+ * Unicode characters, excluding the surrogate blocks, FFFE, and FFFF */
+ 
+CHAR        ::= [#x09#xA#x20-#xD7FF#xE000-#xFFFD#x10000-#x10FFFF]
+
+/* A graph consists of nodes, edges, and empty lines.
+ * Additional spaces and a comment is allowed after entities. */
+
+PG          ::= ( ( ENTITY | EMPTY) ( #xA ( ENTITY | EMPTY ) )* )? #xA?
+ENTITY      ::= ( NODE | EDGE ) ( SPACE+ COMMENT )?
+EMPTY       ::= SPACE* COMMENT?
+SPACE       ::= [#x20#x09]
+COMMENT     ::= '#' ( CHAR - #xA )*
+
+/* Whitespace between elements of entities conists of spaces.
+ * Comments and line breaks are further allowed only if
+ * the next non-skipped line begins with space ("line folding"). */
+
+WS          ::= SPACE+ | SPACE* FOLDING
+FOLDING     ::= ( #xA EMPTY )* #xA SPACE+*/
+
+/* A node is an identifier, optionally followed by labels and properties */
+
+NODE        ::= ID ( WS LABEL )* ( WS PROPERTY )* 
+
+/* Identifiers must be given as quoted string if they start with ", :, ( or contain spaces */
+
+ID          ::= STRING | ( CHAR - ( SPACE | '"' | ':' | '(' ) ) ( CHAR - SPACE )*
+
+/* An edge is two identifiers with a direction, optionally followed by labels and properties */
+
+EDGE        ::= ID WS DIRECTION WS ID ( WS LABEL )* ( WS PROPERTY )*
+DIRECTION   ::= '--' | '->' | '<-'
+
+/* A label is an identifier preceded by a colon */
+
+LABEL       ::= ':' ID
+
+/* Properties consists of an identifier, directly followed by colon, and a non-empty list of values */
+
+PROPERTY    ::= ID ':' WS? VALUES
+VALUES      ::= VALUE (WS? ',' VALUE)*
+
+/* Values can be given as typed data or in plain form. Plain values must not contain colon or comma
+ * and they must not start with quotation mark or opening parenthesis */
+
+VALUE       ::= STRING | NUMBER | BOOLEAN | NULL | PLAIN_VALUE
+PLAIN_VALUE ::= ( PLAIN_CHAR - ( '"' | '(' ) ) PLAIN_CHAR*
+PLAIN_CHAR  ::= CHAR - ( SPACE | ':' | ',' )
+
+/* Values are defined equivalent to JSON values */
+ 
+BOOLEAN     ::= 'true' | 'false' 
+NULL        ::= 'null'
+NUMBER      ::= '-'? ( '0' | [1-9] [0-9]* ) ( '.' [0-9]+ )? ( ( 'e' | 'E' ) ( '+' | '-' )? [0-9]+ )?
+EXPONENT    ::= ( 'e' | 'E' ) ( '+' | '-' )? [0-9]+
+STRING      ::= '"' ( UNESCAPED | ESCAPED )* '"'
+UNESCAPED   ::= [#x20-#x21] | [#x23-#x58] | [#x5D-#x10FFFF]
+ESCAPED     ::= '\' ( ["/\bfnrt"/\] | 'u' HEX HEX HEX HEX )
+HEX         ::= [0-9] | [A-F] | [a-f]

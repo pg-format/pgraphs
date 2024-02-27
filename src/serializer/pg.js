@@ -1,18 +1,14 @@
+const plainId = /^[^#"\s:,(][^\s"]*$/
 
-const plainChar = /[^\s":,;()\][{}<>]/
-const plain = new RegExp(`^${plainChar.source}([^\\s",;]*${plainChar.source})?$`)
-
-export const quoteLabel = s => plain.test(s) ? s : JSON.stringify(s)
+export const quoteLabel = s => plainId.test(s) ? s : JSON.stringify(s)
 
 export const quoteKey = s =>
-  (s === "" || !plain.test(s) || /:/.test(s)) ? JSON.stringify(s) : s
+  (s === "" || !plainId.test(s) || /:/.test(s)) ? JSON.stringify(s) : s
 
-const valuePattern = /["\s,]|^(-?[0-9]+(\.[0-9]+)?|true|false|null)$|^\(|\)$/
+const valuePattern = /["\s,:]|^(-?[0-9]+(\.[0-9]+)?|true|false|null)$|^\(|\)$/
 
 const quoteValue = s =>  
-  (typeof s === "string" && s !== "" && !valuePattern.test(s)) ? 
-    (s.match(/:/) ? " " + s : s) 
-    : JSON.stringify(s)
+  (typeof s === "string" && s !== "" && !valuePattern.test(s)) ? s : JSON.stringify(s)
 
 export const serializeLabels = labels =>
   labels.map(label => ":" + quoteLabel(label)).join(" ")

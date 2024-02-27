@@ -29,5 +29,5 @@ module.exports = {
     "brace-style": [ "error", "1tbs", { allowSingleLine: false } ],
   },
   // ignore generated file
-  ignorePatterns: [ "src/pg_line_parser.js" ],
+  ignorePatterns: [ "src/parser/pg.js" ],
 }

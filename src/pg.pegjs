@@ -1,211 +1,211 @@
+{{
+  function collectProps(props) {
+    const properties = {}
+    for (let [key, values] of props) {
+      if (key in properties) {
+        for (let val of values) properties[key].add(val)
+      } else {
+        properties[key] = new Set(values)
+      }
+    }
+    for (let key in properties) {
+      properties[key] = [...properties[key].values()]
+    }
+    return properties
+  }
+}}
+
 {
-  let nodeCount = 0;
-  let edgeCount = 0;
-  let nodeLabelHash = {};
-  let edgeLabelHash = {};
-  let nodePropHash = {};
-  let edgePropHash = {};
+  const nodes = {}
+  const edges = []
 }
 
-
-PG = EOF / lines:NodeOrEdge+ EOF
+PG = ( line ( newline line )* )? newline? !.
 {
+  for (let { from, to } of edges) {
+    if (!(from in nodes)) nodes[from] = { id: from, labels: [], properties: {} }
+    if (!(to in nodes)) nodes[to] = { id: to, labels: [], properties: {} }
+  }
   return {
-    nodes: lines.map(l => l.node).filter(v => v),
-    edges: lines.map(l => l.edge).filter(v => v),
-    nodeCount: nodeCount,
-    edgeCount: edgeCount,
-    nodeLabels: nodeLabelHash,
-    edgeLabels: edgeLabelHash,
-    nodeProperties: nodePropHash,
-    edgeProperties: edgePropHash
+    nodes: Object.keys(nodes).sort().map(id => nodes[id]),
+    edges 
   }
 }
 
-NodeOrEdge = n:Node
-{
-  return {
-    node: n
-  }
-}
-/ e:Edge
-{
-  return {
-    edge: e
-  }
-}
-/ EmptyLine
+line
+  = entity trailingSpace? / empty
 
-Node = id:$Value l:Label* p:Property* WS* EndOfLine
-{
-  let propObj = {};
-  p.forEach(prop => {
-    if (propObj[prop.key]) {
-      propObj[prop.key].push(prop.value);
+newline "newline"
+  = [\x0D\x0A]+
+
+empty
+  = spaceChar* comment?
+
+spaceChar "space"
+  = [\x20\x09]
+
+comment "comment"
+  = '#' [^\x0D\x0A]*
+
+trailingSpace
+  = spaceChar+ comment?
+
+whiteSpace
+  = ( trailingSpace / spaceChar* ) folding / spaceChar+
+
+folding
+  = newline ( empty newline )* spaceChar+
+
+entity "identifier"
+  = id:identifier
+    edge:(whiteSpace direction:direction whiteSpace to:identifier { return { direction, to } })?
+    labels:label*
+    props:property* {
+
+    labels = Array.from(new Set(labels)) // remove duplicates
+
+    if (edge) {
+      var from = id
+      var { direction, to } = edge
+      const e = { from, to, labels, properties: collectProps(props) }
+      if (direction === '<-') {
+        e.from = to
+        e.to = from
+      } else if (direction === '--') {
+        e.undirected = true
+      }
+      edges.push(e)
     } else {
-      propObj[prop.key] = [prop.value];
+      nodes[id] = { id, labels, properties: collectProps(props) }
     }
-    // nodePropHash[prop.key] = true;
-    if (nodePropHash[prop.key]) {
-      nodePropHash[prop.key]++;
-    } else {
-      nodePropHash[prop.key] = 1;
+}
+
+edge
+  = from:identifier
+    whiteSpace
+    direction:direction
+    whiteSpace
+    to:identifier
+    labels:label*
+    props:property* {
+      const edge = { from, to, labels, properties: collectProps(props) }
+      if (direction === '<-') {
+        edge.from = to
+        edge.to = from
+      } else if (direction === '--') {
+        edge.undirected = true
+      }
+      edges.push(edge)
     }
-  });
 
-  nodeCount++;
+direction "->, <-, --"
+  = '->' / '<-' / '--'
 
-  l.forEach(label => {
-    if (nodeLabelHash[label]) {
-      nodeLabelHash[label]++;
-    } else {
-      nodeLabelHash[label] = 1;
+label "label"
+  = whiteSpace ':' id:identifier { return id }
+
+identifier
+  = string
+  / plainIdentifier
+
+// must not start with hash, colon, opening parenthesis, comma
+plainIdentifier
+  = $( nameStart idChar* )
+
+nameStart
+  = [^\x20\x09\x0A\x0D":(,#] 
+
+property "property"
+  = whiteSpace name:name whiteSpace? value:values {
+      return [ name, value ]
     }
-  });
 
-  return {
-    id: id,
-    labels: l,
-    properties: propObj
-  }
-}
+idChar
+  = [^\x20\x09\x0A\x0D"]
 
-Edge = f:$Value WS+ d:Direction WS+ t:Value l:Label* p:Property* WS* EndOfLine
-{
-  let propObj = {};
-  p.forEach(prop => {
-    if (propObj[prop.key]) {
-      propObj[prop.key].push(prop.value);
-    } else {
-      propObj[prop.key] = [prop.value];
+nameChar
+  = [^\x20\x09\x0A\x0D:"]
+
+name
+  = @string ':'
+  / plainName
+
+// must not start with hash, colon, opening parenthesis, comma
+// must not contain quotation mark 
+// must end with colon
+plainName
+  = name:( nameStart $( nameChar* ':')+ ) {
+      return name.join("").slice(0,-1)
     }
-    // edgePropHash[prop.key] = true;
-    if (edgePropHash[prop.key]) {
-      edgePropHash[prop.key]++;
-    } else {
-      edgePropHash[prop.key] = 1;
+
+values
+  = values:value|1.., delimiter| {
+      return values
     }
-  });
 
-  edgeCount++;
+delimiter
+ = whiteSpace? "," whiteSpace?
 
-  l.forEach(label => {
-    if (edgeLabelHash[label]) {
-      edgeLabelHash[label]++;
-    } else {
-      edgeLabelHash[label] = 1;
+value "value"
+  = scalar
+  / plainValue
+
+plainValue
+  = $( [^\x20\x09\x0A\x0D":(,:] [^\x20\x09\x0A\x0D,:]* )
+
+// Scalar value as defined in JSON (RFC 7159).
+// Grammar taken and adjusted from peggy example 'json.pegjs'.
+
+scalar
+  = string
+  / number
+  / true
+  / false
+  / null
+
+string
+  = '"' chars:char* '"' { return chars.join("") }
+
+char
+  = unescaped
+  / escape
+    sequence:(
+        '"'
+      / "\\"
+      / "/"
+      / "b" { return "\b" }
+      / "f" { return "\f" }
+      / "n" { return "\n" }
+      / "r" { return "\r" }
+      / "t" { return "\t" }
+      / "u" digits:$(hex hex hex hex) {
+          return String.fromCharCode(parseInt(digits, 16));
+        }
+    )
+    { return sequence }
+
+escape
+  = "\\"
+
+unescaped
+  = [^\0-\x1F\x22\x5C]
+
+true  = "true"  { return true  }
+false = "false" { return false }
+null  = "null"  { return null  }
+
+number
+  = "-"? int frac? exp? { 
+      return parseFloat(text())
     }
-  });
 
-  return {
-    from: f,
-    to: t,
-    direction: d,
-    labels: l,
-    properties: propObj
-  }
-}
+int
+  = "0" / ([1-9] [0-9]*)
 
-Label = Delimiter+ ':' WS* l:Value
-{
-  return l
-}
+frac
+  = "." [0-9]+
 
-Property = Delimiter+ k:Value WS* ':' WS* v:Value
-{
-  return {
-    key: k,
-    value: v
-  }
-}
+exp
+  = [eE] [+-]? [0-9]+
 
-Direction = '--' / '->'
-
-Number = '-'? Integer ('.' [0-9]+)? Exp?
-
-Integer = '0' / [1-9] [0-9]*
-
-Exp = [eE] ('-' / '+')? [0-9]+
-
-EscapedChar = "'"
-/ '"'
-/ "\\"
-/ "b"
-{
-  return "\b";
-}
-/ "f"
-{
-  return "\f";
-}
-/ "n"
-{
-  return "\n";
-}
-/ "r"
-{
-  return "\r";
-}
-/ "t"
-{
-  return "\t";
-}
-/ "v"
-{
-  return "\x0B";
-}
-
-DoubleQuotedChar = !('"' / "\\") char:.
-{
-  return char;
-}
-/ "\\" esc:EscapedChar
-{
-  return esc;
-}
-
-SingleQuotedChar = !("'" / "\\") char:.
-{
-  return char;
-}
-/ "\\" esc:EscapedChar
-{
-  return esc;
-}
-
-Value = Number & SPECIAL_CHAR
-{
-  return text();
-}
-/ '"' chars:DoubleQuotedChar* '"'
-{
-  return chars.join('');
-}
-/ "'" chars:SingleQuotedChar* "'"
-{ 
-  return chars.join('');
-}
-/ chars:NON_SPECIAL_CHAR+
-{
-  return chars.join('');
-}
-
-// space or tab
-WS = [\u0020\u0009]
-
-SPECIAL_CHAR = [:\u0020\u0009\u000D\u000A]
-
-NON_SPECIAL_CHAR = [^:\u0020\u0009\u000D\u000A]
-
-// CR or LF
-NEWLINE = [\u000D\u000A]
-
-NON_NEWLINE = [^\u000D\u000A]
-
-EOF = !.
-
-EndOfLine = EOF / NEWLINE
-
-Delimiter = (WS* NEWLINE WS+) / WS+
-
-EmptyLine = WS+ EOF /  WS* NEWLINE
+hex = [0-9a-f]i

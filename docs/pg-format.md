@@ -80,26 +80,29 @@ and optional labels and/or properties:
 ~~~ebnf
 EDGE        ::= ID WS? DIRECTION WS? ID ( WS LABEL )* ( WS PROPERTY )*
 DIRECTION   ::= '--' | '->' | '<-'
+~~~
+
+Labels start with a colon. Properties consist of a key, a colon, and one or
+more comma-separated values:
+
+~~~
 LABEL       ::= ':' ID
-PROPERTY    ::= WITHSPACE | CONDENSE
+PROPERTY    ::= ID ':' WS? VALUES
+VALUES      ::= VALUE (WS? ',' VALUE)*
 ~~~
 
-Property assignments can have multiple forms:
+Identifiers, keys, and values can be given as string in quotation marks or in
+plain form. Plain elements must not contain spaces or tabulators and must not
+start with quotation mark, colon or opening parenthesis. Plain values further
+must not contain colon nor comma:
 
 ~~~ebnf
-WITHSPACED  ::= ID ':' WS ( SCALAR | PLAIN )
-CONDENSE    ::= ( PLAINCHAR+ | STRING ) ':' WS? ( SCALAR | PLAINCHAR+ )
-~~~
-
-Identifiers, labels, and property names can be given as string or in plain form
-without quotation marks. Plain strings must not include space, comma,
-semicolon, nor start with quotation mark or opening parenthesis or end with colon:
-
-~~~ebnf
-ID          ::= STRING | PLAIN
-PLAIN       ::= PLAIN_START ( PLAIN_CHAR* ( PLAINCHAR - ':' ) )?
-PLAIN_START ::= CHAR - ( SPACE | '"' | ':' | ',' | ';' | '(' )
-PLAIN_CHAR  ::= CHAR - ( SPACE | '"' | ',' | ';' )
+ID          ::= STRING | PLAIN_ID
+VALUE       ::= SCALAR | PLAIN_VALUE
+ID_START    ::= CHAR - ( SPACE | '"' | ':', '(' ) 
+PLAIN_ID    ::= ID_START ( CHAR - SPACE )*
+PLAIN_VALUE ::= ( PLAIN_CHAR - ( '"' | '(' ) ) PLAIN_CHAR*
+PLAIN_CHAR  ::= CHAR - ( SPACE | ':' | ',' )
 ~~~
 
 The exclusion of bracket characters is motivated by the ability to make use of
@@ -109,18 +112,15 @@ templates (all beyond the scope of PG format).
 Values are defined equivalent to scalar values in JSON (RFC 4627):
 
 ~~~ebnf
-SCALAR      ::= BOOLEAN | NULL | NUMBER | STRING
+SCALAR      ::= STRING | NUMBER | BOOLEAN | NULL
 BOOLEAN     ::= 'true' | 'false' 
 NULL        ::= 'null'
-NUMBER      ::= '-'? ( DIGIT - '0' ) DIGIT* ( '.' DIGIT+ )? EXPONENT?
-EXPONENT    ::= ( 'e' | 'E' ) ( '+' | '-' )? DIGIT+
-DIGIT       ::= '0' | '1' | '2' | '3' | '4' | '5' | '6' | '7' | '8' | '9'
+NUMBER      ::= '-'? ( '0' | [1-9] [0-9]* ) ( '.' [0-9]+ )? EXPONENT?  
+EXPONENT    ::= ( 'e' | 'E' ) ( '+' | '-' )? [0-9]+
 STRING      ::= '"' ( UNESCAPED | ESCAPED )* '"'
-UNESCAPED   ::= #x20-21 | #x23-58 | #x5D-#x10FFFF
-ESCAPED     ::= '\"' | '\\' | '\/' | '\b' | '\f' | '\n' | '\r' | '\t' 
-              | '\u' HEX HEX HEX HEX 
-HEX         ::= DIGIT | 'A' | 'B' | 'C' | 'D' | 'E' | 'F' 
-                      | 'a' | 'b' | 'c' | 'd' | 'e' | 'f'
+UNESCAPED   ::= [#x20-#x21] | [#x23-#x58] | [#x5D-#x10FFFF]
+ESCAPED     ::= '\' ( ["/\bfnrt"/\] | 'u' HEX HEX HEX HEX )
+HEX         ::= [0-9] | [A-F] | [a-f]
 ~~~
 
 ## PG-JSON
