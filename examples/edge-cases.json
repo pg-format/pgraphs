@@ -1,6 +1,11 @@
 {
   "nodes": [
     {
+      "id": "\t",
+      "labels": [ "⌀" ],
+      "properties": {}
+    },
+    {
       "id": "\"",
       "labels": [
         "\""

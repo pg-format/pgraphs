@@ -20,7 +20,7 @@
   const edges = []
 }
 
-PG = ( line ( newline line )* )? newline? !.
+PG = ( line ( linebreak line )* )? end
 {
   for (let { from, to } of edges) {
     if (!(from in nodes)) nodes[from] = { id: from, labels: [], properties: {} }
@@ -32,33 +32,36 @@ PG = ( line ( newline line )* )? newline? !.
   }
 }
 
+end
+  = !.
+
 line
   = entity trailingSpace? / empty
 
-newline "newline"
+trailingSpace
+  = space+ comment?
+
+linebreak "linebreak"
   = [\x0D\x0A]+
 
 empty
-  = spaceChar* comment?
+  = space* comment?
 
-spaceChar "space"
+space "space"
   = [\x20\x09]
 
 comment "comment"
   = '#' [^\x0D\x0A]*
 
-trailingSpace
-  = spaceChar+ comment?
-
 whiteSpace
-  = ( trailingSpace / spaceChar* ) folding / spaceChar+
+  = ( trailingSpace / space* ) folding / space+
 
 folding
-  = newline ( empty newline )* spaceChar+
+  = linebreak ( empty linebreak )* space+
 
 entity "identifier"
   = id:identifier
-    edge:(whiteSpace direction:direction whiteSpace to:identifier { return { direction, to } })?
+    edge:(direction:direction to:identifier { return { direction, to } })?
     labels:label*
     props:property* {
 
@@ -80,32 +83,14 @@ entity "identifier"
     }
 }
 
-edge
-  = from:identifier
-    whiteSpace
-    direction:direction
-    whiteSpace
-    to:identifier
-    labels:label*
-    props:property* {
-      const edge = { from, to, labels, properties: collectProps(props) }
-      if (direction === '<-') {
-        edge.from = to
-        edge.to = from
-      } else if (direction === '--') {
-        edge.undirected = true
-      }
-      edges.push(edge)
-    }
-
 direction "->, <-, --"
-  = '->' / '<-' / '--'
+  = whiteSpace dir:('->' / '<-' / '--') whiteSpace { return dir }
 
 label "label"
   = whiteSpace ':' id:identifier { return id }
 
 identifier
-  = string
+  = quotedString
   / plainIdentifier
 
 // must not start with hash, colon, opening parenthesis, comma
@@ -116,7 +101,7 @@ nameStart
   = [^\x20\x09\x0A\x0D":(,#] 
 
 property "property"
-  = whiteSpace name:name whiteSpace? value:values {
+  = whiteSpace name:key value:values {
       return [ name, value ]
     }
 
@@ -126,25 +111,17 @@ idChar
 nameChar
   = [^\x20\x09\x0A\x0D:"]
 
-name
-  = @string ':'
-  / plainName
-
-// must not start with hash, colon, opening parenthesis, comma
-// must not contain quotation mark 
-// must end with colon
-plainName
-  = name:( nameStart $( nameChar* ':')+ ) {
+key
+  = @quotedString ':'
+  / name:( nameStart $( nameChar* ':')+ ) {
       return name.join("").slice(0,-1)
     }
 
 values
-  = values:value|1.., delimiter| {
+  = values:(whiteSpace? @value) |1.., (whiteSpace ",")| {
       return values
     }
 
-delimiter
- = whiteSpace? "," whiteSpace?
 
 value "value"
   = scalar
@@ -157,18 +134,21 @@ plainValue
 // Grammar taken and adjusted from peggy example 'json.pegjs'.
 
 scalar
-  = string
+  = quotedString
   / number
-  / true
-  / false
-  / null
+  / "true" { return true }
+  / "false" { return false }
+  / "null" { return null }
 
-string
+quotedString
   = '"' chars:char* '"' { return chars.join("") }
 
 char
   = unescaped
-  / escape
+  / escaped
+
+escaped
+  = "\\"
     sequence:(
         '"'
       / "\\"
@@ -178,21 +158,16 @@ char
       / "n" { return "\n" }
       / "r" { return "\r" }
       / "t" { return "\t" }
-      / "u" digits:$(hex hex hex hex) {
-          return String.fromCharCode(parseInt(digits, 16));
-        }
-    )
+      / "u" @codepoint )
     { return sequence }
 
-escape
-  = "\\"
+codepoint
+  = digits:$(hex |4|) {
+          return String.fromCharCode(parseInt(digits, 16));
+        }
 
 unescaped
   = [^\0-\x1F\x22\x5C]
-
-true  = "true"  { return true  }
-false = "false" { return false }
-null  = "null"  { return null  }
 
 number
   = "-"? int frac? exp? { 

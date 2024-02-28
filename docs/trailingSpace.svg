@@ -1,0 +1,130 @@
+<svg class="railroad-diagram" width="332" height="112" viewBox="0 0 332 112" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<g transform="translate(.5 .5)">
+<g class="Start">
+<path d="M20 54v20m0 -10h20"></path>
+</g>
+<path d="M40 64h10"></path>
+<g class="Group rule">
+<path d="M50 64h0"></path>
+<path d="M282 64h0"></path>
+<rect x="50" y="36" width="232" height="56" rx="10" ry="10" class="group-box"></rect>
+<g class="Sequence">
+<path d="M50 64h10"></path>
+<path d="M272 64h10"></path>
+<path d="M142.5 64h10"></path>
+<g class="OneOrMore">
+<path d="M60 64h0"></path>
+<path d="M142.5 64h0"></path>
+<path d="M70 64a10 10 0 0 0 -10 10v0a10 10 0 0 0 10 10"></path>
+<g class="Skip">
+<path d="M70 84h62.5"></path>
+</g>
+<path d="M132.5 84a10 10 0 0 0 10 -10v0a10 10 0 0 0 -10 -10"></path>
+<path d="M60 64h10"></path>
+<path d="M132.5 64h10"></path>
+<g class="non-terminal rule-ref">
+<path d="M70 64h0"></path>
+<path d="M132.5 64h0"></path>
+<rect x="70" y="53" width="62.5" height="22"></rect>
+<text x="101.25" y="68">space</text>
+</g>
+</g>
+<g class="Choice">
+<path d="M152.5 64h0"></path>
+<path d="M272 64h0"></path>
+<path d="M152.5 64a10 10 0 0 0 10 -10v0a10 10 0 0 1 10 -10"></path>
+<g class="Skip">
+<path d="M172.5 44h79.5"></path>
+</g>
+<path d="M252 44a10 10 0 0 1 10 10v0a10 10 0 0 0 10 10"></path>
+<path d="M152.5 64h20"></path>
+<g class="non-terminal rule-ref">
+<path d="M172.5 64h0"></path>
+<path d="M252 64h0"></path>
+<rect x="172.5" y="53" width="79.5" height="22"></rect>
+<text x="212.25" y="68">comment</text>
+</g>
+<path d="M252 64h20"></path>
+</g>
+</g>
+<g class="comment">
+<path d="M50 28h0"></path>
+<path d="M151 28h0"></path>
+<text x="100.5" y="33" class="comment">trailingSpace</text>
+</g>
+</g>
+<path d="M282 64h10"></path>
+<path class="End" d="M 292 64 h 20 m 0 -10 v 20"></path>
+</g>
+<style>  svg {
+    background-color: hsl(30,20%,95%);
+  }
+  path {
+    stroke-width: 3;
+    stroke: black;
+    fill: rgba(0,0,0,0);
+  }
+  text {
+    font: bold 14px monospace;
+    text-anchor: middle;
+    white-space: pre;
+  }
+  text.diagram-text {
+    font-size: 12px;
+  }
+  text.diagram-arrow {
+    font-size: 16px;
+  }
+  text.label {
+    text-anchor: start;
+  }
+  text.comment {
+    font: italic 12px monospace;
+  }
+  g.non-terminal text {
+    /*font-style: italic;*/
+  }
+  rect {
+    stroke-width: 3;
+    stroke: black;
+    fill: hsl(120,100%,90%);
+  }
+  rect.group-box {
+    stroke: gray;
+    stroke-dasharray: 10 5;
+    fill: none;
+  }
+  g.literal rect {
+    fill: #fff;
+  }
+  path.diagram-text {
+    stroke-width: 3;
+    stroke: black;
+    fill: white;
+    cursor: help;
+  }
+  .decision path {
+    fill: #ccc;
+  }
+  g.diagram-text:hover path.diagram-text {
+    fill: #eee;
+  }
+  text.repeat-text {
+    font: italic 12px monospace;
+    text-anchor: end;
+  }
+  .repeat-box > rect.group-box {
+    stroke: gray;
+    stroke-width: 2;
+    stroke-dasharray: 1 5;
+    fill: none;
+  }
+  .delimiter > rect.group-box {
+    stroke: gray;
+    stroke-width: 2;
+    stroke-dasharray: 1 5;
+    fill: none;
+  }
+
+</style>
+</svg>

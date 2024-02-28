@@ -29,6 +29,8 @@ null :null null:null null:"null" NULL:NULL
 "\\" :"\\"      "\\":"\\"
 "\\\"" :"\\\""  "\\\"":"\\\""
 
+"\t" :"\u2300"
+
 # parentheses
 "()" :"()" "()":"()"
 
@@ -36,7 +38,7 @@ null :null null:null null:"null" NULL:NULL
 0
   :label1
   # another
-  :label1
+  :"label1"
 
 # this comment is not intended, this is not best practice but allowed
 
