@@ -5,8 +5,8 @@ import { graph } from "../utils.js"
  * Parse and convert DOT to PG.
  * Graph attributes and subgraphs are ignored.
  */
-export default (string) => {
-  const nodes = {}, edges = []
+export default string => {
+  const nodes = {}; const edges = []
 
   const dot = dotparser(string)?.[0] || {}
   const undirected = dot.type == "graph"
@@ -15,11 +15,11 @@ export default (string) => {
   // DOT does not have note labels in the sense of PG
   const labels = []
 
-  for (let { type, attr_list, node_id, edge_list } of children) {
-    // properties can be strings or numbers
-    const properties = Object.fromEntries((attr_list||[]).map(({id,eq}) => [id,[eq]]))
+  for (const { type, attr_list, node_id, edge_list } of children) {
+    // Properties can be strings or numbers
+    const properties = Object.fromEntries((attr_list || []).map(({ id, eq }) => [id, [eq]]))
     if (type == "node_stmt") {
-      // same node id overrides existing node (FIXME?)
+      // Same node id overrides existing node (FIXME?)
       const id = node_id.id
       nodes[id] = { id, labels, properties }
     } else if (type == "edge_stmt") {

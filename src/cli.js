@@ -1,14 +1,14 @@
 // Simple clone of <https://www.npmjs.com/package/commander>
 
 class Options {
-  constructor () {
+  constructor() {
     this.optionSpec = {}
     this.optionLookup = {}
   }
 
-  option (option) {
-    const [show, letter, name, value, info] =
-        option.match(/^(-(\w), --(\w[\w-]*)( [^ ]+)?)\s+(.+)$/).slice(1)
+  option(option) {
+    const [show, letter, name, value, info]
+        = option.match(/^(-(\w), --(\w[\w-]*)( [^ ]+)?)\s+(.+)$/).slice(1)
     const spec = { letter, name, value, info }
     this.optionSpec[show] = spec
     this.optionLookup[letter] = spec
@@ -16,7 +16,7 @@ class Options {
     return this
   }
 
-  showOptions () {
+  showOptions() {
     const spec = this.optionSpec
     const keys = Object.keys(spec)
     const space = new Array(Math.max(...keys.map(s => s.length)) + 3).join(" ")
@@ -28,7 +28,7 @@ class Options {
     )
   }
 
-  parseOptions (args) {
+  parseOptions(args) {
     args = [...args]
     const opts = {}
     const params = []
@@ -44,7 +44,7 @@ class Options {
         let name = arg.replace(/^-+/, "")
         let value = true
 
-        let spec = this.optionLookup[name]
+        const spec = this.optionLookup[name]
         if (spec) {
           name = spec.name
           if (spec.value && args.length) {
@@ -66,30 +66,30 @@ import { createRequire } from "node:module"
 const require = createRequire(import.meta.url)
 
 class CLI extends Options {
-  constructor () {
+  constructor() {
     super()
     this.cfg = {}
     this.optMap = {}
     this.pkg = require("../package.json")
   }
 
-  usage (s) {
+  usage(s) {
     this.cfg.usage = s; return this 
   }
 
-  description (s) {
+  description(s) {
     this.cfg.description = s; return this 
   }
 
-  details (s) {
+  details(s) {
     this.cfg.details = s; return this 
   }
 
-  action (f) {
+  action(f) {
     this.cfg.action = f; return this 
   }
 
-  help () {
+  help() {
     const { usage, description } = this.cfg
     console.log(`Usage: ${usage}
 
@@ -97,16 +97,16 @@ ${description}
 `)
     this.showOptions()
     if (this.cfg.details) {
-      console.log("\n"+this.cfg.details)
+      console.log("\n" + this.cfg.details)
     }
     process.exit()
   }
 
-  version () {
+  version() {
     process.exit()
   }
 
-  parse (argv) {
+  parse(argv) {
     this.option("-h, --help     show usage information")
     this.option("-V, --version  show the version number")
 

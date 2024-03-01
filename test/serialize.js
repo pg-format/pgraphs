@@ -18,15 +18,15 @@ describe("serialize PG", () => {
 
   it("special examples", () => {
     const examples = {
-      "1 :; a:b x:\"y z\" \"x:y\":z": [{ id: "1", labels: [";"], properties: { a: ["b"], x: ["y z"], "x:y": ["z"] }}],
-      "1:2 :[] )(:\",\"": [{ id: "1:2", labels: ["[]"], properties: {")(":[","]}}],
+      "1 :; a:b x:\"y z\" \"x:y\":z": [{ id: "1", labels: [";"], properties: { a: ["b"], x: ["y z"], "x:y": ["z"] } }],
+      "1:2 :[] )(:\",\"": [{ id: "1:2", labels: ["[]"], properties: { ")(":[","] } }],
     }
-    for (let [pg, nodes] of Object.entries(examples)) {
-      assert.equal(serialize({ nodes, edges: [] }), pg+"\n")
+    for (const [pg, nodes] of Object.entries(examples)) {
+      assert.equal(serialize({ nodes, edges: [] }), pg + "\n")
     }
   })
 })
- 
+
 const files = fs.readdirSync(localPath("../examples"))
 
 const graphs = Object.fromEntries(
@@ -36,14 +36,14 @@ const graphs = Object.fromEntries(
 )
 
 describe("serialize lossy formats", () => {
-  for (let file of files) {
+  for (const file of files) {
     const [name, type] = file.split(".")
     const { parse, serialize } = pgformat[type] || {}
     const graph = graphs[`${name}.json`]
     if (graph && serialize && !/^(json|ndjson|pg)$/.test(type)) {
       it(file, () => {
         const s = serialize(graph)
-        assert.equal( readExample(file), s )
+        assert.equal(readExample(file), s)
       })
       if (parse) {
         it(`parse ${file}`, () => {
@@ -55,7 +55,7 @@ describe("serialize lossy formats", () => {
 })
 
 describe("serialize multifile formats", () => {
-  for (let format of files.filter(file => !file.match(/[.]/))) {
+  for (const format of files.filter(file => !file.match(/[.]/))) {
     const name = "example"
     if (pgformat[format]?.serialize) {
       it(`${name} in ${format}`, () => {

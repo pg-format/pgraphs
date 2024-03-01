@@ -5,17 +5,17 @@ const node = /^([^#\s]+)(\s+(.*))?$/
 const edge = /^([^#\s]+)\s+([^#\s]+)(\s(.*))?$/
 const divider = /^\s*#\s*$/
 
-export default (str) => {
-  const nodes = {}, edges = []
+export default str => {
+  const nodes = {}; const edges = []
   const properties = {}
 
-  var match, expectEdge = false
+  let match; let expectEdge = false
   str.split("\n").filter(line => line !== "").forEach((line, lineNum) => {
     if (expectEdge) {
       if ((match = edge.exec(line))) {
-        const from = match[1], to = match[2]
+        const from = match[1]; const to = match[2]
 
-        // allow referencing undefined nodes in edges
+        // Allow referencing undefined nodes in edges
         if (!(from in nodes)) {
           nodes[from] = { id: from, labels: [], properties }
         }

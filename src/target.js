@@ -7,6 +7,7 @@ export class MultiTarget extends GraphTarget {
     super()
     this.base = base
   }
+
   open(suffix) {
     const file = this.base + suffix
     console.log(file)
@@ -19,6 +20,7 @@ export class StreamTarget extends GraphTarget  {
     super()
     this.stream = stream
   }
+
   open() {
     return this.stream
   }
@@ -29,6 +31,7 @@ export class StringTargets extends GraphTarget  {
     super()
     this.result = {}
   }
+
   open(suffix) {
     const { result } = this
     result[suffix] = ""

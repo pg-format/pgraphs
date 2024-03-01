@@ -1,42 +1,36 @@
 const plainId = /^[^#"\s:,(][^\s"]*$/
 
-export const quoteLabel = s => plainId.test(s) ? s : JSON.stringify(s)
+export const quoteLabel = s => (plainId.test(s) ? s : JSON.stringify(s))
 
-export const quoteKey = s =>
-  (s === "" || !plainId.test(s) || /:/.test(s)) ? JSON.stringify(s) : s
+export const quoteKey = s => ((s === "" || !plainId.test(s) || /:/.test(s)) ? JSON.stringify(s) : s)
 
 const valuePattern = /["\s,:]|^(-?[0-9]+(\.[0-9]+)?|true|false|null)$|^\(|\)$/
 
-const quoteValue = s =>  
-  (typeof s === "string" && s !== "" && !valuePattern.test(s)) ? s : JSON.stringify(s)
+const quoteValue = s => ((typeof s === "string" && s !== "" && !valuePattern.test(s)) ? s : JSON.stringify(s))
 
-export const serializeLabels = labels =>
-  labels.map(label => ":" + quoteLabel(label)).join(" ")
+export const serializeLabels = labels => labels.map(label => ":" + quoteLabel(label)).join(" ")
 
-const serializeKeyValue = (key, value) =>
-  quoteKey(key) + ":" + quoteValue(value)
+const serializeKeyValue = (key, value) => quoteKey(key) + ":" + quoteValue(value)
 
-export const serializeProperties = properties => 
-  Object.entries(properties)
-    .map(([key,values]) => 
-      values.map(value => serializeKeyValue(key,value)).join(" "),
-    ).join(" ")
+export const serializeProperties = properties => Object.entries(properties)
+  .map(([key, values]) => values.map(value => serializeKeyValue(key, value)).join(" "),
+  ).join(" ")
 
-export const serializeNode = ({id, labels, properties}) => [
+export const serializeNode = ({ id, labels, properties }) => [
   quoteLabel(id),
   serializeLabels(labels || []),
   serializeProperties(properties || {}),
-].filter(s => s!== "").join(" ")
+].filter(s => s !== "").join(" ")
 
-export const serializeEdge = ({from, to, labels, properties, undirected}) => [
+export const serializeEdge = ({ from, to, labels, properties, undirected }) => [
   quoteLabel(from),
   undirected ? "--" : "->",
   quoteLabel(to),
   serializeLabels(labels || []),
   serializeProperties(properties || {}),
-].filter(s => s!== "").join(" ")
+].filter(s => s !== "").join(" ")
 
-export const serialize = ({nodes, edges}) => [
+export const serialize = ({ nodes, edges }) => [
   ...nodes.map(serializeNode),
   ...edges.map(serializeEdge),
-].join("\n")+"\n"
+].join("\n") + "\n"

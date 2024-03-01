@@ -48,7 +48,7 @@ import serializeYARSPG from "./serializer/yarspg.js"
 import serializeYARSPG3 from "./serializer/yarspg3.js"
 import serializeCSV from "./serializer/csv.js"
 import serializeNeptune from "./serializer/neptune.js"
-//import serializeFlat from "./serializer/flat.js"
+// Import serializeFlat from "./serializer/flat.js"
 import parseTGF from "./parser/tgf.js"
 import serializeTGF from "./serializer/tgf.js"
 
@@ -59,10 +59,10 @@ import { serialize } from "./serializer/pg.js"
 export const pgformat = {
   pg: {
     name: "PG format (default input)",
-    parse: function(text) {
+    parse(text) {
       try {
         return parse(text) 
-      } catch(e) {
+      } catch (e) {
         const { line, column } = e.location.start
         throw new Error(`${e.message} Line ${line}:${column}.`)
       }
@@ -113,7 +113,7 @@ export const pgformat = {
     name: "Neptune CSV import (aka Gremlin load data format)",
     serialize: serializeNeptune,
   },
-//  flat: {
+//  Flat: {
 //    name: "Oracle Flat File Format (experimental)",
 //    serialize: serializeFlat,
 //  },

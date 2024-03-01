@@ -6,7 +6,7 @@ import neo4j from "neo4j-driver-lite"
 // TODO handle all data types
 const propertiesMustHaveArrayValues = properties => {
   for (const [key, value] of Object.entries(properties)) {
-    const values = Array.isArray(value) ? value : [ value ]
+    const values = Array.isArray(value) ? value : [value]
     properties[key] = values
 
   }
@@ -22,14 +22,14 @@ export default async json => {
   const session = driver.session({ defaultAccessMode: neo4j.session.READ })
 
   const ids = new IDMap()
-  const nodes = [], edges = []
+  const nodes = []; const edges = []
 
   const processNode = ({ labels, properties, elementId }) => {
     propertiesMustHaveArrayValues(properties)
     nodes.push({
       id: ids.map(elementId),
       labels,
-      properties, 
+      properties,
     })
   }
 
@@ -53,9 +53,8 @@ RETURN COLLECT(DISTINCT n) AS nodes, COLLECT(DISTINCT r) AS edges`
         record.get("nodes").forEach(processNode)
         record.get("edges").forEach(processEdge)
       },
-      onError, 
-      onCompleted: async () =>
-        session.close().then(() => driver.close()).then(() => resolve({ nodes, edges })),
+      onError,
+      onCompleted: async() => session.close().then(() => driver.close()).then(() => resolve({ nodes, edges })),
     })
   })
 }

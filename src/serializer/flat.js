@@ -23,17 +23,16 @@ const datatype = value => {
   if (typeof value === "number") {
     return Number.isInteger(value) ? 2 : 4
   } // TODO: how about Inf ?
-  return 1 // string or cast to string
+  return 1 // String or cast to string
 }
 
 const serializeNode = ({ id, labels, properties }) => {
-
   // Property key " " is not allowed, this is a placeholder for no property
   if (!Object.keys(properties).length) {
     properties = { " ": [""] }
   }
 
-  // only the first label is used
+  // Only the first label is used
   const label = labels[0] ?? ""
 
   // FIXME: NODE ID MUST BE INTEGER!
@@ -42,10 +41,9 @@ const serializeNode = ({ id, labels, properties }) => {
   const rows = Object.keys(properties).sort().map(key => {
     const value = properties[key][0]
     const type = datatype(value)
-    const row = [ id, key, type, 
-      ...(typeof value == "number" ? ["",value,""] : [value,"",""]),
-      label,
-    ]
+    const row = [id, key, type,
+      ...(typeof value === "number" ? ["", value, ""] : [value, "", ""]),
+      label]
     return csv(row)
   }).join("")
   return rows
@@ -64,7 +62,7 @@ const serialize = ({ nodes, edges }, target) => {
   edges.forEach(edge => ope.write(serializeEdge(edge)))
 }
 
-// serializes to multiple files or streams
+// Serializes to multiple files or streams
 serialize.multi = true
 
 export default serialize

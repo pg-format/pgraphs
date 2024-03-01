@@ -6,7 +6,7 @@ import { CSVWriter } from "../utils.js"
 import { MultiTarget } from "../target.js"
 
 const datatype = value => {
-  if (typeof value == "number") {
+  if (typeof value === "number") {
     return Number.isInteger(value) ? "Int" : "Double"
   } else if (typeof value === "boolean") {
     return "Bool"
@@ -16,25 +16,25 @@ const datatype = value => {
 }
 
 // TODO: what about '\;' in values?
-const multi = list => list.map(v => `${v}`.replaceAll(";","\\;")).join(";")
+const multi = list => list.map(v => `${v}`.replaceAll(";", "\\;")).join(";")
 
 function addProperties(map, properties) {
   const props = new Map(Object.entries(properties))
 
   for (let [key, values] of props.entries()) {
-    values = values.filter(v => v !== null)   // ignore null values
+    values = values.filter(v => v !== null)   // Ignore null values
 
     if (values.length) {
       const array = values.length > 1
-      var { type } = map[key] || {}
-      for (let value of values) {
-        var valuetype = datatype(value)
+      let { type } = map[key] || {}
+      for (const value of values) {
+        let valuetype = datatype(value)
 
         if (type == null) {
           type = valuetype
         } else if (type !== valuetype) {
-          if ((type == "Int" || valuetype == "Int") &&
-              (type == "Double" || valuetype == "Double")) {
+          if ((type == "Int" || valuetype == "Int")
+              && (type == "Double" || valuetype == "Double")) {
             valuetype = "Double"
             type = "Double"
           } else {
@@ -52,38 +52,37 @@ function addProperties(map, properties) {
   }
 
   // TODO: escape ;
-  return Object.keys(map).map(key => multi(props.get(key)||[]))
+  return Object.keys(map).map(key => multi(props.get(key) || []))
 }
-
 
 // TODO: escape or restrict property key?
 const props2row = props => Object.entries(props)
-  .map(([key,{type,array}]) => `${key}:${type}${array?"[]":""}`)
+  .map(([key, { type, array }]) => `${key}:${type}${array ? "[]" : ""}`)
 
-const serialize = ({nodes, edges}, target) => {
-  const csv = new CSVWriter({newline:"\n"})
+const serialize = ({ nodes, edges }, target) => {
+  const csv = new CSVWriter({ newline:"\n" })
 
   if (typeof target === "string") {
     target = new MultiTarget(target)
   }
 
-  const nodeRows = [], nodeProps = new Map()
-  const edgeRows = [], edgeProps = new Map()
- 
-  for (let { id, labels, properties } of nodes) {
-    nodeRows.push([ id, multi(labels), ...addProperties(nodeProps, properties) ])
+  const nodeRows = []; const nodeProps = new Map()
+  const edgeRows = []; const edgeProps = new Map()
+
+  for (const { id, labels, properties } of nodes) {
+    nodeRows.push([id, multi(labels), ...addProperties(nodeProps, properties)])
   }
 
-  for (let { from, to, labels, properties } of edges) {
-    edgeRows.push([ from, to, labels[0] ?? "", ...addProperties(edgeProps, properties) ])
+  for (const { from, to, labels, properties } of edges) {
+    edgeRows.push([from, to, labels[0] ?? "", ...addProperties(edgeProps, properties)])
   }
 
   const nodeTarget = target.open(".nodes.csv")
-  nodeTarget.write(csv.writeRow(["~id","~label",...props2row(nodeProps)]))
+  nodeTarget.write(csv.writeRow(["~id", "~label", ...props2row(nodeProps)]))
   nodeRows.forEach(row => nodeTarget.write(csv.writeRow(row)))
 
   const edgeTarget = target.open(".edges.csv")
-  edgeTarget.write(csv.writeRow(["~id","~from","~to","~label",...props2row(edgeProps)]))
+  edgeTarget.write(csv.writeRow(["~id", "~from", "~to", "~label", ...props2row(edgeProps)]))
   edgeRows.forEach((row, i) => edgeTarget.write(csv.writeRow([i, ...row])))
 }
 

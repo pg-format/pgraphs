@@ -3,7 +3,7 @@
     const properties = {}
     for (let [key, values] of props) {
       if (key in properties) {
-        for (let val of values) properties[key].add(val)
+        for (let val of values) {properties[key].add(val)}
       } else {
         properties[key] = new Set(values)
       }
@@ -20,50 +20,56 @@
   const edges = []
 }
 
-PG = ( line ( linebreak line )* )? end
+PG = ( Line ( LineBreak Line )* )? End
 {
   for (let { from, to } of edges) {
-    if (!(from in nodes)) nodes[from] = { id: from, labels: [], properties: {} }
-    if (!(to in nodes)) nodes[to] = { id: to, labels: [], properties: {} }
+    if (!(from in nodes)) {
+      nodes[from] = { id: from, labels: [], properties: {} }
+    }
+    if (!(to in nodes)) {
+      nodes[to] = { id: to, labels: [], properties: {} }
+    }
   }
   return {
     nodes: Object.keys(nodes).sort().map(id => nodes[id]),
-    edges 
+    edges, 
   }
 }
 
-end
+End
   = !.
 
-line
-  = entity trailingSpace? / empty
+Line
+  = Entity TrailingSpace?
+  / Empty
 
-trailingSpace
-  = space+ comment?
+TrailingSpace
+  = Space+ Comment?
 
-linebreak "linebreak"
+LineBreak "linebreak"
   = [\x0D\x0A]+
 
-empty
-  = space* comment?
+Empty
+  = Space* Comment?
 
-space "space"
+Space "space"
   = [\x20\x09]
 
-comment "comment"
-  = '#' [^\x0D\x0A]*
+Comment "comment"
+  = "#" [^\x0D\x0A]*
 
-whiteSpace
-  = ( trailingSpace / space* ) folding / space+
+WhiteSpace
+  = ( TrailingSpace / Space* ) Folding
+  / Space+
 
-folding
-  = linebreak ( empty linebreak )* space+
+Folding
+  = LineBreak ( Empty LineBreak )* Space+
 
-entity "identifier"
-  = id:identifier
-    edge:(direction:direction to:identifier { return { direction, to } })?
-    labels:label*
-    props:property* {
+Entity "identifier"
+  = id:Identifier
+    edge:DirectionAndIdentifier?
+    labels:Label*
+    props:Property* {
 
     labels = Array.from(new Set(labels)) // remove duplicates
 
@@ -71,83 +77,86 @@ entity "identifier"
       var from = id
       var { direction, to } = edge
       const e = { from, to, labels, properties: collectProps(props) }
-      if (direction === '<-') {
+      if (direction === "<-") {
         e.from = to
         e.to = from
-      } else if (direction === '--') {
+      } else if (direction === "--") {
         e.undirected = true
       }
       edges.push(e)
     } else {
+      // TODO: merge into existing node
       nodes[id] = { id, labels, properties: collectProps(props) }
     }
 }
 
-direction "->, <-, --"
-  = whiteSpace dir:('->' / '<-' / '--') whiteSpace { return dir }
+DirectionAndIdentifier
+  = direction:Direction to:Identifier { return { direction, to } }
 
-label "label"
-  = whiteSpace ':' id:identifier { return id }
+Direction "->, <-, --"
+  = WhiteSpace dir:( "->" / "<-" / "--" ) WhiteSpace { return dir }
 
-identifier
-  = quotedString
-  / plainIdentifier
+Label "label"
+  = WhiteSpace ":" id:Identifier { return id }
+
+Identifier
+  = QuotedString
+  / PlainIdentifier
 
 // must not start with hash, colon, opening parenthesis, comma
-plainIdentifier
-  = $( nameStart idChar* )
+PlainIdentifier
+  = $( NameStart IdChar* )
 
-nameStart
+NameStart
   = [^\x20\x09\x0A\x0D":(,#] 
 
-property "property"
-  = whiteSpace name:key value:values {
+Property "property"
+  = WhiteSpace name:Key value:ValueList {
       return [ name, value ]
     }
 
-idChar
+IdChar
   = [^\x20\x09\x0A\x0D"]
 
-nameChar
+NameChar
   = [^\x20\x09\x0A\x0D:"]
 
-key
-  = @quotedString ':'
-  / name:( nameStart $( nameChar* ':')+ ) {
+Key
+  = @QuotedString ":"
+  / name:( NameStart $( NameChar* ":" )+ ) {
       return name.join("").slice(0,-1)
     }
 
-values
-  = values:(whiteSpace? @value) |1.., (whiteSpace ",")| {
+ValueList
+  = values:( WhiteSpace? @Value ) |1.., ( WhiteSpace? "," )| {
       return values
     }
 
+Value "value"
+  = Scalar
+  / PlainValue
 
-value "value"
-  = scalar
-  / plainValue
-
-plainValue
+PlainValue
   = $( [^\x20\x09\x0A\x0D":(,:] [^\x20\x09\x0A\x0D,:]* )
 
 // Scalar value as defined in JSON (RFC 7159).
 // Grammar taken and adjusted from peggy example 'json.pegjs'.
 
-scalar
-  = quotedString
-  / number
+Scalar
+  = QuotedString
+  / Number
   / "true" { return true }
   / "false" { return false }
   / "null" { return null }
 
-quotedString
-  = '"' chars:char* '"' { return chars.join("") }
+QuotedString
+  = '"' chars:Char* '"' { return chars.join("") }
 
-char
-  = unescaped
-  / escaped
+Char
+  = Unescaped
+  / Escaped
 
-escaped
+Escaped
   = "\\"
     sequence:(
         '"'
@@ -158,29 +167,29 @@ escaped
       / "n" { return "\n" }
       / "r" { return "\r" }
       / "t" { return "\t" }
-      / "u" @codepoint )
+      / "u" @Codepoint )
     { return sequence }
 
-codepoint
-  = digits:$(hex |4|) {
-          return String.fromCharCode(parseInt(digits, 16));
-        }
-
-unescaped
-  = [^\0-\x1F\x22\x5C]
-
-number
-  = "-"? int frac? exp? { 
-      return parseFloat(text())
+Codepoint
+  = digits:$( Hex |4| ) {
+      return String.fromCharCode(parseInt(digits, 16));
     }
 
-int
-  = "0" / ([1-9] [0-9]*)
+Unescaped
+  = [^\0-\x1F\x22\x5C]
 
-frac
+Number
+  = "-"? Int Frac? Exp? { return parseFloat(text()) }
+
+Int
+  = "0"
+  / ( [1-9] [0-9]* )
+
+Frac
   = "." [0-9]+
 
-exp
+Exp
   = [eE] [+-]? [0-9]+
 
-hex = [0-9a-f]i
+Hex
+  = [0-9a-f]i

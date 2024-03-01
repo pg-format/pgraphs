@@ -16,40 +16,40 @@ describe("valid PG-JSON", () => {
           console.log(validate.errors)
         }
         assert.ok(validate(graph))
-      }) 
+      })
     }
   })
 })
- 
+
 const node = id => ({ id, labels:[], properties: {} })
 
 const invalid = [
-  // missing or additional fields
+  // Missing or additional fields
   {},
-  {nodes:[],edges:[],X:1},
-  {nodes:[{}],edges:[]},
-  {nodes:[],edges:[{}]},
-  {nodes:[{...node("x"),X:1}],edges:[]},
-  {nodes:[node("x"),node("y")],edges:[{from:"x",to:"y",labels:[],properties:{},X:1}]},
+  { nodes:[], edges:[], X:1 },
+  { nodes:[{}], edges:[] },
+  { nodes:[], edges:[{}] },
+  { nodes:[{ ...node("x"), X:1 }], edges:[] },
+  { nodes:[node("x"), node("y")], edges:[{ from:"x", to:"y", labels:[], properties:{}, X:1 }] },
 ]
 
 const valid = [
-  // empty string id, label, property key
-  {nodes:[{id:"",labels:[],properties:{}}],edges:[]},
-  {nodes:[{id:"x",labels:[],properties:{"":[1]}}],edges:[]},
+  // Empty string id, label, property key
+  { nodes:[{ id:"", labels:[], properties:{} }], edges:[] },
+  { nodes:[{ id:"x", labels:[], properties:{ "":[1] } }], edges:[] },
 ]
 
 describe("more valid PG-JSON", () => {
-  for(let i=0; i<valid.length; i++) {
-    it(""+i, () => {
+  for (let i = 0; i < valid.length; i++) {
+    it(String(i), () => {
       assert.ok(validate(valid[i]))
     })
   }
 })
 
 describe("invalid PG-JSON", () => {
-  for(let i=0; i<invalid.length; i++) {
-    it(""+i, () => {
+  for (let i = 0; i < invalid.length; i++) {
+    it(String(i), () => {
       assert.ok(!validate(invalid[i]))
     })
   }

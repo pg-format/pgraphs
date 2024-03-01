@@ -19,12 +19,9 @@ const xmlEntity = {
 const xmlEscape = s => `${s}`.replaceAll(/[&"<>']/g, c => xmlEntity[c])
 
 // TODO: use optional attribute data.type? Content seems to be not specified
-const serializeProperties = properties =>
-  Object.keys(properties).sort().map(key =>
-    properties[key].map(value =>
-      `      <data key="${xmlEscape(key)}">${xmlEscape(value)}</data>`).join("\n"),
-  ).join("\n")
- 
+const serializeProperties = properties => Object.keys(properties).sort().map(key => properties[key].map(value => `      <data key="${xmlEscape(key)}">${xmlEscape(value)}</data>`).join("\n"),
+).join("\n")
+
 const serializeNode = ({ id, properties }) => {
   const data = serializeProperties(properties)
   return `    <node id="${xmlEscape(id)}"` + (data ? `>\n${data}\n    </node>` : "/>")
@@ -32,8 +29,8 @@ const serializeNode = ({ id, properties }) => {
 
 const serializeEdge = ({ from, to, properties }) => {
   const data = serializeProperties(properties)
-  return `    <edge source="${xmlEscape(from)}" target="${xmlEscape(to)}"` +
-    (data ? `>\n${data}\n    </edge>` : "/>")
+  return `    <edge source="${xmlEscape(from)}" target="${xmlEscape(to)}"`
+    + (data ? `>\n${data}\n    </edge>` : "/>")
 }
 
 export default ({ nodes, edges }) => {

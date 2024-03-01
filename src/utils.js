@@ -1,9 +1,9 @@
 import { Writer } from "@pinemach/csv"
 export const CSVWriter = Writer
 
-// Maps arbitrary identifier strings to enumerated identifiers 
+// Maps arbitrary identifier strings to enumerated identifiers
 export class IDMap extends Map {
-  constructor(base="") {
+  constructor(base = "") {
     super()
     this.base = base
   }
@@ -12,12 +12,12 @@ export class IDMap extends Map {
     if (this.has(id)) {
       return this.get(id)
     } else {
-      const mapped = `${this.base}${this.size+1}`
+      const mapped = `${this.base}${this.size + 1}`
       this.set(id, mapped)
       return mapped
     }
   }
-}   
+}
 
 export const graph = (nodes, edges) => ({
   nodes: Object.keys(nodes).sort().map(id => nodes[id]),
