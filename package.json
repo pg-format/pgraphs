@@ -12,7 +12,8 @@
     "mocha": "^10.2.0",
     "neo4j-driver-lite": "^5.17.0",
     "peggy": "^4.0.0",
-    "peggy-tracks": "^3.2.0"
+    "peggy-tracks": "^3.2.0",
+    "pre-commit": "^1.2.2"
   },
   "main": "index.js",
   "type": "module",
@@ -27,6 +28,10 @@
     "peggy-tracks": "peggy-tracks",
     "docs": "./docs/make.sh"
   },
+  "pre-commit": [
+    "lint",
+    "test"
+  ],
   "dependencies": {
     "@pinemach/csv": "^1.0.4",
     "dotparser": "^1.1.1"
