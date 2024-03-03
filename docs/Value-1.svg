@@ -24,7 +24,7 @@
 <path d="M188.75 79h0"></path>
 <path d="M310.75 79h0"></path>
 <rect x="188.75" y="68" width="122" height="22"></rect>
-<text x="249.75" y="83">quotedString</text>
+<text x="249.75" y="83">QuotedString</text>
 </g>
 <path d="M310.75 79h20"></path>
 <path d="M168.75 79a10 10 0 0 1 10 10v10a10 10 0 0 0 10 10"></path>
@@ -32,7 +32,7 @@
 <path d="M188.75 109h25.5"></path>
 <path d="M285.25 109h25.5"></path>
 <rect x="214.25" y="98" width="71" height="22"></rect>
-<text x="249.75" y="113">number</text>
+<text x="249.75" y="113">Number</text>
 </g>
 <path d="M310.75 109a10 10 0 0 0 10 -10v-10a10 10 0 0 1 10 -10"></path>
 <path d="M168.75 79a10 10 0 0 1 10 10v40a10 10 0 0 0 10 10"></path>
@@ -63,7 +63,7 @@
 <g class="comment">
 <path d="M168.75 52h0"></path>
 <path d="M220.75 52h0"></path>
-<text x="194.75" y="57" class="comment">scalar</text>
+<text x="194.75" y="57" class="comment">Scalar</text>
 </g>
 </g>
 <path d="M429.5 79h20"></path>
@@ -114,7 +114,7 @@
 <g class="comment">
 <path d="M70 234h0"></path>
 <path d="M150 234h0"></path>
-<text x="110" y="239" class="comment">plainValue</text>
+<text x="110" y="239" class="comment">PlainValue</text>
 </g>
 </g>
 <path d="M429.5 270a10 10 0 0 0 10 -10v-171a10 10 0 0 1 10 -10"></path>
@@ -122,7 +122,7 @@
 <g class="comment">
 <path d="M50 28h0"></path>
 <path d="M144 28h0"></path>
-<text x="97" y="33" class="comment">value(value)</text>
+<text x="97" y="33" class="comment">Value(value)</text>
 </g>
 </g>
 <path d="M449.5 79h10"></path>

@@ -90,7 +90,7 @@
 <g class="comment">
 <path d="M138.5 69h0"></path>
 <path d="M169.5 69h0"></path>
-<text x="154" y="74" class="comment">int</text>
+<text x="154" y="74" class="comment">Int</text>
 </g>
 </g>
 <g class="Choice">
@@ -138,7 +138,7 @@
 <g class="comment">
 <path d="M403.5 69h0"></path>
 <path d="M441.5 69h0"></path>
-<text x="422.5" y="74" class="comment">frac</text>
+<text x="422.5" y="74" class="comment">Frac</text>
 </g>
 </g>
 <path d="M554.5 96h20"></path>
@@ -205,7 +205,7 @@
 <g class="comment">
 <path d="M594.5 60h0"></path>
 <path d="M625.5 60h0"></path>
-<text x="610" y="65" class="comment">exp</text>
+<text x="610" y="65" class="comment">Exp</text>
 </g>
 </g>
 <path d="M873.5 96h20"></path>
@@ -214,7 +214,7 @@
 <g class="comment">
 <path d="M50 28h0"></path>
 <path d="M102 28h0"></path>
-<text x="76" y="33" class="comment">number</text>
+<text x="76" y="33" class="comment">Number</text>
 </g>
 </g>
 <path d="M903.5 96h10"></path>

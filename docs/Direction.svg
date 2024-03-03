@@ -16,7 +16,7 @@
 <path d="M60 55h0"></path>
 <path d="M165 55h0"></path>
 <rect x="60" y="44" width="105" height="22"></rect>
-<text x="112.5" y="59">whiteSpace</text>
+<text x="112.5" y="59">WhiteSpace</text>
 </g>
 <g class="Choice">
 <path d="M175 55h0"></path>
@@ -51,13 +51,13 @@
 <path d="M262 55h0"></path>
 <path d="M367 55h0"></path>
 <rect x="262" y="44" width="105" height="22"></rect>
-<text x="314.5" y="59">whiteSpace</text>
+<text x="314.5" y="59">WhiteSpace</text>
 </g>
 </g>
 <g class="comment">
 <path d="M50 28h0"></path>
 <path d="M207 28h0"></path>
-<text x="128.5" y="33" class="comment">direction(->, &#60;-, --)</text>
+<text x="128.5" y="33" class="comment">Direction(->, &#60;-, --)</text>
 </g>
 </g>
 <path d="M377 55h10"></path>

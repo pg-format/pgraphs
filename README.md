@@ -1,11 +1,10 @@
 # pgraph
 
-> Property Graph Exchange Format (PG) parser and serializer
+> Property Graph Exchange Format (PG) converter
 
 [![Test](https://github.com/gbv/pgraph/actions/workflows/test.yml/badge.svg)](https://github.com/gbv/pgraph/actions/workflows/test.yml)
 
-This package implements parsers and serializers to convert between labeled
-property graph formats. See [below for examples](#formats).
+This package implements parsers and serializers to convert between labeled property graph formats and databases.
 
 ## Table of Contents
 
@@ -28,28 +27,14 @@ property graph formats. See [below for examples](#formats).
 ## Background
 
 A **property graph** (also known as **labeled property graph**) is an abstract
-data structure used in graph databases and related applications. It consists of
-**nodes** and **edges** between these nodes. Each edge can be directed or
-undirected.  Each of the nodes and edges can have a set of zero or more
-**labels** and a set of and zero or more properties. **properties** are
-key-value pairs where the same key may have multiple values. **values** are
-Unicode strings or scalar values of other data types.
+data structure consisting of **nodes** and (possibly directed) **edges**
+between these nodes. Nodes and edges can each have **labels** and
+**properties**. Property graph [formats and databases](#formats) slightly
+differ in their data model by restrictions, support of data types etc.
 
-Property graphs [applications and formats](#formats) differ in their model by
-different support of data types, restrictions on labels etc. This package
-implements the **Property Graph Exchange Format (PG)**, aimed to be a superset
-of common models, with parsers and serializers from and to various formats.
-
-A first version of the PG model and its serializations **PG format** and
-**PG-JSON** have been proposed by Hirokazu Chiba, Ryota Yamanaka, and Shota
-Matsumoto ([2019](https://arxiv.org/abs/1907.03936),
-[2022](https://arxiv.org/abs/2203.06393)). Additional information included in
-this package:
-
-- [formal description of PG model and format](docs/pg-format.md)
-- [illustrating example of PG format](./docs/pg-format.pg)
-- [JSON Schema of PG-JSON](pg-schema.json)
-- [Example directory](examples), also used for unit tests
+This package implements the **Property Graph Exchange Format (PG)**, aimed to
+be a superset of common models, with parsers and serializers from and to
+various formats.
 
 ## Install
 
@@ -143,6 +128,13 @@ and boolean values:
 101 -> 102  :likes  since:2015  engaged:false
 ~~~
 
+See also:
+
+- [railroad diagram of PG format](docs/pg-grammar.md)
+- [formal description of PG model and format](docs/pg-format.md) (*work in progress*)
+- [illustrating example of PG format](./docs/pg-format.pg)
+- [Example directory](examples), also used for unit tests
+
 ### PG JSON and NDJSON
 
 The same graph [in PG-JSON](examples/example.json) and [in
@@ -173,6 +165,8 @@ PG-NDJSON](examples/example.ndjson):
 {"from":"101","to":"102","labels":["same_school","same_class"],"properties":{"since":[2012]},"undirected":true}
 {"from":"101","to":"102","labels":["likes"],"properties":{"since":[2015],"engaged":[false]}}
 ~~~
+
+There is also a [JSON Schema of PG-JSON](pg-schema.json).
 
 ### GraphViz DOT
 
@@ -340,7 +334,9 @@ Parsed back from TGF and serialized as PG format, this is equivalent to:
 
 Licensed under the MIT License.
 
-PG has been created by Hirokazu Chiba, Ryota Yamanaka, and Shota Matsumoto.
-See <https://arxiv.org/abs/1907.03936> for reference.
+A first version of the PG model and its serializations **PG format** and
+**PG-JSON** have been proposed by Hirokazu Chiba, Ryota Yamanaka, and Shota
+Matsumoto ([2019](https://arxiv.org/abs/1907.03936),
+[2022](https://arxiv.org/abs/2203.06393)).
 
 Implementation forked from <https://github.com/g2glab/pg/> by Jakob Voß.

@@ -20,7 +20,7 @@
 <path d="M146.25 55h0"></path>
 <path d="M268.25 55h0"></path>
 <rect x="146.25" y="44" width="122" height="22"></rect>
-<text x="207.25" y="59">quotedString</text>
+<text x="207.25" y="59">QuotedString</text>
 </g>
 <path d="M278.25 55h10"></path>
 <g class="terminal literal">
@@ -40,7 +40,7 @@
 <path d="M70 94h0"></path>
 <path d="M166.5 94h0"></path>
 <rect x="70" y="83" width="96.5" height="22"></rect>
-<text x="118.25" y="98">nameStart</text>
+<text x="118.25" y="98">NameStart</text>
 </g>
 <path d="M176.5 94h10"></path>
 <g class="OneOrMore">
@@ -79,7 +79,7 @@
 <path d="M226.5 94h0"></path>
 <path d="M314.5 94h0"></path>
 <rect x="226.5" y="83" width="88" height="22"></rect>
-<text x="270.5" y="98">nameChar</text>
+<text x="270.5" y="98">NameChar</text>
 </g>
 </g>
 <path d="M324.5 94h20"></path>
@@ -99,7 +99,7 @@
 <g class="comment">
 <path d="M50 28h0"></path>
 <path d="M81 28h0"></path>
-<text x="65.5" y="33" class="comment">key</text>
+<text x="65.5" y="33" class="comment">Key</text>
 </g>
 </g>
 <path d="M413 55h10"></path>

@@ -19,7 +19,7 @@
   const edges = []
 }
 
-PG = ( Line ( ( LineBreak / ";" Space* ) Line )* )? End
+PG = ( Line ( ( LineBreak / ";" Space? ) Line )* )? EOF
 {
   for (let { from, to } of edges) {
     if (!(from in nodes)) {
@@ -35,7 +35,7 @@ PG = ( Line ( ( LineBreak / ";" Space* ) Line )* )? End
   }
 }
 
-End
+EOF
   = !.
 
 Line
@@ -43,30 +43,27 @@ Line
   / Empty
 
 TrailingSpace
-  = Space+ Comment?
+  = Space Comment?
 
 LineBreak "linebreak"
   = [\x0D\x0A]+
 
 Empty
-  = Space* Comment?
+  = Space? Comment?
 
 Space "space"
-  = [\x20\x09]
+  = [\x20\x09]+
 
 Comment "comment"
   = "#" [^\x0D\x0A]*
 
 WhiteSpace
-  = ( TrailingSpace / Space* ) Folding
-  / Space+
-
-Folding
-  = LineBreak ( Empty LineBreak )* Space+
+  = ( TrailingSpace / Space? ) LineBreak ( Empty LineBreak )* Space
+  / Space
 
 Entity "identifier"
   = id:Identifier
-    edge:DirectionAndIdentifier?
+    edge:( direction:Direction to:Identifier { return { direction, to } } )?
     labels:Label*
     props:Property* {
 
@@ -92,9 +89,6 @@ Entity "identifier"
       }
     }
 }
-
-DirectionAndIdentifier
-  = direction:Direction to:Identifier { return { direction, to } }
 
 Direction "->, <-, --"
   = WhiteSpace dir:( "->" / "<-" / "--" ) WhiteSpace { return dir }

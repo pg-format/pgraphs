@@ -58,7 +58,7 @@
 <g class="comment">
 <path d="M273.25 84h0"></path>
 <path d="M346.25 84h0"></path>
-<text x="309.75" y="89" class="comment">unescaped</text>
+<text x="309.75" y="89" class="comment">Unescaped</text>
 </g>
 </g>
 <path d="M540 111h20"></path>
@@ -202,7 +202,7 @@
 <g class="comment">
 <path d="M356 466h0"></path>
 <path d="M387 466h0"></path>
-<text x="371.5" y="471" class="comment">hex</text>
+<text x="371.5" y="471" class="comment">Hex</text>
 </g>
 </g>
 </g>
@@ -217,7 +217,7 @@
 <g class="comment">
 <path d="M282.5 410h0"></path>
 <path d="M355.5 410h0"></path>
-<text x="319" y="415" class="comment">codepoint</text>
+<text x="319" y="415" class="comment">Codepoint</text>
 </g>
 </g>
 </g>
@@ -227,7 +227,7 @@
 <g class="comment">
 <path d="M157 146h0"></path>
 <path d="M216 146h0"></path>
-<text x="186.5" y="151" class="comment">escaped</text>
+<text x="186.5" y="151" class="comment">Escaped</text>
 </g>
 </g>
 <path d="M540 173a10 10 0 0 0 10 -10v-42a10 10 0 0 1 10 -10"></path>
@@ -235,7 +235,7 @@
 <g class="comment">
 <path d="M137 60h0"></path>
 <path d="M175 60h0"></path>
-<text x="156" y="65" class="comment">char</text>
+<text x="156" y="65" class="comment">Char</text>
 </g>
 </g>
 </g>
@@ -252,7 +252,7 @@
 <g class="comment">
 <path d="M50 28h0"></path>
 <path d="M144 28h0"></path>
-<text x="97" y="33" class="comment">quotedString</text>
+<text x="97" y="33" class="comment">QuotedString</text>
 </g>
 </g>
 <path d="M647 111h10"></path>

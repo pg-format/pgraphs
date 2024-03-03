@@ -1,0 +1,111 @@
+<svg class="railroad-diagram" width="287.5" height="124" viewBox="0 0 287.5 124" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<g transform="translate(.5 .5)">
+<g class="Start">
+<path d="M20 45v20m0 -10h20"></path>
+</g>
+<path d="M40 55h10"></path>
+<g class="Group rule">
+<path d="M50 55h0"></path>
+<path d="M237.5 55h0"></path>
+<rect x="50" y="36" width="187.5" height="68" rx="10" ry="10" class="group-box"></rect>
+<g class="Choice">
+<path d="M50 55h0"></path>
+<path d="M237.5 55h0"></path>
+<path d="M50 55h20"></path>
+<g class="non-terminal rule-ref">
+<path d="M70 55h12.75"></path>
+<path d="M204.75 55h12.75"></path>
+<rect x="82.75" y="44" width="122" height="22"></rect>
+<text x="143.75" y="59">QuotedString</text>
+</g>
+<path d="M217.5 55h20"></path>
+<path d="M50 55a10 10 0 0 1 10 10v10a10 10 0 0 0 10 10"></path>
+<g class="non-terminal rule-ref">
+<path d="M70 85h0"></path>
+<path d="M217.5 85h0"></path>
+<rect x="70" y="74" width="147.5" height="22"></rect>
+<text x="143.75" y="89">PlainIdentifier</text>
+</g>
+<path d="M217.5 85a10 10 0 0 0 10 -10v-10a10 10 0 0 1 10 -10"></path>
+</g>
+<g class="comment">
+<path d="M50 28h0"></path>
+<path d="M130 28h0"></path>
+<text x="90" y="33" class="comment">Identifier</text>
+</g>
+</g>
+<path d="M237.5 55h10"></path>
+<path class="End" d="M 247.5 55 h 20 m 0 -10 v 20"></path>
+</g>
+<style>  svg {
+    background-color: hsl(30,20%,95%);
+  }
+  path {
+    stroke-width: 3;
+    stroke: black;
+    fill: rgba(0,0,0,0);
+  }
+  text {
+    font: bold 14px monospace;
+    text-anchor: middle;
+    white-space: pre;
+  }
+  text.diagram-text {
+    font-size: 12px;
+  }
+  text.diagram-arrow {
+    font-size: 16px;
+  }
+  text.label {
+    text-anchor: start;
+  }
+  text.comment {
+    font: italic 12px monospace;
+  }
+  g.non-terminal text {
+    /*font-style: italic;*/
+  }
+  rect {
+    stroke-width: 3;
+    stroke: black;
+    fill: hsl(120,100%,90%);
+  }
+  rect.group-box {
+    stroke: gray;
+    stroke-dasharray: 10 5;
+    fill: none;
+  }
+  g.literal rect {
+    fill: #fff;
+  }
+  path.diagram-text {
+    stroke-width: 3;
+    stroke: black;
+    fill: white;
+    cursor: help;
+  }
+  .decision path {
+    fill: #ccc;
+  }
+  g.diagram-text:hover path.diagram-text {
+    fill: #eee;
+  }
+  text.repeat-text {
+    font: italic 12px monospace;
+    text-anchor: end;
+  }
+  .repeat-box > rect.group-box {
+    stroke: gray;
+    stroke-width: 2;
+    stroke-dasharray: 1 5;
+    fill: none;
+  }
+  .delimiter > rect.group-box {
+    stroke: gray;
+    stroke-width: 2;
+    stroke-dasharray: 1 5;
+    fill: none;
+  }
+
+</style>
+</svg>

@@ -24,9 +24,10 @@
     "test": "mocha",
     "lint": "eslint --fix './**/*.js' && eslint './**/*.pegjs'",
     "update-example": "pgraph examples/example.pg -t csv examples/csv/example",
-    "parser": "peggy --allowed-start-rules PG --format es -o src/parser/pg.js ./src/pg.pegjs",
+    "parser": "peggy --format es -o src/parser/pg.js ./src/pg.pegjs",
     "peggy-tracks": "peggy-tracks",
-    "docs": "./docs/make.sh"
+    "docs": "./docs/make.sh",
+    "build": "npm run parser && npm test && npm run docs"
   },
   "pre-commit": [
     "lint",
