@@ -2,6 +2,8 @@
 
 > Property Graph Exchange Format (PG) parser and serializer
 
+[![Test](https://github.com/gbv/pgraph/actions/workflows/test.yml/badge.svg)](https://github.com/gbv/pgraph/actions/workflows/test.yml)
+
 This package implements parsers and serializers to convert between labeled
 property graph formats. See [below for examples](#formats).
 
