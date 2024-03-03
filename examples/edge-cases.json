@@ -87,9 +87,14 @@
     {
       "id": "a",
       "labels": [
+        "person",
         ""
       ],
-      "properties": {}
+      "properties": {
+        "foo": [
+          "bar"
+        ]
+      }
     },
     {
       "id": "false",

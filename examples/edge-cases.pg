@@ -1,10 +1,10 @@
 # plain node id
 a
 
-# same node id will override existing node
+# same node id is merged into existing node
 a :person
 
-# same node id will override existing node
+# same node id is merged into existing node
 a  foo:bar
 
 # empty property key and value

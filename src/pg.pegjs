@@ -1,6 +1,5 @@
 {{
-  function collectProps(props) {
-    const properties = {}
+  function collectProps(props, properties={}) {
     for (let [key, values] of props) {
       if (key in properties) {
         for (let val of values) {properties[key].add(val)}
@@ -20,7 +19,7 @@
   const edges = []
 }
 
-PG = ( Line ( LineBreak Line )* )? End
+PG = ( Line ( ( LineBreak / ";" Space* ) Line )* )? End
 {
   for (let { from, to } of edges) {
     if (!(from in nodes)) {
@@ -71,7 +70,7 @@ Entity "identifier"
     labels:Label*
     props:Property* {
 
-    labels = Array.from(new Set(labels)) // remove duplicates
+    labels = Array.from(new Set(labels))
 
     if (edge) {
       var from = id
@@ -85,8 +84,12 @@ Entity "identifier"
       }
       edges.push(e)
     } else {
-      // TODO: merge into existing node
-      nodes[id] = { id, labels, properties: collectProps(props) }
+      if (id in nodes) {
+        nodes[id].labels = Array.from(new Set([...nodes[id].labels, ...labels]))
+        nodes[id].properties = collectProps(props, nodes[id].properties)
+      } else {
+        nodes[id] = { id, labels, properties: collectProps(props) }
+      }
     }
 }
 
@@ -108,7 +111,7 @@ PlainIdentifier
   = $( NameStart IdChar* )
 
 NameStart
-  = [^\x20\x09\x0A\x0D":(,#] 
+  = [^\x20\x09\x0A\x0D":(,;#] 
 
 Property "property"
   = WhiteSpace name:Key value:ValueList {
