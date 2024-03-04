@@ -32,8 +32,8 @@ between these nodes. Nodes and edges can each have **labels** and
 **properties**. Property graph [formats and databases](#formats) slightly
 differ in their data model by restrictions, support of data types etc.
 
-This package implements the **Property Graph Exchange Format (PG)**, aimed to
-be a superset of common models, with parsers and serializers from and to
+This package implements the **[Property Graph Exchange Format (PG)](#pg-format)**,
+aimed to be a superset of common models, with parsers and serializers from and to
 various formats.
 
 ## Install
@@ -113,9 +113,14 @@ installed as dependency of another project):
 
 Several formats and conventions exist to store labeled property graphs. Each
 format comes with a syntax and a limited or extended data model of property
-graphs: not every feature can be expressed in every format.
+graphs: not every feature can be expressed in every format!
 
 ### PG format
+
+PG format was first proposed by Hirokazu Chiba, Ryota Yamanaka, and Shota
+Matsumoto ([2019](https://arxiv.org/abs/1907.03936),
+[2022](https://arxiv.org/abs/2203.06393)). A revision is currently taking place
+to get to a final specification.
 
 The [following graph](examples/example.pg) in **PG format** with two nodes and
 two edges uses features such as multiple labels, and property values, numbers
@@ -128,10 +133,11 @@ and boolean values:
 101 -> 102  :likes  since:2015  engaged:false
 ~~~
 
-See also:
+See also the following documents and applications (*work in progress!*):
 
 - [railroad diagram of PG format](docs/pg-grammar.md)
-- [formal description of PG model and format](docs/pg-format.md) (*work in progress*)
+- [web application to beautify PG format](https://g2glab.github.io/pg-formatter/)
+- [formal description of PG model and format](docs/pg-format.md)
 - [illustrating example of PG format](./docs/pg-format.pg)
 - [Example directory](examples), also used for unit tests
 
