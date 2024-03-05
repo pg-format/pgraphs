@@ -39,37 +39,19 @@ various formats.
 
 ## Install
 
-This package has not been published at npm so you need to clone it from its git repository.
+Requires node >= 18.0.0 for use and >= 20.0.0 for development.
 
 ~~~
-git clone https://github.com/gbv/pg.git
-cd pg
-npm install
+npm install pgraphs
 ~~~
+
+Browser bundles have not been created yet.
 
 ## Usage
 
-### API
-
-~~~
-import { pgformat, ParsingError } from "pgraphs"
-
-const graph = {
-  nodes: [ ... ],
-  edges: [ ... ] 
-}
-
-try {
-  const pgstring = pgformat.pg.serialize(graph)
-  const graph = pgformat.pg.parse(pgstring)
-} catch (ParsingError e) {
-  console.log(`Parsing failed in line ${e.line}`)
-}
-~~~
-
 ### CLI
 
-The script `bin/pgraph.js` is installed as command `pgraph`:
+Command `pgraph` is installed with this package:
 
 ~~~
 Usage: pgraph [options] [<input> [<output]]
@@ -110,6 +92,26 @@ installed as dependency of another project):
 }
 ~~~
 
+### API
+
+Programming API may still change. Try this or look at the sources:
+
+~~~
+import { pgformat, ParsingError } from "pgraphs"
+
+const graph = {
+  nodes: [ ... ],
+  edges: [ ... ] 
+}
+
+try {
+  const pgstring = pgformat.pg.serialize(graph)
+  const graph = pgformat.pg.parse(pgstring)
+} catch (ParsingError e) {
+  console.log(`Parsing failed in line ${e.line}`)
+}
+~~~
+
 ## Formats
 
 Several formats and conventions exist to store labeled property graphs. Each
@@ -136,11 +138,11 @@ and boolean values:
 
 See also the following documents and applications (*work in progress!*):
 
-- [railroad diagram of PG format](docs/pg-grammar.md)
+- [railroad diagram of PG format](https://github.com/gbv/pgraphs/blob/main/docs/pg-grammar.md)
 - [web application to beautify PG format](https://g2glab.github.io/pg-formatter/)
-- [formal description of PG model and format](docs/pg-format.md)
-- [illustrating example of PG format](./docs/pg-format.pg)
-- [Example directory](examples), also used for unit tests
+- [formal description of PG model and format](https://github.com/gbv/pgraphs/blob/main/docs/pg-format.md) (*may be outdated*)
+- [illustrating example of PG format](https://github.com/gbv/pgraphs/blob/main/docs/pg-format.pg)
+- [Example directory](https://github.com/gbv/pgraphs/blob/main/examples), also used for unit tests
 
 ### PG JSON and NDJSON
 

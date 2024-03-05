@@ -5,10 +5,12 @@
   "license": "MIT",
   "homepage": "https://github.com/gbv/pgraphs#readme",
   "author": "Jakob Voß",
-  "license": "MIT",
   "repository": {
     "type": "git",
     "url": "https://github.com/gbv/pgraphs.git"
+  },
+  "engines": {
+    "node": ">= 18.0.0"
   },
   "devDependencies": {
     "@peggyjs/eslint-parser": "^2.0.6",
@@ -47,6 +49,7 @@
   ],
   "dependencies": {
     "@pinemach/csv": "^1.0.4",
-    "dotparser": "^1.1.1"
+    "dotparser": "^1.1.1",
+    "pgraphs": "^0.1.0"
   }
 }
