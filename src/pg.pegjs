@@ -96,7 +96,7 @@ Direction "->, <-, --"
   = WhiteSpace dir:( "->" / "<-" / "--" ) WhiteSpace { return dir }
 
 Label "label"
-  = WhiteSpace ":" id:Identifier { return id }
+  = WhiteSpace ":" Space? id:Identifier { return id }
 
 Identifier
   = QuotedString

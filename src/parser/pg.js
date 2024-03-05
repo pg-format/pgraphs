@@ -7,7 +7,9 @@
   function collectProps(props, properties={}) {
     for (let [key, values] of props) {
       if (key in properties) {
-        for (let val of values) {properties[key].add(val)}
+        for (let val of values) {
+          properties[key].add(val)
+        }
       } else {
         properties[key] = new Set(values)
       }
@@ -335,7 +337,7 @@ function peg$parse(input, options) {
   var peg$f16 = function() { return "\t" };
   var peg$f17 = function(sequence) { return sequence };
   var peg$f18 = function(digits) {
-      return String.fromCharCode(parseInt(digits, 16));
+      return String.fromCharCode(parseInt(digits, 16))
     };
   var peg$f19 = function() { return parseFloat(text()) };
   var peg$currPos = options.peg$currPos | 0;
@@ -976,7 +978,7 @@ function peg$parse(input, options) {
   }
 
   function peg$parseLabel() {
-    var s0, s1, s2, s3;
+    var s0, s1, s2, s3, s4;
 
     peg$silentFails++;
     s0 = peg$currPos;
@@ -990,10 +992,14 @@ function peg$parse(input, options) {
         if (peg$silentFails === 0) { peg$fail(peg$e15); }
       }
       if (s2 !== peg$FAILED) {
-        s3 = peg$parseIdentifier();
-        if (s3 !== peg$FAILED) {
+        s3 = peg$parseSpace();
+        if (s3 === peg$FAILED) {
+          s3 = null;
+        }
+        s4 = peg$parseIdentifier();
+        if (s4 !== peg$FAILED) {
           peg$savedPos = s0;
-          s0 = peg$f4(s3);
+          s0 = peg$f4(s4);
         } else {
           peg$currPos = s0;
           s0 = peg$FAILED;

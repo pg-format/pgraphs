@@ -25,6 +25,7 @@
     "lint": "eslint --fix './**/*.js' && eslint './**/*.pegjs'",
     "update-example": "pgraph examples/example.pg -t csv examples/csv/example",
     "parser": "peggy --format es -o src/parser/pg.js ./src/pg.pegjs",
+    "peggy": "peggy",
     "peggy-tracks": "peggy-tracks",
     "docs": "./docs/make.sh",
     "build": "npm run parser && npm test && npm run docs"

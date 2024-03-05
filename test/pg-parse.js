@@ -48,7 +48,7 @@ const valid = {
   "x\nxy\r\nxyz # comment\n\"X\"": graph(["X", "x", "xy", "xyz"]), // Node ids
   // labels and line folding
   "n1 \n  :label:x  :y #comment\n\t :a :a": graph([{ id:"n1", labels:["label:x", "y", "a"] }]),
-  "a b:1": graph([{ id:"a", properties:{ b:1 } }]),
+  "a : x b:1": graph([{ id:"a", labels: ["x"], properties:{ b:1 } }]),
   // Properties
   "x a:0 ab:false a:b:c a:b:4 \"(\":5 \"\":6": graph([{ id:"x",
     properties:{ a:0, ab:false, "a:b":["c", 4], "(":5, "":6 } }]),
