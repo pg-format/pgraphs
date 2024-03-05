@@ -2,7 +2,9 @@
   function collectProps(props, properties={}) {
     for (let [key, values] of props) {
       if (key in properties) {
-        for (let val of values) {properties[key].add(val)}
+        for (let val of values) {
+          properties[key].add(val)
+        }
       } else {
         properties[key] = new Set(values)
       }
@@ -169,7 +171,7 @@ Escaped
 
 Codepoint
   = digits:$( Hex |4| ) {
-      return String.fromCharCode(parseInt(digits, 16));
+      return String.fromCharCode(parseInt(digits, 16))
     }
 
 Unescaped

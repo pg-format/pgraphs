@@ -30,9 +30,9 @@ module.exports = {
     curly: "error",
     // FIXME: @peggyjs does not like this:
     // No single-line braces
-    // "brace-style": [ "error", "1tbs", { allowSingleLine: false } ],
+    "brace-style": [ "error", "1tbs", { allowSingleLine: true } ],
     // Disallow semicolons
-    // semi: [ "error", "never" ],
+    semi: [ "error", "never" ],
     "@peggyjs/equal-next-line": [ "off", "never" ],
     "comma-dangle": "off" // FIXME: enable again despite @peggyjs
   },
