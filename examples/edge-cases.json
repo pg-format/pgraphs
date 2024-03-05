@@ -97,6 +97,15 @@
       }
     },
     {
+      "id": "c",
+      "labels": [],
+      "properties": {
+        "foo:bar": [
+          "doz"
+        ]
+      }
+    },
+    {
       "id": "false",
       "labels": [
         "false"

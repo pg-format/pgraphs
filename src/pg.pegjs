@@ -121,7 +121,8 @@ NameChar
   = [^\x20\x09\x0A\x0D:"]
 
 Key
-  = @QuotedString ":"
+  = @QuotedString Space? ":"
+  / ( @PlainIdentifier Space ":" )
   / name:( NameStart $( NameChar* ":" )+ ) {
       return name.join("").slice(0,-1)
     }

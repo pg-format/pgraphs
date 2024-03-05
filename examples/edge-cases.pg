@@ -7,8 +7,10 @@ a :person
 # same node id is merged into existing node
 a  foo:bar
 
+c  foo:bar : doz
+
 # empty property key and value
-x "":""
+x "" :""
 
 # empty string label
 a :""

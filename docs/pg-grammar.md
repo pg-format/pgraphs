@@ -52,8 +52,8 @@ The **direction** of an edge must be separated from its node identifiers with wh
 
 ![](Direction.svg)
 
-A **label** is an identifier preceded by whitespace and a colon. Simple space
-is allowed between colon and the identifier:
+A **label** is an identifier preceded by whitespace and a colon. Space is
+allowed between colon and the identifier:
 
 ![](Label.svg)
 
