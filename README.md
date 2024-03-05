@@ -1,6 +1,6 @@
 # pgraphs
 
-> Property Graph Exchange Format (PG) converter
+> Property Graph Exchange Format (PG) converters
 
 [![Test](https://github.com/gbv/pgraphs/actions/workflows/test.yml/badge.svg)](https://github.com/gbv/pgraphs/actions/workflows/test.yml)
 [![NPM Version](http://img.shields.io/npm/v/pgraphs.svg?style=flat)](https://www.npmjs.org/package/pgraphs)

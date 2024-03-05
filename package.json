@@ -1,7 +1,7 @@
 {
   "name": "pgraphs",
   "version": "0.1.0",
-  "description": "Property Graph Exchange Format",
+  "description": "Property Graph Exchange Format (PG) converters",
   "license": "MIT",
   "homepage": "https://github.com/gbv/pgraphs#readme",
   "author": "Jakob Voß",
