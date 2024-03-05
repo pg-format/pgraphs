@@ -1,8 +1,9 @@
-# pgraph
+# pgraphs
 
 > Property Graph Exchange Format (PG) converter
 
-[![Test](https://github.com/gbv/pgraph/actions/workflows/test.yml/badge.svg)](https://github.com/gbv/pgraph/actions/workflows/test.yml)
+[![Test](https://github.com/gbv/pgraphs/actions/workflows/test.yml/badge.svg)](https://github.com/gbv/pgraphs/actions/workflows/test.yml)
+[![NPM Version](http://img.shields.io/npm/v/pgraphs.svg?style=flat)](https://www.npmjs.org/package/pgraphs)
 
 This package implements parsers and serializers to convert between labeled property graph formats and databases.
 
@@ -51,7 +52,7 @@ npm install
 ### API
 
 ~~~
-import { pgformat, ParsingError } from "pgraph"
+import { pgformat, ParsingError } from "pgraphs"
 
 const graph = {
   nodes: [ ... ],

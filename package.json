@@ -3,6 +3,13 @@
   "version": "0.1.0",
   "description": "Property Graph Exchange Format",
   "license": "MIT",
+  "homepage": "https://github.com/gbv/pgraphs#readme",
+  "author": "Jakob Voß",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/gbv/pgraphs.git"
+  },
   "devDependencies": {
     "@peggyjs/eslint-parser": "^2.0.6",
     "@peggyjs/eslint-plugin": "^2.1.2",
