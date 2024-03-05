@@ -41,6 +41,8 @@ const graph = (nodes, edges = []) => {
 const valid = {
   "": graph([]),
   "#": graph([]),
+  " #": graph([]),
+  " ": graph([]),
   "\"\"": graph([""]),                                  // Empty node id
   "a\rb": graph(["a", "b"]),                             // Plain /r is newline
   "a:b <- c:": graph(["a:b", "c:"], [["c:", "a:b"]]),    // Id can contain and end colon
@@ -65,7 +67,8 @@ const valid = {
   // "ab ->  b x:1 c:false",
   // "0 bc:d": graph([{id:"0",properties:{}}]),
   //  `101 :person name:Alice name:Carol country:"United States"`: graph([])
-  "a -> b ; a :foo ;;a :bar": graph([{id:"a",labels:["foo","bar"]},{id:"b"}],[{from:"a",to:"b"}]),
+  "a -> b ; a :foo ;a :bar": graph([{id:"a",labels:["foo","bar"]},{id:"b"}],[{from:"a",to:"b"}]),
+  "a b:0;c": graph([{id:"a",properties:{b:[0]}},"c"]),
 }
 
 describe("parsing valid short examples", () => {

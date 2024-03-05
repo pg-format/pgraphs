@@ -21,7 +21,7 @@
   const edges = []
 }
 
-PG = ( Line ( ( LineBreak / ";" Space? ) Line )* )? EOF
+PG = ( EmptyLine* Entity )* EmptyLine* Space? Comment? End
 {
   for (let { from, to } of edges) {
     if (!(from in nodes)) {
@@ -37,21 +37,17 @@ PG = ( Line ( ( LineBreak / ";" Space? ) Line )* )? EOF
   }
 }
 
-EOF
+End
   = !.
 
-Line
-  = Entity TrailingSpace?
-  / Empty
+Entity
+  = ( Edge / Node ) ( Space Comment? )? ( LineBreak / ";" Space* / End )
 
-TrailingSpace
-  = Space Comment?
+EmptyLine
+  = Space? Comment? LineBreak
 
 LineBreak "linebreak"
   = [\x0D\x0A]+
-
-Empty
-  = Space? Comment?
 
 Space "space"
   = [\x20\x09]+
@@ -60,40 +56,45 @@ Comment "comment"
   = "#" [^\x0D\x0A]*
 
 WhiteSpace
-  = ( TrailingSpace / Space? ) LineBreak ( Empty LineBreak )* Space
+  = ( Space Comment? / Space? ) LineBreak EmptyLine* Space
   / Space
 
-Entity "identifier"
-  = id:Identifier
-    edge:( direction:Direction to:Identifier { return { direction, to } } )?
-    labels:Label*
-    props:Property* {
-
-    labels = Array.from(new Set(labels))
-
-    if (edge) {
-      var from = id
-      var { direction, to } = edge
-      const e = { from, to, labels, properties: collectProps(props) }
-      if (direction === "<-") {
-        e.from = to
-        e.to = from
-      } else if (direction === "--") {
-        e.undirected = true
-      }
-      edges.push(e)
-    } else {
+Node
+  = id:Identifier labels:Label* props:Property* {
+      labels = Array.from(new Set(labels))
       if (id in nodes) {
         nodes[id].labels = Array.from(new Set([...nodes[id].labels, ...labels]))
         nodes[id].properties = collectProps(props, nodes[id].properties)
       } else {
         nodes[id] = { id, labels, properties: collectProps(props) }
       }
+  }
+
+Edge
+  = from:Identifier
+    WhiteSpace
+    direction:Direction
+    WhiteSpace
+    to:Identifier
+    labels:Label*
+    props:Property* {
+
+    labels = Array.from(new Set(labels))
+
+    const e = { from, to, labels, properties: collectProps(props) }
+    if (direction === "<-") {
+      e.from = to
+      e.to = from
+    } else if (direction === "--") {
+      e.undirected = true
     }
-}
+    edges.push(e)
+ }
 
 Direction "->, <-, --"
-  = WhiteSpace dir:( "->" / "<-" / "--" ) WhiteSpace { return dir }
+  = "->"
+  / "<-"
+  / "--"
 
 Label "label"
   = WhiteSpace ":" Space? id:Identifier { return id }
@@ -102,9 +103,8 @@ Identifier
   = QuotedString
   / PlainIdentifier
 
-// must not start with hash, colon, opening parenthesis, comma
 PlainIdentifier
-  = $( NameStart IdChar* )
+  = $( NameStart [^\x20\x09\x0A\x0D"]* )
 
 NameStart
   = [^\x20\x09\x0A\x0D":(,;#] 
@@ -114,16 +114,10 @@ Property "property"
       return [ name, value ]
     }
 
-IdChar
-  = [^\x20\x09\x0A\x0D"]
-
-NameChar
-  = [^\x20\x09\x0A\x0D:"]
-
 Key
   = @QuotedString Space? ":"
   / ( @PlainIdentifier Space ":" )
-  / name:( NameStart $( NameChar* ":" )+ ) {
+  / name:( NameStart $( [^\x20\x09\x0A\x0D:"]* ":" )+ ) {
       return name.join("").slice(0,-1)
     }
 
@@ -134,10 +128,10 @@ ValueList
 
 Value "value"
   = Scalar
-  / PlainValue
+  / UnquotedString
 
-PlainValue
-  = $( [^\x20\x09\x0A\x0D":(,:] [^\x20\x09\x0A\x0D,:]* )
+UnquotedString
+  = $( NameStart [^\x20\x09\x0A\x0D",:;]* )
 
 // Scalar value as defined in JSON (RFC 7159).
 // Grammar taken and adjusted from peggy example 'json.pegjs'.
