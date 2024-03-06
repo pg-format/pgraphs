@@ -3,11 +3,11 @@
   "version": "0.1.1",
   "description": "Property Graph Exchange Format (PG) converters",
   "license": "MIT",
-  "homepage": "https://github.com/gbv/pgraphs#readme",
+  "homepage": "https://github.com/pg-format/pgraphs#readme",
   "author": "Jakob Voß",
   "repository": {
     "type": "git",
-    "url": "https://github.com/gbv/pgraphs.git"
+    "url": "https://github.com/pg-format/pgraphs.git"
   },
   "engines": {
     "node": ">= 18.0.0"

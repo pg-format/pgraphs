@@ -2,7 +2,7 @@
 
 > Property Graph Exchange Format (PG) converters
 
-[![Test](https://github.com/gbv/pgraphs/actions/workflows/test.yml/badge.svg)](https://github.com/gbv/pgraphs/actions/workflows/test.yml)
+[![Test](https://github.com/pg-format/pgraphs/actions/workflows/test.yml/badge.svg)](https://github.com/pg-format/pgraphs/actions/workflows/test.yml)
 [![NPM Version](http://img.shields.io/npm/v/pgraphs.svg?style=flat)](https://www.npmjs.org/package/pgraphs)
 
 This package implements parsers and serializers to convert between labeled property graph formats and databases.
@@ -138,16 +138,15 @@ and boolean values:
 
 See also the following documents and applications (*work in progress!*):
 
-- [railroad diagram of PG format](https://github.com/gbv/pgraphs/blob/main/docs/pg-grammar.md)
+- [railroad diagram of PG format](https://github.com/pg-format/pgraphs/blob/main/docs/pg-grammar.md)
 - [web application to beautify PG format](https://g2glab.github.io/pg-formatter/)
-- [formal description of PG model and format](https://github.com/gbv/pgraphs/blob/main/docs/pg-format.md) (*may be outdated*)
-- [illustrating example of PG format](https://github.com/gbv/pgraphs/blob/main/docs/pg-format.pg)
-- [Example directory](https://github.com/gbv/pgraphs/blob/main/examples), also used for unit tests
+- [formal description of PG model and format](https://github.com/pg-format/pgraphs/blob/main/docs/pg-format.md) (*may be outdated*)
+- [illustrating example of PG format](https://github.com/pg-format/pgraphs/blob/main/docs/pg-format.pg)
+- [Example directory](https://github.com/pg-format/pgraphs/blob/main/examples), also used for unit tests
 
 ### PG JSON and NDJSON
 
-The same graph [in PG-JSON](examples/example.json) and [in
-PG-NDJSON](examples/example.ndjson):
+The same graph [in PG-JSON](examples/example.json) and [in PG-NDJSON](examples/example.ndjson):
 
 ~~~json
 {
