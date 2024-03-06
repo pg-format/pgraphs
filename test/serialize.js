@@ -40,7 +40,7 @@ describe("serialize lossy formats", () => {
     const [name, type] = file.split(".")
     const { parse, serialize } = pgformat[type] || {}
     const graph = graphs[`${name}.json`]
-    if (graph && serialize && !/^(json|ndjson|pg)$/.test(type)) {
+    if (graph && serialize && !/^(json|ndjson|jsonl|pg)$/.test(type)) {
       it(file, () => {
         const s = serialize(graph)
         assert.equal(readExample(file), s)

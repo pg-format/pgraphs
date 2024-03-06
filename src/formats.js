@@ -5,7 +5,7 @@
  * |------|-------|-----------------------------------------|
  * | yes  | yes   | PG format                               |
  * | yes  | yes   | PG-JSON                                 |
- * | yes  | yes   | PG-NDJSON                               |
+ * | yes  | yes   | PG-JSONL                                |
  * | yes  | yes   | GraphViz DOT                            |
  * |      | yes   | YARS-PG                                 |
  * | yes  | yes   | Trivial Graph Format (TGF)              |
@@ -37,8 +37,8 @@
 
 import { parse } from "./parser/pg.js"
 
-import parseNdjson from "./parser/pg-ndjson.js"
-import serializeNdjson from "./serializer/ndjson.js"
+import parseJSONL from "./parser/jsonl.js"
+import serializeJSONL from "./serializer/jsonl.js"
 
 import parseDot from "./parser/dot.js"
 import serializeDot from "./serializer/dot.js"
@@ -74,10 +74,10 @@ export const pgformat = {
     parse: string => JSON.parse(string),
     serialize: graph => JSON.stringify(graph, null, 2),
   },
-  ndjson: {
-    name: "PG-NDJSON (default output)",
-    parse: parseNdjson,
-    serialize: serializeNdjson,
+  jsonl: {
+    name: "PG-JSONL (default output)",
+    parse: parseJSONL,
+    serialize: serializeJSONL,
   },
   dot: {
     name: "GraphViz dot",

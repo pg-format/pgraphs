@@ -16,7 +16,7 @@ This package implements parsers and serializers to convert between labeled prope
   - [CLI](#cli)
 - [Formats](#formats)
   - [PG format](#pg-format)
-  - [PG JSON and NDJSON](#pg-json-and-ndjson)
+  - [PG JSON and JSONL](#pg-json-and-jsonl)
   - [GraphViz DOT](#graphviz-dot)
   - [GraphML](#graphml)
   - [YARS-PG](#yars-pg)
@@ -68,7 +68,7 @@ Options:
 Supported conversion formats:
   pg      from/to PG format (default input)
   json    from/to PG-JSON
-  ndjson  from/to PG-NDJSON (default output)
+  jsonl   from/to PG-JSONL (default output)
   dot     from/to GraphViz dot
   tgf     from/to Trivial Graph Format
   neo4j   from Neo4J server (via Cypher query)
@@ -144,9 +144,9 @@ See also the following documents and applications (*work in progress!*):
 - [illustrating example of PG format](https://github.com/pg-format/pgraphs/blob/main/docs/pg-format.pg)
 - [Example directory](https://github.com/pg-format/pgraphs/blob/main/examples), also used for unit tests
 
-### PG JSON and NDJSON
+### PG JSON and JSONL
 
-The same graph [in PG-JSON](examples/example.json) and [in PG-NDJSON](examples/example.ndjson):
+The same graph [in PG-JSON](examples/example.json) and [in PG-JSONL](examples/example.jsonl):
 
 ~~~json
 {

@@ -152,9 +152,9 @@ by the schema:
 - nodes referenced in edges must be defined
 - edges must be unique per graph
 
-## PG-NDJSON
+## PG-JSONL
 
-**PG-NDJSON** is a serialization of the property graph data model in newline-delimited JSON (NDJSON). A graph is encoded as sequence of lines with a JSON object encoding
+**PG-JSONL** is a serialization of the property graph data model in JSON Lines (also known as newline-delimited JSON / NDJSON). A graph is encoded as sequence of lines with a JSON object encoding
 either a node or an edge, respectively. The format of these objects is identical to the corresponding node or edge objects in PG-JSON.
 
 ## Example
