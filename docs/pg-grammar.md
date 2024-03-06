@@ -4,7 +4,7 @@ title: PG format grammar
 
 This page illustrates the grammar of **PG format** as railroad diagram. The diagrams have been [generated automatically](https://github.com/peggyjs/peggy-tracks) from the [reference grammar](../src/pg.pegjs) so they are guaranteed to match the implementation.
 
-*Some details of PG formats are [still being discussed](https://github.com/g2glab/pg-formatter/discussions) so this may change!*
+*Some details of PG formats are [still being discussed](https://github.com/pg-format/pg-formatter/discussions) so this may change!*
 
 
 ### Basic structure

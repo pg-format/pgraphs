@@ -139,7 +139,7 @@ and boolean values:
 See also the following documents and applications (*work in progress!*):
 
 - [railroad diagram of PG format](https://github.com/pg-format/pgraphs/blob/main/docs/pg-grammar.md)
-- [web application to beautify PG format](https://g2glab.github.io/pg-formatter/)
+- [web application to beautify PG format](https://pg-format.github.io/pg-formatter/)
 - [formal description of PG model and format](https://github.com/pg-format/pgraphs/blob/main/docs/pg-format.md) (*may be outdated*)
 - [illustrating example of PG format](https://github.com/pg-format/pgraphs/blob/main/docs/pg-format.pg)
 - [Example directory](https://github.com/pg-format/pgraphs/blob/main/examples), also used for unit tests
@@ -347,4 +347,3 @@ A first version of the PG model and its serializations **PG format** and
 Matsumoto ([2019](https://arxiv.org/abs/1907.03936),
 [2022](https://arxiv.org/abs/2203.06393)).
 
-Implementation forked from <https://github.com/g2glab/pg/> by Jakob Voß.
