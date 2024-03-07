@@ -1,4 +1,4 @@
-<svg class="railroad-diagram" width="257" height="154" viewBox="0 0 257 154" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<svg class="railroad-diagram" width="291" height="154" viewBox="0 0 291 154" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
 <g transform="translate(.5 .5)">
 <g class="Start">
 <path d="M20 45v20m0 -10h20"></path>
@@ -6,44 +6,62 @@
 <path d="M40 55h10"></path>
 <g class="Group rule">
 <path d="M50 55h0"></path>
-<path d="M207 55h0"></path>
-<rect x="50" y="36" width="157" height="98" rx="10" ry="10" class="group-box"></rect>
+<path d="M241 55h0"></path>
+<rect x="50" y="36" width="191" height="98" rx="10" ry="10" class="group-box"></rect>
+<g class="Sequence">
+<path d="M50 55h10"></path>
+<path d="M231 55h10"></path>
+<path d="M97 55h10"></path>
+<g class="non-terminal rule-ref">
+<path d="M60 55h0"></path>
+<path d="M97 55h0"></path>
+<rect x="60" y="44" width="37" height="22"></rect>
+<text x="78.5" y="59">WS</text>
+</g>
 <g class="Choice">
-<path d="M50 55h40"></path>
-<path d="M167 55h40"></path>
-<path d="M90 55h20"></path>
+<path d="M107 55h0"></path>
+<path d="M184 55h0"></path>
+<path d="M107 55h20"></path>
 <g class="terminal literal">
-<path d="M110 55h0"></path>
-<path d="M147 55h0"></path>
-<rect x="110" y="44" width="37" height="22" rx="10" ry="10"></rect>
-<text x="128.5" y="59">-></text>
+<path d="M127 55h0"></path>
+<path d="M164 55h0"></path>
+<rect x="127" y="44" width="37" height="22" rx="10" ry="10"></rect>
+<text x="145.5" y="59">-></text>
 </g>
-<path d="M147 55h20"></path>
-<path d="M90 55a10 10 0 0 1 10 10v10a10 10 0 0 0 10 10"></path>
+<path d="M164 55h20"></path>
+<path d="M107 55a10 10 0 0 1 10 10v10a10 10 0 0 0 10 10"></path>
 <g class="terminal literal">
-<path d="M110 85h0"></path>
-<path d="M147 85h0"></path>
-<rect x="110" y="74" width="37" height="22" rx="10" ry="10"></rect>
-<text x="128.5" y="89">&#60;-</text>
+<path d="M127 85h0"></path>
+<path d="M164 85h0"></path>
+<rect x="127" y="74" width="37" height="22" rx="10" ry="10"></rect>
+<text x="145.5" y="89">&#60;-</text>
 </g>
-<path d="M147 85a10 10 0 0 0 10 -10v-10a10 10 0 0 1 10 -10"></path>
-<path d="M90 55a10 10 0 0 1 10 10v40a10 10 0 0 0 10 10"></path>
+<path d="M164 85a10 10 0 0 0 10 -10v-10a10 10 0 0 1 10 -10"></path>
+<path d="M107 55a10 10 0 0 1 10 10v40a10 10 0 0 0 10 10"></path>
 <g class="terminal literal">
-<path d="M110 115h0"></path>
-<path d="M147 115h0"></path>
-<rect x="110" y="104" width="37" height="22" rx="10" ry="10"></rect>
-<text x="128.5" y="119">--</text>
+<path d="M127 115h0"></path>
+<path d="M164 115h0"></path>
+<rect x="127" y="104" width="37" height="22" rx="10" ry="10"></rect>
+<text x="145.5" y="119">--</text>
 </g>
-<path d="M147 115a10 10 0 0 0 10 -10v-40a10 10 0 0 1 10 -10"></path>
+<path d="M164 115a10 10 0 0 0 10 -10v-40a10 10 0 0 1 10 -10"></path>
+</g>
+<path d="M184 55h10"></path>
+<g class="non-terminal rule-ref">
+<path d="M194 55h0"></path>
+<path d="M231 55h0"></path>
+<rect x="194" y="44" width="37" height="22"></rect>
+<text x="212.5" y="59">WS</text>
+</g>
 </g>
 <g class="comment">
 <path d="M50 28h0"></path>
-<path d="M207 28h0"></path>
-<text x="128.5" y="33" class="comment">Direction(->, &#60;-, --)</text>
+<path d="M123 28h0"></path>
+<text x="86.5" y="33" class="comment">Direction</text>
 </g>
 </g>
-<path d="M207 55h10"></path>
-<path class="End" d="M 217 55 h 20 m 0 -10 v 20"></path>
+<path d="M241 55h10"></path>
+<path class="End" d="M 251 55 h 20 m 0 -10 v 20"></path>
 </g>
 <style>  svg {
     background-color: hsl(30,20%,95%);

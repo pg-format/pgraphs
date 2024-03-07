@@ -41,7 +41,7 @@ End
   = !.
 
 Entity
-  = ( Edge / Node ) ( Space Comment? )? ( LineBreak / ";" Space* / End )
+  = ( Edge / Node ) ( Space* "|" Space* / ( Space Comment? )? ( LineBreak / End ) )
 
 EmptyLine
   = Space? Comment? LineBreak
@@ -55,7 +55,7 @@ Space "space"
 Comment "comment"
   = "#" [^\x0D\x0A]*
 
-WhiteSpace
+WS
   = ( Space Comment? / Space? ) LineBreak EmptyLine* Space
   / Space
 
@@ -72,9 +72,7 @@ Node
 
 Edge
   = from:Identifier
-    WhiteSpace
     direction:Direction
-    WhiteSpace
     to:Identifier
     labels:Label*
     props:Property* {
@@ -91,38 +89,39 @@ Edge
     edges.push(e)
  }
 
-Direction "->, <-, --"
-  = "->"
-  / "<-"
-  / "--"
+Direction
+  = WS @( "->" / "<-" / "--" ) WS
 
 Label "label"
-  = WhiteSpace ":" Space? id:Identifier { return id }
+  = WS ":" Space? id:Identifier { return id }
 
 Identifier
   = QuotedString
   / PlainIdentifier
 
-PlainIdentifier
-  = $( NameStart [^\x20\x09\x0A\x0D"]* )
+PlainChar
+  = [^\x20\x09\x0A\x0D"<>{}|^]
 
-NameStart
-  = [^\x20\x09\x0A\x0D":(,;#] 
+PlainStart
+  = ![:(,#] PlainChar
+
+PlainIdentifier
+  = $( PlainStart PlainChar* )
 
 Property "property"
-  = WhiteSpace name:Key value:ValueList {
+  = WS name:Key value:ValueList {
       return [ name, value ]
     }
 
 Key
   = @QuotedString Space? ":"
   / ( @PlainIdentifier Space ":" )
-  / name:( NameStart $( [^\x20\x09\x0A\x0D:"]* ":" )+ ) {
+  / name:( $PlainStart $( ( !":" PlainChar )* ":" )+ ) {
       return name.join("").slice(0,-1)
     }
 
 ValueList
-  = values:( WhiteSpace? @Value ) |1.., ( WhiteSpace? "," )| {
+  = values:( WS? @Value ) |1.., ( WS? "," )| {
       return values
     }
 
@@ -131,7 +130,7 @@ Value "value"
   / UnquotedString
 
 UnquotedString
-  = $( NameStart [^\x20\x09\x0A\x0D",:;]* )
+  = $( PlainStart ( !"," PlainChar )* )
 
 // Scalar value as defined in JSON (RFC 7159).
 // Grammar taken and adjusted from peggy example 'json.pegjs'.

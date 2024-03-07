@@ -3,6 +3,7 @@ set -euo pipefail
 
 rules=$(grep -o -e '[A-Za-z0-9-]\+.svg' docs/pg-grammar.md | sed s/\.svg//)
 
+rm -rf docs/*.svg
 for svg in $rules; do
   parts=(${svg//-/ })
   rule=${parts[0]}
@@ -11,4 +12,4 @@ for svg in $rules; do
   echo $svg
 done
 
-pandoc -s docs/pg-grammar.md -o docs/pg-grammar.html
+pandoc -s docs/metadata.md docs/pg-grammar.md -o docs/pg-grammar.html

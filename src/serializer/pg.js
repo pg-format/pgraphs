@@ -1,4 +1,4 @@
-const plainId = /^[^#"\s:,(][^\s"]*$/
+const plainId = /^[^#"\s:,(<>{}|^][^\s"<>{}|^]*$/
 
 export const quoteLabel = s => (plainId.test(s) ? s : JSON.stringify(s))
 

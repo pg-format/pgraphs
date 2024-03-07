@@ -1,60 +1,94 @@
-<svg class="railroad-diagram" width="479.5" height="127" viewBox="0 0 479.5 127" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<svg class="railroad-diagram" width="639" height="142" viewBox="0 0 639 142" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
 <g transform="translate(.5 .5)">
 <g class="Start">
-<path d="M20 69v20m0 -10h20"></path>
+<path d="M20 77v20m0 -10h20"></path>
 </g>
-<path d="M40 79h10"></path>
+<path d="M40 87h10"></path>
 <g class="Group rule">
-<path d="M50 79h0"></path>
-<path d="M429.5 79h0"></path>
-<rect x="50" y="36" width="379.5" height="71" rx="10" ry="10" class="group-box"></rect>
+<path d="M50 87h0"></path>
+<path d="M589 87h0"></path>
+<rect x="50" y="36" width="539" height="86" rx="10" ry="10" class="group-box"></rect>
 <g class="Sequence">
-<path d="M50 79h10"></path>
-<path d="M419.5 79h10"></path>
-<path d="M236 79h10"></path>
+<path d="M50 87h10"></path>
+<path d="M579 87h10"></path>
+<path d="M316 87h10"></path>
 <g class="Group rule">
-<path d="M60 79h0"></path>
-<path d="M236 79h0"></path>
-<rect x="60" y="60" width="176" height="38" rx="10" ry="10" class="group-box"></rect>
+<path d="M60 87h0"></path>
+<path d="M316 87h0"></path>
+<rect x="60" y="68" width="256" height="38" rx="10" ry="10" class="group-box"></rect>
+<g class="Sequence">
+<path d="M60 87h10"></path>
+<path d="M306 87h10"></path>
+<path d="M189.5 87h10"></path>
+<g class="Sequence">
+<path d="M70 87h0"></path>
+<path d="M189.5 87h0"></path>
+<path d="M98.5 87h10"></path>
+<g class="decision simple-and">
+<path d="M70 87h0"></path>
+<path d="M98.5 87h0"></path>
+<path d="M70 87v5.5l5.5 5.5h17.5l5.5 -5.5v-11l-5.5 -5.5h-17.5l-5.5 5.5v5.5"></path>
+<text x="84.25" y="91">!</text>
+</g>
+<path d="M108.5 87h10"></path>
 <g class="terminal class">
-<path d="M60 79h10"></path>
-<path d="M226 79h10"></path>
-<rect x="70" y="68" width="156" height="22" rx="10" ry="10"></rect>
-<text x="148" y="83">&#91;^ \t\n\r":(,;#&#93;</text>
+<path d="M118.5 87h0"></path>
+<path d="M189.5 87h0"></path>
+<rect x="118.5" y="76" width="71" height="22" rx="10" ry="10"></rect>
+<text x="154" y="91">&#91;:(,#&#93;</text>
+</g>
+</g>
+<path d="M199.5 87h10"></path>
+<g class="non-terminal rule-ref">
+<path d="M209.5 87h0"></path>
+<path d="M306 87h0"></path>
+<rect x="209.5" y="76" width="96.5" height="22"></rect>
+<text x="257.75" y="91">PlainChar</text>
+</g>
 </g>
 <g class="comment">
-<path d="M60 52h0"></path>
-<path d="M133 52h0"></path>
-<text x="96.5" y="57" class="comment">NameStart</text>
+<path d="M60 60h0"></path>
+<path d="M140 60h0"></path>
+<text x="100" y="65" class="comment">PlainStart</text>
 </g>
 </g>
 <g class="Choice">
-<path d="M246 79h0"></path>
-<path d="M419.5 79h0"></path>
-<path d="M246 79a10 10 0 0 0 10 -10v0a10 10 0 0 1 10 -10"></path>
+<path d="M326 87h0"></path>
+<path d="M579 87h0"></path>
+<path d="M326 87a10 10 0 0 0 10 -10v-23a10 10 0 0 1 10 -10"></path>
 <g class="Skip">
-<path d="M266 59h133.5"></path>
+<path d="M346 44h213"></path>
 </g>
-<path d="M399.5 59a10 10 0 0 1 10 10v0a10 10 0 0 0 10 10"></path>
-<path d="M246 79h20"></path>
+<path d="M559 44a10 10 0 0 1 10 10v23a10 10 0 0 0 10 10"></path>
+<path d="M326 87h20"></path>
 <g class="OneOrMore">
-<path d="M266 79h0"></path>
-<path d="M399.5 79h0"></path>
-<path d="M276 79a10 10 0 0 0 -10 10v0a10 10 0 0 0 10 10"></path>
+<path d="M346 87h0"></path>
+<path d="M559 87h0"></path>
+<path d="M356 87a10 10 0 0 0 -10 10v7a10 10 0 0 0 10 10"></path>
 <g class="Skip">
-<path d="M276 99h113.5"></path>
+<path d="M356 114h193"></path>
 </g>
-<path d="M389.5 99a10 10 0 0 0 10 -10v0a10 10 0 0 0 -10 -10"></path>
-<path d="M266 79h10"></path>
-<path d="M389.5 79h10"></path>
+<path d="M549 114a10 10 0 0 0 10 -10v-7a10 10 0 0 0 -10 -10"></path>
+<path d="M346 87h10"></path>
+<path d="M549 87h10"></path>
+<g class="Group rule">
+<path d="M356 87h0"></path>
+<path d="M549 87h0"></path>
+<rect x="356" y="68" width="193" height="38" rx="10" ry="10" class="group-box"></rect>
 <g class="terminal class">
-<path d="M276 79h0"></path>
-<path d="M389.5 79h0"></path>
-<rect x="276" y="68" width="113.5" height="22" rx="10" ry="10"></rect>
-<text x="332.75" y="83">&#91;^ \t\n\r"&#93;</text>
+<path d="M356 87h10"></path>
+<path d="M539 87h10"></path>
+<rect x="366" y="76" width="173" height="22" rx="10" ry="10"></rect>
+<text x="452.5" y="91">&#91;^ \t\n\r"&#60;>{}|\^&#93;</text>
+</g>
+<g class="comment">
+<path d="M356 60h0"></path>
+<path d="M429 60h0"></path>
+<text x="392.5" y="65" class="comment">PlainChar</text>
 </g>
 </g>
-<path d="M399.5 79h20"></path>
+</g>
+<path d="M559 87h20"></path>
 </g>
 </g>
 <g class="comment">
@@ -63,8 +97,8 @@
 <text x="107.5" y="33" class="comment">PlainIdentifier</text>
 </g>
 </g>
-<path d="M429.5 79h10"></path>
-<path class="End" d="M 439.5 79 h 20 m 0 -10 v 20"></path>
+<path d="M589 87h10"></path>
+<path class="End" d="M 599 87 h 20 m 0 -10 v 20"></path>
 </g>
 <style>  svg {
     background-color: hsl(30,20%,95%);

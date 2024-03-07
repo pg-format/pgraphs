@@ -46,7 +46,7 @@ const valid = {
   "\"\"": graph([""]),                                  // Empty node id
   "a\rb": graph(["a", "b"]),                             // Plain /r is newline
   "a:b <- c:": graph(["a:b", "c:"], [["c:", "a:b"]]),    // Id can contain and end colon
-  "a(:# -> ->": graph(["->", "a(:#"], [["a(:#", "->"]]), // Id can contain special characters
+  "a(:# -> --": graph(["--", "a(:#"], [["a(:#", "--"]]), // Id can contain special characters
   "x\nxy\r\nxyz # comment\n\"X\"": graph(["X", "x", "xy", "xyz"]), // Node ids
   // labels and line folding
   "n1 \n  :label:x  :y #comment\n\t :a :a": graph([{ id:"n1", labels:["label:x", "y", "a"] }]),
@@ -55,9 +55,9 @@ const valid = {
   "x a:0 ab:false a:b:c a:b:4 \"(\":5 \"\":6": graph([{ id:"x",
     properties:{ a:0, ab:false, "a:b":["c", 4], "(":5, "":6 } }]),
   // Values
-  "a -> b a:\"\",2\t, -2e2,null ,\n xyz # comment": graph(
+  "a -> b a:\"\",2\t, -2e2,null ,\n xyz a: # comment\n b:c": graph(
     ["a", "b"],
-    [{ from: "a", to: "b", labels: [], properties: { a: ["", 2, -200, null, "xyz"] } }],
+    [{ from: "a", to: "b", labels: [], properties: { a: ["", 2, -200, null, "xyz", "b:c"] } }],
   ),
   // FIXME: comment read as property???
   // "a b:c:d": "invalid content at line 1, character 6: \":d\"",
@@ -67,8 +67,8 @@ const valid = {
   // "ab ->  b x:1 c:false",
   // "0 bc:d": graph([{id:"0",properties:{}}]),
   //  `101 :person name:Alice name:Carol country:"United States"`: graph([])
-  "a -> b ; a :foo ;a :bar": graph([{id:"a",labels:["foo","bar"]},{id:"b"}],[{from:"a",to:"b"}]),
-  "a b:0;c": graph([{id:"a",properties:{b:[0]}},"c"]),
+  "a -> b | a :foo; |a :bar": graph([{id:"a",labels:["foo;","bar"]},{id:"b"}],[{from:"a",to:"b"}]),
+  "a b:0|c": graph([{id:"a",properties:{b:[0]}},"c"]),
 }
 
 describe("parsing valid short examples", () => {
@@ -79,6 +79,7 @@ describe("parsing valid short examples", () => {
 
 const invalid = {
   ",": "",
+  "|": "",
   "a ::": "",
   "a\"": "",
   "\"": "line 1 must start with node or edge",
@@ -91,7 +92,6 @@ const invalid = {
   "x k:": "missing property value at line 1, character 5",
   "x k:\"xy": "invalid property value at line 1, character 5: \"\\\"xy\"",
   "(a": "line 1 must start with node or edge",
-  "a b: c:d": "...",
 }
 
 describe("parsing errors", () => {
