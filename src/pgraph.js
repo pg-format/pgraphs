@@ -1,6 +1,7 @@
 import fs from "fs"
-import { pgformat } from "../src/formats.js"
-import { GraphTarget, StreamTarget } from "../src/target.js"
+import { pgformat } from "./formats.js"
+import { GraphTarget, StreamTarget } from "./target.js"
+import { addIdProperty } from "./filter.js"
 
 // Read entire input to string
 const readStream = async input => {
@@ -46,10 +47,14 @@ export async function pgraph(source, target, opts) {
     }
   }
 
-  const graph = from.parse(await readStream(source))
+  var graph = from.parse(await readStream(source))
   if (graph instanceof Promise) {
-    return await graph.then(writeGraph)
-  } else {
-    writeGraph(graph)
+    graph = await graph
   }
+
+  if (opts.id !== undefined) {
+    addIdProperty(graph, opts.id) 
+  }
+
+  writeGraph(graph)
 }

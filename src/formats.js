@@ -63,8 +63,12 @@ export const pgformat = {
       try {
         return parse(text) 
       } catch (e) {
-        const { line, column } = e.location.start
-        throw new Error(`${e.message} Line ${line}:${column}.`)
+        var msg = e.message
+        if (e.location) {
+          const { line, column } = e.location.start
+          msg += ` Line ${line}:${column}.`
+        }
+        throw new Error(msg)
       }
     },
     serialize,

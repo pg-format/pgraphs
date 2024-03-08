@@ -23,3 +23,23 @@ export const graph = (nodes, edges) => ({
   nodes: Object.keys(nodes).sort().map(id => nodes[id]),
   edges,
 })
+
+export const addProperties = (props, properties={}) => {
+  for (let [key, values] of props) {
+    if (key in properties) {
+      if (!(properties[key] instanceof Set)) {
+        properties[key] = new Set(properties[key])
+      }
+      for (let v of values) {properties[key].add(v)}
+    } else {
+      properties[key] = new Set(values)
+    }
+  }
+  for (let key in properties) {
+    if (properties[key] instanceof Set) {
+      properties[key] = [...properties[key].values()]
+    }
+  }
+  return properties
+}
+

@@ -4,21 +4,7 @@
 
 
 
-  function collectProps(props, properties={}) {
-    for (let [key, values] of props) {
-      if (key in properties) {
-        for (let val of values) {
-          properties[key].add(val)
-        }
-      } else {
-        properties[key] = new Set(values)
-      }
-    }
-    for (let key in properties) {
-      properties[key] = [...properties[key].values()]
-    }
-    return properties
-  }
+  import { graph, addProperties } from "../utils.js"
 
 function peg$subclass(child, parent) {
   function C() { this.constructor = child; }
@@ -277,25 +263,21 @@ function peg$parse(input, options) {
       nodes[to] = { id: to, labels: [], properties: {} }
     }
   }
-  return {
-    nodes: Object.keys(nodes).sort().map(id => nodes[id]),
-    edges, 
-  }
+  return graph(nodes, edges)
 };
   var peg$f1 = function(id, labels, props) {
       labels = Array.from(new Set(labels))
       if (id in nodes) {
         nodes[id].labels = Array.from(new Set([...nodes[id].labels, ...labels]))
-        nodes[id].properties = collectProps(props, nodes[id].properties)
+        nodes[id].properties = addProperties(props, nodes[id].properties)
       } else {
-        nodes[id] = { id, labels, properties: collectProps(props) }
+        nodes[id] = { id, labels, properties: addProperties(props) }
       }
   };
   var peg$f2 = function(from, direction, to, labels, props) {
 
     labels = Array.from(new Set(labels))
-
-    const e = { from, to, labels, properties: collectProps(props) }
+    const e = { from, to, labels, properties: addProperties(props) }
     if (direction === "<-") {
       e.from = to
       e.to = from
@@ -954,12 +936,10 @@ function peg$parse(input, options) {
       }
       if (s2 !== peg$FAILED) {
         s3 = peg$parseWS();
-        if (s3 !== peg$FAILED) {
-          s0 = s2;
-        } else {
-          peg$currPos = s0;
-          s0 = peg$FAILED;
+        if (s3 === peg$FAILED) {
+          s3 = null;
         }
+        s0 = s2;
       } else {
         peg$currPos = s0;
         s0 = peg$FAILED;

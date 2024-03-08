@@ -69,6 +69,7 @@ const valid = {
   //  `101 :person name:Alice name:Carol country:"United States"`: graph([])
   "a -> b | a :foo; |a :bar": graph([{id:"a",labels:["foo;","bar"]},{id:"b"}],[{from:"a",to:"b"}]),
   "a b:0|c": graph([{id:"a",properties:{b:[0]}},"c"]),
+  "x a:1|x a:2,3": graph([{id:"x",properties:{a:[1,2,3]}}]),
 }
 
 describe("parsing valid short examples", () => {

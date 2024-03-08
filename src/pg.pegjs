@@ -1,19 +1,5 @@
 {{
-  function collectProps(props, properties={}) {
-    for (let [key, values] of props) {
-      if (key in properties) {
-        for (let val of values) {
-          properties[key].add(val)
-        }
-      } else {
-        properties[key] = new Set(values)
-      }
-    }
-    for (let key in properties) {
-      properties[key] = [...properties[key].values()]
-    }
-    return properties
-  }
+  import { graph, addProperties } from "../utils.js"
 }}
 
 {
@@ -31,10 +17,7 @@ PG = ( EmptyLine* Entity )* EmptyLine* Space? Comment? End
       nodes[to] = { id: to, labels: [], properties: {} }
     }
   }
-  return {
-    nodes: Object.keys(nodes).sort().map(id => nodes[id]),
-    edges, 
-  }
+  return graph(nodes, edges)
 }
 
 End
@@ -64,9 +47,9 @@ Node
       labels = Array.from(new Set(labels))
       if (id in nodes) {
         nodes[id].labels = Array.from(new Set([...nodes[id].labels, ...labels]))
-        nodes[id].properties = collectProps(props, nodes[id].properties)
+        nodes[id].properties = addProperties(props, nodes[id].properties)
       } else {
-        nodes[id] = { id, labels, properties: collectProps(props) }
+        nodes[id] = { id, labels, properties: addProperties(props) }
       }
   }
 
@@ -78,8 +61,7 @@ Edge
     props:Property* {
 
     labels = Array.from(new Set(labels))
-
-    const e = { from, to, labels, properties: collectProps(props) }
+    const e = { from, to, labels, properties: addProperties(props) }
     if (direction === "<-") {
       e.from = to
       e.to = from
@@ -90,7 +72,7 @@ Edge
  }
 
 Direction
-  = WS @( "->" / "<-" / "--" ) WS
+  = WS @( "->" / "<-" / "--" ) WS?
 
 Label "label"
   = WS ":" Space? id:Identifier { return id }
