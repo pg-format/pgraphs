@@ -45,7 +45,13 @@ export const addProperties = (propList, properties={}) => {
 }
 
 export const addIdProperty = (graph, idprop) => {
-  for (let node of graph.nodes) {
-    addProperties([[idprop, [node.id]]], node.properties)
+  for (let {id,properties} of graph.nodes) {
+    if (idprop in properties) {
+      // identifier is always made first value
+      properties[idprop] = properties[idprop].filter(v => v !== id)
+      properties[idprop].unshift(id)
+    } else {
+      properties[idprop] = [id]
+    }
   }
 }
