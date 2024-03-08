@@ -137,11 +137,10 @@ and boolean values:
 101 -> 102  :likes  since:2015  engaged:false
 ~~~
 
-See also the following documents and applications (*work in progress!*):
+See also:
 
-- [railroad diagram of PG format](https://github.com/pg-format/pgraphs/blob/main/docs/pg-grammar.md)
 - [web application to beautify PG format](https://pg-format.github.io/pg-formatter/)
-- [formal description of PG model and format](https://github.com/pg-format/pgraphs/blob/main/docs/pg-format.md) (*may be outdated*)
+- [formal description of PG model and format](https://github.com/pg-format/pgraphs/blob/main/docs/pg-format.md)
 - [illustrating example of PG format](https://github.com/pg-format/pgraphs/blob/main/docs/pg-format.pg)
 - [Example directory](https://github.com/pg-format/pgraphs/blob/main/examples), also used for unit tests
 

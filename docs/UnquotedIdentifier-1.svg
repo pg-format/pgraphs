@@ -93,8 +93,8 @@
 </g>
 <g class="comment">
 <path d="M50 28h0"></path>
-<path d="M165 28h0"></path>
-<text x="107.5" y="33" class="comment">PlainIdentifier</text>
+<path d="M186 28h0"></path>
+<text x="118" y="33" class="comment">UnquotedIdentifier</text>
 </g>
 </g>
 <path d="M589 87h10"></path>

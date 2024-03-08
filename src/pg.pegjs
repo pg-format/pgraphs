@@ -7,7 +7,7 @@
   const edges = []
 }
 
-PG = ( EmptyLine* Entity )* EmptyLine* Space? Comment? End
+PG = ( Entity / IgnorableSpace LineBreak )* IgnorableSpace End
 {
   for (let { from, to } of edges) {
     if (!(from in nodes)) {
@@ -24,10 +24,10 @@ End
   = !.
 
 Entity
-  = ( Edge / Node ) ( Space* "|" Space* / ( Space Comment? )? ( LineBreak / End ) )
+  = ( Edge / Node ) ( Space* "|" Space* / IgnorableSpace ( LineBreak / End ) )
 
-EmptyLine
-  = Space? Comment? LineBreak
+IgnorableSpace
+  = Space? Comment?
 
 LineBreak "linebreak"
   = [\x0D\x0A]+
@@ -39,8 +39,7 @@ Comment "comment"
   = "#" [^\x0D\x0A]*
 
 WS
-  = ( Space Comment? / Space? ) LineBreak EmptyLine* Space
-  / Space
+  = ( IgnorableSpace LineBreak )* Space
 
 Node
   = id:Identifier labels:Label* props:Property* {
@@ -72,14 +71,14 @@ Edge
  }
 
 Direction
-  = WS @( "->" / "<-" / "--" ) WS?
+  = WS? @( "->" / "<-" / "--" ) WS?
 
 Label "label"
   = WS ":" Space? id:Identifier { return id }
 
 Identifier
   = QuotedString
-  / PlainIdentifier
+  / UnquotedIdentifier
 
 PlainChar
   = [^\x20\x09\x0A\x0D"<>{}|^]
@@ -87,7 +86,7 @@ PlainChar
 PlainStart
   = ![:(,#] PlainChar
 
-PlainIdentifier
+UnquotedIdentifier
   = $( PlainStart PlainChar* )
 
 Property "property"
@@ -97,14 +96,14 @@ Property "property"
 
 Key
   = @QuotedString Space? ":"
-  / ( @PlainIdentifier Space ":" )
+  / ( @UnquotedIdentifier Space ":" )
   / name:( $PlainStart $( ( !":" PlainChar )* ":" )+ ) {
       return name.join("").slice(0,-1)
     }
 
 ValueList
-  = values:( WS? @Value ) |1.., ( WS? "," )| {
-      return values
+  = first:( WS? @Value ) rest:( WS? "," WS? @Value )* {
+      return [first, ...rest]
     }
 
 Value "value"

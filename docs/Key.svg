@@ -50,29 +50,29 @@
 <path d="M507 64h20"></path>
 <path d="M50 64a10 10 0 0 1 10 10v10a10 10 0 0 0 10 10"></path>
 <g class="Sequence">
-<path d="M70 94h79.25"></path>
-<path d="M427.75 94h79.25"></path>
-<path d="M296.75 94h10"></path>
+<path d="M70 94h66.5"></path>
+<path d="M440.5 94h66.5"></path>
+<path d="M309.5 94h10"></path>
 <g class="non-terminal rule-ref">
-<path d="M149.25 94h0"></path>
-<path d="M296.75 94h0"></path>
-<rect x="149.25" y="83" width="147.5" height="22"></rect>
-<text x="223" y="98">PlainIdentifier</text>
+<path d="M136.5 94h0"></path>
+<path d="M309.5 94h0"></path>
+<rect x="136.5" y="83" width="173" height="22"></rect>
+<text x="223" y="98">UnquotedIdentifier</text>
 </g>
-<path d="M306.75 94h10"></path>
-<path d="M379.25 94h10"></path>
+<path d="M319.5 94h10"></path>
+<path d="M392 94h10"></path>
 <g class="non-terminal rule-ref">
-<path d="M316.75 94h0"></path>
-<path d="M379.25 94h0"></path>
-<rect x="316.75" y="83" width="62.5" height="22"></rect>
-<text x="348" y="98">Space</text>
+<path d="M329.5 94h0"></path>
+<path d="M392 94h0"></path>
+<rect x="329.5" y="83" width="62.5" height="22"></rect>
+<text x="360.75" y="98">Space</text>
 </g>
-<path d="M389.25 94h10"></path>
+<path d="M402 94h10"></path>
 <g class="terminal literal">
-<path d="M399.25 94h0"></path>
-<path d="M427.75 94h0"></path>
-<rect x="399.25" y="83" width="28.5" height="22" rx="10" ry="10"></rect>
-<text x="413.5" y="98">:</text>
+<path d="M412 94h0"></path>
+<path d="M440.5 94h0"></path>
+<rect x="412" y="83" width="28.5" height="22" rx="10" ry="10"></rect>
+<text x="426.25" y="98">:</text>
 </g>
 </g>
 <path d="M507 94a10 10 0 0 0 10 -10v-10a10 10 0 0 1 10 -10"></path>

@@ -47,15 +47,16 @@ skipped lines. These elements are separated by line breaks. A final line break
 is optional.
 
 ~~~ebnf
-PG          ::= ( ELEMENT SPACE? ( #xA ELEMENT SPACE? )* )? #A?
-ELEMENT     ::= NODE | EDGE | SKIPPED
+PG         ::= ( Entity | IgnorableSpace LineBreak )* IgnorableSpace
+Entity     ::= ( Node | Edge ) ( SPACE* '|' SPACE* | IgnorableSpace ( LineBreak | EOF )
 ~~~
 
 Skipped lines are empty or consist of spaces and/or a comment:
 
 ~~~ebnf
-SKIPPED     ::= ( #x20 | #x9 )* COMMENT?
-COMMENT     ::= '#' ( CHAR - #A )*
+SPACE           ::= ( #x20 | #x9 )+
+Comment         ::= '#' ( CHAR - #A )*
+IgnorableSpace  ::= SPACE? COMMENT?
 ~~~
 
 Whitespace is required or allowed between some parts of NODEs and EDGEs.
@@ -63,32 +64,30 @@ Whitespace can contain comments, line breaks and skipped lines only when
 following line is intended by at least one space:
 
 ~~~ebnf
-WS          ::= ( SPACE | FOLDING )+ ( SPACE | COMMENT | FOLDING )*
-FOLDING     ::= ( #A SKIPPED )* #A SPACE+ )+
-SPACE       ::= ( #x20 | #x9 )+
+WS          ::= ( IgnorableSpace #A )* SPACE
 ~~~
 
-A NODE consists of an identifier, followed by optional labels and/or properties:
+A Node consists of an identifier, followed by optional labels and/or properties:
 
 ~~~ebnf
-NODE        ::= ID ( WS LABEL )* ( WS PROPERTY )*
+Node        ::= Identifier ( WS Label )* ( WS Property )*
 ~~~
 
 An EDGE consists of an identifier, followed a direction, another identifier,
 and optional labels and/or properties:
 
 ~~~ebnf
-EDGE        ::= ID WS? DIRECTION WS? ID ( WS LABEL )* ( WS PROPERTY )*
-DIRECTION   ::= '--' | '->' | '<-'
+Edge        ::= Identifier Direction Identifier ( WS Label )* ( WS Property )*
+Direction   ::= WS? ( '--' | '->' | '<-' ) WS?
 ~~~
 
 Labels start with a colon. Properties consist of a key, a colon, and one or
 more comma-separated values:
 
 ~~~
-LABEL       ::= ':' ID
-PROPERTY    ::= ID ':' WS? VALUES
-VALUES      ::= VALUE (WS? ',' VALUE)*
+Label       ::= ':' Identifier
+Property    ::= Identifier ':' WS? ValueList
+ValueList   ::= Value ( WS? ',' WS? Value )*
 ~~~
 
 Identifiers, keys, and values can be given as string in quotation marks or in
@@ -97,12 +96,9 @@ start with quotation mark, colon or opening parenthesis. Plain values further
 must not contain colon nor comma:
 
 ~~~ebnf
-ID          ::= STRING | PLAIN_ID
-VALUE       ::= SCALAR | PLAIN_VALUE
-ID_START    ::= CHAR - ( SPACE | '"' | ':', '(' ) 
-PLAIN_ID    ::= ID_START ( CHAR - SPACE )*
-PLAIN_VALUE ::= ( PLAIN_CHAR - ( '"' | '(' ) ) PLAIN_CHAR*
-PLAIN_CHAR  ::= CHAR - ( SPACE | ':' | ',' )
+Identifier  ::= String | Unquoted
+Unquoted    ::= ( PlainChar - ( ':' | '(' | ',' | '#' ) ) ) PlainChar*
+PlainChar   ::= CHAR - ( SPACE | '"' | '<' | '>' | '{' | '}' | '|' | '\' | '^' )
 ~~~
 
 The exclusion of bracket characters is motivated by the ability to make use of

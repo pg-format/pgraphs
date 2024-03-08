@@ -5,6 +5,7 @@
 - add CLI option -i, --id to copy node id to a property
 - rename CLI option -v, --verbose to -e, --errors
 - fix merging of properties in repeated nodes
+- update grammar and format description
 
 ## 0.2.0
 
