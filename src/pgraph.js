@@ -1,7 +1,7 @@
 import fs from "fs"
 import { pgformat } from "./formats.js"
 import { GraphTarget, StreamTarget } from "./target.js"
-import { addIdProperty } from "./filter.js"
+import { addIdProperty } from "./utils.js"
 
 // Read entire input to string
 const readStream = async input => {

@@ -16,6 +16,7 @@ cli.usage("pgraph [options] [<input> [<output]]")
   .option("-f, --from [format]   input format")
   .option("-t, --to [format]     output format")
   .option("-e, --errors          verbose error messages")
+  .option("-i, --id [key]        copy node id to property")
   .details(`Supported conversion formats:\n${formats}`)
   .action(async(args, opt) => {
     // Check arguments

@@ -62,6 +62,7 @@ Options:
   -f, --from [format]  input format
   -t, --to [format]    output format
   -e, --errors         verbose error messages
+  -i, --id [key]       copy node id to property
   -h, --help           show usage information
   -V, --version        show the version number
 
