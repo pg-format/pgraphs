@@ -15,7 +15,7 @@ cli.usage("pgraph [options] [<input> [<output]]")
   .description("Convert between property graph serializations.")
   .option("-f, --from [format]   input format")
   .option("-t, --to [format]     output format")
-  .option("-v, --verbose         verbose error messages")
+  .option("-e, --errors          verbose error messages")
   .details(`Supported conversion formats:\n${formats}`)
   .action(async(args, opt) => {
     // Check arguments
@@ -38,6 +38,6 @@ cli.usage("pgraph [options] [<input> [<output]]")
   })
   .parse(process.argv)
   .catch(e => {
-    console.error(cli.options.verbose ? e : `${e}`)
+    console.error(cli.options.errors ? e : `${e}`)
     process.exit(1)
   })

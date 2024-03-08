@@ -61,7 +61,7 @@ Convert between property graph serializations.
 Options:
   -f, --from [format]  input format
   -t, --to [format]    output format
-  -v, --verbose        verbose error messages
+  -e, --errors         verbose error messages
   -h, --help           show usage information
   -V, --version        show the version number
 
