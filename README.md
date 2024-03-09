@@ -116,9 +116,54 @@ try {
 
 ## Formats
 
-Several formats and conventions exist to store labeled property graphs. Each
+Many formats and conventions exist to store labeled property graphs. Each
 format comes with a syntax and a limited or extended data model of property
-graphs: not every feature can be expressed in every format!
+graphs: not every feature can be expressed in every format! The following table
+lists all formats and systems known by know and whether they can be read and/or
+written from with this package:
+
+[PG format]: #pg-format
+[PG-JSON]: #pg-json-and-jsonl)
+[PG-JSONL]: #pg-json-and-jsonl)
+[GraphViz DOT]: #graphviz-dot
+[GraphML]: #graphml
+[YARS-PG]: #yars-pg
+[CSV]: #csv
+[Neptune CSV]: #neptune-csv
+[Trivial Graph Format (TGF)]: #tgf
+
+| read | write | format or database                      |
+|------|-------|-----------------------------------------|
+| yes  | yes   | [PG format]                             |
+| yes  | yes   | [PG-JSON]                               |
+| yes  | yes   | [PG-JSONL]                              |
+| yes  | yes   | [GraphViz DT                            |
+|      | yes   | [YARS-PG]                               |
+| yes  | yes   | [Trivial Graph Format (TGF)]            |
+|      | yes   | [GraphML]                               |
+|      |       | compressed GraphML                      |
+|      | yes   | OpenCypher/Neo4J [CSV] import           |
+|      | yes   | Amazon [Neptune CSV] import             |
+| yes  | no    | Cypher match query                      |
+|      | yes   | [Cypher create statements]              |
+|      |       | Orcacle PGX Flat File format            |
+|      |       | KuzuDB                                  |
+|      |       | Directed Graph Markup Language (DGML)   |
+|      |       | DotML                                   |
+|      |       | S-Dot                                   |
+|      |       | Graph eXchange Language (GXL)           |
+|      |       | Graph Modelling Language (GML)          |
+|      |       | Graph Modeling Language XML (XGML)      |
+|      |       | GraphSON TinkerPop 2                    |
+|      |       | GraphSON TinkerPop 3                    |
+|      |       | Graph Exchange XML Format (GEXF)        |
+|      |       | Pajek NET                               |
+|      |       | Graph Definition File (GDF)             |
+|      |       | UCINET DL                               |
+|      |       | Tulip TP                                |
+|      |       | Netdraw VNA                             |
+|      |       | yED CSV                                 |
+| no   | no    | yFiles Graph Format                     |
 
 ### PG format
 
@@ -337,6 +382,18 @@ Parsed back from TGF and serialized as PG format, this is equivalent to:
 2 :person
 1 -> 2 :same_school
 1 -> 2 :likes
+~~~
+
+### Cypher create statements
+
+The example graph in [Cypher language](https://opencypher.org/references/) with
+CREATE statements:
+
+~~~
+CREATE (`101`:person {name:["Alice","Carol"], country:"United States"})
+CREATE (`102`:person:student {name:"Bob", country:"Japan"})
+CREATE (`101`)-[:same_school {since:2012}]->(`102`)
+CREATE (`101`)-[:likes {since:2015, engaged:false}]->(`102`)
 ~~~
 
 ## License
