@@ -12,7 +12,7 @@ const formats = Object.keys(pgformat).map(id => {
 }).join("\n")
 
 cli.usage("pgraph [options] [<input> [<output]]")
-  .description("Convert between property graph serializations.")
+  .description("Convert between property graph formats and databases.")
   .option("-f, --from [format]   input format")
   .option("-t, --to [format]     output format")
   .option("-e, --errors          verbose error messages")

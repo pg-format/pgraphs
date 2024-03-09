@@ -12,7 +12,8 @@
  * |      | yes   | GraphML                                 |
  * |      | yes   | OpenCypher/Neo4J CSV import             |
  * |      | yes   | Amazon Neptune CSV import               |
- * | yes  |       | Cypher query                            |
+ * | yes  | -     | Cypher query                            |
+ * |      | yes   | Cypher statements                       |
  * |      |       | Orcacle PGX Flat File format            |
  * |      |       | KuzuDB                                  |
  * |      |       | Directed Graph Markup Language (DGML)   |
@@ -52,6 +53,7 @@ import serializeNeptune from "./serializer/neptune.js"
 import parseTGF from "./parser/tgf.js"
 import serializeTGF from "./serializer/tgf.js"
 
+import serializeCypher from "./serializer/cypher.js"
 import parseNeo4J from "./parser/neo4j.js"
 
 import { serialize } from "./serializer/pg.js"
@@ -100,6 +102,10 @@ export const pgformat = {
   xml: {
     name: "GraphML",
     serialize: serializeGraphML,
+  },
+  cypher: {
+    name: "Cypher statements",
+    serialize: serializeCypher,
   },
   yarspg: {
     name: "YARS-PG 5.0.0 without data types",

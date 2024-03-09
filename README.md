@@ -73,6 +73,7 @@ Supported conversion formats:
   dot     from/to GraphViz dot
   tgf     from/to Trivial Graph Format
   neo4j   from Neo4J server (via Cypher query)
+  cypher  to Cypher statements
   xml     to GraphML
   yarspg  to YARS-PG 5.0.0 without data types
   yarspg3 to YARS-PG 3.0.0 with optional labels

@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.2.2
+
+- support conversion to Cypher statememts (experimental)
+
 ## 0.2.1
 
 - add CLI option -i, --id to copy node id to a property
