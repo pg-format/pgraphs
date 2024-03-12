@@ -1,5 +1,5 @@
-import { ParsingError } from "../error.js"
-import { graph } from "../utils.js"
+import { ParsingError } from "../../error.js"
+import { graph } from "../../utils.js"
 
 const node = /^([^#\s]+)(\s+(.*))?$/
 const edge = /^([^#\s]+)\s+([^#\s]+)(\s(.*))?$/

@@ -1,74 +1,31 @@
-import { parse } from "./parser/pg.js"
+import pg from "./format/pg/index.js"
+import json from "./format/pg-json/index.js"
+import jsonl from "./format/pg-jsonl/index.js"
+import dot from "./format/dot/index.js"
+import tgf from "./format/tgf/index.js"
+import graphml from "./format/graphml/index.js"
+import cypher from "./format/cypher/index.js"
 
-import parseJSONL from "./parser/jsonl.js"
-import serializeJSONL from "./serializer/jsonl.js"
-
-import parseDot from "./parser/dot.js"
-import serializeDot from "./serializer/dot.js"
-
-import serializeGraphML from "./serializer/graphml.js"
 import serializeYARSPG from "./serializer/yarspg.js"
 import serializeYARSPG3 from "./serializer/yarspg3.js"
 import serializeCSV from "./serializer/csv.js"
 import serializeNeptune from "./serializer/neptune.js"
 // Import serializeFlat from "./serializer/flat.js"
-import parseTGF from "./parser/tgf.js"
-import serializeTGF from "./serializer/tgf.js"
 
-import serializeCypher from "./serializer/cypher.js"
 import parseNeo4J from "./parser/neo4j.js"
 
-import { serialize } from "./serializer/pg.js"
-
 export const pgformat = {
-  pg: {
-    name: "PG format (default input)",
-    parse(text) {
-      try {
-        return parse(text) 
-      } catch (e) {
-        var msg = e.message
-        if (e.location) {
-          const { line, column } = e.location.start
-          msg += ` Line ${line}:${column}.`
-        }
-        throw new Error(msg)
-      }
-    },
-    serialize,
-  },
-  json: {
-    name: "PG-JSON",
-    parse: string => JSON.parse(string),
-    serialize: graph => JSON.stringify(graph, null, 2),
-  },
-  jsonl: {
-    name: "PG-JSONL (default output)",
-    parse: parseJSONL,
-    serialize: serializeJSONL,
-  },
-  dot: {
-    name: "GraphViz dot",
-    parse: parseDot,
-    serialize: serializeDot,
-  },
-  tgf: {
-    name: "Trivial Graph Format",
-    parse: parseTGF,
-    serialize: serializeTGF,
-  },
+  pg,
+  json,
+  jsonl,
+  dot,
+  tgf,
   neo4j: {
     name: "Neo4J server (via Cypher query)",
     parse: parseNeo4J,
   },
-  xml: {
-    name: "GraphML",
-    serialize: serializeGraphML,
-  },
-  cypher: {
-    name: "Cypher statements",
-    serialize: serializeCypher,
-  },
+  xml: graphml,
+  cypher,
   yarspg: {
     name: "YARS-PG 5.0.0 without data types",
     serialize: serializeYARSPG,
@@ -90,3 +47,6 @@ export const pgformat = {
 //    serialize: serializeFlat,
 //  },
 }
+
+pgformat.pg.name += " (default input)"
+pgformat.jsonl.name += " (default output)"

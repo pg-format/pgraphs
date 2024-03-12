@@ -1,3 +1,5 @@
+// Cypher CREATE statements
+
 const defaultEdgeLabel = "edge"
 const nodeLabelPattern = /./    
 const edgeLabelPattern = /./
@@ -12,7 +14,7 @@ function valueList(values) {
 }
 
 function propertyMap(properties) {
-  const keys = Object.keys(properties).filter(key => propertyKeyPattern.test(key))
+  const keys = Object.keys(properties).filter(key => propertyKeyPattern.test(key)).sort()
   if (keys.length) {
     const props = keys.map(key => escape(key)+":"+valueList(properties[key]))
     return ` {${props.join(", ")}}`
@@ -21,17 +23,36 @@ function propertyMap(properties) {
   }
 }
 
-function createNode({ id, labels, properties }) {
+function serializeNode({ id, labels, properties }) {
   labels = labels.filter(label => nodeLabelPattern.test(label)).map(l => `:${escape(l)}`).join("")
   return `CREATE (${escape(id)}${labels}${propertyMap(properties)})`
 }
 
-function createEdge({ from, to, labels, properties }) {
+function serializeEdge({ from, to, labels, properties }) {
   // edge label is mandatory and non-repeatable
   const type = labels.find(label => edgeLabelPattern.test(label)) ?? defaultEdgeLabel
   return `CREATE (${escape(from)})-[:${escape(type)}${propertyMap(properties)}]->(${escape(to)})`
 }
 
-export default ({ nodes, edges }) => {
-  return [...nodes.map(createNode), ...edges.filter(e => !e.undirectde).map(createEdge)].map(s => s+"\n").join("")
+function serialize({ nodes, edges }) {
+  return [...nodes.map(serializeNode), ...edges.filter(e => !e.undirected).map(serializeEdge)].map(s => s+"\n").join("")
+}
+
+export default {
+  name: "Cypher statements",
+
+  nodeLabels: "0..*",
+  nodeLabelPattern,
+
+  edgeLabels: "1",
+  defaultEdgeLabel,
+  edgeLabelPattern,
+
+  propertyKeyPattern,
+
+  direction: "directed",
+  graphAttributes: false,
+  subgraphs: false,
+
+  serialize
 }

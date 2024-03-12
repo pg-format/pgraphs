@@ -4,7 +4,7 @@
 
 
 
-  import { graph, addProperties } from "../utils.js"
+  import { graph, addProperties } from "../../utils.js"
 
 function peg$subclass(child, parent) {
   function C() { this.constructor = child; }

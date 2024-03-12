@@ -37,5 +37,5 @@ module.exports = {
     "comma-dangle": "off" // FIXME: enable again despite @peggyjs
   },
   // ignore generated file
-  ignorePatterns: [ "src/parser/pg.js", "tmp.pegjs" ],
+  ignorePatterns: [ "src/format/pg/parser.js", "tmp.pegjs" ],
 }

@@ -1,7 +1,7 @@
 // Trivial Graph Format (TGF)
 // properties and line breaks in labels are ignored and only the first label is used
 
-import { IDMap } from "../utils.js"
+import { IDMap } from "../../utils.js"
 
 const useLabel = labels => (labels.length ? " " + labels[0].replaceAll(/[\r\n]/g, "") : "")
 

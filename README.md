@@ -23,7 +23,10 @@ This package implements parsers and serializers to convert between labeled prope
   - [CSV](#csv)
   - [Neptune CSV](#neptune-csv)
   - [TGF](#tgf)
+  - [Cypher CREATE statements]
 - [License](#license)
+
+[Cypher CREATE statements]: #cypher-create-statements
 
 ## Background
 
@@ -145,7 +148,7 @@ written from with this package:
 |      | yes   | OpenCypher/Neo4J [CSV] import           |
 |      | yes   | Amazon [Neptune CSV] import             |
 | yes  | no    | Cypher match query                      |
-|      | yes   | [Cypher create statements]              |
+|      | yes   | [Cypher CREATE statements]              |
 |      |       | Orcacle PGX Flat File format            |
 |      |       | KuzuDB                                  |
 |      |       | Directed Graph Markup Language (DGML)   |
@@ -384,15 +387,15 @@ Parsed back from TGF and serialized as PG format, this is equivalent to:
 1 -> 2 :likes
 ~~~
 
-### Cypher create statements
+### Cypher CREATE statements
 
 The example graph in [Cypher language](https://opencypher.org/references/) with
-CREATE statements:
+CREATE statements. The undirected edge is ignored because Cypher only supports
+directed edges:
 
 ~~~
 CREATE (`101`:person {name:["Alice","Carol"], country:"United States"})
 CREATE (`102`:person:student {name:"Bob", country:"Japan"})
-CREATE (`101`)-[:same_school {since:2012}]->(`102`)
 CREATE (`101`)-[:likes {since:2015, engaged:false}]->(`102`)
 ~~~
 

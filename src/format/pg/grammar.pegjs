@@ -1,5 +1,5 @@
 {{
-  import { graph, addProperties } from "../utils.js"
+  import { graph, addProperties } from "../../utils.js"
 }}
 
 {

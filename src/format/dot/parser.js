@@ -1,5 +1,5 @@
 import dotparser from "dotparser"
-import { graph } from "../utils.js"
+import { graph } from "../../utils.js"
 
 /**
  * Parse and convert DOT to PG.

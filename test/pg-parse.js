@@ -2,7 +2,8 @@ import { assert } from "chai"
 import fs from "fs"
 import { localPath, readFile } from "./utils.js"
 
-import { parse } from "../src/parser/pg.js"
+import pgFormat from "../src/format/pg/index.js"
+const { parse } = pgFormat
 
 describe("parse", () => {
   fs.readdirSync(localPath("../examples")).forEach(file => {
