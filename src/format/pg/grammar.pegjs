@@ -77,7 +77,10 @@ Label "label"
   = WS ":" Space? id:Identifier { return id }
 
 Identifier
-  = QuotedString
+  = id:QuotedString { 
+      if (id === "") { error("Identifiers cannot be empty") }
+      return id
+    }
   / UnquotedIdentifier
 
 PlainChar
@@ -95,7 +98,10 @@ Property "property"
     }
 
 Key
-  = @QuotedString Space? ":"
+  = @( key:QuotedString Space? ":" {
+        if (key === "") { error("Property keys cannot be empty") }
+        return key
+      } )
   / ( @UnquotedIdentifier Space ":" )
   / name:( $PlainStart $( ( !":" PlainChar )* ":" )+ ) {
       return name.join("").slice(0,-1)

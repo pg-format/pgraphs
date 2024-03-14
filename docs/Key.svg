@@ -15,6 +15,9 @@
 <g class="Sequence">
 <path d="M70 64h82"></path>
 <path d="M425 64h82"></path>
+<g class="Sequence">
+<path d="M152 64h0"></path>
+<path d="M425 64h0"></path>
 <path d="M274 64h10"></path>
 <g class="non-terminal rule-ref">
 <path d="M152 64h0"></path>
@@ -45,6 +48,7 @@
 <path d="M425 64h0"></path>
 <rect x="396.5" y="53" width="28.5" height="22" rx="10" ry="10"></rect>
 <text x="410.75" y="68">:</text>
+</g>
 </g>
 </g>
 <path d="M507 64h20"></path>

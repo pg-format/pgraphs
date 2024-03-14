@@ -5,15 +5,9 @@ a
 a :person
 
 # same node id is merged into existing node
-a  foo:bar
+a  foo:bar foo:""
 
 c  foo:bar : doz
-
-# empty property key and value
-x "" :""
-
-# empty string label
-a :""
 
 # boolean data type
 true :true true:true true:"true" TRUE:TRUE
@@ -31,7 +25,7 @@ null :null null:null null:"null" NULL:NULL
 "\\" :"\\"      "\\":"\\"
 "\\\"" :"\\\""  "\\\"":"\\\""
 
-"\t" :"\u2300"
+"\t" :"\u0001"
 
 # parentheses
 "()" :"()" "()":"()"

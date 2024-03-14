@@ -278,6 +278,9 @@ CREATE (`102`:person:student {name:"Bob", country:"Japan"})
 CREATE (`101`)-[:likes {since:2015, engaged:false}]->(`102`)
 ~~~
 
+Further differences between PG data model and Cypher include no support of
+`null` in property values and mixed types in repeated property values.
+
 ### YARS-PG
 
 Export to YARS-PG 5.0.0 is limited to nodes and edges without schema, so all

@@ -1,11 +1,6 @@
 {
   "nodes": [
     {
-      "id": "",
-      "labels": [],
-      "properties": {}
-    },
-    {
       "id": "!#$%&'()[]*+-./0123456789;~:=?@",
       "labels": [],
       "properties": {}
@@ -70,6 +65,11 @@
     },
     {
       "id": "y",
+      "labels": [],
+      "properties": {}
+    },
+    {
+      "id": "ꯍ",
       "labels": [],
       "properties": {}
     }

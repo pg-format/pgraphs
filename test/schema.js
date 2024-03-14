@@ -31,12 +31,12 @@ const invalid = [
   { nodes:[], edges:[{}] },
   { nodes:[{ ...node("x"), X:1 }], edges:[] },
   { nodes:[node("x"), node("y")], edges:[{ from:"x", to:"y", labels:[], properties:{}, X:1 }] },
+  { nodes:[{ id:"", labels:[], properties:{} }], edges:[] },
+  { nodes:[{ id:"x", labels:[], properties:{ "":[1] } }], edges:[] },
 ]
 
 const valid = [
-  // Empty string id, label, property key
-  { nodes:[{ id:"", labels:[], properties:{} }], edges:[] },
-  { nodes:[{ id:"x", labels:[], properties:{ "":[1] } }], edges:[] },
+  { nodes:[{ id:"x", labels:[], properties:{} }], edges:[] },
 ]
 
 describe("more valid PG-JSON", () => {

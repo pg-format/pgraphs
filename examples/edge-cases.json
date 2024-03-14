@@ -2,7 +2,9 @@
   "nodes": [
     {
       "id": "\t",
-      "labels": [ "⌀" ],
+      "labels": [
+        "\u0001"
+      ],
       "properties": {}
     },
     {
@@ -87,12 +89,12 @@
     {
       "id": "a",
       "labels": [
-        "person",
-        ""
+        "person"
       ],
       "properties": {
         "foo": [
-          "bar"
+          "bar",
+          ""
         ]
       }
     },
@@ -153,11 +155,7 @@
     {
       "id": "x",
       "labels": [],
-      "properties": {
-        "": [
-          ""
-        ]
-      }
+      "properties": {}
     },
     {
       "id": "y",

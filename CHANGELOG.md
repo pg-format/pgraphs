@@ -3,6 +3,7 @@
 ## 0.2.3
 
 - support parsing Cypher create statements
+- disallow empty string node identifiers, labels, and property keys
 
 ## 0.2.2
 

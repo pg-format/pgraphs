@@ -28,7 +28,6 @@ const valid = {
   "#": graph(),
   " #": graph(),
   " ": graph(),
-  "\"\"": graph(""),                                    // Empty node id
   "a\rb": graph("a|b"),                                 // Plain /r is newline
   "a:b <- c:": graph("a:b|c:", [["c:", "a:b"]]),        // Id can contain and end colon
   "a(:# -> --": graph("--|a(:#", [["a(:#", "--"]]),     // Id can contain special characters
@@ -37,8 +36,8 @@ const valid = {
   "n1 \n  :label:x  :y #comment\n\t :a :a": graph([{ id:"n1", labels:["label:x", "y", "a"] }]),
   "a : x b:1": graph([{ id:"a", labels: ["x"], properties:{ b:1 } }]),
   // Properties
-  "x a:0 ab:false a:b:c a:b:4 \"(\":5 \"\":6": graph([{ id:"x",
-    properties:{ a:0, ab:false, "a:b":["c", 4], "(":5, "":6 } }]),
+  "x a:0 ab:false a:b:c a:b:4 \"(\":5 \"-\":6": graph([{ id:"x",
+    properties:{ a:0, ab:false, "a:b":["c", 4], "(":5, "-":6 } }]),
   // Values
   "a -> b a:\"\",2\t, -2e2,null ,\n xyz a: # comment\n b:c": graph(
     "a|b",
@@ -78,6 +77,9 @@ const invalid = {
   "x k:": "missing property value at line 1, character 5",
   "x k:\"xy": "invalid property value at line 1, character 5: \"\\\"xy\"",
   "(a": "line 1 must start with node or edge",
+  "\"\"": "Identifiers cannot be empty",
+  "x :\"\"": "Identifiers cannot be empty",
+  "x \"\":1": "Property keys cannot be empty",
 }
 
 describe("parsing errors", () => {

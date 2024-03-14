@@ -16,9 +16,9 @@ node -> another-node
 
 "This is a valid \"node identifier\""
 
-# A node identifier can be any Unicode string, including the empty string:
+# A node identifier can be any non-empty Unicode string:
 
-""
+"\uabcd"
 
 # Edges consists of two nodes and a direction at least:
 
