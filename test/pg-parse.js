@@ -1,6 +1,6 @@
 import { assert } from "chai"
 import fs from "fs"
-import { localPath, readFile } from "./utils.js"
+import { localPath, readFile, graph } from "./utils.js"
 
 import pgFormat from "../src/format/pg/index.js"
 const { parse } = pgFormat
@@ -23,32 +23,16 @@ describe("parse", () => {
   })
 })
 
-// Lazy graph constructor
-const graph = (nodes, edges = []) => {
-  nodes = nodes.map(id => (typeof id === "string" ? { id } : id))
-  edges = edges.map(e => (Array.isArray(e) ? { from: e[0], to: e[1] } : e)) 
-  for (const e of [...nodes, ...edges]) {
-    e.labels ??= []
-    e.properties ??= {} 
-    for (const [key, value] of Object.entries(e.properties)) {
-      if (!Array.isArray(value)) {
-        e.properties[key] = [value]
-      }
-    }
-  }
-  return { nodes, edges }
-}
-
 const valid = {
-  "": graph([]),
-  "#": graph([]),
-  " #": graph([]),
-  " ": graph([]),
-  "\"\"": graph([""]),                                  // Empty node id
-  "a\rb": graph(["a", "b"]),                             // Plain /r is newline
-  "a:b <- c:": graph(["a:b", "c:"], [["c:", "a:b"]]),    // Id can contain and end colon
-  "a(:# -> --": graph(["--", "a(:#"], [["a(:#", "--"]]), // Id can contain special characters
-  "x\nxy\r\nxyz # comment\n\"X\"": graph(["X", "x", "xy", "xyz"]), // Node ids
+  "": graph(),
+  "#": graph(),
+  " #": graph(),
+  " ": graph(),
+  "\"\"": graph(""),                                    // Empty node id
+  "a\rb": graph("a|b"),                                 // Plain /r is newline
+  "a:b <- c:": graph("a:b|c:", [["c:", "a:b"]]),        // Id can contain and end colon
+  "a(:# -> --": graph("--|a(:#", [["a(:#", "--"]]),     // Id can contain special characters
+  "x\nxy\r\nxyz # comment\n\"X\"": graph("X|x|xy|xyz"), // Node ids
   // labels and line folding
   "n1 \n  :label:x  :y #comment\n\t :a :a": graph([{ id:"n1", labels:["label:x", "y", "a"] }]),
   "a : x b:1": graph([{ id:"a", labels: ["x"], properties:{ b:1 } }]),
@@ -57,7 +41,7 @@ const valid = {
     properties:{ a:0, ab:false, "a:b":["c", 4], "(":5, "":6 } }]),
   // Values
   "a -> b a:\"\",2\t, -2e2,null ,\n xyz a: # comment\n b:c": graph(
-    ["a", "b"],
+    "a|b",
     [{ from: "a", to: "b", labels: [], properties: { a: ["", 2, -200, null, "xyz", "b:c"] } }],
   ),
   // FIXME: comment read as property???

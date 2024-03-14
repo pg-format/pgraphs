@@ -1,10 +1,10 @@
 import pg from "./format/pg/index.js"
 import json from "./format/pg-json/index.js"
 import jsonl from "./format/pg-jsonl/index.js"
+import cypher from "./format/cypher/index.js"
 import dot from "./format/dot/index.js"
 import tgf from "./format/tgf/index.js"
 import graphml from "./format/graphml/index.js"
-import cypher from "./format/cypher/index.js"
 
 import serializeYARSPG from "./serializer/yarspg.js"
 import serializeYARSPG3 from "./serializer/yarspg3.js"
@@ -18,6 +18,7 @@ export const pgformat = {
   pg,
   json,
   jsonl,
+  cypher,
   dot,
   tgf,
   neo4j: {
@@ -25,7 +26,6 @@ export const pgformat = {
     parse: parseNeo4J,
   },
   xml: graphml,
-  cypher,
   yarspg: {
     name: "YARS-PG 5.0.0 without data types",
     serialize: serializeYARSPG,

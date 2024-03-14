@@ -34,6 +34,7 @@
     "lint": "eslint --fix './**/*.js' && eslint './**/*.pegjs'",
     "update-example": "pgraph examples/example.pg -t csv examples/csv/example",
     "parser": "peggy --format es -o src/format/pg/parser.js ./src/format/pg/grammar.pegjs",
+    "parser:cypher": "peggy --format es -o src/format/cypher/parser.js ./src/format/cypher/grammar.pegjs",
     "peggy": "peggy",
     "peggy-tracks": "peggy-tracks",
     "docs": "./docs/make.sh",

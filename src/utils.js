@@ -27,13 +27,15 @@ export const graph = (nodes, edges) => ({
 
 export const addProperties = (propList, properties={}) => {
   for (let [key, values] of propList) {
-    if (key in properties) {
-      if (!(properties[key] instanceof Set)) {
-        properties[key] = new Set(properties[key])
+    if (values.length) {
+      if (key in properties) {
+        if (!(properties[key] instanceof Set)) {
+          properties[key] = new Set(properties[key])
+        }
+        for (let v of values) {properties[key].add(v)}
+      } else {
+        properties[key] = new Set(values)
       }
-      for (let v of values) {properties[key].add(v)}
-    } else {
-      properties[key] = new Set(values)
     }
   }
   for (let key in properties) {

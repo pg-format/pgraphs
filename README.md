@@ -19,14 +19,12 @@ This package implements parsers and serializers to convert between labeled prope
   - [PG JSON and JSONL](#pg-json-and-jsonl)
   - [GraphViz DOT](#graphviz-dot)
   - [GraphML](#graphml)
+  - [Cypher CREATE statements]
   - [YARS-PG](#yars-pg)
   - [CSV](#csv)
   - [Neptune CSV](#neptune-csv)
   - [TGF](#tgf)
-  - [Cypher CREATE statements]
 - [License](#license)
-
-[Cypher CREATE statements]: #cypher-create-statements
 
 ## Background
 
@@ -59,7 +57,7 @@ Command `pgraph` is installed with this package:
 ~~~
 Usage: pgraph [options] [<input> [<output]]
 
-Convert between property graph serializations.
+Convert between property graph formats and databases.
 
 Options:
   -f, --from [format]  input format
@@ -73,10 +71,10 @@ Supported conversion formats:
   pg      from/to PG format (default input)
   json    from/to PG-JSON
   jsonl   from/to PG-JSONL (default output)
-  dot     from/to GraphViz dot
+  cypher  from/to Cypher CREATE statements
+  dot     from/to GraphViz DOT
   tgf     from/to Trivial Graph Format
   neo4j   from Neo4J server (via Cypher query)
-  cypher  to Cypher statements
   xml     to GraphML
   yarspg  to YARS-PG 5.0.0 without data types
   yarspg3 to YARS-PG 3.0.0 with optional labels
@@ -134,21 +132,22 @@ written from with this package:
 [CSV]: #csv
 [Neptune CSV]: #neptune-csv
 [Trivial Graph Format (TGF)]: #tgf
+[Cypher CREATE statements]: #cypher-create-statements
 
 | read | write | format or database                      |
 |------|-------|-----------------------------------------|
 | yes  | yes   | [PG format]                             |
 | yes  | yes   | [PG-JSON]                               |
 | yes  | yes   | [PG-JSONL]                              |
+| yes  | yes   | [Cypher CREATE statements]              |
 | yes  | yes   | [GraphViz DT                            |
-|      | yes   | [YARS-PG]                               |
 | yes  | yes   | [Trivial Graph Format (TGF)]            |
 |      | yes   | [GraphML]                               |
 |      |       | compressed GraphML                      |
+|      | yes   | [YARS-PG]                               |
 |      | yes   | OpenCypher/Neo4J [CSV] import           |
 |      | yes   | Amazon [Neptune CSV] import             |
 | yes  | no    | Cypher match query                      |
-|      | yes   | [Cypher CREATE statements]              |
 |      |       | Orcacle PGX Flat File format            |
 |      |       | KuzuDB                                  |
 |      |       | Directed Graph Markup Language (DGML)   |
@@ -276,6 +275,18 @@ values are converted to strings:
 </graphml>
 ~~~
 
+### Cypher CREATE statements
+
+The example graph in [Cypher language](https://opencypher.org/references/) with
+CREATE statements. The undirected edge is ignored because Cypher only supports
+directed edges:
+
+~~~
+CREATE (`101`:person {name:["Alice","Carol"], country:"United States"})
+CREATE (`102`:person:student {name:"Bob", country:"Japan"})
+CREATE (`101`)-[:likes {since:2015, engaged:false}]->(`102`)
+~~~
+
 ### YARS-PG
 
 Export to YARS-PG 5.0.0 is limited to nodes and edges without schema, so all
@@ -385,18 +396,6 @@ Parsed back from TGF and serialized as PG format, this is equivalent to:
 2 :person
 1 -> 2 :same_school
 1 -> 2 :likes
-~~~
-
-### Cypher CREATE statements
-
-The example graph in [Cypher language](https://opencypher.org/references/) with
-CREATE statements. The undirected edge is ignored because Cypher only supports
-directed edges:
-
-~~~
-CREATE (`101`:person {name:["Alice","Carol"], country:"United States"})
-CREATE (`102`:person:student {name:"Bob", country:"Japan"})
-CREATE (`101`)-[:likes {since:2015, engaged:false}]->(`102`)
 ~~~
 
 ## License

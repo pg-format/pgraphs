@@ -1,5 +1,7 @@
 // Cypher CREATE statements
 
+import { parse } from "./parser.js"
+
 const defaultEdgeLabel = "edge"
 const nodeLabelPattern = /./    
 const edgeLabelPattern = /./
@@ -39,7 +41,7 @@ function serialize({ nodes, edges }) {
 }
 
 export default {
-  name: "Cypher statements",
+  name: "Cypher CREATE statements",
 
   nodeLabels: "0..*",
   nodeLabelPattern,
@@ -54,5 +56,5 @@ export default {
   graphAttributes: false,
   subgraphs: false,
 
-  serialize
+  parse, serialize
 }
