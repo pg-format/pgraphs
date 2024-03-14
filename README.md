@@ -19,7 +19,7 @@ This package implements parsers and serializers to convert between labeled prope
   - [PG JSON and JSONL](#pg-json-and-jsonl)
   - [GraphViz DOT](#graphviz-dot)
   - [GraphML](#graphml)
-  - [Cypher CREATE statements]
+  - [Cypher CREATE](#cypher-create)
   - [YARS-PG](#yars-pg)
   - [CSV](#csv)
   - [Neptune CSV](#neptune-csv)
@@ -122,37 +122,26 @@ format comes with a syntax and a limited or extended data model of property
 graphs: not every feature can be expressed in every format! The following table
 lists all formats and systems known by know and whether they can be read and/or
 written from with this package:
-
-[PG format]: #pg-format
-[PG-JSON]: #pg-json-and-jsonl)
-[PG-JSONL]: #pg-json-and-jsonl)
-[GraphViz DOT]: #graphviz-dot
-[GraphML]: #graphml
-[YARS-PG]: #yars-pg
-[CSV]: #csv
-[Neptune CSV]: #neptune-csv
-[Trivial Graph Format (TGF)]: #tgf
-[Cypher CREATE statements]: #cypher-create-statements
-
+ 
 | read | write | format or database                      |
 |------|-------|-----------------------------------------|
-| yes  | yes   | [PG format]                             |
-| yes  | yes   | [PG-JSON]                               |
-| yes  | yes   | [PG-JSONL]                              |
-| yes  | yes   | [Cypher CREATE statements]              |
-| yes  | yes   | [GraphViz DT                            |
-| yes  | yes   | [Trivial Graph Format (TGF)]            |
-|      | yes   | [GraphML]                               |
+| yes  | yes   | [PG format](#pg-format)                 |
+| yes  | yes   | [PG-JSON](#pg-json-and-jsonl)           |
+| yes  | yes   | [PG-JSONL](#pg-json-and-jsonl)          |
+| yes  | yes   | [Cypher CREATE](#cypher-create)         |
+| yes  | yes   | [GraphViz DOT](#graphviz-dot)           |
+| yes  | yes   | [Trivial Graph Format (TGF)](#tgf)      |
+|      | yes   | [GraphML](#graphml)                     |
 |      |       | compressed GraphML                      |
-|      | yes   | [YARS-PG]                               |
-|      | yes   | OpenCypher/Neo4J [CSV] import           |
-|      | yes   | Amazon [Neptune CSV] import             |
-| yes  | no    | Cypher match query                      |
+|      | yes   | [YARS-PG](#yars-pg)                     |
+|      | yes   | OpenCypher/Neo4J [CSV](#csv)            |
+|      | yes   | Amazon [Neptune CSV](#neptune-csv)      |
+| yes  | -     | Cypher MATCH query                      |
 |      |       | Orcacle PGX Flat File format            |
 |      |       | KuzuDB                                  |
 |      |       | Directed Graph Markup Language (DGML)   |
 |      |       | DotML                                   |
-|      |       | S-Dot                                   |
+|      |       | JSON Canvas                             |
 |      |       | Graph eXchange Language (GXL)           |
 |      |       | Graph Modelling Language (GML)          |
 |      |       | Graph Modeling Language XML (XGML)      |
@@ -165,7 +154,9 @@ written from with this package:
 |      |       | Tulip TP                                |
 |      |       | Netdraw VNA                             |
 |      |       | yED CSV                                 |
-| no   | no    | yFiles Graph Format                     |
+
+Additional graph formats probably not going to implemented include S-Dot, and
+yFiles Graph Format.
 
 ### PG format
 
@@ -275,7 +266,7 @@ values are converted to strings:
 </graphml>
 ~~~
 
-### Cypher CREATE statements
+### Cypher CREATE
 
 The example graph in [Cypher language](https://opencypher.org/references/) with
 CREATE statements. The undirected edge is ignored because Cypher only supports
