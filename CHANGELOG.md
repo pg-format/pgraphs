@@ -1,8 +1,12 @@
 # Changelog
 
+## 0.2.3
+
+- support parsing Cypher create statements
+
 ## 0.2.2
 
-- support conversion to Cypher statememts (experimental)
+- support writing Cypher create statements
 
 ## 0.2.1
 

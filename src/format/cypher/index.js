@@ -1,6 +1,7 @@
 // Cypher CREATE statements
 
 import { parse } from "./parser.js"
+import { wrapPeggyParser } from "../../utils.js"
 
 const defaultEdgeLabel = "edge"
 const nodeLabelPattern = /./    
@@ -10,7 +11,16 @@ const propertyKeyPattern = /./
 const escape = id => /^(\p{ID_Start}|\p{Pc})(\p{ID_Continue}|\p{Sc})*$/u.test(id)
   ? id : "`" + id.replaceAll("`","``") + "`"
 
+// TODO: Cypher differentiates between single value 1 and list of one value [1]
+// and it also supports empty collection []!
+
 function valueList(values) {
+  // filter out null values and mixed typed values
+  values = values.filter(v => v !== null)
+  if (values.length) {
+    const type = typeof values[0]
+    values = values.filter(v => typeof v === type)
+  }
   values = values.map(v => typeof v === "string" ? JSON.stringify(v) : v)
   return values.length == 1 ? values[0] : "["+values.join(",")+"]"
 }
@@ -56,5 +66,6 @@ export default {
   graphAttributes: false,
   subgraphs: false,
 
-  parse, serialize
+  parse: input => wrapPeggyParser(parse, input),
+  serialize
 }

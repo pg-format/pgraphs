@@ -57,3 +57,17 @@ export const addIdProperty = (graph, idprop) => {
     }
   }
 }
+
+export function wrapPeggyParser(parse, input) {
+  try {
+    return parse(input) 
+  } catch (e) {
+    var msg = e.message
+    if (e.location) {
+      const { line, column } = e.location.start
+      msg = msg.replace(/\.$/,"") + ` at line ${line}:${column}.`
+    }
+    throw new Error(msg)
+  }
+}
+

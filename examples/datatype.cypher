@@ -1,0 +1,8 @@
+CREATE (node01 {prop_double:12.34, prop_int:1234, prop_string_1:"1234", prop_string_2:"abcd"})
+CREATE (node02 {prop_double:12.34, prop_int:1234, prop_string_1:"1234", prop_string_2:"abcd"})
+CREATE (node03 {prop_url:"http://abc.abc/abc"})
+CREATE (node04 {prop_list_int:[10,20], prop_list_string:["abcd","efgh"]})
+CREATE (node01)-[:friend_of {prop_double:12.34, prop_int:1234, prop_string_1:"1234", prop_string_2:"abcd"}]->(node02)
+CREATE (node01)-[:boss_of {prop_double:12.34, prop_int:1234, prop_string_1:"1234", prop_string_2:"abcd"}]->(node02)
+CREATE (node01)-[:site {prop_url:"http://abc.abc/abc"}]->(node03)
+CREATE (node01)-[:edge {prop_list_int:[10,20], prop_list_string:["abcd","efgh"]}]->(node04)

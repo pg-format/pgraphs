@@ -1,5 +1,6 @@
 import { serialize } from "./serializer.js"
 import { parse } from "./parser.js"
+import { wrapPeggyParser } from "../../utils.js"
 
 export default {
   name: "PG format",
@@ -11,18 +12,6 @@ export default {
   subgraphs: false,
   datatypes: "json scalar",
 
-  parse(text) {
-    try {
-      return parse(text) 
-    } catch (e) {
-      var msg = e.message
-      if (e.location) {
-        const { line, column } = e.location.start
-        msg += ` Line ${line}:${column}.`
-      }
-      throw new Error(msg)
-    }
-  },
-
+  parse: input => wrapPeggyParser(parse, input),
   serialize
 }
