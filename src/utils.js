@@ -71,3 +71,4 @@ export function wrapPeggyParser(parse, input) {
   }
 }
 
+export const randomId = () => "_"+(Math.random() + 1).toString(36).substring(2)

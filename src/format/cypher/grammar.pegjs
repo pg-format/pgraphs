@@ -2,7 +2,7 @@
 // and checked by testing edge cases with Neo4J
 
 {{
-  import { graph, addProperties } from "../../utils.js"
+  import { graph, addProperties, randomId } from "../../utils.js"
   const isEmpty = ({labels,properties}) => !labels.length && !Object.keys(properties).length
 }}
 
@@ -53,8 +53,7 @@ PatternElement
 
 NodePattern
   = "(" SP? id:( ( @Name SP? )? ) labels:Label* props:Properties? ")" { 
-      // generate node identifier if missing
-      id ??= "_"+(Math.random() + 1).toString(36).substring(2)
+      id ??= randomId()
       // labels must be unique
       labels = Array.from(new Set(labels))
       return { id, labels, properties: addProperties(props || []) }
