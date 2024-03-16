@@ -46,18 +46,6 @@ export const addProperties = (propList, properties={}) => {
   return properties
 }
 
-export const addIdProperty = (graph, idprop) => {
-  for (let {id,properties} of graph.nodes) {
-    if (idprop in properties) {
-      // identifier is always made first value
-      properties[idprop] = properties[idprop].filter(v => v !== id)
-      properties[idprop].unshift(id)
-    } else {
-      properties[idprop] = [id]
-    }
-  }
-}
-
 export function wrapPeggyParser(parse, input) {
   try {
     return parse(input) 
@@ -72,3 +60,5 @@ export function wrapPeggyParser(parse, input) {
 }
 
 export const randomId = () => "_"+(Math.random() + 1).toString(36).substring(2)
+
+export const isNumber = x => /^\d+(\.\d+)?$/.test(x)

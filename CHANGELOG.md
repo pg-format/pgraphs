@@ -1,8 +1,9 @@
 # Changelog
 
-## next
+## 0.2.4
 
 - Disallow unquoted identifiers to start with --
+- Add experimental support of JSON Canvas
 
 ## 0.2.3
 

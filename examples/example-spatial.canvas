@@ -1,0 +1,34 @@
+{
+ "nodes": [
+  {
+   "id": "101",
+   "x": 114,
+   "y": 360,
+   "width": 3,
+   "height": 2,
+   "type": "text",
+   "text": "101"
+  },
+  {
+   "id": "102",
+   "x": 114,
+   "y": 72,
+   "width": 3,
+   "height": 2,
+   "type": "text",
+   "text": "102"
+  }
+ ],
+ "edges": [
+  {
+   "id": "_g1bsov6z7v",
+   "fromNode": "101",
+   "toNode": "102"
+  },
+  {
+   "id": "_dhgjy055o8",
+   "fromNode": "101",
+   "toNode": "102"
+  }
+ ]
+}

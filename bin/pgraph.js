@@ -17,6 +17,7 @@ cli.usage("pgraph [options] [<input> [<output]]")
   .option("-t, --to [format]     output format")
   .option("-e, --errors          verbose error messages")
   .option("-i, --id [key]        copy node id to property")
+  .option("-s, --scale [factor]  scale spatial properties x,y,width,height,pos")
   .details(`Supported conversion formats:\n${formats}`)
   .action(async(args, opt) => {
     // Check arguments

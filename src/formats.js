@@ -5,6 +5,7 @@ import cypher from "./format/cypher/index.js"
 import dot from "./format/dot/index.js"
 import tgf from "./format/tgf/index.js"
 import graphml from "./format/graphml/index.js"
+import canvas from "./format/canvas/index.js"
 
 import serializeYARSPG from "./serializer/yarspg.js"
 import serializeYARSPG3 from "./serializer/yarspg3.js"
@@ -21,6 +22,7 @@ export const pgformat = {
   cypher,
   dot,
   tgf,
+  canvas,
   neo4j: {
     name: "Neo4J server (via Cypher query)",
     parse: parseNeo4J,

@@ -24,6 +24,7 @@ This package implements parsers and serializers to convert between labeled prope
   - [CSV](#csv)
   - [Neptune CSV](#neptune-csv)
   - [TGF](#tgf)
+  - [JSON Canvas](#json-canvas)
 - [License](#license)
 
 ## Background
@@ -60,12 +61,13 @@ Usage: pgraph [options] [<input> [<output]]
 Convert between property graph formats and databases.
 
 Options:
-  -f, --from [format]  input format
-  -t, --to [format]    output format
-  -e, --errors         verbose error messages
-  -i, --id [key]       copy node id to property
-  -h, --help           show usage information
-  -V, --version        show the version number
+  -f, --from [format]   input format
+  -t, --to [format]     output format
+  -e, --errors          verbose error messages
+  -i, --id [key]        copy node id to property
+  -s, --scale [factor]  scale spatial properties x,y,width,height,pos
+  -h, --help            show usage information
+  -V, --version         show the version number
 
 Supported conversion formats:
   pg      from/to PG format (default input)
@@ -74,6 +76,7 @@ Supported conversion formats:
   cypher  from/to Cypher CREATE statements
   dot     from/to GraphViz DOT
   tgf     from/to Trivial Graph Format
+  canvas  from/to JSON Canvas (experimental)
   neo4j   from Neo4J server (via Cypher query)
   xml     to GraphML
   yarspg  to YARS-PG 5.0.0 without data types
@@ -131,6 +134,7 @@ written from with this package:
 | yes  | yes   | [Cypher CREATE](#cypher-create)         |
 | yes  | yes   | [GraphViz DOT](#graphviz-dot)           |
 | yes  | yes   | [Trivial Graph Format (TGF)](#tgf)      |
+| yes  | yes   | [JSON Canvas](#json-canvas)             |
 |      | yes   | [GraphML](#graphml)                     |
 |      |       | compressed GraphML                      |
 |      | yes   | [YARS-PG](#yars-pg)                     |
@@ -141,7 +145,6 @@ written from with this package:
 |      |       | KuzuDB                                  |
 |      |       | Directed Graph Markup Language (DGML)   |
 |      |       | DotML                                   |
-|      |       | JSON Canvas                             |
 |      |       | Graph eXchange Language (GXL)           |
 |      |       | Graph Modelling Language (GML)          |
 |      |       | Graph Modeling Language XML (XGML)      |
@@ -391,6 +394,28 @@ Parsed back from TGF and serialized as PG format, this is equivalent to:
 1 -> 2 :same_school
 1 -> 2 :likes
 ~~~
+
+### JSON Canvas
+
+The spatial hypertext [JSON Canvas format](https://jsoncanvas.org/) can store
+a spatial graph with nodes of text (in Markdown), links, or files. Each node
+requires a position and size at least. The corresponding properties (`with`,
+`height`, `x`, `y`) are not included in the example graph but GraphViz can be
+used to generate them. As GraphViz uses dpi instead of pixel, the numbers
+should be scaled with pgraph option `--scale`. This command line pipeline
+generates a JSON Canvas from the example graph:
+
+~~~
+pgraph examples/example.pg -t dot | dot | pgraph -f dot -s 4 -t canvas
+~~~
+
+To transform a DOT file `graph.dot` into JSON Canvas:
+
+~~~
+dot graph.dot | pgraph -f dot -s 4 -t canvas > graph.canvas
+~~~
+
+JSON Canvas can be read as well, but not all features are supported.
 
 ## License
 

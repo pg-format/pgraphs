@@ -1,7 +1,7 @@
 import fs from "fs"
 import { pgformat } from "./formats.js"
 import { GraphTarget, StreamTarget } from "./target.js"
-import { addIdProperty } from "./utils.js"
+import { addIdProperty, scaleSpatial } from "./transform.js"
 
 // Read entire input to string
 const readStream = async input => {
@@ -54,6 +54,10 @@ export async function pgraph(source, target, opts) {
 
   if (opts.id !== undefined) {
     addIdProperty(graph, opts.id) 
+  }
+
+  if (opts.scale > 0) {
+    scaleSpatial(graph, opts.scale)
   }
 
   writeGraph(graph)
