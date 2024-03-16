@@ -28,9 +28,9 @@ const valid = {
   "#": graph(),
   " #": graph(),
   " ": graph(),
-  "a\rb": graph("a|b"),                                 // Plain /r is newline
+  "\u3007\r0": graph("0|\u3007"),                       // Plain /r is newline, numbers as unquoted identifiers
   "a:b <- c:": graph("a:b|c:", [["c:", "a:b"]]),        // Id can contain and end colon
-  "a(:# -> --": graph("--|a(:#", [["a(:#", "--"]]),     // Id can contain special characters
+  "a(:# -> 本-²": graph("a(:#|本-²", [["a(:#", "本-²"]]),     // Id can contain special characters
   "x\nxy\r\nxyz # comment\n\"X\"": graph("X|x|xy|xyz"), // Node ids
   // labels and line folding
   "n1 \n  :label:x  :y #comment\n\t :a :a": graph([{ id:"n1", labels:["label:x", "y", "a"] }]),
@@ -67,6 +67,7 @@ const invalid = {
   "|": "",
   "a ::": "",
   "a\"": "",
+  "--a": "",
   "\"": "line 1 must start with node or edge",
   "\"\\": "line 1 must start with node or edge", // Malformed escaped string
   "\"\\\\\"\"": "invalid node identifier at line 1 character 5 is \"",

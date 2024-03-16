@@ -90,7 +90,10 @@ PlainStart
   = ![:(,#] PlainChar
 
 UnquotedIdentifier
-  = $( PlainStart PlainChar* )
+  = PlainStart PlainChar* {
+      if (text().match(/^--/)) { error("Unquoted identifier must not start with an edge direction") }
+      return text()
+    }
 
 Property "property"
   = WS name:Key value:ValueList {
@@ -124,7 +127,7 @@ UnquotedString
 
 Scalar
   = QuotedString
-  / Number
+  / Number { return parseFloat(text()) }
   / "true" { return true }
   / "false" { return false }
   / "null" { return null }
@@ -159,7 +162,7 @@ Unescaped
   = [^\0-\x1F\x22\x5C]
 
 Number
-  = "-"? Int Frac? Exp? { return parseFloat(text()) }
+  = "-"? Int Frac? Exp?
 
 Int
   = "0"

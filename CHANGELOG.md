@@ -1,5 +1,9 @@
 # Changelog
 
+## next
+
+- Disallow unquoted identifiers to start with --
+
 ## 0.2.3
 
 - support parsing Cypher create statements
