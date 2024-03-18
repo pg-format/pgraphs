@@ -1,5 +1,9 @@
 # Changelog
 
+## next
+
+- Add type field in PG-JSONL
+
 ## 0.2.4
 
 - Disallow unquoted identifiers to start with --

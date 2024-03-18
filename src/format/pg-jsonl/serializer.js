@@ -1,10 +1,15 @@
+// Serialize PG-JSONL (with sorted keys for stable result)
+
+const sorted = obj => Object.fromEntries(Object.keys(obj).sort().map(key => [key, obj[key]]))
+
 export default graph => {
   const lines = []
-  // TODO: add 'type to support import in Neo4J?
-  for (const node of graph.nodes) {
+  for (const {id, labels, properties} of graph.nodes) {
+    const node = { type: "node", id, labels, properties: sorted(properties) }
     lines.push(JSON.stringify(node))
   }
-  for (const edge of graph.edges) {
+  for (const {from, to, labels, properties} of graph.edges) {
+    const edge = { type: "edge", from, to, labels, properties: sorted(properties) }
     lines.push(JSON.stringify(edge))
   }
   return lines.join("\n") + "\n"
