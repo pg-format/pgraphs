@@ -43,14 +43,10 @@ const valid = {
     "a|b",
     [{ from: "a", to: "b", labels: [], properties: { a: ["", 2, -200, null, "xyz", "b:c"] } }],
   ),
-  // FIXME: comment read as property???
-  // "a b:c:d": "invalid content at line 1, character 6: \":d\"",
-  //  'x :y :yz :x:z: :"y" :""',  // {"nodes":[{"id":"x","labels":["y","yz","x:z:","y",""],"properties":{}}],"edges":[]}
-  // TODO:
-  "a:0 a:0 a:0": graph([{ id:"a:0", properties:{ a:0 } }]),
-  // "ab ->  b x:1 c:false",
-  // "0 bc:d": graph([{id:"0",properties:{}}]),
-  //  `101 :person name:Alice name:Carol country:"United States"`: graph([])
+  "a b:c:d": graph([{id:"a",properties:{"b:c":["d"]}}]),
+  "a:0 a:0 a:0": graph([{ id:"a:0", properties:{ a:[0,0] } }]),
+  "ab ->  b x:1 c:false": graph("ab|b",[{from:"ab",to:"b",properties:{x:[1],c:[false]}}]),
+  "0 bc:d": graph([{id:"0",properties:{bc:["d"]}}]),
   "a -> b | a :foo; |a :bar": graph([{id:"a",labels:["foo;","bar"]},{id:"b"}],[{from:"a",to:"b"}]),
   "a b:0|c": graph([{id:"a",properties:{b:[0]}},"c"]),
   "x a:1|x a:2,3": graph([{id:"x",properties:{a:[1,2,3]}}]),

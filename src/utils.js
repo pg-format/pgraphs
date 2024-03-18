@@ -29,18 +29,10 @@ export const addProperties = (propList, properties={}) => {
   for (let [key, values] of propList) {
     if (values.length) {
       if (key in properties) {
-        if (!(properties[key] instanceof Set)) {
-          properties[key] = new Set(properties[key])
-        }
-        for (let v of values) {properties[key].add(v)}
+        properties[key].push(...values)
       } else {
-        properties[key] = new Set(values)
+        properties[key] = values
       }
-    }
-  }
-  for (let key in properties) {
-    if (properties[key] instanceof Set) {
-      properties[key] = [...properties[key].values()]
     }
   }
   return properties
