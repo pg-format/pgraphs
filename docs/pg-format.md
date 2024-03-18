@@ -4,27 +4,11 @@ This document describes the **Property Graph Exchange Format (PG)** with its
 data model and serializations. Details are still subject of discussion, so this
 is no final specification yet.
 
-## Introduction
-
-**Property Graphs** (also known as **Labeled Property Graphs**) are used as
-abstract data structure in graph databases and related applications. 
-
-A property graph consists of **nodes** and **edges** between these nodes. Each
-edge can be directed or undirected.  Each of the nodes and edges can have a set
-of zero or more **labels** and a set of and zero or more properties.
-**properties** are key-value pairs where the same key may have multiple values.
-**values** are Unicode strings or scalar values of other data types.
-
-Implementations of property graphs slightly differ in support of data types,
-restrictions on labels etc. The property graph model PG is aimed to be a
-superset of property graph models of common graph databases. The model and its
-serializations [PG format](#pg-format) and [PG-JSON](#pg-json) have first been
-proposed by Hirokazu Chiba, Ryota Yamanaka, and Shota Matsumoto
-([2019](https://arxiv.org/abs/1907.03936), [2022](https://arxiv.org/abs/2203.06393)).
+**See <https://github.com/pg-format/specification> for current work on specification.**
 
 ## PG format
 
-PG format is a text-based serialization of [property graphs](#property-graphs).
+PG format is a text-based serialization of property graphs.
 A PG file encodes a property graph as Unicode string. The encoding can formally
 be specified with the following grammar in
 [EBNF](https://www.w3.org/TR/xml/#sec-notation).
@@ -119,74 +103,6 @@ ESCAPED     ::= '\' ( ["/\bfnrt"/\] | 'u' HEX HEX HEX HEX )
 HEX         ::= [0-9] | [A-F] | [a-f]
 ~~~
 
-## PG-JSON
-
-**PG-JSON** is a serialization of the property graph data model in JSON. A graph is encoded as JSON object with exactely two fields:
-
-- `nodes` an array of nodes
-- `edges` an array of edges
-
-Each node is a JSON object with exactely three fields:
-
-- `id` the internal node identifier, being a string. Node identifiers must be unique per graph.
-- `labels` a (possibly empty) array of labels, each being a string. Labels must be unique per node.
-- `properties` a (possibly empty) JSON object mapping non empty strings to non-empty arrays of scalar JSON values (string, number, boolean, or null)
-
-Each edge is a JSON object with one optional and four mandatory fields:
-
-- `undirected` (optional) a boolean value whether the edge is undirected
-- `from` an identifier of a node in this graph
-- `to` an identifier of a node in this graph
-- `labels` a (possibly empty) array of labels, each being a string. Labels must be unique per edge.
-- `properties` a (possibly empty) JSON object with properties with same definition as above in node objects.
-
-The PG-JSON format is also defined by JSON Schema file
-[`pg-schema.json`](../pg-schema.json) in this repository. Rules not covered
-by the schema:
-
-- node ids must be unique per graph
-- nodes referenced in edges must be defined
-- edges must be unique per graph
-
-## PG-JSONL
-
-**PG-JSONL** is a serialization of the property graph data model in JSON Lines (also known as newline-delimited JSON / NDJSON). A graph is encoded as sequence of lines with a JSON object encoding
-either a node or an edge, respectively. The format of these objects is identical to the corresponding node or edge objects in PG-JSON.
-
-## Example
-
-The same graph in PG format and PG-JSON format:
-
-~~~
-# NODES
-101 :person  name:Alice  country:"United States"
-102 :person  :student  name:Bob  country:Japan
-
-# EDGES
-101 -- 102  :same_school  :same_class  since:2012
-101 -> 102  :likes  since:2015
-~~~
-
-~~~json
-{
-  "nodes": [{
-    "id": "101", "labels": [ "person" ],
-    "properties": { "name": [ "Alice" ], "country": [ "United States" ] }
-   },{
-    "id": "102", "labels": [ "person", "student" ],
-    "properties": { "name": [ "Bob" ], "country": [ "Japan" ] }
-  }],
-  "edges": [{
-    "from": "101", "to": "102", "undirected": true,
-    "labels": [ "same_school", "same_class" ], "properties": { "since": [ 2012 ] }
-   },{
-    "from": "101", "to": "102",
-    "labels": [ "likes" ], "properties": { "since": [ 2015 ] }
-  }]
-}
-~~~
-
-A more complex example illustrating PG format [can be found here](./pg-format.pg).
 
 ## See also
 

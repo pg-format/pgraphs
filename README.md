@@ -182,7 +182,7 @@ and boolean values:
 See also:
 
 - [web application to beautify PG format](https://pg-format.github.io/pg-formatter/)
-- [formal description of PG model and format](https://github.com/pg-format/pgraphs/blob/main/docs/pg-format.md)
+- [planned formal specification of PG data model and format](https://github.com/pg-format/specification/)
 - [illustrating example of PG format](https://github.com/pg-format/pgraphs/blob/main/docs/pg-format.pg)
 - [Example directory](https://github.com/pg-format/pgraphs/blob/main/examples), also used for unit tests
 
