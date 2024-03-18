@@ -1,6 +1,6 @@
 {
   "name": "pgraphs",
-  "version": "0.2.4",
+  "version": "0.3.0",
   "description": "Property Graph Exchange Format (PG) converters",
   "license": "MIT",
   "homepage": "https://github.com/pg-format/pgraphs#readme",
