@@ -216,7 +216,8 @@ The same graph [in PG-JSON](examples/example.json) and [in PG-JSONL](examples/ex
 {"from":"101","to":"102","labels":["likes"],"properties":{"since":[2015],"engaged":[false]}}
 ~~~
 
-There is also a [JSON Schema of PG-JSON](pg-schema.json).
+There is also a [JSON Schema for PG-JSON](https://github.com/pg-format/specification/raw/main/schema/pg-json.json).
+and a [JSON Schema for PG-JSONL](https://github.com/pg-format/specification/raw/main/schema/pg-jsonl.json).
 
 ### GraphViz DOT
 

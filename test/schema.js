@@ -4,19 +4,30 @@ import { localPath, readFile } from "./utils.js"
 import Ajv from "ajv"
 
 const ajv = new Ajv()
-const schema = JSON.parse(readFile("../pg-schema.json"))
-const validate = ajv.compile(schema)
+const jsonSchema = JSON.parse(readFile("../schema/pg-json.json"))
+const jsonlSchema = JSON.parse(readFile("../schema/pg-jsonl.json"))
+const validateJson = ajv.compile(jsonSchema)
+const validateJsonl = ajv.compile(jsonlSchema)
 
-describe("valid PG-JSON", () => {
+describe("valid PG-JSON(L)", () => {
   fs.readdirSync(localPath("../examples")).forEach(file => {
     if (file.match(/\.json$/)) {
       it(file, () => {
         const graph = JSON.parse(readFile(`../examples/${file}`))
-        if (!validate(graph)) {
-          console.log(validate.errors)
-        }
-        assert.ok(validate(graph))
+        const ok = validateJson(graph)
+        if (!ok) { console.log(validateJson.errors) }
+        assert.ok(ok)
       })
+    } else if (file.match(/\.jsonl$/)) {
+      const lines = readFile(`../examples/${file}`).split("\n").filter(l => l !== "")
+      for (var i=0; i<lines.length; i++) {
+        const graph = JSON.parse(lines[i])
+        it(`${file} line ${i+1}`, () => {
+          const ok = validateJsonl(graph)
+          if (!ok) { console.log(validateJsonl.errors) }
+          assert.ok(ok)
+        })  
+      }
     }
   })
 })
@@ -42,7 +53,7 @@ const valid = [
 describe("more valid PG-JSON", () => {
   for (let i = 0; i < valid.length; i++) {
     it(String(i), () => {
-      assert.ok(validate(valid[i]))
+      assert.ok(validateJson(valid[i]))
     })
   }
 })
@@ -50,7 +61,7 @@ describe("more valid PG-JSON", () => {
 describe("invalid PG-JSON", () => {
   for (let i = 0; i < invalid.length; i++) {
     it(String(i), () => {
-      assert.ok(!validate(invalid[i]))
+      assert.ok(!validateJson(invalid[i]))
     })
   }
 })

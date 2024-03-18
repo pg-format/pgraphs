@@ -1,0 +1,78 @@
+{
+  "title": "PG-JSONL: Property Graph Exchange Format in JSON Lines",
+  "type": "object",
+  "oneOf": [
+    {
+      "properties": {
+        "type": {
+          "const": "node"
+        },
+        "id": {
+          "$ref": "#/$defs/id"
+        },
+        "labels": {
+          "$ref": "#/$defs/labels"
+        },
+        "properties": {
+          "$ref": "#/$defs/properties"
+        }
+      },
+      "additionalProperties": false,
+      "required": [ "type", "id", "labels", "properties" ]
+    },{
+      "properties": {
+        "type": {
+          "const": "edge"
+        },
+        "from": {
+          "$ref": "#/$defs/id"
+        },
+        "to": {
+          "$ref": "#/$defs/id"
+        },
+        "labels": {
+          "$ref": "#/$defs/labels"
+        },
+        "properties": {
+          "$ref": "#/$defs/properties"
+        },
+        "undirected": {
+          "type": "boolean"
+        }
+      },
+      "additionalProperties": false,
+      "required": [ "type", "from", "to", "labels", "properties" ]
+    }
+  ],
+  "$defs": {
+    "id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "properties": {
+      "type": "object",
+      "patternProperties": {
+        ".+": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "oneOf": [
+              { "type": "string" },
+              { "type": "number" },
+              { "type": "boolean" },
+              { "type": "null" }
+            ] 
+          }
+        }
+      },
+      "additionalProperties": false
+    },
+    "labels": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {
+        "$ref": "#/$defs/id"
+      }
+    }
+  }
+}

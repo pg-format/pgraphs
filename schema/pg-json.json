@@ -1,5 +1,5 @@
 {
-  "title": "Property Graph Exchange Format",
+  "title": "PG-JSON: Property Graph Exchange Format in JSON",
   "type": "object",
   "properties": {
     "nodes": {
