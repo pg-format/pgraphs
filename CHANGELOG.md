@@ -1,6 +1,6 @@
 # Changelog
 
-## next
+## 0.2.5
 
 - Make property values lists instead of sets
 - Add type field in PG-JSONL
