@@ -8,44 +8,44 @@
  * - Graph type is digraph only of no edge is undirected
  */
 
-const xmlEntity = {
-  ">": "&gt;",
-  "<": "&lt;",
-  "'": "&apos;",
-  "\"": "&quot;",
-  "&": "&amp;",
-}
+import XMLWriter from "../../xmlwriter.js"
 
-const xmlEscape = s => `${s}`.replaceAll(/[&"<>']/g, c => xmlEntity[c])
+const empty = obj => !Object.keys(obj).length
 
 // TODO: use optional attribute data.type? Content seems to be not specified
-const serializeProperties = properties => Object.keys(properties).sort().map(key => properties[key].map(value => `      <data key="${xmlEscape(key)}">${xmlEscape(value)}</data>`).join("\n"),
-).join("\n")
-
-const serializeNode = ({ id, properties }) => {
-  const data = serializeProperties(properties)
-  return `    <node id="${xmlEscape(id)}"` + (data ? `>\n${data}\n    </node>` : "/>")
-}
-
-const serializeEdge = ({ from, to, properties }) => {
-  const data = serializeProperties(properties)
-  return `    <edge source="${xmlEscape(from)}" target="${xmlEscape(to)}"`
-    + (data ? `>\n${data}\n    </edge>` : "/>")
+function writeProperties (properties, xml) {
+  for (let key of Object.keys(properties).sort()) {
+    for (let value of properties[key]) {
+      xml.element("data", { key }, value)
+    }
+  }
 }
 
 export default ({ nodes, edges }) => {
-  const type = edges.some(e => e.undirected) ? "undirected" : "directed"
+  const edgedefault = edges.some(e => e.undirected) ? "undirected" : "directed"
 
-  const xml = [
-    "<?xml version=\"1.0\" encoding=\"UTF-8\"?>",
-    "<graphml xmlns=\"http://graphml.graphdrawing.org/xmlns\">",
-    `  <graph edgedefault="${type}">`,
-  ]
+  const xml = new XMLWriter("graphml", { xmlns: "http://graphml.graphdrawing.org/xmlns" })
+  xml.start("graph", { edgedefault })
 
-  xml.push(...nodes.map(serializeNode))
-  xml.push(...edges.map(serializeEdge))
-  xml.push("  </graph>")
-  xml.push("</graphml>")
+  for (let { id, properties } of nodes) {
+    if (empty(properties)) {
+      xml.element("node", { id })
+    } else {
+      xml.start("node", { id })
+      writeProperties(properties, xml)
+      xml.end()
+    }
+  }
 
-  return xml.join("\n")
+  for (let { from, to, properties } of edges) {
+    if (empty(properties)) {
+      xml.element("edge", { source: from, target: to })
+    } else {
+      xml.start("edge", { source: from, target: to })
+      writeProperties(properties, xml)
+      xml.end()
+    }
+  }
+
+  return xml.toString()
 }
