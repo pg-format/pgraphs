@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.3.1
+
+- Allow comma in unquoted strings except for values
+
 ## 0.3.0
 
 - Make property values lists instead of sets

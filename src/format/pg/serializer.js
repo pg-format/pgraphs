@@ -1,4 +1,4 @@
-const plainId = /^[^#"\s:,(<>{}|^][^\s"<>{}|^]*$/
+const plainId = /^[^#"\s:(<>{}|^][^\s"<>{}|^]*$/
 
 export const quoteId = s => (plainId.test(s) && !(/^--/.test(s))) ? s : JSON.stringify(s)
 

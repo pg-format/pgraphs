@@ -7,7 +7,7 @@ a :person
 # same node id is merged into existing node
 a  foo:bar foo:""
 
-c  foo:bar : doz
+c, foo:bar : doz
 
 # boolean data type
 true :true true:true true:"true" TRUE:TRUE

@@ -87,7 +87,7 @@ PlainChar
   = [^\x20\x09\x0A\x0D"<>{}|^]
 
 PlainStart
-  = ![:(,#] PlainChar
+  = ![:(#] PlainChar
 
 UnquotedIdentifier
   = PlainStart PlainChar* {
