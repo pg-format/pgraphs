@@ -4,11 +4,11 @@ import pg from "../src/format/pg/index.js"
 
 const valid = {
   "CREATE/* */(ä0 {})//": "ä0",
-  "CREATE (a)-[:x]->(b)<-[:y]-(c)": "a -> b :x | b <- c :y",
+  "CREATE (a)-[:x]->(b)<-[:y]-(c)": "a->b :x|c->b :y",
   "CREATE (`a`),(b)": "a|b",
-  "CREATE (a)-[:`e```]->(a :x)": "a :x | a -> a :\"e`\"",
-  "CREATE (a :x)-[:_]->(a)": "a :x | a -> a :_",
-  "CREATE (a :x),(a)-[:e]->(a)": "a :x | a -> a :e",
+  "CREATE (a)-[:`e```]->(a :x)": "a :x|a->a :\"e`\"",
+  "CREATE (a :x)-[:_]->(a)": "a :x|a->a :_",
+  "CREATE (a :x),(a)-[:e]->(a)": "a :x|a->a :e",
   "CREATE (_ {x:1,y:(2)})": "_ x:1 y:2",
   "CREATE (_ {x:[],y:null})": "_",
   "CREATE (_ {x:([(1),2]),y:false})": "_ x:1,2 y:false",

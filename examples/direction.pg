@@ -2,4 +2,4 @@
 2  :person  name:Alice
 1  --  2  :friend  since:2013
 1  ->  2  :likes   since:2015
-1  <-  2  :knows
+2->1 :knows

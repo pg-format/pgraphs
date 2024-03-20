@@ -35,7 +35,7 @@ ID          ::= STRING | ( CHAR - ( SPACE | '"' | ':' | '(' ) ) ( CHAR - SPACE )
 /* An edge is two identifiers with a direction, optionally followed by labels and properties */
 
 EDGE        ::= ID WS DIRECTION WS ID ( WS LABEL )* ( WS PROPERTY )*
-DIRECTION   ::= '--' | '->' | '<-'
+DIRECTION   ::= '--' | '->'
 
 /* A label is an identifier preceded by a colon */
 

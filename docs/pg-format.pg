@@ -24,7 +24,6 @@ node -> another-node
 
 a -> b  # directed
 a -- b  # undirected
-a <- b  # directed, reverse
 
 # Whitespace is needed between elements of nodes and edges.
 a # Whitespace can be followed by a comment

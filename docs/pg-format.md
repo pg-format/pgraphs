@@ -62,7 +62,7 @@ and optional labels and/or properties:
 
 ~~~ebnf
 Edge        ::= Identifier Direction Identifier ( WS Label )* ( WS Property )*
-Direction   ::= WS? ( '--' | '->' | '<-' ) WS?
+Direction   ::= WS? ( '--' | '->' ) WS?
 ~~~
 
 Labels start with a colon. Properties consist of a key, a colon, and one or

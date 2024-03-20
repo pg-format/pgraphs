@@ -69,17 +69,14 @@ Edge
     const { from, direction } = start
     labels = Array.from(new Set(labels))
     const e = { from, to, labels, properties: addProperties(props) }
-    if (direction === "<-") {
-      e.from = to
-      e.to = from
-    } else if (direction === "--") {
+    if (direction === "--") {
       e.undirected = true
     }
     edges.push(e)
  }
 
 Direction
-  = WS? @( "->" / "<-" / "--" ) WS?
+  = WS? @( "->" / "--" ) WS?
 
 Label "label"
   = WS ":" Space? id:Identifier { return id }

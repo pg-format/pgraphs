@@ -95,12 +95,6 @@
       "undirected": true
     },
     {
-      "from": "b",
-      "to": "a",
-      "labels": [],
-      "properties": {}
-    },
-    {
       "from": "a",
       "to": "x",
       "labels": [],
