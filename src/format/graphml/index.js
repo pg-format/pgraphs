@@ -3,11 +3,14 @@ import serialize from "./serializer.js"
 export default {
   name: "GraphML",
 
-  nodeLabels: "0",
-  edgeLabels: "0",
   direction: "uniform",
+
+  nodeTypes: false,
+  edgeTypes: false,
+
   graphAttributes: true,
   subgraphs: true,
+
   hyperEdges: true,
 
   serialize

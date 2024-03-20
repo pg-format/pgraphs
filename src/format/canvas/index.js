@@ -60,10 +60,16 @@ const serialize = ({nodes, edges}) => {
 
 export default {
   name: "JSON Canvas (experimental)",
+
   direction: "directed",
+
   graphAttributes: false,
+  visualAttributes: true,
+
   subgraphs: true,
-  hyperedges: false,
+
+  hyperEdges: false,
+
   serialize,
   parse,
 }

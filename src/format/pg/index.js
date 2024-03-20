@@ -5,11 +5,15 @@ import { wrapPeggyParser } from "../../utils.js"
 export default {
   name: "PG format",
 
-  nodeLabels: "0..*",
-  edgeLabels: "0..*",
   direction: "mixed",
+
+  nodeTypes: "0..*",
+  edgeTypes: "0..*",
+
   graphAttributes: false,
+
   subgraphs: false,
+
   datatypes: "json scalar",
 
   parse: input => wrapPeggyParser(parse, input),

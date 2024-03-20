@@ -157,6 +157,7 @@ written from with this package:
 |      |       | Tulip TP                                |
 |      |       | Netdraw VNA                             |
 |      |       | yED CSV                                 |
+|      |       | Meermaid Flowchart                      |
 
 Additional graph formats probably not going to implemented include S-Dot, and
 yFiles Graph Format.

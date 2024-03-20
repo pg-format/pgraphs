@@ -3,9 +3,9 @@
 import { parse } from "./parser.js"
 import { wrapPeggyParser } from "../../utils.js"
 
-const defaultEdgeLabel = "edge"
-const nodeLabelPattern = /./    
-const edgeLabelPattern = /./
+const defaultEdgeType = "edge"
+const nodeTypePattern = /./    
+const edgeTypePattern = /./
 const propertyKeyPattern = /./
 
 const escape = id => /^(\p{ID_Start}|\p{Pc})(\p{ID_Continue}|\p{Sc})*$/u.test(id)
@@ -36,13 +36,13 @@ function propertyMap(properties) {
 }
 
 function serializeNode({ id, labels, properties }) {
-  labels = labels.filter(label => nodeLabelPattern.test(label)).map(l => `:${escape(l)}`).join("")
+  labels = labels.filter(label => nodeTypePattern.test(label)).map(l => `:${escape(l)}`).join("")
   return `CREATE (${escape(id)}${labels}${propertyMap(properties)})`
 }
 
 function serializeEdge({ from, to, labels, properties }) {
   // edge label is mandatory and non-repeatable
-  const type = labels.find(label => edgeLabelPattern.test(label)) ?? defaultEdgeLabel
+  const type = labels.find(label => edgeTypePattern.test(label)) ?? defaultEdgeType
   return `CREATE (${escape(from)})-[:${escape(type)}${propertyMap(properties)}]->(${escape(to)})`
 }
 
@@ -53,16 +53,16 @@ function serialize({ nodes, edges }) {
 export default {
   name: "Cypher CREATE statements",
 
-  nodeLabels: "0..*",
-  nodeLabelPattern,
+  direction: "directed",
 
-  edgeLabels: "1",
-  defaultEdgeLabel,
-  edgeLabelPattern,
+  nodeTypes: "0..*",
+  edgeTypes: "1",
+  nodeTypePattern,
+  defaultEdgeType,
+  edgeTypePattern,
 
   propertyKeyPattern,
 
-  direction: "directed",
   graphAttributes: false,
   subgraphs: false,
 

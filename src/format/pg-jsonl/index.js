@@ -4,11 +4,15 @@ import serialize from "./serializer.js"
 export default {
   name: "PG-JSONL",
 
-  nodeLabels: "0..*",
-  edgeLabels: "0..*",
   direction: "mixed",
+
+  nodeTypes: "0..*",
+  edgeTypes: "0..*",
+
   graphAttributes: false,
+
   subgraphs: false,
+
   datatypes: "json scalar",
 
   parse, serialize

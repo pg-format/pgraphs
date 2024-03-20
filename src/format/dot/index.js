@@ -4,12 +4,16 @@ import serialize from "./serializer.js"
 export default {
   name: "GraphViz DOT",
 
-  nodeLabels: "0",
-  edgeLabels: "0",
   direction: "uniform",
+
+  nodeTypes: false,
+  edgeTypes: false,
+
   graphAttributes: true,
   subgraphs: true,
   datatypes: "string",
+
+  visualAttributes: true,
 
   parse, serialize
 }

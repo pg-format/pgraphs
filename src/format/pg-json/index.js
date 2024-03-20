@@ -1,11 +1,15 @@
 export default {
   name: "PG-JSON",
 
-  nodeLabels: "0..*",
-  edgeLabels: "0..*",
   direction: "mixed",
+
+  nodeTypes: "0..*",
+  edgeTypes: "0..*",
+
   graphAttributes: false,
+
   subgraphs: false,
+
   datatypes: "json scalar",
 
   // TODO: validate
