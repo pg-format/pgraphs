@@ -2,6 +2,10 @@
 
 ## 0.3.1
 
+- Support to omit space around direction
+
+## 0.3.1
+
 - Allow comma in unquoted strings except for values
 
 ## 0.3.0

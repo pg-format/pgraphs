@@ -52,13 +52,21 @@ Node
       }
   }
 
+UnquotedIdFollowedByDirection
+  = from:( PlainStart ( "-"? ( !"-" PlainChar ) )* { return text() } )
+    direction:( "->" / "--" ) {
+      return { from, direction }
+    }
+
 Edge
-  = from:Identifier
-    direction:Direction
+  = start:(
+     UnquotedIdFollowedByDirection
+     / ( from:Identifier direction:Direction { return { from, direction } } )
+    )
     to:Identifier
     labels:Label*
     props:Property* {
-
+    const { from, direction } = start
     labels = Array.from(new Set(labels))
     const e = { from, to, labels, properties: addProperties(props) }
     if (direction === "<-") {
@@ -87,18 +95,16 @@ PlainChar
   = [^\x20\x09\x0A\x0D"<>{}|^]
 
 PlainStart
-  = ![:(#] PlainChar
+  = ![:(#-] PlainChar
 
 UnquotedIdentifier
   = PlainStart PlainChar* {
-      if (text().match(/^--/)) { error("Unquoted identifier must not start with an edge direction") }
+      if (text().match(/--/)) { error("Unquoted identifier must not contain --") }
       return text()
     }
 
 Property "property"
-  = WS name:Key value:ValueList {
-      return [ name, value ]
-    }
+  = WS name:Key value:ValueList { return [ name, value ] }
 
 Key
   = @( key:QuotedString Space? ":" {

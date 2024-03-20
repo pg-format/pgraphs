@@ -51,6 +51,8 @@ const valid = {
   "a -> b | a :foo; |a :bar": graph([{id:"a",labels:["foo;","bar"]},{id:"b"}],[{from:"a",to:"b"}]),
   "a b:0|c": graph([{id:"a",properties:{b:[0]}},"c"]),
   "x a:1|x a:2,3": graph([{id:"x",properties:{a:[1,2,3]}}]),
+  "a->b": graph("a|b", [["a","b"]]),
+  "a--b": graph("a|b", [{from:"a",to:"b",undirected:true}]),
 }
 
 describe("parsing valid short examples", () => {
@@ -63,7 +65,8 @@ const invalid = {
   "|": "",
   "a ::": "",
   "a\"": "",
-  "--a": "",
+  "-a": "",
+  "a--": "",
   "\"": "line 1 must start with node or edge",
   "\"\\": "line 1 must start with node or edge", // Malformed escaped string
   "\"\\\\\"\"": "invalid node identifier at line 1 character 5 is \"",

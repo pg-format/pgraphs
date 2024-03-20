@@ -1,8 +1,8 @@
-const plainId = /^[^#"\s:(<>{}|^][^\s"<>{}|^]*$/
+const plainId = /^[^#"\s:(<>{}|^-][^\s"<>{}|^]*$/
 
-export const quoteId = s => (plainId.test(s) && !(/^--/.test(s))) ? s : JSON.stringify(s)
+export const quoteId = s => plainId.test(s) && !/--/.test(s) ? s : JSON.stringify(s)
 
-export const quoteKey = s => (plainId.test(s) && !(/^--|:/.test(s))) ? s : JSON.stringify(s)
+export const quoteKey = s => plainId.test(s) && !/--/.test(s) ? s : JSON.stringify(s)
 
 const valuePattern = /["\s,:]|^(-?[0-9]+(\.[0-9]+)?|true|false|null)$|^\(|\)$/
 

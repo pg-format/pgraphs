@@ -18,7 +18,7 @@ null :null null:null null:"null" NULL:NULL
 
 # numbers
 1 :1 1:1 1:"1"
--2.3 :-2.3e2 -2.3:-2.3e1 -2.3:"-2.3"
+2.3 :2.3e2 2.3:2.3e1 2.3:"2.3"
 
 # string escaping
 "\"" :"\""      "\"":"\""
