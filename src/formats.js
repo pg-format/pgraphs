@@ -28,6 +28,7 @@ export const pgformat = {
     parse: parseNeo4J,
   },
   xml: graphml,
+  // graphmlz: { name: "Compressed GraphML" }
   yarspg: {
     name: "YARS-PG 5.0.0 without data types",
     serialize: serializeYARSPG,
@@ -44,11 +45,36 @@ export const pgformat = {
     name: "Neptune CSV import (aka Gremlin load data format)",
     serialize: serializeNeptune,
   },
-//  Flat: {
-//    name: "Oracle Flat File Format (experimental)",
-//    serialize: serializeFlat,
-//  },
+  flat: {
+    name: "Oracle Flat File Format",
+    //    serialize: serializeFlat,
+  },
+  kuzudb: {
+    name: "Kùzu Database",
+  },
+  dgml: {
+    name: "Directed Graph Markup Language (DGML)"
+  },
+  gml: {
+    name: "Graph Modelling Language (GML)" 
+  },
+  gexf: {
+    name: "Graph Exchange XML Format (GEXF)",
+  },
+  dotml: { name:"DotML" },
+  pgx: { name: "Orcacle PGX Flat File format" },
+  gxl: { name: "Graph eXchange Language (GXL)" },
+  xgml: { name: "Graph Modeling Language XML (XGML)" },
+  tp2: { name: "GraphSON TinkerPop 2" },
+  tp3: { name: "GraphSON TinkerPop 3" },
+  net: { name: "Pajek NET" },
+  gdf: { name: "Graph Definition File (GDF)" },
+  dl: { name: "UCINET DL" },
+  tp: { name: "Tulip TP" },
+  vna: { name: "Netdraw VNA" },
+  yed: { name: "yED CSV" },
+  meermaid: {
+    name: "Meermaid Flowchart"
+  }
 }
 
-pgformat.pg.name += " (default input)"
-pgformat.jsonl.name += " (default output)"

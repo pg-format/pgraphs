@@ -66,7 +66,7 @@ export default {
   graphAttributes: false,
   visualAttributes: true,
 
-  subgraphs: true,
+  hierarchy: true,
 
   hyperEdges: false,
 

@@ -7,14 +7,14 @@ export default {
 
   direction: "mixed",
 
-  nodeTypes: "0..*",
-  edgeTypes: "0..*",
+  nodeTypes: "*",
+  edgeTypes: "*",
 
   graphAttributes: false,
 
-  subgraphs: false,
+  hierarchy: false,
 
-  datatypes: "json scalar",
+  datatypes: "JSON scalars",
 
   parse: input => wrapPeggyParser(parse, input),
   serialize

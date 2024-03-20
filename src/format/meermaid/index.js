@@ -14,7 +14,7 @@ export default {
   nodeLabels: true,
   edgeLabels: true,
 
-  subgraphs: true,
+  hierarchy: true,
 
   hyperEdges: false,
   mulitEdges: true,

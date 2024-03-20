@@ -55,16 +55,16 @@ export default {
 
   direction: "directed",
 
-  nodeTypes: "0..*",
+  nodeTypes: "*",
   edgeTypes: "1",
-  nodeTypePattern,
-  defaultEdgeType,
-  edgeTypePattern,
+  //nodeTypePattern,
+  //defaultEdgeType,
+  //edgeTypePattern,
 
   propertyKeyPattern,
 
   graphAttributes: false,
-  subgraphs: false,
+  hierarchy: false,
 
   parse: input => wrapPeggyParser(parse, input),
   serialize

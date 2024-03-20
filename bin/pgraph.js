@@ -4,12 +4,14 @@ import cli from "../src/cli.js"
 import { pgraph } from "../src/pgraph.js"
 import { pgformat } from "../index.js"
 
-const formats = Object.keys(pgformat).map(id => {
-  const { name, parse, serialize } = pgformat[id]
-  return "  " + id.padEnd(8) + (parse
-    ? "from" + (serialize ? "/" : "")
-    : "") + (serialize ? "to" : "") + " " + name
-}).join("\n")
+const formats = Object.keys(pgformat)
+  .filter(id => pgformat[id].parse || pgformat[id].serialize)
+  .map(id => {
+    const { name, parse, serialize } = pgformat[id]
+    return "  " + id.padEnd(8) + (parse
+      ? "from" + (serialize ? "/" : "")
+      : "") + (serialize ? "to" : "") + " " + name
+  }).join("\n")
 
 cli.usage("pgraph [options] [<input> [<output]]")
   .description("Convert between property graph formats and databases.")

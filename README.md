@@ -136,31 +136,16 @@ written from with this package:
 | yes  | yes   | [Trivial Graph Format (TGF)](#tgf)      |
 | yes  | yes   | [JSON Canvas](#json-canvas)             |
 |      | yes   | [GraphML](#graphml)                     |
-|      |       | compressed GraphML                      |
 |      | yes   | [YARS-PG](#yars-pg)                     |
 |      | yes   | OpenCypher/Neo4J [CSV](#csv)            |
 |      | yes   | Amazon [Neptune CSV](#neptune-csv)      |
 | yes  | -     | Cypher MATCH query                      |
-|      |       | Orcacle PGX Flat File format            |
-|      |       | KuzuDB                                  |
-|      |       | Directed Graph Markup Language (DGML)   |
-|      |       | DotML                                   |
-|      |       | Graph eXchange Language (GXL)           |
-|      |       | Graph Modelling Language (GML)          |
-|      |       | Graph Modeling Language XML (XGML)      |
-|      |       | GraphSON TinkerPop 2                    |
-|      |       | GraphSON TinkerPop 3                    |
-|      |       | Graph Exchange XML Format (GEXF)        |
-|      |       | Pajek NET                               |
-|      |       | Graph Definition File (GDF)             |
-|      |       | UCINET DL                               |
-|      |       | Tulip TP                                |
-|      |       | Netdraw VNA                             |
-|      |       | yED CSV                                 |
-|      |       | Meermaid Flowchart                      |
 
-Additional graph formats probably not going to implemented include S-Dot, and
-yFiles Graph Format.
+The repository of pgraphs contains [a CSV
+file](https://github.com/pg-format/pgraphs/blob/main/docs/features.csv)
+listing these and more graph formats with their capabilities to store selected
+graph features. Additional graph formats probably not going to implemented
+include S-Dot, and yFiles Graph Format.
 
 ### PG format
 

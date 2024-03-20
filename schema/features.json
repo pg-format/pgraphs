@@ -1,0 +1,50 @@
+{
+  "title": "Graph format capabilities",
+  "type": "object",
+  "properties": {
+    "id": {
+      "description": "locally unique identifier of the graph format",
+      "type": "string"
+    },
+    "name": {
+      "description": "Name of the graph format",
+      "type": "string"
+    },
+    "direction": {
+      "enum": ["directed", "undirected", "uniform", "mixed"]
+    },
+    "graphAttributes": {
+    },
+    "visualAttributes": {
+    },
+    "nodeTypes": {
+      "$ref": "#/$defs/cardinality"
+    },
+    "edgeTypes": {
+      "$ref": "#/$defs/cardinality"
+    },
+    "nodeLabels": {
+      "description": "Special field to name an individual node",
+      "$ref": "#/$defs/cardinality"
+    },
+    "edgeLabels": {
+      "description": "Special field to name an individual edge",
+      "$ref": "#/$defs/cardinality"
+    },
+    "hierarchy": {
+      "description": "Are subgraphs expressible and if so, can a node have multiple parents?",
+      "enum": [ false, true, "multi" ]
+    },
+    "hyperEdges": {
+    },
+    "datatypes": {
+      "enum": [ false, true, "JSON scalars" ]
+    }
+  },
+  "additionalProperties": false,
+  "$defs": {
+    "cardinality": {
+      "enum": [ false, "1", "0/1", "+", "*" ]
+    }
+  }
+}

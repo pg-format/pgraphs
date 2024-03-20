@@ -3,6 +3,9 @@ import { pgformat } from "./formats.js"
 import { GraphTarget, StreamTarget } from "./target.js"
 import { addIdProperty, scaleSpatial } from "./transform.js"
 
+pgformat.pg.name += " (default input)"
+pgformat.jsonl.name += " (default output)"
+
 // Read entire input to string
 const readStream = async input => {
   const chunks = []

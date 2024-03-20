@@ -9,7 +9,7 @@ export default {
   edgeTypes: false,
 
   graphAttributes: true,
-  subgraphs: true,
+  hierarchy: true,
 
   hyperEdges: true,
 

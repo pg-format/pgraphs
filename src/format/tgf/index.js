@@ -6,10 +6,10 @@ export default {
 
   direction: "directed",
 
-  nodeTypes: "0..1", // TODO: use label instead
-  edgeTypes: "0..1",
+  nodeLabels: "0/1",
+  edgeLabels: "0/1",
 
-  subgraphs: false,
+  hierarchy: false,
 
   parse, serialize
 }

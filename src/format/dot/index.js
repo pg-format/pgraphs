@@ -10,8 +10,7 @@ export default {
   edgeTypes: false,
 
   graphAttributes: true,
-  subgraphs: true,
-  datatypes: "string",
+  hierarchy: true,
 
   visualAttributes: true,
 
