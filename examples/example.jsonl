@@ -1,4 +1,4 @@
 {"type":"node","id":"101","labels":["person"],"properties":{"country":["United States"],"name":["Alice","Carol"]}}
 {"type":"node","id":"102","labels":["person","student"],"properties":{"country":["Japan"],"name":["Bob"]}}
-{"type":"edge","from":"101","to":"102","labels":["same_school","same_class"],"properties":{"since":[2012]}}
+{"type":"edge","from":"101","to":"102","labels":["same_school","same_class"],"properties":{"since":[2012]},"undirected":true}
 {"type":"edge","from":"101","to":"102","labels":["likes"],"properties":{"engaged":[false],"since":[2015]}}

@@ -8,8 +8,9 @@ export default graph => {
     const node = { type: "node", id, labels, properties: sorted(properties) }
     lines.push(JSON.stringify(node))
   }
-  for (const {from, to, labels, properties} of graph.edges) {
+  for (const {from, to, labels, properties, undirected} of graph.edges) {
     const edge = { type: "edge", from, to, labels, properties: sorted(properties) }
+    if (undirected) { edge.undirected = true }
     lines.push(JSON.stringify(edge))
   }
   return lines.join("\n") + "\n"
