@@ -10,9 +10,11 @@ export default {
   edgeTypes: false,
 
   graphAttributes: true,
-  hierarchy: true,
+  nodeAttributes: true,
+  edgeAttributes: true,
+  visualAttributes: true, // TODO: subset of all attributes
 
-  visualAttributes: true,
+  hierarchy: true,
 
   parse, serialize
 }

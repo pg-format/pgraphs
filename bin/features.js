@@ -27,4 +27,4 @@ for (let id in pgformat) {
   csv += keys.map(key => features[key] ?? "").join(",") + "\n"
 }
 
-fs.writeFileSync("docs/features.csv",csv)
+fs.writeFileSync("docs/features.csv",csv.replaceAll("false","-").replaceAll("true","✓"))

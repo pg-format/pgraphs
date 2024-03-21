@@ -11,12 +11,12 @@
       "type": "string"
     },
     "direction": {
-      "enum": ["directed", "undirected", "uniform", "mixed"]
+      "enum": ["directed", "undirected", "uniform", "mixed", "multi"]
     },
-    "graphAttributes": {
-    },
-    "visualAttributes": {
-    },
+    "graphAttributes": { "type": "boolean" },
+    "nodeAttributes": { "type": "boolean" },
+    "edgeAttributes": { "type": "boolean" },
+    "visualAttributes": { "type": "boolean" },
     "nodeTypes": {
       "$ref": "#/$defs/cardinality"
     },
@@ -36,6 +36,7 @@
       "enum": [ false, true, "multi" ]
     },
     "hyperEdges": {
+      "type": "boolean"
     },
     "datatypes": {
       "enum": [ false, true, "JSON scalars" ]

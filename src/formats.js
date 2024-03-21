@@ -6,6 +6,7 @@ import dot from "./format/dot/index.js"
 import tgf from "./format/tgf/index.js"
 import graphml from "./format/graphml/index.js"
 import canvas from "./format/canvas/index.js"
+import gexf from "./format/gexf/index.js"
 
 import serializeYARSPG from "./serializer/yarspg.js"
 import serializeYARSPG3 from "./serializer/yarspg3.js"
@@ -45,6 +46,23 @@ export const pgformat = {
     name: "Neptune CSV import (aka Gremlin load data format)",
     serialize: serializeNeptune,
   },
+  gxl: {
+    name: "Graph eXchange Language (GXL)",
+    direction: "mixed", // TODO: multi-edges allowed?
+    nodeTypes: "0/1",
+    edgeTypes: "0/1",
+    graphAttributes: true,
+    nodeAttributes: true,
+    edgeAttributes: true,
+    datatypes: true,
+    hyperEdges: true,
+  },
+  meermaid: {
+    name: "Meermaid Flowchart",
+    direction: "mixed", // TODO: multi-edges allowed
+    nodeLabels: "0/1",
+    graphAttributes: false,
+  },
   flat: {
     name: "Oracle Flat File Format",
     //    serialize: serializeFlat,
@@ -58,12 +76,11 @@ export const pgformat = {
   gml: {
     name: "Graph Modelling Language (GML)" 
   },
-  gexf: {
-    name: "Graph Exchange XML Format (GEXF)",
+  gexf,
+  // dotml: { name:"DotML" },
+  pgx: {
+    name: "Orcacle PGX Flat File format"
   },
-  dotml: { name:"DotML" },
-  pgx: { name: "Orcacle PGX Flat File format" },
-  gxl: { name: "Graph eXchange Language (GXL)" },
   xgml: { name: "Graph Modeling Language XML (XGML)" },
   tp2: { name: "GraphSON TinkerPop 2" },
   tp3: { name: "GraphSON TinkerPop 3" },
@@ -73,8 +90,5 @@ export const pgformat = {
   tp: { name: "Tulip TP" },
   vna: { name: "Netdraw VNA" },
   yed: { name: "yED CSV" },
-  meermaid: {
-    name: "Meermaid Flowchart"
-  }
 }
 

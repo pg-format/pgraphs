@@ -10,6 +10,9 @@ export default {
   edgeTypes: "*",
 
   graphAttributes: false,
+  nodeAttributes: true,
+  edgeAttributes: true,
+  visualAttributes: true,
 
   hierarchy: false,
 

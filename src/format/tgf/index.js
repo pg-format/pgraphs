@@ -6,8 +6,16 @@ export default {
 
   direction: "directed",
 
+  nodeTypes: false,
+  edgeTypes: false,
+
   nodeLabels: "0/1",
   edgeLabels: "0/1",
+
+  graphAttributes: false,
+  nodeAttributes: false,
+  edgeAttributes: false,
+  visualAttributes: false,
 
   hierarchy: false,
 
