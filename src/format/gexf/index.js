@@ -3,8 +3,8 @@
 export default {
   name: "Graph Exchange XML Format (GEXF)",
 
-  nodeLabels: false,
-  edgeLabels: "0/1",
+  nodeNames: false,
+  edgeNames: "0/1",
   direction: "mixed",
   graphAttributes: true,
   hierarchy: "multi",

@@ -11,8 +11,8 @@ export default {
   edgeAttributes: false,
   visualAttributes: true,
 
-  nodeLabels: true,
-  edgeLabels: true,
+  nodeNames: true,
+  edgeNames: true,
 
   hierarchy: true,
 

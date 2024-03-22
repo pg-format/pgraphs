@@ -11,23 +11,42 @@
       "type": "string"
     },
     "direction": {
-      "enum": ["directed", "undirected", "uniform", "mixed", "multi"]
+      "description": "Whether all edges are in a graph are directed, undirected, either/or, or can be mixed",
+      "enum": ["directed", "undirected", "uniform", "mixed"]
     },
-    "graphAttributes": { "type": "boolean" },
-    "nodeAttributes": { "type": "boolean" },
-    "edgeAttributes": { "type": "boolean" },
-    "visualAttributes": { "type": "boolean" },
+    "multiEdges": {
+      "description": "The same edge can appear multiple times in a graph",
+      "type": "boolean"
+    },
+    "graphAttributes": {
+      "description": "Graphs can have arbitrary attributes",
+      "type": "boolean"
+    },
+    "nodeAttributes": {
+      "description": "Nodes can have arbitrary attributes",
+      "type": "boolean"
+    },
+    "edgeAttributes": {
+      "description": "Edges can have arbitrary attributes",
+      "type": "boolean"
+    },
+    "visualAttributes": {
+      "description": "Nodes and edges can have special attributes for visual layout",
+      "type": "boolean"
+    },
     "nodeTypes": {
+      "description": "Type or category of a node. Known as 'label' in labeled property graphs",
       "$ref": "#/$defs/cardinality"
     },
     "edgeTypes": {
+      "description": "Type or category of an edge. Known as 'label' in labeled property graphs",
       "$ref": "#/$defs/cardinality"
     },
-    "nodeLabels": {
+    "nodeNames": {
       "description": "Special field to name an individual node",
       "$ref": "#/$defs/cardinality"
     },
-    "edgeLabels": {
+    "edgeNames": {
       "description": "Special field to name an individual edge",
       "$ref": "#/$defs/cardinality"
     },
@@ -36,10 +55,12 @@
       "enum": [ false, true, "multi" ]
     },
     "hyperEdges": {
+      "description": "Allow edges that connect more than one node",
       "type": "boolean"
     },
     "datatypes": {
-      "enum": [ false, true, "JSON scalars" ]
+      "description": "Attributes can have different datatypes",
+      "anyOf": [{ "type": "boolean" }, { "type": "string" }]
     }
   },
   "additionalProperties": false,

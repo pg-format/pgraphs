@@ -9,12 +9,16 @@ export default {
   nodeTypes: "*",
   edgeTypes: "*",
 
+  nodeNames: false,
+  edgeNames: false,
+
   graphAttributes: false,
   nodeAttributes: true,
   edgeAttributes: true,
-  visualAttributes: true,
+  visualAttributes: false,
 
   hierarchy: false,
+  hyperEdges: false,
 
   datatypes: "JSON scalars",
 

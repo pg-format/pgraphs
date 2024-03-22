@@ -60,7 +60,7 @@ export const pgformat = {
   meermaid: {
     name: "Meermaid Flowchart",
     direction: "mixed", // TODO: multi-edges allowed
-    nodeLabels: "0/1",
+    nodeNames: "0/1",
     graphAttributes: false,
   },
   flat: {

@@ -63,12 +63,19 @@ export default {
 
   direction: "directed",
 
+  nodeTypes: false,
+  edgeTypes: false,
+
   graphAttributes: false,
+  nodeAttributes: false,
+  edgeAttributes: false,
   visualAttributes: true,
 
   hierarchy: true,
-
   hyperEdges: false,
+  multiEdges: true, // ?
+
+  datatypes: false,
 
   serialize,
   parse,

@@ -9,8 +9,8 @@ export default {
   nodeTypes: false,
   edgeTypes: false,
 
-  nodeLabels: "0/1",
-  edgeLabels: "0/1",
+  nodeNames: "0/1",
+  edgeNames: "0/1",
 
   graphAttributes: false,
   nodeAttributes: false,
@@ -18,6 +18,8 @@ export default {
   visualAttributes: false,
 
   hierarchy: false,
+  hyperEdges: false,
+  datatypes: false,
 
   parse, serialize
 }

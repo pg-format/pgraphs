@@ -62,11 +62,20 @@ export default {
   //nodeTypePattern,
   //defaultEdgeType,
   //edgeTypePattern,
-
   propertyKeyPattern,
 
+  nodeNames: false,
+  edgeNames: false,
+
   graphAttributes: false,
+  nodeAttributes: true,
+  edgeAttributes: true,
+  visualAttributes: false,
+
   hierarchy: false,
+  hyperEdges: false,
+
+  datatypes: "Cypher data types",
 
   parse: input => wrapPeggyParser(parse, input),
   serialize
