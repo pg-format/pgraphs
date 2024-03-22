@@ -1,6 +1,10 @@
 # Changelog
 
-## 0.3.1
+## 0.4.1
+
+- Fix null values in Cypher export
+
+## 0.4.0
 
 - Disallow reverse direction <-
 

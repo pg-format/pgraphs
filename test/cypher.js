@@ -38,3 +38,13 @@ describe("parsing errors", () => {
   }
 })
 
+const serialized = {
+  "a :null p:null b:false": "CREATE (a:null {b:false})\n"
+}
+
+describe("serialization edge cases", () => {
+  for (const [graph, expect] of Object.entries(serialized)) {
+    const c = cypher.serialize(pg.parse(graph))
+    it(expect, () => assert.equal(c, expect))
+  }
+})

@@ -14,21 +14,23 @@ const escape = id => /^(\p{ID_Start}|\p{Pc})(\p{ID_Continue}|\p{Sc})*$/u.test(id
 // TODO: Cypher differentiates between single value 1 and list of one value [1]
 // and it also supports empty collection []!
 
-function valueList(values) {
-  // filter out null values and mixed typed values
-  values = values.filter(v => v !== null)
+function valueList(key, values) {
+  values = values.filter(v => v !== null)  // filter out null values
   if (values.length) {
-    const type = typeof values[0]
+    const type = typeof values[0] // use type of first value as reference
     values = values.filter(v => typeof v === type)
+    values = values.map(v => typeof v === "string" ? JSON.stringify(v) : v)
+    values = values.length == 1 ? values[0] : "["+values.join(",")+"]"
+    if (values !== "") {
+      return `${escape(key)}:${values}`
+    }
   }
-  values = values.map(v => typeof v === "string" ? JSON.stringify(v) : v)
-  return values.length == 1 ? values[0] : "["+values.join(",")+"]"
 }
 
 function propertyMap(properties) {
   const keys = Object.keys(properties).filter(key => propertyKeyPattern.test(key)).sort()
-  if (keys.length) {
-    const props = keys.map(key => escape(key)+":"+valueList(properties[key]))
+  const props = keys.map(key => valueList(key, properties[key])).filter(v => v !== undefined)
+  if (props.length) {
     return ` {${props.join(", ")}}`
   } else {
     return ""
