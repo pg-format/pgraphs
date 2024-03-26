@@ -16,6 +16,7 @@ export default {
 
   hierarchy: false,
   hyperEdges: false,
+  multiEdges: true,
 
   datatypes: "JSON scalars",
 

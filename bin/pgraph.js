@@ -8,7 +8,7 @@ const formats = Object.keys(pgformat)
   .filter(id => pgformat[id].parse || pgformat[id].serialize)
   .map(id => {
     const { name, parse, serialize } = pgformat[id]
-    return "  " + id.padEnd(8) + (parse
+    return "  " + id.padEnd(11) + (parse
       ? "from" + (serialize ? "/" : "")
       : "") + (serialize ? "to" : "") + " " + name
   }).join("\n")

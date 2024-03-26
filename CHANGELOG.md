@@ -1,5 +1,9 @@
 # Changelog
 
+## next
+
+- Support Graphology import/export serialization
+
 ## 0.4.1
 
 - Fix null values in Cypher export

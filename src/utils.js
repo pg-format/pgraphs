@@ -54,3 +54,6 @@ export function wrapPeggyParser(parse, input) {
 export const randomId = () => "_"+(Math.random() + 1).toString(36).substring(2)
 
 export const isNumber = x => /^\d+(\.\d+)?$/.test(x)
+
+export const isValue = x => typeof x === "number" || typeof x === "string" || typeof x === "boolean" || x === null
+

@@ -56,6 +56,7 @@ Browser bundles have not been created yet.
 Command `pgraph` is installed with this package:
 
 ~~~
+
 Usage: pgraph [options] [<input> [<output]]
 
 Convert between property graph formats and databases.
@@ -70,19 +71,20 @@ Options:
   -V, --version         show the version number
 
 Supported conversion formats:
-  pg      from/to PG format (default input)
-  json    from/to PG-JSON
-  jsonl   from/to PG-JSONL (default output)
-  cypher  from/to Cypher CREATE statements
-  dot     from/to GraphViz DOT
-  tgf     from/to Trivial Graph Format
-  canvas  from/to JSON Canvas (experimental)
-  neo4j   from Neo4J server (via Cypher query)
-  xml     to GraphML
-  yarspg  to YARS-PG 5.0.0 without data types
-  yarspg3 to YARS-PG 3.0.0 with optional labels
-  csv     to OpenCypher/Neo4J CSV files
-  neptune to Neptune CSV import (aka Gremlin load data format)
+  pg         from/to PG format (default input)
+  json       from/to PG-JSON
+  jsonl      from/to PG-JSONL (default output)
+  cypher     from/to Cypher CREATE statements
+  dot        from/to GraphViz DOT
+  tgf        from/to Trivial Graph Format
+  canvas     from/to JSON Canvas (experimental)
+  graphology from/to Graphology import/export
+  neo4j      from Neo4J server (via Cypher query)
+  xml        to GraphML
+  yarspg     to YARS-PG 5.0.0 without data types
+  yarspg3    to YARS-PG 3.0.0 with optional labels
+  csv        to OpenCypher/Neo4J CSV files
+  neptune    to Neptune CSV import (aka Gremlin load data format)
 ~~~
 
 The `neo4j` input format expects a JSON file with Neo4J database URI and

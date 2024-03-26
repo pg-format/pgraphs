@@ -5,6 +5,7 @@ import cypher from "./format/cypher/index.js"
 import dot from "./format/dot/index.js"
 import tgf from "./format/tgf/index.js"
 import graphml from "./format/graphml/index.js"
+import graphology from "./format/graphology/index.js"
 import canvas from "./format/canvas/index.js"
 import gexf from "./format/gexf/index.js"
 
@@ -24,6 +25,7 @@ export const pgformat = {
   dot,
   tgf,
   canvas,
+  graphology,
   neo4j: {
     name: "Neo4J server (via Cypher query)",
     parse: parseNeo4J,

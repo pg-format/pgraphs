@@ -10,6 +10,10 @@
       "description": "Name of the graph format",
       "type": "string"
     },
+    "url": {
+      "description": "Documentation of the graph format",
+      "type": "string"
+    },
     "direction": {
       "description": "Whether all edges are in a graph are directed, undirected, either/or, or can be mixed",
       "enum": ["directed", "undirected", "uniform", "mixed"]

@@ -1,0 +1,47 @@
+{
+  "options": {
+    "type": "mixed",
+    "multi": true,
+    "allowSelfLoops": true
+  },
+  "attributes": {},
+  "nodes": [
+    {
+      "key": "101",
+      "attributes": {
+        "country": "United States",
+        "name": [
+          "Alice",
+          "Carol"
+        ]
+      }
+    },
+    {
+      "key": "102",
+      "attributes": {
+        "country": "Japan",
+        "name": "Bob"
+      }
+    }
+  ],
+  "edges": [
+    {
+      "key": "1",
+      "source": "101",
+      "target": "102",
+      "attributes": {
+        "since": 2012
+      },
+      "undirected": true
+    },
+    {
+      "key": "2",
+      "source": "101",
+      "target": "102",
+      "attributes": {
+        "engaged": false,
+        "since": 2015
+      }
+    }
+  ]
+}
