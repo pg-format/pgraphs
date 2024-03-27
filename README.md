@@ -25,6 +25,7 @@ This package implements parsers and serializers to convert between labeled prope
   - [Neptune CSV](#neptune-csv)
   - [TGF](#tgf)
   - [JSON Canvas](#json-canvas)
+  - [Graphology](#graphology)
 - [License](#license)
 
 ## Background
@@ -137,6 +138,7 @@ written from with this package:
 | yes  | yes   | [GraphViz DOT](#graphviz-dot)           |
 | yes  | yes   | [Trivial Graph Format (TGF)](#tgf)      |
 | yes  | yes   | [JSON Canvas](#json-canvas)             |
+| yes  | yes   | [Graphology](#graphology)               |
 |      | yes   | [GraphML](#graphml)                     |
 |      | yes   | [YARS-PG](#yars-pg)                     |
 |      | yes   | OpenCypher/Neo4J [CSV](#csv)            |
@@ -145,9 +147,8 @@ written from with this package:
 
 The repository of pgraphs contains [a CSV
 file](https://github.com/pg-format/pgraphs/blob/main/docs/features.csv)
-listing these and more graph formats with their capabilities to store selected
-graph features. Additional graph formats probably not going to implemented
-include S-Dot, and yFiles Graph Format.
+listing these and more graph formats with their capabilities to store
+[selected graph features](https://github.com/pg-format/pgraphs/blob/main/docs/features.md).
 
 ### PG format
 

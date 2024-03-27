@@ -57,3 +57,5 @@ export const isNumber = x => /^\d+(\.\d+)?$/.test(x)
 
 export const isValue = x => typeof x === "number" || typeof x === "string" || typeof x === "boolean" || x === null
 
+export const definedFields = obj => Object.fromEntries(Object.entries(obj).filter(e => e[1] !== undefined))
+
