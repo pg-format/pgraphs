@@ -1,25 +1,25 @@
-id,name,url,direction,multiEdges,graphAttributes,nodeAttributes,edgeAttributes,visualAttributes,nodeTypes,edgeTypes,nodeNames,edgeNames,hierarchy,hyperEdges,datatypes
-pg,PG format,,mixed,✓,-,✓,✓,-,*,*,-,-,-,-,JSON scalars
-json,PG-JSON,,mixed,✓,-,✓,✓,-,*,*,-,-,-,-,JSON scalars
-jsonl,PG-JSONL,,mixed,✓,-,✓,✓,-,*,*,-,-,-,-,JSON scalars
-cypher,Cypher CREATE statements,,directed,,-,✓,✓,-,*,1,-,-,-,-,Cypher data types
-dot,GraphViz DOT,,uniform,,✓,✓,✓,✓,-,-,,,✓,,
-tgf,Trivial Graph Format,,directed,,-,-,-,-,-,-,0/1,0/1,-,-,-
-canvas,JSON Canvas (experimental),,directed,✓,-,-,-,✓,-,-,,,✓,-,-
-graphology,Graphology import/export,https://graphology.github.io/serialization.html,mixed,✓,✓,✓,✓,-,-,-,-,-,-,-,JSON
+id,name,direction,multiEdges,graphAttributes,nodeAttributes,edgeAttributes,visualAttributes,nodeTypes,edgeTypes,nodeNames,edgeNames,hierarchy,hyperEdges,datatypes,url
+pg,PG format,mixed,✓,-,✓,✓,-,*,*,-,-,-,-,JSON scalars,
+json,PG-JSON,mixed,✓,-,✓,✓,-,*,*,-,-,-,-,JSON scalars,
+jsonl,PG-JSONL,mixed,✓,-,✓,✓,-,*,*,-,-,-,-,JSON scalars,
+cypher,Cypher CREATE statements,directed,,-,✓,✓,-,*,1,-,-,-,-,Cypher data types,
+dot,GraphViz DOT,uniform,,✓,✓,✓,✓,-,-,,,✓,,,
+tgf,Trivial Graph Format,directed,,-,-,-,-,-,-,0/1,0/1,-,-,-,
+canvas,JSON Canvas (experimental),directed,✓,-,-,-,✓,-,-,,,✓,-,-,
+graphology,Graphology import/export,mixed,✓,✓,✓,✓,-,-,-,-,-,-,-,JSON,https://graphology.github.io/serialization.html
 neo4j,Neo4J server (via Cypher query),,,,,,,,,,,,,,
-xml,GraphML,,mixed,,✓,✓,✓,-,-,-,-,-,✓,✓,bool|int|long|float|double|string
+xml,GraphML,mixed,,✓,✓,✓,-,-,-,-,-,✓,✓,bool|int|long|float|double|string,
 yarspg,YARS-PG 5.0.0 without data types,,,,,,,,,,,,,,
 yarspg3,YARS-PG 3.0.0 with optional labels,,,,,,,,,,,,,,
 csv,OpenCypher/Neo4J CSV files,,,,,,,,,,,,,,
 neptune,Neptune CSV import (aka Gremlin load data format),,,,,,,,,,,,,,
-gxl,Graph eXchange Language (GXL),,mixed,,✓,✓,✓,,0/1,0/1,,,,✓,✓
-meermaid,Meermaid Flowchart,,mixed,,-,,,,,,0/1,,,,
+gxl,Graph eXchange Language (GXL),mixed,,✓,✓,✓,,0/1,0/1,,,,✓,✓,
+meermaid,Meermaid Flowchart,mixed,,-,,,,,,0/1,,,,,
 flat,Oracle Flat File Format,,,,,,,,,,,,,,
 kuzudb,Kùzu Database,,,,,,,,,,,,,,
 dgml,Directed Graph Markup Language (DGML),,,,,,,,,,,,,,
 gml,Graph Modelling Language (GML),,,,,,,,,,,,,,
-gexf,Graph Exchange XML Format (GEXF),,mixed,,✓,,,✓,,,-,0/1,multi,-,
+gexf,Graph Exchange XML Format (GEXF),mixed,,✓,,,✓,,,-,0/1,multi,-,,
 pgx,Orcacle PGX Flat File format,,,,,,,,,,,,,,
 xgml,Graph Modeling Language XML (XGML),,,,,,,,,,,,,,
 tp2,GraphSON TinkerPop 2,,,,,,,,,,,,,,
@@ -30,3 +30,4 @@ dl,UCINET DL,,,,,,,,,,,,,,
 tp,Tulip TP,,,,,,,,,,,,,,
 vna,Netdraw VNA,,,,,,,,,,,,,,
 yed,yED CSV,,,,,,,,,,,,,,
+cyjs,Cytoscape.js JSON,directed,✓,-,✓,✓,✓,*,*,0/1,0/1,✓,-,JSON,http://manual.cytoscape.org/en/stable/Supported_Network_File_Formats.html#cytoscape-js-json

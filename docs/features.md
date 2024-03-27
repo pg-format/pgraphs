@@ -69,6 +69,13 @@ and names but if the format does not explicitly specify the latter (possibly as
 attributes of known name), the format does not natively support visual
 attributes, types, and/or names!
 
+## Additional graph formats
+
+Additional graph formats listed in Tomaszuk et al (2019) but not taken into account here include
+
+- [DotML](https://martin-loetzsch.de/DOTML/) and [S-Dot](https://martin-loetzsch.de/S-DOT/) (alternative serializations of Graphiviz Dot format)
+- [YGF](https://docs.yworks.com/yfiles/doc/developers-guide/ygf.html) (proprietary binary format)
+
 ## References
 
 - Dominik Tomaszuk, Renzo Angles, Łukasz Szeremeta, Karol Litman & Diego Cisterna (2019):

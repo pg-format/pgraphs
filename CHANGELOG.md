@@ -1,8 +1,9 @@
 # Changelog
 
-## next
+## 0.4.2
 
 - Support Graphology import/export serialization
+- Extend documentation of format features
 
 ## 0.4.1
 

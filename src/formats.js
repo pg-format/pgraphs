@@ -8,6 +8,7 @@ import graphml from "./format/graphml/index.js"
 import graphology from "./format/graphology/index.js"
 import canvas from "./format/canvas/index.js"
 import gexf from "./format/gexf/index.js"
+import cyjs from "./format/cyjs/index.js"
 
 import serializeYARSPG from "./serializer/yarspg.js"
 import serializeYARSPG3 from "./serializer/yarspg3.js"
@@ -92,5 +93,6 @@ export const pgformat = {
   tp: { name: "Tulip TP" },
   vna: { name: "Netdraw VNA" },
   yed: { name: "yED CSV" },
+  cyjs,
 }
 
