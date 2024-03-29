@@ -109,8 +109,11 @@ Key
         return key
       } )
   / ( @UnquotedIdentifier Space ":" )
-  / name:( $PlainStart $( ( !":" PlainChar )* ":" )+ ) {
+  / name:( $PlainStart $( ( !":" PlainChar )* ":" )+ ) WS {
       return name.join("").slice(0,-1)
+    }
+  / name:( $PlainStart $( !":" PlainChar )* ) ":" {
+      return name.join("")
     }
 
 ValueList

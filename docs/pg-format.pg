@@ -54,6 +54,6 @@ b enabled:true age:42 status:null
 
 # Whitespace after the colon is optional for unqoted values:
 
-x a:"b:c"   # key "a:"  value "b:c"
-  a:b:c     # key "a:b" value "c"
+x "a:b":c   # key "a:b" value "b:c"
+  a:b:c     # key "a"   value "b:c"
 

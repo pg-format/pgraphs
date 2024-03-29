@@ -10,7 +10,8 @@ const quoteValue = s => ((typeof s === "string" && s !== "" && !valuePattern.tes
 
 export const serializeLabels = labels => labels.map(label => ":" + quoteId(label)).join(" ")
 
-const serializeKeyValue = (key, value) => quoteKey(key) + ":" + quoteValue(value)
+const serializeKeyValue = (key, value) => 
+  quoteKey(key) + ":" + (key.match(/:/) ? " " : "") + quoteValue(value)
 
 export const serializeProperties = properties => Object.entries(properties)
   .map(([key, values]) => values.map(value => serializeKeyValue(key, value)).join(" "),

@@ -18,7 +18,7 @@ describe("serialize PG", () => {
 
   it("special examples", () => {
     const examples = {
-      "1 :; a:b x:\"y z\" x:y:z": [{ id: "1", labels: [";"], properties: { a: ["b"], x: ["y z"], "x:y": ["z"] } }],
+      "1 :; a:b x:\"y z\" x:y: z": [{ id: "1", labels: [";"], properties: { a: ["b"], x: ["y z"], "x:y": ["z"] } }],
       "1:2 :[] )(:\",\"": [{ id: "1:2", labels: ["[]"], properties: { ")(":[","] } }],
     }
     for (const [pg, nodes] of Object.entries(examples)) {

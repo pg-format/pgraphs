@@ -87,14 +87,15 @@ Identifiers must not be the empty string:
 
 ![](UnquotedIdentifier-1.svg)
 
-A property **key** is an identifier followed by a colon:
+A property **key** is an identifier followed by a colon. If given unquoted, the
+colon must be preceded and/or followed by space:
 
 ![](Key.svg)
 
 **Example:** Unquoted identifiers allow to directly use numbers and URIs:
 
 ~~~pg
-1 dc:date:2024 url: http://example.org/ 
+1 dc:date: 2024 url: http://example.org/ 
 http://example.org/a -> http://example.org/b 
 ~~~
 

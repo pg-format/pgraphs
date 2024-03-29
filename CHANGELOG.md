@@ -2,6 +2,10 @@
 
 ## 0.4.2
 
+- Change PG parsing of unquoted key-value pair "a:b:c" to "a: b:c"
+
+## 0.4.2
+
 - Support Graphology import/export serialization
 - Extend documentation of format features
 
