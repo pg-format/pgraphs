@@ -6,7 +6,7 @@
       "properties": {
         "x": [
           1,
-          null
+          "null"
         ],
         "y": [
           "x"

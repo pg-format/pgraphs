@@ -20,8 +20,8 @@ const invalid = {
   "CREATE (a),(a)": "Node `a` already declared",
   "CREATE (a :x)-[:e]->(a :y)": "Can't create already declared node `a` with labels or properties",
   "CREATE (?)": "Expected",
-  "CREATE (x {a:[null]}": "Collections containing null values can not be stored in properties",
-  "CREATE (x {a:[1,true]}": "Collections must have values of homogeneous type",
+  "CREATE (x {a:[null]})": "Collections containing null values can not be stored in properties",
+  "CREATE (x {a:[1,true]})": "Collections must have values of homogeneous type",
 }
 
 describe("parsing valid short examples", () => {
@@ -39,7 +39,7 @@ describe("parsing errors", () => {
 })
 
 const serialized = {
-  "a :null p:null b:false": "CREATE (a:null {b:false})\n"
+  "a :null null:false c:null b:false": "CREATE (a:null {b:false, c:\"null\", null:false})\n"
 }
 
 describe("serialization edge cases", () => {

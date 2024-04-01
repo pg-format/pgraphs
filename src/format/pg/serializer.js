@@ -4,7 +4,7 @@ export const quoteId = s => plainId.test(s) && !/--/.test(s) ? s : JSON.stringif
 
 export const quoteKey = s => plainId.test(s) && !/--/.test(s) ? s : JSON.stringify(s)
 
-const valuePattern = /["\s,:]|^(-?[0-9]+(\.[0-9]+)?|true|false|null)$|^\(|\)$/
+const valuePattern = /["\s,:]|^(-?[0-9]+(\.[0-9]+)?|true|false)$|^\(|\)$/
 
 const quoteValue = s => ((typeof s === "string" && s !== "" && !valuePattern.test(s)) ? s : JSON.stringify(s))
 

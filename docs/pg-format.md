@@ -92,9 +92,8 @@ templates (all beyond the scope of PG format).
 Values are defined equivalent to scalar values in JSON (RFC 4627):
 
 ~~~ebnf
-SCALAR      ::= STRING | NUMBER | BOOLEAN | NULL
+SCALAR      ::= STRING | NUMBER | BOOLEAN
 BOOLEAN     ::= 'true' | 'false' 
-NULL        ::= 'null'
 NUMBER      ::= '-'? ( '0' | [1-9] [0-9]* ) ( '.' [0-9]+ )? EXPONENT?  
 EXPONENT    ::= ( 'e' | 'E' ) ( '+' | '-' )? [0-9]+
 STRING      ::= '"' ( UNESCAPED | ESCAPED )* '"'
@@ -111,7 +110,7 @@ Common graph databases with support of labeled property graphs include:
 - [Neo4J](https://neo4j.com/) (limitations: edges have one mandatory label, multiple properties of same name must have same data type)
 - [Memgraph](https://memgraph.com/) and [Kùzu](https://kuzudb.com) are compatible with Neo4J
 - [Oracle Property Graph](https://docs.oracle.com/en/database/oracle/property-graph/index.html) (implements [PGQL](https://pgql-lang.org/): empty string labels seem to be allowed)
-- [Azure Cosmos DB for Gremlin](https://learn.microsoft.com/azure/cosmos-db/gremlin/) (limitations: edges have one mandatory label, no null type...) and other databases supporting [Apache TinkerPop](https://tinkerpop.apache.org/)
+- [Azure Cosmos DB for Gremlin](https://learn.microsoft.com/azure/cosmos-db/gremlin/) (limitations: edges have one mandatory label...) and other databases supporting [Apache TinkerPop](https://tinkerpop.apache.org/)
 - [ArangoDB](https://arangodb.com/)
 - ...
 

@@ -42,7 +42,7 @@ const valid = {
   // Values
   "a -> b a:\"\",2\t, -2e2,null ,\n xyz a: # comment\n b:c": graph(
     "a|b",
-    [{ from: "a", to: "b", labels: [], properties: { a: ["", 2, -200, null, "xyz", "b:c"] } }],
+    [{ from: "a", to: "b", labels: [], properties: { a: ["", 2, -200, "null", "xyz", "b:c"] } }],
   ),
   "a b:c:d b:c :d": graph([{id:"a",properties:{b:["c:d"],"b:c":["d"]}}]),
   "a:0 a:0 a:0": graph([{ id:"a:0", properties:{ a:[0,0] } }]),

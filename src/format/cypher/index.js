@@ -15,7 +15,6 @@ const escape = id => /^(\p{ID_Start}|\p{Pc})(\p{ID_Continue}|\p{Sc})*$/u.test(id
 // and it also supports empty collection []!
 
 function valueList(key, values) {
-  values = values.filter(v => v !== null)  // filter out null values
   if (values.length) {
     const type = typeof values[0] // use type of first value as reference
     values = values.filter(v => typeof v === type)

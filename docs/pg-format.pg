@@ -48,7 +48,7 @@ node -> another-node :"label with impractial name:"
 
 a key:value key: value2 "another key":"value :"
 
-# Unquoted number values, 'true', 'false', and 'null' are read as typed values.
+# Unquoted number values, 'true' and 'false' are read as typed values.
 
 b enabled:true age:42 status:null
 

@@ -1,7 +1,8 @@
 # Changelog
 
-## 0.4.2
+## 0.5.0
 
+- Remove null from data model, PG format, and PG-JSON(L)
 - Change PG parsing of unquoted key-value pair "a:b:c" to "a: b:c"
 
 ## 0.4.2

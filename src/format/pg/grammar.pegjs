@@ -128,7 +128,7 @@ Value "value"
 UnquotedString
   = $( PlainStart ( !"," PlainChar )* )
 
-// Scalar value as defined in JSON (RFC 7159).
+// Scalar value as defined in JSON (RFC 7159) except null.
 // Grammar taken and adjusted from peggy example 'json.pegjs'.
 
 Scalar
@@ -136,7 +136,6 @@ Scalar
   / Number { return parseFloat(text()) }
   / "true" { return true }
   / "false" { return false }
-  / "null" { return null }
 
 QuotedString
   = '"' chars:Char* '"' { return chars.join("") }
