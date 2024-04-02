@@ -8,7 +8,7 @@ for svg in $rules; do
   parts=(${svg//-/ })
   rule=${parts[0]}
   depth=${parts[1]:-0}
-  npm run --silent peggy-tracks -- --css docs/diagram.css --quote '' -s $rule -d $depth ./src/format/pg/grammar.pegjs -o docs/$svg.svg
+  npm run --silent peggy-tracks -- --css docs/diagram.css --quote '' -s $rule -d $depth ./src/format/pg/grammar.pegjs -o docs/img/$svg.svg
   echo $svg
 done
 
