@@ -6,16 +6,18 @@ export default {
   nodeTypes: false,
   edgeTypes: false,
 
+  nodeName: true,
+  edgeName: true,
+
   graphAttributes: false,
   nodeAttributes: false,
   edgeAttributes: false,
   visualAttributes: true,
 
-  nodeNames: true,
-  edgeNames: true,
-
   hierarchy: true,
 
   hyperEdges: false,
-  mulitEdges: true,
+  multiEdges: true,
+
+  url: "https://mermaid.js.org/syntax/flowchart.html",
 }

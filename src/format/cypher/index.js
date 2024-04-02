@@ -56,15 +56,15 @@ export default {
 
   direction: "directed",
 
-  nodeTypes: "*",
+  nodeTypes: "*", // ?
   edgeTypes: "1",
   //nodeTypePattern,
   //defaultEdgeType,
   //edgeTypePattern,
   propertyKeyPattern,
 
-  nodeNames: false,
-  edgeNames: false,
+  nodeName: false,
+  edgeName: false,
 
   graphAttributes: false,
   nodeAttributes: true,
@@ -76,6 +76,7 @@ export default {
 
   datatypes: "Cypher data types",
 
+  url: "https://opencypher.org/",
   parse: input => wrapPeggyParser(parse, input),
   serialize
 }

@@ -9,7 +9,8 @@ import graphology from "./format/graphology/index.js"
 import canvas from "./format/canvas/index.js"
 import gexf from "./format/gexf/index.js"
 import cyjs from "./format/cyjs/index.js"
-
+import gxl from "./format/gxl/index.js"
+import meermaid from "./format/meermaid/index.js"
 import serializeYARSPG from "./serializer/yarspg.js"
 import serializeYARSPG3 from "./serializer/yarspg3.js"
 import serializeCSV from "./serializer/csv.js"
@@ -28,8 +29,11 @@ export const pgformat = {
   canvas,
   graphology,
   neo4j: {
+    ...cypher,
     name: "Neo4J server (via Cypher query)",
     parse: parseNeo4J,
+    serialize: undefined,
+    url: undefined,
   },
   xml: graphml,
   // graphmlz: { name: "Compressed GraphML" }
@@ -49,29 +53,27 @@ export const pgformat = {
     name: "Neptune CSV import (aka Gremlin load data format)",
     serialize: serializeNeptune,
   },
-  gxl: {
-    name: "Graph eXchange Language (GXL)",
-    direction: "mixed", // TODO: multi-edges allowed?
-    nodeTypes: "0/1",
-    edgeTypes: "0/1",
-    graphAttributes: true,
-    nodeAttributes: true,
-    edgeAttributes: true,
-    datatypes: true,
-    hyperEdges: true,
-  },
-  meermaid: {
-    name: "Meermaid Flowchart",
-    direction: "mixed", // TODO: multi-edges allowed
-    nodeNames: "0/1",
-    graphAttributes: false,
-  },
+  gxl,
+  meermaid,
   flat: {
     name: "Oracle Flat File Format",
     //    serialize: serializeFlat,
   },
   kuzudb: {
     name: "Kùzu Database",
+    direction: "directed",
+    graphAttributes: false,
+    nodeAttributes: true,
+    edgeAttributes: true,
+    nodeName: false,
+    edgeName: false,
+    nodeTypes: "1",
+    edgeTypes: "1",
+    visualAttributes: false,
+    hierarchy: false,
+    hyperEdges: false,
+    datatypes: true,
+    url: "https://kuzudb.com/"
   },
   dgml: {
     name: "Directed Graph Markup Language (DGML)"

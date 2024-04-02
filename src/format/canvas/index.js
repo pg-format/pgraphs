@@ -66,6 +66,9 @@ export default {
   nodeTypes: false,
   edgeTypes: false,
 
+  nodeName: "text",
+  edgeName: "label",
+
   graphAttributes: false,
   nodeAttributes: false,
   edgeAttributes: false,
@@ -77,6 +80,7 @@ export default {
 
   datatypes: false,
 
+  url: "https://jsoncanvas.org/",
   serialize,
   parse,
 }

@@ -58,8 +58,8 @@ for each format:
 |visualAttributes|Nodes and edges can have special attributes for visual layout|
 |nodeTypes|Type or category of a node. Known as 'label' in labeled property graphs|
 |edgeTypes|Type or category of an edge. Known as 'label' in labeled property graphs|
-|nodeNames|Special field to name an individual node|
-|edgeNames|Special field to name an individual edge|
+|nodeName|Special field to name an individual node|
+|edgeName|Special field to name an individual edge|
 |hierarchy|Are subgraphs expressible and if so, can a node have multiple parents?|
 |hyperEdges|Allow edges that connect more than one node|
 |datatypes|Attributes can have different datatypes|

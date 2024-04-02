@@ -7,8 +7,8 @@ export default {
 
   nodeTypes: false,
   edgeTypes: false,
-  nodeNames: false,
-  edgeNames: false,
+  nodeName: false,
+  edgeName: false,
 
   graphAttributes: true,
   nodeAttributes: true,
@@ -20,5 +20,6 @@ export default {
 
   datatypes: "bool|int|long|float|double|string",
 
+  url: "http://graphml.graphdrawing.org/",
   serialize
 }

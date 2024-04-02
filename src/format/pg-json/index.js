@@ -6,8 +6,8 @@ export default {
   nodeTypes: "*",
   edgeTypes: "*",
 
-  nodeNames: false,
-  edgeNames: false,
+  nodeName: false,
+  edgeName: false,
 
   graphAttributes: false,
   nodeAttributes: true,
@@ -19,6 +19,8 @@ export default {
   multiEdges: true,
 
   datatypes: "JSON scalars",
+
+  url: "https://github.com/pg-format/specification",
 
   // TODO: validate
   parse: string => JSON.parse(string),

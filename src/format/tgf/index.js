@@ -9,8 +9,8 @@ export default {
   nodeTypes: false,
   edgeTypes: false,
 
-  nodeNames: "0/1",
-  edgeNames: "0/1",
+  nodeName: true,
+  edgeName: true,
 
   graphAttributes: false,
   nodeAttributes: false,

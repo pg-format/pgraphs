@@ -9,12 +9,18 @@ export default {
   nodeTypes: false,
   edgeTypes: false,
 
+  nodeName: "label",
+  edgeName: "label",
+
   graphAttributes: true,
   nodeAttributes: true,
   edgeAttributes: true,
   visualAttributes: true, // TODO: subset of all attributes
 
   hierarchy: true,
+  hyperEdges: false,
+  multiEdges: true,
 
+  url: "https://graphviz.org/doc/info/lang.html",
   parse, serialize
 }

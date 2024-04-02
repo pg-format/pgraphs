@@ -3,8 +3,12 @@
 export default {
   name: "Graph Exchange XML Format (GEXF)",
 
-  nodeNames: false,
-  edgeNames: "0/1",
+  nodeTypes: false,
+  edgeTypes: false,
+
+  nodeName: true,       // special attribute
+  edgeName: true,       // special attribute
+
   direction: "mixed",
   graphAttributes: true,
   hierarchy: "multi",
@@ -15,5 +19,6 @@ export default {
   // specialEdgeAttributes: ["weight","color","thickness","shape"],
   //dynamic: true,
 
+  url: "https://gexf.net/",
   // serialize
 }

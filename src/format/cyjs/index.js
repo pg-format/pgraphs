@@ -5,8 +5,8 @@ export default {
   direction: "directed",    // undirected possible via styles only
   nodeTypes: "*",           // aka classes
   edgeTypes: "*",           // aka classes
-  nodeNames: "0/1",         // via attribute "label"
-  edgeNames: "0/1",         // via attribute "label"
+  nodeName: "label",
+  edgeName: "label",
   graphAttributes: false,
   nodeAttributes: true,     // except "parent" and "label"
   edgeAttributes: true,     // except "label"

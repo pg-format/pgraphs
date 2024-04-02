@@ -42,13 +42,13 @@
       "description": "Type or category of an edge. Known as 'label' in labeled property graphs",
       "$ref": "#/$defs/cardinality"
     },
-    "nodeNames": {
+    "nodeName": {
       "description": "Special field to name an individual node",
-      "$ref": "#/$defs/cardinality"
+      "$ref": "#/$defs/boolOrName"
     },
-    "edgeNames": {
+    "edgeName": {
       "description": "Special field to name an individual edge",
-      "$ref": "#/$defs/cardinality"
+      "$ref": "#/$defs/boolOrName"
     },
     "hierarchy": {
       "description": "Are subgraphs expressible and if so, can a node have multiple parents?",
@@ -71,6 +71,12 @@
   "$defs": {
     "cardinality": {
       "enum": [ false, "1", "0/1", "+", "*" ]
+    },
+    "boolOrName": {
+      "oneOf": [
+        { "type": "boolean" },
+        { "type": "string", "minLength": 1 }
+      ]
     }
   }
 }

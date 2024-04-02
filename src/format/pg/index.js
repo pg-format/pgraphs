@@ -10,8 +10,8 @@ export default {
   nodeTypes: "*",
   edgeTypes: "*",
 
-  nodeNames: false,
-  edgeNames: false,
+  nodeName: false,
+  edgeName: false,
 
   graphAttributes: false,
   nodeAttributes: true,
@@ -24,6 +24,7 @@ export default {
 
   datatypes: "JSON scalars",
 
+  url: "https://github.com/pg-format/specification",
   parse: input => wrapPeggyParser(parse, input),
   serialize
 }
