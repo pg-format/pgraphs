@@ -1,7 +1,8 @@
 import { IDMap } from "../utils.js"
 
-// TODO: import via promise
-import neo4j from "neo4j-driver-lite"
+var neo4j
+import("neo4j-driver-lite").then(n => { neo4j = n })
+  .catch(e => null) // eslint-disable-line
 
 // TODO handle all data types
 const propertiesMustHaveArrayValues = properties => {
@@ -13,6 +14,9 @@ const propertiesMustHaveArrayValues = properties => {
 }
 
 export default async json => {
+  if (!neo4j) {
+    throw new Error("Missing npm package neo4j-driver-lite!")
+  }
   const config = JSON.parse(json)
   const driver = neo4j.driver(
     config.uri,

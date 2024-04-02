@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.5.1
+
+- Fix use when neo4j is not installed
+
 ## 0.5.0
 
 - Remove null from data model, PG format, and PG-JSON(L)
