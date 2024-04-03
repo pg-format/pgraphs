@@ -26,6 +26,7 @@ This package implements parsers and serializers to convert between labeled prope
   - [TGF](#tgf)
   - [JSON Canvas](#json-canvas)
   - [Graphology](#graphology)
+  - [NCOL](#ncol)
 - [License](#license)
 
 ## Background
@@ -86,6 +87,7 @@ Supported conversion formats:
   tgf        from/to Trivial Graph Format
   canvas     from/to JSON Canvas (experimental)
   graphology from/to Graphology import/export
+  ncol       from/to NCOL file format
   neo4j      from Neo4J server (via Cypher query)
   xml        to GraphML
   yarspg     to YARS-PG 5.0.0 without data types
@@ -145,6 +147,7 @@ written from with this package:
 | yes  | yes   | [Trivial Graph Format (TGF)](#tgf)      |
 | yes  | yes   | [JSON Canvas](#json-canvas)             |
 | yes  | yes   | [Graphology](#graphology)               |
+| yes  | yes   | [NCOL](#ncol)                           |
 |      | yes   | [GraphML](#graphml)                     |
 |      | yes   | [YARS-PG](#yars-pg)                     |
 |      | yes   | OpenCypher/Neo4J [CSV](#csv)            |
@@ -412,6 +415,13 @@ dot graph.dot | pgraph -f dot -s 4 -t canvas > graph.canvas
 ~~~
 
 JSON Canvas can be read as well, but not all features are supported.
+
+### NCOL
+
+The NCOL file format is used to visualize very large undirected graphs with
+[Large Graph Layout](https://github.com/TheOpteProject/LGL) software. The graph
+is eventually reduced to simple edges with optional weight, but extensions
+exist for coloring and node labels (not supported by this library).
 
 ## License
 

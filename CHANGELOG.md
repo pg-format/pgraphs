@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.5.2
+
+- Add NCOL format
+
 ## 0.5.1
 
 - Fix use when neo4j is not installed

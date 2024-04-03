@@ -4,6 +4,7 @@ import jsonl from "./format/pg-jsonl/index.js"
 import cypher from "./format/cypher/index.js"
 import dot from "./format/dot/index.js"
 import tgf from "./format/tgf/index.js"
+import ncol from "./format/ncol/index.js"
 import graphml from "./format/graphml/index.js"
 import graphology from "./format/graphology/index.js"
 import canvas from "./format/canvas/index.js"
@@ -28,6 +29,7 @@ export const pgformat = {
   tgf,
   canvas,
   graphology,
+  ncol,
   neo4j: {
     ...cypher,
     name: "Neo4J server (via Cypher query)",

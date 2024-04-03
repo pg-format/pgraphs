@@ -34,6 +34,14 @@
       "description": "Nodes and edges can have special attributes for visual layout",
       "type": "boolean"
     },
+    "edgeWeight": {
+      "description": "Edges can have weight numbers",
+      "type": "boolean"
+    },
+    "loops": {
+      "description": "Edges can connect a node to itself",
+      "type": "boolean"
+    },
     "nodeTypes": {
       "description": "Type or category of a node. Known as 'label' in labeled property graphs",
       "$ref": "#/$defs/cardinality"
