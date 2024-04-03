@@ -55,7 +55,7 @@ export const randomId = () => "_"+(Math.random() + 1).toString(36).substring(2)
 
 export const isNumber = x => /^\d+(\.\d+)?$/.test(x)
 
-export const isValue = x => typeof x === "number" || typeof x === "string" || typeof x === "boolean" || x === null
+export const isValue = x => typeof x === "number" || typeof x === "string" || typeof x === "boolean"
 
 export const definedFields = obj => Object.fromEntries(Object.entries(obj).filter(e => e[1] !== undefined))
 
