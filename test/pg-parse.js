@@ -53,6 +53,10 @@ const valid = {
   "x a:1|x a:2,3": graph([{id:"x",properties:{a:[1,2,3]}}]),
   "a->b": graph("a|b", [["a","b"]]),
   "a--b": graph("a|b", [{from:"a",to:"b",undirected:true}]),
+  "\"\\\"\"": graph("\""),
+  "\"\\'\"": graph("'"),
+  "'\\\"'": graph("\""),
+  "'\\''": graph("'"),
 }
 
 describe("parsing valid short examples", () => {
@@ -80,6 +84,7 @@ const invalid = {
   "\"\"": "Identifiers cannot be empty",
   "x :\"\"": "Identifiers cannot be empty",
   "x \"\":1": "Property keys cannot be empty",
+  "\"x\\xy\"": "Invalid string escape sequence"
 }
 
 describe("parsing errors", () => {

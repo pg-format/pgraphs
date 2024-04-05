@@ -104,7 +104,7 @@ http://example.org/a -> http://example.org/b
 
 An individual **value** can be given strictly following JSON grammar (RFC 7159)
 or as unquoted string. The latter is like an unquoted [identifier](#identifiers)
-but in addition it must not contain comma (`,`):
+but in addition it must not contain comma (`,`). In addition to JSON strings, quoted string can also use the escape sequence `\'` and can use single quotes (`'`) instead of double quotes (`"`):
 
 ![](img/Value-1.svg)
 

@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.5.3
+
+- Allow single quoted strings in PG format
+
 ## 0.5.2
 
 - Add NCOL format

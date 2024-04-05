@@ -138,16 +138,22 @@ Scalar
   / "false" { return false }
 
 QuotedString
-  = '"' chars:Char* '"' { return chars.join("") }
+  = '"' chars:( Char / "'" )* '"' { return chars.join("") }
+  / "'" chars:( Char / '"' )* "'" { return chars.join("") }
 
 Char
   = Unescaped
   / Escaped
 
+// Disallow control characters, including newline and " ' \
+Unescaped
+  = [^\0-\x1F"'\\]
+
 Escaped
   = "\\"
     sequence:(
         '"'
+      / "'"
       / "\\"
       / "/"
       / "b" { return "\b" }
@@ -162,9 +168,6 @@ Codepoint
   = digits:$( Hex |4| ) {
       return String.fromCharCode(parseInt(digits, 16))
     }
-
-Unescaped
-  = [^\0-\x1F\x22\x5C]
 
 Number
   = "-"? Int Frac? Exp?
