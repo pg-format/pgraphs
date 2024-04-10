@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.5.4
+
+- Add experimental Mermaid export and --html filter
+
 ## 0.5.3
 
 - Allow single quoted strings in PG format

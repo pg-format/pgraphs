@@ -1,7 +1,7 @@
-// import serialize from "./serializer.js"
+import serialize from "./serializer.js"
 
 export default {
-  name: "Meermaid Flowchart",
+  name: "Meermaid Flowchart (experimental)",
   url: "https://mermaid.js.org/syntax/flowchart.html",
 
   direction: "mixed",
@@ -17,5 +17,5 @@ export default {
   nodeTypes: false,
   visualAttributes: true,
 
-  // serialize,
+  serialize,
 }

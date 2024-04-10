@@ -25,6 +25,7 @@ This package implements parsers and serializers to convert between labeled prope
   - [Neptune CSV](#neptune-csv)
   - [TGF](#tgf)
   - [JSON Canvas](#json-canvas)
+  - [Mermaid](#mermaid)
   - [Graphology](#graphology)
   - [NCOL](#ncol)
 - [License](#license)
@@ -415,6 +416,28 @@ dot graph.dot | pgraph -f dot -s 4 -t canvas > graph.canvas
 ~~~
 
 JSON Canvas can be read as well, but not all features are supported.
+
+### Mermaid
+
+Export to Mermaid is experimental and may lead to syntactically invalid Marmaid
+files because there is no formal specification and because some characters
+cannot be escaped. Mermaid supports HTML in names of nodes and edges (property
+`name`)  but HTML attributes must be single-quoted (`<a href='...'` instead of
+`<a href="..."`) and numeric character entities cannot be used.
+
+By default the example graph is exported to this Mermaid diagram source:
+
+~~~mmd
+flowchart LR
+    101["Alice"]
+    102["Bob"]
+    101 --- 102
+    101 --> 102
+~~~
+
+With experimental option `--html` the full labels and properties of nodes and edges are converted to HTML labels, resulting in the following diagram:
+
+![](mermaid.png)
 
 ### NCOL
 

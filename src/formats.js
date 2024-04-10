@@ -11,7 +11,7 @@ import canvas from "./format/canvas/index.js"
 import gexf from "./format/gexf/index.js"
 import cyjs from "./format/cyjs/index.js"
 import gxl from "./format/gxl/index.js"
-import mermaid from "./format/mermaid/index.js"
+import mmd from "./format/mermaid/index.js"
 import serializeYARSPG from "./serializer/yarspg.js"
 import serializeYARSPG3 from "./serializer/yarspg3.js"
 import serializeCSV from "./serializer/csv.js"
@@ -56,7 +56,7 @@ export const pgformat = {
     serialize: serializeNeptune,
   },
   gxl,
-  mermaid,
+  mmd,
   flat: {
     name: "Oracle Flat File Format",
     //    serialize: serializeFlat,

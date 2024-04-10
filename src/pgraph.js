@@ -1,7 +1,7 @@
 import fs from "fs"
 import { pgformat } from "./formats.js"
 import { GraphTarget, StreamTarget } from "./target.js"
-import { addIdProperty, scaleSpatial } from "./transform.js"
+import { addIdProperty, addHtmlSummary, scaleSpatial } from "./transform.js"
 
 pgformat.pg.name += " (default input)"
 pgformat.jsonl.name += " (default output)"
@@ -23,10 +23,10 @@ export async function pgraph(source, target, opts) {
   const from = pgformat[opts.from || "pg"]
   const to = pgformat[opts.to || "jsonl"]
 
-  if (!from) {
+  if (!from?.parse) {
     throw new Error(`Unknown source format: ${opts.from}`)
   }
-  if (!to) {
+  if (!to?.serialize) {
     throw new Error(`Unknown target format: ${opts.to}`)
   }
 
@@ -57,6 +57,10 @@ export async function pgraph(source, target, opts) {
 
   if (opts.id !== undefined) {
     addIdProperty(graph, opts.id) 
+  }
+
+  if (opts.html) {
+    addHtmlSummary(graph)
   }
 
   if (opts.scale > 0) {
