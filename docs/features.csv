@@ -15,7 +15,7 @@ yarspg3,YARS-PG 3.0.0 with optional labels,,,,,,,,,,,,,,,,
 csv,OpenCypher/Neo4J CSV files,,,,,,,,,,,,,,,,
 neptune,Neptune CSV import (aka Gremlin load data format),,,,,,,,,,,,,,,,
 gxl,Graph eXchange Language (GXL),mixed,,✓,✓,✓,,,,0/1,0/1,,,,✓,✓,https://userpages.uni-koblenz.de/~ist/GXL/index.php
-mermaid,Meermaid Flowchart,mixed,✓,-,-,-,✓,,,-,-,✓,✓,✓,-,,https://mermaid.js.org/syntax/flowchart.html
+mmd,Meermaid Flowchart (experimental),mixed,✓,-,-,-,✓,,,-,-,✓,✓,✓,-,,https://mermaid.js.org/syntax/flowchart.html
 flat,Oracle Flat File Format,,,,,,,,,,,,,,,,
 kuzudb,Kùzu Database,directed,,-,✓,✓,-,,,1,1,-,-,-,-,✓,https://kuzudb.com/
 dgml,Directed Graph Markup Language (DGML),,,,,,,,,,,,,,,,

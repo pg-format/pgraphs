@@ -65,7 +65,6 @@ Browser bundles have not been created yet.
 Command `pgraph` is installed with this package:
 
 ~~~
-
 Usage: pgraph [options] [<input> [<output]]
 
 Convert between property graph formats and databases.
@@ -75,6 +74,7 @@ Options:
   -t, --to [format]     output format
   -e, --errors          verbose error messages
   -i, --id [key]        copy node id to property
+  -h, --html            generate HTML label (experimental)
   -s, --scale [factor]  scale spatial properties x,y,width,height,pos
   -h, --help            show usage information
   -V, --version         show the version number
@@ -95,6 +95,7 @@ Supported conversion formats:
   yarspg3    to YARS-PG 3.0.0 with optional labels
   csv        to OpenCypher/Neo4J CSV files
   neptune    to Neptune CSV import (aka Gremlin load data format)
+  mmd        to Meermaid Flowchart (experimental)
 ~~~
 
 The `neo4j` input format expects a JSON file with Neo4J database URI and
@@ -153,6 +154,7 @@ written from with this package:
 |      | yes   | [YARS-PG](#yars-pg)                     |
 |      | yes   | OpenCypher/Neo4J [CSV](#csv)            |
 |      | yes   | Amazon [Neptune CSV](#neptune-csv)      |
+|      | yes   | [Mermaid](#mermaid)                     |
 | yes  | -     | Cypher MATCH query                      |
 
 The repository of pgraphs contains [a CSV
