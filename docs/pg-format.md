@@ -82,7 +82,7 @@ must not contain colon nor comma:
 ~~~ebnf
 Identifier  ::= String | Unquoted
 Unquoted    ::= ( PlainChar - ( ':' | '(' | ',' | '#' ) ) ) PlainChar*
-PlainChar   ::= CHAR - ( SPACE | '"' | '<' | '>' | '{' | '}' | '|' | '\' | '^' )
+PlainChar   ::= CHAR - ( SPACE | '"' | '<' | '>' | '{' | '}' | '|' | '\' | '^' | '`' )
 ~~~
 
 The exclusion of bracket characters is motivated by the ability to make use of

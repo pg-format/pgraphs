@@ -47,13 +47,13 @@ various formats.
 Requires node >= 18.0.0 for use and >= 20.0.0 for development.
 
 ~~~
-npm install pgraphs
+npm install -g pgraphs
 ~~~
 
 To get data from Neo4J databases, also install:
 
 ~~~
-npm install neo4j-driver-lite
+npm install -g neo4j-driver-lite
 ~~~
 
 Browser bundles have not been created yet.

@@ -89,7 +89,7 @@ Identifier
   / UnquotedIdentifier
 
 PlainChar
-  = [^\x20\x09\x0A\x0D"<>{}|^]
+  = [^\x20\x09\x0A\x0D<>"{}|^`\\]
 
 PlainStart
   = ![:(#-] PlainChar
