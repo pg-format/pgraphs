@@ -4,9 +4,6 @@ name: Docker
 # They are provided by a third-party and are governed by
 # separate terms of service, privacy policy, and support
 # documentation.
-permissions: 
-  security-events: write
-
 on:
   schedule:
     - cron: '40 6 * * *'
@@ -25,7 +22,6 @@ env:
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
     permissions:
       contents: read
@@ -33,6 +29,7 @@ jobs:
       # This is used to complete the identity challenge
       # with sigstore/fulcio when running outside of PRs.
       id-token: write
+      security-events: write
 
     steps:
       - name: Checkout repository
