@@ -22,7 +22,8 @@ export function fromGraphology(graph) {
       properties: fromAttributes(attributes)
     }))
   const edges = graph.edges.filter(e => e.source !== "" && e.target !== "")
-    .map(({source, target, attributes, undirected}) => definedFields({
+    .map(({key, source, target, attributes, undirected}) => definedFields({
+      id: key,
       from: source,
       to: target, 
       labels: [],
@@ -50,8 +51,8 @@ export function toGraphology({ nodes, edges }) {
     attributes: toAttributes(properties)
   }))
 
-  edges = edges.map(({from, to, properties, undirected}, i) => definedFields({
-    key: `${i+1}`,
+  edges = edges.map(({id, from, to, properties, undirected}) => definedFields({
+    key: id,
     source: from,
     target: to,
     attributes: toAttributes(properties),
@@ -69,10 +70,11 @@ export function toGraphology({ nodes, edges }) {
 export default {
   name: "Graphology import/export", 
   parse: string => fromGraphology(JSON.parse(string)),
-  serialize: graph => JSON.stringify(toGraphology(graph), null, 2),
+  serialize: graph => JSON.stringify(toGraphology(graph), null, 2)+"\n",
   direction: "mixed",
   nodeTypes: false,
   edgeTypes: false,
+  edgeIdentifier: true,
   nodeName: false,
   edgeName: false,
   graphAttributes: true,

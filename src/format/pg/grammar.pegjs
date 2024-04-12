@@ -58,8 +58,12 @@ UnquotedIdFollowedByDirection
       return { from, direction }
     }
 
-Edge
-  = start:(
+EdgeId
+  =  @(QuotedString  ) ":" WS
+
+Edge // TODO: allow edge identifier
+  = id:( EdgeId? ) 
+    start:(
      UnquotedIdFollowedByDirection
      / ( from:Identifier direction:Direction { return { from, direction } } )
     )
@@ -69,6 +73,7 @@ Edge
     const { from, direction } = start
     labels = Array.from(new Set(labels))
     const e = { from, to, labels, properties: addProperties(props) }
+    if (id) { e.id = id }
     if (direction === "--") {
       e.undirected = true
     }

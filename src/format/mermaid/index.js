@@ -6,6 +6,7 @@ export default {
 
   direction: "mixed",
   edgeAttributes: false,
+  edgeIdentifier: false,
   edgeName: true,
   edgeTypes: false,
   graphAttributes: false,

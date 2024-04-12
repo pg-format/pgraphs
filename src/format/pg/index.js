@@ -12,6 +12,7 @@ export default {
 
   nodeName: false,
   edgeName: false,
+  edgeId: true,
 
   graphAttributes: false,
   nodeAttributes: true,

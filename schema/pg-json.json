@@ -26,6 +26,9 @@
       "items": {
         "type": "object",
         "properties": {
+          "id": {
+            "$ref": "#/$defs/id"
+          },
           "from": {
             "$ref": "#/$defs/id"
           },
@@ -48,7 +51,6 @@
     }
   },
   "required": [ "nodes", "edges" ],
-  "required": [ "nodes","edges" ],
   "additionalProperties": false,
   "$defs": {
     "id": {

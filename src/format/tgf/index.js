@@ -8,6 +8,7 @@ export default {
 
   nodeTypes: false,
   edgeTypes: false,
+  edgeIdentifier: false,
 
   nodeName: true,
   edgeName: true,

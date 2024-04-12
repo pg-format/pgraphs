@@ -26,7 +26,6 @@
   ],
   "edges": [
     {
-      "key": "1",
       "source": "101",
       "target": "102",
       "attributes": {
@@ -35,7 +34,6 @@
       "undirected": true
     },
     {
-      "key": "2",
       "source": "101",
       "target": "102",
       "attributes": {

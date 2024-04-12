@@ -3,6 +3,7 @@ export default {
   direction: "mixed", // TODO: multi-edges allowed?
   nodeTypes: "0/1",
   edgeTypes: "0/1",
+  edgeIdentifier: true,
   graphAttributes: true,
   nodeAttributes: true,
   edgeAttributes: true,

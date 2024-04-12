@@ -68,6 +68,7 @@ export default {
 
   nodeName: "text",
   edgeName: "label",
+  edgeIdentifier: true,
 
   graphAttributes: false,
   nodeAttributes: false,

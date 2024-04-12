@@ -37,9 +37,11 @@ export default ({ nodes, edges }) => {
     }
   }
 
-  for (let { from, to, properties } of edges) {
+  for (let { id, from, to, properties } of edges) {
     if (empty(properties)) {
-      xml.element("edge", { source: from, target: to })
+      const edge = { source: from, target: to }
+      if (id) { edge.id = id } 
+      xml.element("edge", edge)
     } else {
       xml.start("edge", { source: from, target: to })
       writeProperties(properties, xml)

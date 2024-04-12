@@ -9,6 +9,7 @@ export default {
   edgeTypes: false,
   nodeName: false,
   edgeName: false,
+  edgeIdentifier: true,
 
   graphAttributes: true,
   nodeAttributes: true,

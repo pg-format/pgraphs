@@ -11,6 +11,7 @@ export default {
 
   nodeName: "label",
   edgeName: "label",
+  edgeIdentifier: false,
 
   graphAttributes: true,
   nodeAttributes: true,
