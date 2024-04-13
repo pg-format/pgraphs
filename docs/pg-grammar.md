@@ -44,10 +44,8 @@ optionally followed by [labels and properties](#labels-and-properties).
 
 ![](img/Direction.svg)
 
-Note that [whitespace](#space-and-comments) around direction is optional 
-but required before direction `--` and `->` if the minus character could
-directly follows an unqouted identifier.
-
+Note that [whitespace](#space-and-comments) after direction is optional and
+before direction is mandatory only when following an unquoted identifier.
 
 ### Labels and properties
 
@@ -78,10 +76,9 @@ a -> b :knows since:2020
 
 An **identifier** is either given as quoted string or unquoted. An unquoted
 identifier must not contain spaces, tabs, or any of the characters `"`, `|`,
-`<`, `>`, `\ `, and `^`. It further must not contain the sequence `--` and must
-not start with colon (`:`), comma (`,`), opening parenthesis (`(`), hash (`#`),
-or minus (`-`). These restrictions do not apply for quoted identifiers.
-Identifiers must not be the empty string:
+`<`, `>`, `\ `, and `^`. It further must not start with colon (`:`), opening
+parenthesis (`(`), or hash (`#`). These restrictions do not apply for quoted
+identifiers but identifiers must not be the empty string:
 
 ![](img/Identifier.svg)
 

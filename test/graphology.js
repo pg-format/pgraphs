@@ -5,7 +5,7 @@ import { fromGraphology, toGraphology } from "../src/format/graphology/index.js"
 // TODO: actually use Graphology object
 
 const graphs = {
-  "x :t k:v | x->y": {
+  "x :t k:v | x ->y": {
     options: { type: "directed", multi: true, allowSelfLoops: true },
     attributes: {},
     nodes: [ { key: "x", attributes: { k: "v" } }, { key: "y" } ],

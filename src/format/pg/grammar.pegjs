@@ -52,16 +52,9 @@ Node
       }
   }
 
-UnquotedIdFollowedByDirection
-  = from:( PlainStart ( "-"? ( !"-" PlainChar ) )* { return text() } )
-    direction:( "->" / "--" ) {
-      return { from, direction }
-    }
-
 Edge
   = start:(
-     UnquotedIdFollowedByDirection
-     / ( from:Identifier direction:Direction { return { from, direction } } )
+     from:Identifier direction:Direction { return { from, direction } }
     )
     to:Identifier
     labels:Label*
@@ -92,13 +85,10 @@ PlainChar
   = [^\x20\x09\x0A\x0D<>"{}|^`\\]
 
 PlainStart
-  = ![:(#-] PlainChar
+  = ![:(#] PlainChar
 
 UnquotedIdentifier
-  = PlainStart PlainChar* {
-      if (text().match(/--/)) { error("Unquoted identifier must not contain --") }
-      return text()
-    }
+  = PlainStart PlainChar* { return text() }
 
 Property "property"
   = WS name:Key value:ValueList { return [ name, value ] }

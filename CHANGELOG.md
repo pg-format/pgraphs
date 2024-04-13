@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.6.0
+
+- PG format: require space between unquoted identifier and direction
+
 ## 0.5.4
 
 - Add experimental Mermaid export and --html filter
