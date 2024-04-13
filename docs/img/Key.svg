@@ -13,42 +13,38 @@
 <path d="M584 64h0"></path>
 <path d="M50 64h20"></path>
 <g class="Sequence">
-<path d="M70 64h110.5"></path>
-<path d="M453.5 64h110.5"></path>
-<g class="Sequence">
-<path d="M180.5 64h0"></path>
-<path d="M453.5 64h0"></path>
-<path d="M302.5 64h10"></path>
+<path d="M70 64h93.5"></path>
+<path d="M470.5 64h93.5"></path>
+<path d="M319.5 64h10"></path>
 <g class="non-terminal rule-ref">
-<path d="M180.5 64h0"></path>
-<path d="M302.5 64h0"></path>
-<rect x="180.5" y="53" width="122" height="22"></rect>
-<text x="241.5" y="68">QuotedString</text>
+<path d="M163.5 64h0"></path>
+<path d="M319.5 64h0"></path>
+<rect x="163.5" y="53" width="156" height="22"></rect>
+<text x="241.5" y="68">QuotedIdentifier</text>
 </g>
 <g class="Choice">
-<path d="M312.5 64h0"></path>
-<path d="M415 64h0"></path>
-<path d="M312.5 64a10 10 0 0 0 10 -10v0a10 10 0 0 1 10 -10"></path>
+<path d="M329.5 64h0"></path>
+<path d="M432 64h0"></path>
+<path d="M329.5 64a10 10 0 0 0 10 -10v0a10 10 0 0 1 10 -10"></path>
 <g class="Skip">
-<path d="M332.5 44h62.5"></path>
+<path d="M349.5 44h62.5"></path>
 </g>
-<path d="M395 44a10 10 0 0 1 10 10v0a10 10 0 0 0 10 10"></path>
-<path d="M312.5 64h20"></path>
+<path d="M412 44a10 10 0 0 1 10 10v0a10 10 0 0 0 10 10"></path>
+<path d="M329.5 64h20"></path>
 <g class="non-terminal rule-ref">
-<path d="M332.5 64h0"></path>
-<path d="M395 64h0"></path>
-<rect x="332.5" y="53" width="62.5" height="22"></rect>
-<text x="363.75" y="68">Space</text>
+<path d="M349.5 64h0"></path>
+<path d="M412 64h0"></path>
+<rect x="349.5" y="53" width="62.5" height="22"></rect>
+<text x="380.75" y="68">Space</text>
 </g>
-<path d="M395 64h20"></path>
+<path d="M412 64h20"></path>
 </g>
-<path d="M415 64h10"></path>
+<path d="M432 64h10"></path>
 <g class="terminal literal">
-<path d="M425 64h0"></path>
-<path d="M453.5 64h0"></path>
-<rect x="425" y="53" width="28.5" height="22" rx="10" ry="10"></rect>
-<text x="439.25" y="68">:</text>
-</g>
+<path d="M442 64h0"></path>
+<path d="M470.5 64h0"></path>
+<rect x="442" y="53" width="28.5" height="22" rx="10" ry="10"></rect>
+<text x="456.25" y="68">:</text>
 </g>
 </g>
 <path d="M564 64h20"></path>

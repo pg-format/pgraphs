@@ -8,6 +8,7 @@ export default {
 
   nodeName: true,       // special attribute
   edgeName: true,       // special attribute
+  edgeIdentifier: true,
 
   direction: "mixed",
   graphAttributes: true,

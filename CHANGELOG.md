@@ -3,6 +3,7 @@
 ## 0.6.0
 
 - PG format: require space between unquoted identifier and direction
+- PG format: support edge identifiers
 
 ## 0.5.4
 

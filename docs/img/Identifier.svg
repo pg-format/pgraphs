@@ -13,10 +13,10 @@
 <path d="M263 55h0"></path>
 <path d="M50 55h20"></path>
 <g class="non-terminal rule-ref">
-<path d="M70 55h25.5"></path>
-<path d="M217.5 55h25.5"></path>
-<rect x="95.5" y="44" width="122" height="22"></rect>
-<text x="156.5" y="59">QuotedString</text>
+<path d="M70 55h8.5"></path>
+<path d="M234.5 55h8.5"></path>
+<rect x="78.5" y="44" width="156" height="22"></rect>
+<text x="156.5" y="59">QuotedIdentifier</text>
 </g>
 <path d="M243 55h20"></path>
 <path d="M50 55a10 10 0 0 1 10 10v10a10 10 0 0 0 10 10"></path>

@@ -28,7 +28,8 @@ export const serializeNode = ({ id, labels, properties }) => [
   serializeProperties(properties || {}),
 ].filter(s => s !== "").join(" ")
 
-export const serializeEdge = ({ from, to, labels, properties, undirected }) => [
+export const serializeEdge = ({ id, from, to, labels, properties, undirected }) => [
+  id ? quoteId(id)+":" : "",
   quoteId(from),
   undirected ? "--" : "->",
   quoteId(to),

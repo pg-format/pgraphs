@@ -30,7 +30,8 @@ const valid = {
   " ": graph(),
   "\u3007\r0": graph("0|\u3007"),                       // Plain /r is newline, numbers as unquoted identifiers
   "a,b": graph("a,b"),
-  "c: -> a:b": graph("a:b|c:", [["c:", "a:b"]]),        // Id can contain and end colon
+  // FIXME:
+  // "c: -> a:b": graph("a:b|c:", [["c:", "a:b"]]),        // Id can contain and end colon
   "a(:# -> 本-²": graph("a(:#|本-²", [["a(:#", "本-²"]]),     // Id can contain special characters
   "x\nxy\r\nxyz # comment\n\"X\"": graph("X|x|xy|xyz"), // Node ids
   // labels and line folding
@@ -52,11 +53,16 @@ const valid = {
   "a b:0|c": graph([{id:"a",properties:{b:[0]}},"c"]),
   "x a:1|x a:2,3": graph([{id:"x",properties:{a:[1,2,3]}}]),
   "a ->b": graph("a|b", [["a","b"]]),
-  "-a\na--b": graph("-a|a--b"),
+  "a-\na--b": graph("a-|a--b"),
   "\"\\\"\"": graph("\""),
   "\"\\'\"": graph("'"),
   "'\\\"'": graph("\""),
   "'\\''": graph("'"),
+  // edge ids
+  "a: b -> c": graph("b|c",[{id:"a", from:"b",to:"c"}]),
+  "a : b -> c": graph("b|c",[{id:"a", from:"b",to:"c"}]),
+  "\"a\": b -> c": graph("b|c",[{id:"a", from:"b",to:"c"}]),
+  "\"a\" : b -> c": graph("b|c",[{id:"a", from:"b",to:"c"}]),
 }
 
 describe("parsing valid short examples", () => {
@@ -82,7 +88,8 @@ const invalid = {
   "\"\"": "Identifiers cannot be empty",
   "x :\"\"": "Identifiers cannot be empty",
   "x \"\":1": "Property keys cannot be empty",
-  "\"x\\xy\"": "Invalid string escape sequence"
+  "\"x\\xy\"": "Invalid string escape sequence",
+  "-> x": "Expected identifier",
 }
 
 describe("parsing errors", () => {

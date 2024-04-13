@@ -34,6 +34,10 @@
       "description": "Nodes and edges can have special attributes for visual layout",
       "type": "boolean"
     },
+    "edgeIdentifier": {
+      "description": "Edges can have identifiers",
+      "type": "boolean"
+    },
     "edgeWeight": {
       "description": "Edges can have weight numbers",
       "type": "boolean"

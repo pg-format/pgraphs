@@ -24,6 +24,9 @@
         "type": {
           "const": "edge"
         },
+        "id": {
+          "$ref": "#/$defs/id"
+        },
         "from": {
           "$ref": "#/$defs/id"
         },

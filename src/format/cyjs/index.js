@@ -7,6 +7,7 @@ export default {
   edgeTypes: "*",           // aka classes
   nodeName: "label",
   edgeName: "label",
+  edgeIdentifier: true,
   graphAttributes: false,
   nodeAttributes: true,     // except "parent" and "label"
   edgeAttributes: true,     // except "label"
