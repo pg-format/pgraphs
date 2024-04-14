@@ -58,6 +58,7 @@ export default {
 
   nodeTypes: "*", // ?
   edgeTypes: "1",
+  edgeIdentifier: false,
   //nodeTypePattern,
   //defaultEdgeType,
   //edgeTypePattern,

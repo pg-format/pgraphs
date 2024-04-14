@@ -159,6 +159,7 @@ written from with this package:
 
 The repository of pgraphs contains [a CSV
 file](https://github.com/pg-format/pgraphs/blob/main/docs/features.csv)
+and equivalent [pg file](https://github.com/pg-format/pgraphs/blob/main/docs/features.pg)
 listing these and more graph formats with their capabilities to store
 [selected graph features](https://github.com/pg-format/pgraphs/blob/main/docs/features.md).
 

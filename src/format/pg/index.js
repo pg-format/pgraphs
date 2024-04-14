@@ -5,25 +5,21 @@ import { wrapPeggyParser } from "../../utils.js"
 export default {
   name: "PG format",
 
+  datatypes: "string|number",
   direction: "mixed",
-
-  nodeTypes: "*",
-  edgeTypes: "*",
-
-  nodeName: false,
-  edgeName: false,
-  edgeIdentifier: true,
-
-  graphAttributes: false,
-  nodeAttributes: true,
   edgeAttributes: true,
-  visualAttributes: false,
-
+  edgeIdentifier: true,
+  edgeName: false,
+  edgeTypes: "*",
+  graphAttributes: false,
   hierarchy: false,
   hyperEdges: false,
+  loops: true,
   multiEdges: true,
-
-  datatypes: "JSON scalars",
+  nodeAttributes: true,
+  nodeName: false,
+  nodeTypes: "*",
+  visualAttributes: false,
 
   url: "https://github.com/pg-format/specification",
   parse: input => wrapPeggyParser(parse, input),
