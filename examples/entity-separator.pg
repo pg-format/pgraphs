@@ -1,0 +1,5 @@
+a            # line break
+b | a -> b   # entity separator
+c |          # optional entity separator before line break
+d|e          # condense
+f            # end of input also terminates entity

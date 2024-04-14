@@ -60,9 +60,8 @@ const valid = {
   "'\\''": graph("'"),
   // edge ids
   "a: b -> c": graph("b|c",[{id:"a", from:"b",to:"c"}]),
-  "a : b -> c": graph("b|c",[{id:"a", from:"b",to:"c"}]),
+  "a:b: b -> c": graph("b|c",[{id:"a:b", from:"b",to:"c"}]),
   "\"a\": b -> c": graph("b|c",[{id:"a", from:"b",to:"c"}]),
-  "\"a\" : b -> c": graph("b|c",[{id:"a", from:"b",to:"c"}]),
 }
 
 describe("parsing valid short examples", () => {

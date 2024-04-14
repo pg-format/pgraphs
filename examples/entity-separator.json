@@ -1,0 +1,42 @@
+{
+  "nodes": [
+    {
+      "id": "a",
+      "labels": [],
+      "properties": {}
+    },
+    {
+      "id": "b",
+      "labels": [],
+      "properties": {}
+    },
+    {
+      "id": "c",
+      "labels": [],
+      "properties": {}
+    },
+    {
+      "id": "d",
+      "labels": [],
+      "properties": {}
+    },
+    {
+      "id": "e",
+      "labels": [],
+      "properties": {}
+    },
+    {
+      "id": "f",
+      "labels": [],
+      "properties": {}
+    }
+  ],
+  "edges": [
+    {
+      "from": "a",
+      "to": "b",
+      "labels": [],
+      "properties": {}
+    }
+  ]
+}

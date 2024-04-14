@@ -1,0 +1,15 @@
+Padmé  :person  gender:female
+Anakin :person  gender:male   
+Luke   :person  gender:male   
+# Leia   :person  gender:female 
+R2D2   :robot   
+  
+Padmé -> R2D2 :owns episode:I
+Padmé -- Anakin :marriage episode:II
+Anakin -> R2D2 :owns episode:II          
+Anakin -> Luke :father episode:III
+# Anakin -> Leia :father episode:III
+Padmé -> Luke :mother episode:III      
+# Padmé -> Leia :mother episode:III      
+R2D2 -> Luke :owns episode:IV
+

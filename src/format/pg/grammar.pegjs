@@ -53,11 +53,9 @@ Node
   }
 
 EdgeIdentifier
- = ( @QuotedIdentifier Space? ":" WS )
-  / ( @UnquotedIdentifier Space ":" WS )
-  / id:( $PlainStart $( ( !":" PlainChar )* ":" )+ ) WS {
-      return id.join("").slice(0,-1)
-    }
+ = ( @QuotedIdentifier ":" WS )
+  / ( @UnquotedIdentifier ":" WS )
+  / UnquotedIdentifierFollowedByColon
 
 Edge
   = id:( EdgeIdentifier? )
@@ -109,15 +107,18 @@ PlainStart
 UnquotedIdentifier
   = PlainStart PlainChar* { return text() }
 
+UnquotedIdentifierFollowedByColon
+ = id:( $PlainStart $( ( !":" PlainChar )* ":" )+ ) WS {
+      return id.join("").slice(0,-1)
+    }
+
 Property "property"
   = WS name:Key value:ValueList { return [ name, value ] }
 
 Key
   = ( @QuotedIdentifier Space? ":" )
   / ( @UnquotedIdentifier Space ":" )
-  / name:( $PlainStart $( ( !":" PlainChar )* ":" )+ ) WS {
-      return name.join("").slice(0,-1)
-    }
+  / UnquotedIdentifierFollowedByColon
   / name:( $PlainStart $( !":" PlainChar )* ) ":" {
       return name.join("")
     }
