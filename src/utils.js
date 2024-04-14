@@ -20,10 +20,20 @@ export class IDMap extends Map {
 }
 
 // Construct graph object, given nodes as object
-export const graph = (nodes, edges) => ({
-  nodes: Object.keys(nodes).sort().map(id => nodes[id]),
-  edges,
-})
+export const graph = (nodes, edges) => {
+  for (let { from, to } of edges) {
+    if (!(from in nodes)) {
+      nodes[from] = { id: from, labels: [], properties: {} }
+    }
+    if (!(to in nodes)) {
+      nodes[to] = { id: to, labels: [], properties: {} }
+    }
+  }
+  return {
+    nodes: Object.keys(nodes).sort().map(id => nodes[id]),
+    edges,
+  } 
+}
 
 export const addProperties = (propList, properties={}) => {
   for (let [key, values] of propList) {

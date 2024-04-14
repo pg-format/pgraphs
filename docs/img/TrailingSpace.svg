@@ -48,8 +48,8 @@
 </g>
 <g class="comment">
 <path d="M50 28h0"></path>
-<path d="M158 28h0"></path>
-<text x="104" y="33" class="comment">IgnorableSpace</text>
+<path d="M151 28h0"></path>
+<text x="100.5" y="33" class="comment">TrailingSpace</text>
 </g>
 </g>
 <path d="M292 64h10"></path>

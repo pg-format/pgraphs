@@ -1,8 +1,5 @@
 This page illustrates the grammar of **PG format** as railroad diagram. The diagrams have been [generated automatically](https://github.com/peggyjs/peggy-tracks) from the [reference grammar](../src/pg.pegjs) so they are guaranteed to match the implementation.
 
-In short, PG format consists of [nodes and edges](#entities) with optional
-[labels and properties](#labels-and-properties) having [values](#values).
-
 *Some details of PG formats are [still being discussed](https://github.com/pg-format/pg-formatter/discussions) so this may change slightly!*
 
 ### Contents
@@ -17,17 +14,18 @@ In short, PG format consists of [nodes and edges](#entities) with optional
 
 ### Basic structure
 
+PG format allows to express of [nodes and edges](#entities) with optional
+[labels and properties](#labels-and-properties) having [values](#values).
+
 A property graph (**PG**) is encoded in PG format as sequence of
-[**entities**](#entities). Empty lines of [space and
-comments](#space-and-comments) are ignored.
+[**entities**](#entities) (nodes and edges). Entities are separated from each
+other with a line break or with a vertical bar (`U+007C`). [trailing
+space](#space-and-comments) in form of space and/or or comments is ignored
+after entities and in form of empty lines.
 
 ![](img/PG.svg)
 
-An entity is either a **node** or an **edge**. Entities are separated from each
-other with a line break or a vertical bar (`U+007C`). Space and comment following
-an entity on the same line are ignore.
-
-![](img/Entity.svg)
+![](img/EntitySeparator.svg)
 
 **Example:** the following file contains of three nodes `a`, `b`, `c`, and `d`:
 
@@ -40,6 +38,10 @@ c|d
 
 
 ### Entities
+
+An entity is either a **node** or an **edge**. 
+
+![](img/Entity.svg)
 
 A **node** consists of an [identifier](#identifiers) optionally followed by
 [labels and properties](#labels-and-properties).
@@ -101,21 +103,28 @@ apply for quoted identifiers but identifiers must never be the empty string:
 ![](img/UnquotedIdentifier-1.svg)
 
 A property **key** is an identifier followed by a colon. If given unquoted, the
-colon must be preceded and/or followed by space:
+first colon is read as end of the identifier, unless followed by a space:
 
 ![](img/Key.svg)
+
+![](img/UnquotedIdentifierWithoutColon.svg)
 
 An **edge identifier** must directly be followed by a colon and whitespace:
 
 ![](img/EdgeIdentifier.svg)
 
-![](img/UnquotedIdentifierFollowedByColon.svg)
+![](img/UnquotedIdentifierFollowedByColonAndSpace.svg)
 
 **Example:** Unquoted identifiers allow to directly use numbers and URIs:
 
 ~~~pg
-1 dc:date: 2024 url: http://example.org/ 
+1 dc:date: 2024 url:http://example.org/ 
 http://example.org/a -> http://example.org/b 
+~~~
+
+~~~pg
+node a:b:c   # read as node "a": "b:c"
+node a:b: c  # read as node "a:b": "c"
 ~~~
 
 ### Values
@@ -156,19 +165,19 @@ tabular (`U+0009`) is a **space**:
 ![](img/LineBreak.svg) ![](img/Space.svg)
 
 A **comment** starts with a hash (`U+0023`) and it ends at the next line break
-or at the end of input.
+or at the end of input. Note that the hash character is allowed in unquoted
+[identifiers](#identifiers) and in [values](#values), so most comments must be
+preceded by space.
 
 ![](img/Comment.svg)
 
-Note that the hash character is allowed in unquoted [identifiers](#identifiers)
-and in [values](#values), so most comments must be preceded by space.
-**Ignorable space** consists of optional space and comment:
+**Trailing space** consists of optional space and comment:
 
-![](img/IgnorableSpace.svg)
+![](img/TrailingSpace.svg)
 
-**Whitespace** is required to separate elements of an [entity](#entities).
-Whitespace can include a line break and ignorable space if the next line starts
-with a space ("line folding").
+**Whitespace** (**WS**) is required to separate elements of an
+[entity](#entities). Whitespace can include a line break and trailing space, if
+the next line starts with a space ("line folding").
 
 ![](img/WS.svg)
 

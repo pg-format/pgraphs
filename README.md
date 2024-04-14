@@ -165,6 +165,7 @@ listing these and more graph formats with their capabilities to store
 
 ### PG format
 
+
 PG format was first proposed by Hirokazu Chiba, Ryota Yamanaka, and Shota
 Matsumoto ([2019](https://arxiv.org/abs/1907.03936),
 [2022](https://arxiv.org/abs/2203.06393)). A revision is currently taking place
@@ -183,6 +184,7 @@ and boolean values:
 
 See also:
 
+- [PG format grammar as railroad diagram](https://github.com/pg-format/pgraphs/blob/main/docs/pg-grammar.md)
 - [web application to beautify PG format](https://pg-format.github.io/pg-formatter/)
 - [planned formal specification of PG data model and format](https://github.com/pg-format/specification/)
 - [illustrating example of PG format](https://github.com/pg-format/pgraphs/blob/main/docs/pg-format.pg)

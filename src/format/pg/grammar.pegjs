@@ -7,26 +7,21 @@
   const edges = []
 }
 
-PG = ( Entity / IgnorableSpace LineBreak )* IgnorableSpace End
+PG = ( Entity TrailingSpace? EntitySeparator / TrailingSpace LineBreak )* TrailingSpace
 {
-  for (let { from, to } of edges) {
-    if (!(from in nodes)) {
-      nodes[from] = { id: from, labels: [], properties: {} }
-    }
-    if (!(to in nodes)) {
-      nodes[to] = { id: to, labels: [], properties: {} }
-    }
-  }
   return graph(nodes, edges)
 }
 
 End
   = !.
 
-Entity
-  = ( Edge / Node ) ( Space* "|" Space* / IgnorableSpace ( LineBreak / End ) )
+EntitySeparator
+  = ( "|" Space* / LineBreak / End )
 
-IgnorableSpace
+Entity
+  = ( Edge / Node ) 
+
+TrailingSpace
   = Space? Comment?
 
 LineBreak "linebreak"
@@ -39,7 +34,7 @@ Comment "comment"
   = "#" [^\x0D\x0A]*
 
 WS
-  = ( IgnorableSpace LineBreak )* Space
+  = ( TrailingSpace LineBreak )* Space
 
 Node
   = id:Identifier labels:Label* props:Property* {
@@ -55,7 +50,7 @@ Node
 EdgeIdentifier
  = ( @QuotedIdentifier ":" WS )
   / ( @UnquotedIdentifier ":" WS )
-  / UnquotedIdentifierFollowedByColon
+  / UnquotedIdentifierFollowedByColonAndSpace
 
 Edge
   = id:( EdgeIdentifier? )
@@ -105,9 +100,9 @@ PlainStart
   = ![:(#-] PlainChar
 
 UnquotedIdentifier
-  = PlainStart PlainChar* { return text() }
+  = $( PlainStart PlainChar* )
 
-UnquotedIdentifierFollowedByColon
+UnquotedIdentifierFollowedByColonAndSpace
  = id:( $PlainStart $( ( !":" PlainChar )* ":" )+ ) WS {
       return id.join("").slice(0,-1)
     }
@@ -118,10 +113,11 @@ Property "property"
 Key
   = ( @QuotedIdentifier Space? ":" )
   / ( @UnquotedIdentifier Space ":" )
-  / UnquotedIdentifierFollowedByColon
-  / name:( $PlainStart $( !":" PlainChar )* ) ":" {
-      return name.join("")
-    }
+  / UnquotedIdentifierFollowedByColonAndSpace
+  / @UnquotedIdentifierWithoutColon ":"
+
+UnquotedIdentifierWithoutColon
+  = $( PlainStart ( !":" PlainChar )* )
 
 ValueList
   = first:( WS? @Value ) rest:( WS? "," WS? @Value )* {
