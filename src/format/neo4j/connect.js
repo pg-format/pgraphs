@@ -4,16 +4,7 @@ var neo4j
 import("neo4j-driver-lite").then(n => { neo4j = n })
   .catch(e => null) // eslint-disable-line
 
-// TODO handle all data types
-const propertiesMustHaveArrayValues = properties => {
-  for (const [key, value] of Object.entries(properties)) {
-    const values = Array.isArray(value) ? value : [value]
-    properties[key] = values
-
-  }
-}
-
-export default async json => {
+function connect(json) {
   if (!neo4j) {
     throw new Error("Missing npm package neo4j-driver-lite!")
   }
@@ -23,6 +14,20 @@ export default async json => {
     neo4j.auth.basic(config.user, config.password),
     { disableLosslessIntegers: true }, // convert large integers to JavaScript (FIXME?)
   )
+  return driver
+}
+
+// TODO handle all data types
+const propertiesMustHaveArrayValues = properties => {
+  for (const [key, value] of Object.entries(properties)) {
+    const values = Array.isArray(value) ? value : [value]
+    properties[key] = values
+
+  }
+}
+
+export function parse(json) {
+  const driver = connect(json)
   const session = driver.session({ defaultAccessMode: neo4j.session.READ })
 
   const ids = new IDMap()
@@ -62,3 +67,4 @@ RETURN COLLECT(DISTINCT n) AS nodes, COLLECT(DISTINCT r) AS edges`
     })
   })
 }
+

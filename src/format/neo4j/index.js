@@ -1,5 +1,5 @@
 import cypher from "../cypher/index.js"
-import parse from "./parser.js"
+import { parse } from "./connect.js"
 
 export default {
   ...cypher,

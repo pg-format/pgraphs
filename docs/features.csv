@@ -8,7 +8,7 @@ tgf,Trivial Graph Format,directed,,-,-,-,-,-,,,-,-,✓,✓,-,-,-,
 canvas,JSON Canvas (experimental),directed,✓,-,-,-,✓,✓,,,-,-,text,label,✓,-,-,https://jsoncanvas.org/
 graphology,Graphology import/export,mixed,✓,✓,✓,✓,-,✓,,,-,-,-,-,-,-,JSON,https://graphology.github.io/serialization.html
 ncol,NCOL file format,undirected,-,-,-,-,-,,✓,-,-,-,-,-,-,-,-,https://github.com/TheOpteProject/LGL?tab=readme-ov-file#input-format-lgl
-neo4j,Neo4J server (via Cypher query),directed,,-,✓,✓,-,-,,,*,1,-,-,-,-,Cypher data types,
+neo4j,Neo4J database (via Cypher query),directed,,-,✓,✓,-,-,,,*,1,-,-,-,-,Cypher data types,
 xml,GraphML,mixed,,✓,✓,✓,-,✓,,,-,-,-,-,✓,✓,bool|int|long|float|double|string,http://graphml.graphdrawing.org/
 yarspg,YARS-PG 5.0.0 without data types,,,,,,,,,,,,,,,,,
 yarspg3,YARS-PG 3.0.0 with optional labels,,,,,,,,,,,,,,,,,

@@ -460,14 +460,14 @@ your local machine:
 }
 ~~~
 
-To load a graph into Neo4J either export in [Cypher format](#cypher) and upload
-to Neo4J or export in [CSV format](#csv) to multiple files and bulk import the
-CSV files with `neo4j-admin database import`. Note Cypher command `LOAD CSV`
-will not work because it expects an additional `MERGE` clause and node/edges
-must have uniform labels.
+To load a graph into Neo4J either export in [Cypher format](#cypher-create) and
+upload to Neo4J or export in [CSV format](#csv) to multiple files and bulk
+import the CSV files with `neo4j-admin database import`. Note that Cypher
+command `LOAD CSV` will not work because it expects an additional `MERGE`
+clause and node/edges must have uniform labels.
 
 The [pgraphs git repository](https://github.com/pg-format/pgraphs/) contains
-shells scripts [in directory neo4j](https://github.com/pg-format/pgraphs/blob/main/neo4j/)
+shell scripts [in directory neo4j](https://github.com/pg-format/pgraphs/blob/main/neo4j/)
 to run a local Neo4J instance with Docker and to bulk import CSV files from
 local directly `./import`.
 
