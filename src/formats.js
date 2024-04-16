@@ -16,9 +16,9 @@ import serializeYARSPG from "./serializer/yarspg.js"
 import serializeYARSPG3 from "./serializer/yarspg3.js"
 import serializeCSV from "./serializer/csv.js"
 import serializeNeptune from "./serializer/neptune.js"
-// Import serializeFlat from "./serializer/flat.js"
+import neo4j from "./format/neo4j/index.js"
 
-import parseNeo4J from "./parser/neo4j.js"
+// Import serializeFlat from "./serializer/flat.js"
 
 export const pgformat = {
   pg,
@@ -30,13 +30,7 @@ export const pgformat = {
   canvas,
   graphology,
   ncol,
-  neo4j: {
-    ...cypher,
-    name: "Neo4J server (via Cypher query)",
-    parse: parseNeo4J,
-    serialize: undefined,
-    url: undefined,
-  },
+  neo4j,
   xml: graphml,
   // graphmlz: { name: "Compressed GraphML" }
   yarspg: {

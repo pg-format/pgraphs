@@ -1,4 +1,4 @@
-import { IDMap } from "../utils.js"
+import { IDMap } from "../../utils.js"
 
 var neo4j
 import("neo4j-driver-lite").then(n => { neo4j = n })

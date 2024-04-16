@@ -3,7 +3,18 @@ set -euo pipefail
 
 cwd=$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" &> /dev/null && pwd)
 
-base=import/example
+if [[ $# -eq 0 ]]; then
+  echo "Please specify base name of CSV files (starting with 'import/') as first argument!"
+  exit 0
+fi
+
+base=$1
+
+if [[ ! $base == import/* ]]; then
+  echo "Base name of CSV input files must start with 'input/'!" 
+  exit 0
+fi
+
 delimiter=","
 ext=csv
 arrayDelimiter=";"

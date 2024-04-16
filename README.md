@@ -28,6 +28,8 @@ This package implements parsers and serializers to convert between labeled prope
   - [Mermaid](#mermaid)
   - [Graphology](#graphology)
   - [NCOL](#ncol)
+- [Databases](#databases)
+  - [Neo4J](#neo4j)
 - [License](#license)
 
 ## Background
@@ -50,7 +52,7 @@ Requires node >= 18.0.0 for use and >= 20.0.0 for development.
 npm install -g pgraphs
 ~~~
 
-To get data from Neo4J databases, also install:
+To [connect to Neo4J databases](#neo4j), also install:
 
 ~~~
 npm install -g neo4j-driver-lite
@@ -89,26 +91,13 @@ Supported conversion formats:
   canvas     from/to JSON Canvas (experimental)
   graphology from/to Graphology import/export
   ncol       from/to NCOL file format
-  neo4j      from Neo4J server (via Cypher query)
+  neo4j      from Neo4J database (via Cypher query)
   xml        to GraphML
   yarspg     to YARS-PG 5.0.0 without data types
   yarspg3    to YARS-PG 3.0.0 with optional labels
   csv        to OpenCypher/Neo4J CSV files
   neptune    to Neptune CSV import (aka Gremlin load data format)
   mmd        to Meermaid Flowchart (experimental)
-~~~
-
-The `neo4j` input format expects a JSON file with Neo4J database URI and
-credentials like this and requires to install node package `neo4j-driver` (this
-is done automatically by calling `npm install` but not if this package is
-installed as dependency of another project):
-
-~~~json
-{
-  "uri": "neo4j://example.org",
-  "user": "alice",
-  "password": "secret"
-}
 ~~~
 
 ### API
@@ -341,10 +330,10 @@ Repeated labels and property values are separated by semicolon so
 this character is automactially stripped from labels and property
 values. Configuration of this character is not supported yet.
 
-Imported back into a Neo4J database and exported again (with output format
+[Imported into a Neo4J database](#neo4j) and exported again (with output format
 `neo4j`) is serialized as following in PG. Thus conversion of property graphs
 between PG and Neo4J or Neptune should be round-trip apart from identifiers,
-removal of semicolons, and support of additional data types.
+undirected edges, and support of additional data types:
 
 ~~~
 1 :person country:"United States" name:Alice name:Carol
@@ -450,6 +439,37 @@ The NCOL file format is used to visualize very large undirected graphs with
 [Large Graph Layout](https://github.com/TheOpteProject/LGL) software. The graph
 is eventually reduced to simple edges with optional weight, but extensions
 exist for coloring and node labels (not supported by this library).
+
+## Databases
+
+pgraphs can directly connect to some graph databases for import and/or export.
+
+### Neo4J
+
+Input format `neo4j` requires to install node package `neo4j-driver` (done
+automatically by calling `npm install` but not if this package is installed as
+dependency of another project) and expects a JSON file with Neo4J database
+Bolt-API URI and credentials. Use the following for a default installation on
+your local machine:
+
+~~~json
+{
+  "uri": "neo4j://localhost",
+  "user": "",
+  "password": ""
+}
+~~~
+
+To load a graph into Neo4J either export in [Cypher format](#cypher) and upload
+to Neo4J or export in [CSV format](#csv) to multiple files and bulk import the
+CSV files with `neo4j-admin database import`. Note Cypher command `LOAD CSV`
+will not work because it expects an additional `MERGE` clause and node/edges
+must have uniform labels.
+
+The [pgraphs git repository](https://github.com/pg-format/pgraphs/) contains
+shells scripts [in directory neo4j](https://github.com/pg-format/pgraphs/blob/main/neo4j/)
+to run a local Neo4J instance with Docker and to bulk import CSV files from
+local directly `./import`.
 
 ## License
 
