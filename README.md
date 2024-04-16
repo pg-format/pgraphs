@@ -433,6 +433,9 @@ With experimental option `--html` the full labels and properties of nodes and ed
 
 ![](mermaid.png)
 
+[mermaid-cli](https://www.npmjs.com/package/@mermaid-js/mermaid-cli) can be
+used to generate SVG files from Mermaid diagram files.
+
 ### NCOL
 
 The NCOL file format is used to visualize very large undirected graphs with
