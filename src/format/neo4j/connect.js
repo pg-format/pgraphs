@@ -39,9 +39,6 @@ export function serialize(graph, config) {
   // TODO: use reactive session or transaction instead=
   return new Promise((resolve, onError) => {
     session.run(query).subscribe({
-      onNext: record => {
-        console.log(record.get("name"))
-      },
       onError,
       onCompleted: async() => session.close().then(() => driver.close()).then(() => {
         console.log("OK")
