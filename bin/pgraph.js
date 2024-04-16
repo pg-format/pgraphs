@@ -13,10 +13,10 @@ const formats = Object.keys(pgformat)
       : "") + (serialize ? "to" : "") + " " + name
   }).join("\n")
 
-cli.usage("pgraph [options] [<input> [<output]]")
+cli.usage("pgraph [options] [<source> [<target>]]")
   .description("Convert between property graph formats and databases.")
-  .option("-f, --from [format]   input format")
-  .option("-t, --to [format]     output format")
+  .option("-f, --from [format]   source format")
+  .option("-t, --to [format]     target format")
   .option("-e, --errors          verbose error messages")
   .option("-i, --id [key]        copy node id to property")
   .option("-h, --html            generate HTML label (experimental)")
@@ -28,8 +28,8 @@ cli.usage("pgraph [options] [<input> [<output]]")
       throw new Error("Too many arguments!")
     }
     args = [args[0] ?? "-", args[1] ?? "-"]
-    const input = args[0] == "-" ? process.stdin : args[0]
-    const output = args[1] == "-" ? process.stdout : args[1]
+    const source = args[0] == "-" ? process.stdin : args[0]
+    const target = args[1] == "-" ? process.stdout : args[1]
 
     // Guess formats
     if (!opt.from && args[0].match(/\./)) {
@@ -39,7 +39,7 @@ cli.usage("pgraph [options] [<input> [<output]]")
       opt.to = args[1].split(".").pop()
     }
 
-    return pgraph(input, output, opt)
+    return pgraph(source, target, opt)
   })
   .parse(process.argv)
   .catch(e => {

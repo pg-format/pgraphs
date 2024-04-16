@@ -2,6 +2,7 @@ import pg from "./format/pg/index.js"
 import json from "./format/pg-json/index.js"
 import jsonl from "./format/pg-jsonl/index.js"
 import cypher from "./format/cypher/index.js"
+import neo4j from "./format/neo4j/index.js"
 import dot from "./format/dot/index.js"
 import tgf from "./format/tgf/index.js"
 import ncol from "./format/ncol/index.js"
@@ -16,7 +17,6 @@ import serializeYARSPG from "./serializer/yarspg.js"
 import serializeYARSPG3 from "./serializer/yarspg3.js"
 import serializeCSV from "./serializer/csv.js"
 import serializeNeptune from "./serializer/neptune.js"
-import neo4j from "./format/neo4j/index.js"
 
 // Import serializeFlat from "./serializer/flat.js"
 
@@ -25,12 +25,12 @@ export const pgformat = {
   json,
   jsonl,
   cypher,
+  neo4j,
   dot,
   tgf,
   canvas,
   graphology,
   ncol,
-  neo4j,
   xml: graphml,
   // graphmlz: { name: "Compressed GraphML" }
   yarspg: {

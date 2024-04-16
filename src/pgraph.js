@@ -3,19 +3,19 @@ import { pgformat } from "./formats.js"
 import { GraphTarget, StreamTarget } from "./target.js"
 import { addIdProperty, addHtmlSummary, scaleSpatial } from "./transform.js"
 
-pgformat.pg.name += " (default input)"
-pgformat.jsonl.name += " (default output)"
+pgformat.pg.name += " (default source format)"
+pgformat.jsonl.name += " (default target format)"
 
-// Read entire input to string
-const readStream = async input => {
+// Read entire source to string
+const readStream = async source => {
   const chunks = []
-  for await (const chunk of input) {
+  for await (const chunk of source) {
     chunks.push(chunk)
   }
   return chunks.join("")
 }
 
-// Convert input stream to output stream
+// Convert source stream to target
 export async function pgraph(source, target, opts) {
   // alias
   if (opts.from === "ndjson") {opts.from = "jsonl"}
@@ -34,26 +34,26 @@ export async function pgraph(source, target, opts) {
     source = fs.createReadStream(source)
   }
 
-  if (typeof target === "string") {
-    if (!to.serialize.multi) {
-      target = fs.createWriteStream(target)
+  const multi = to.serialize.multi
+  const database = to.serialize.database
+  if (!database) { // target is a (multi)stream
+    if (typeof target === "string") {
+      if (!multi) {
+        target = fs.createWriteStream(target)
+      }
+    } else if (multi) {
+      target = new StreamTarget(target)
     }
-  } else if (to.serialize.multi) {
-    target = new StreamTarget(target)
   }
 
-  const writeGraph = graph => {
-    if (typeof target === "string" || target instanceof GraphTarget) {
-      to.serialize(graph, target)
-    } else {
-      target.write(to.serialize(graph))
-    }
-  }
+  // read graph from source
 
   var graph = from.parse(await readStream(source))
   if (graph instanceof Promise) {
     graph = await graph
   }
+
+  // optionally modify graph
 
   if (opts.id !== undefined) {
     addIdProperty(graph, opts.id) 
@@ -67,5 +67,11 @@ export async function pgraph(source, target, opts) {
     scaleSpatial(graph, opts.scale)
   }
 
-  writeGraph(graph)
+  // send graph to target
+
+  if (typeof target === "string" || target instanceof GraphTarget) {
+    to.serialize(graph, target)
+  } else {
+    target.write(to.serialize(graph))
+  }
 }

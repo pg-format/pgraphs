@@ -2,6 +2,7 @@
 
 ## 0.6.0
 
+- Support directly writing into Neo4J 
 - PG format: require space between unquoted identifier and direction
 - PG format: support edge identifiers
 

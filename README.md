@@ -67,13 +67,13 @@ Browser bundles have not been created yet.
 Command `pgraph` is installed with this package:
 
 ~~~
-Usage: pgraph [options] [<input> [<output]]
+Usage: pgraph [options] [<source> [<target>]]
 
 Convert between property graph formats and databases.
 
 Options:
-  -f, --from [format]   input format
-  -t, --to [format]     output format
+  -f, --from [format]   source format
+  -t, --to [format]     target format
   -e, --errors          verbose error messages
   -i, --id [key]        copy node id to property
   -h, --html            generate HTML label (experimental)
@@ -82,16 +82,16 @@ Options:
   -V, --version         show the version number
 
 Supported conversion formats:
-  pg         from/to PG format (default input)
+  pg         from/to PG format (default source format)
   json       from/to PG-JSON
-  jsonl      from/to PG-JSONL (default output)
+  jsonl      from/to PG-JSONL (default target format)
   cypher     from/to Cypher CREATE statements
+  neo4j      from/to Neo4J database (via Cypher query)
   dot        from/to GraphViz DOT
   tgf        from/to Trivial Graph Format
   canvas     from/to JSON Canvas (experimental)
   graphology from/to Graphology import/export
   ncol       from/to NCOL file format
-  neo4j      from Neo4J database (via Cypher query)
   xml        to GraphML
   yarspg     to YARS-PG 5.0.0 without data types
   yarspg3    to YARS-PG 3.0.0 with optional labels
@@ -326,14 +326,14 @@ The example graph is serialized as following, in four files:
 102,person;student,Bob,Japan
 ~~~
 
-Repeated labels and property values are separated by semicolon so 
-this character is automactially stripped from labels and property
-values. Configuration of this character is not supported yet.
+Repeated labels and property values are separated by semicolon so this
+character is automactially stripped from labels and property values.
+Configuration of this character to some other value is not supported yet.
 
-[Imported into a Neo4J database](#neo4j) and exported again (with output format
-`neo4j`) is serialized as following in PG. Thus conversion of property graphs
-between PG and Neo4J or Neptune should be round-trip apart from identifiers,
-undirected edges, and support of additional data types:
+[Imported into a Neo4J database](#neo4j) and exported again is serialized as
+following in PG. Thus conversion of property graphs between PG and Neo4J or
+Neptune should be round-trip apart from identifiers, undirected edges,
+semicolon, and support of additional data types:
 
 ~~~
 1 :person country:"United States" name:Alice name:Carol
@@ -449,11 +449,11 @@ pgraphs can directly connect to some graph databases for import and/or export.
 
 ### Neo4J
 
-Input format `neo4j` requires to install node package `neo4j-driver` (done
-automatically by calling `npm install` but not if this package is installed as
+Format `neo4j` requires to install node package `neo4j-driver` (done
+automatically by calling `npm install` unless pgraphs package is installed as
 dependency of another project) and expects a JSON file with Neo4J database
-Bolt-API URI and credentials. Use the following for a default installation on
-your local machine:
+Bolt-API URI and credentials as source or target. Use the following for
+a default installation on your local machine:
 
 ~~~json
 {
@@ -463,11 +463,18 @@ your local machine:
 }
 ~~~
 
-To load a graph into Neo4J either export in [Cypher format](#cypher-create) and
-upload to Neo4J or export in [CSV format](#csv) to multiple files and bulk
-import the CSV files with `neo4j-admin database import`. Note that Cypher
-command `LOAD CSV` will not work because it expects an additional `MERGE`
-clause and node/edges must have uniform labels.
+Reading from a database uses a Cypher `MATCH` query. Writing into a database
+uses the list of Cypher `CREATE` queries as exported with [Cypher target
+format](#cypher-create), so the following should be equivalent:
+
+- `pgraphs graph.pg query.cypher` and manually execute query `query.cypher`
+- `pgraphs -t neo4j pgraph.pg neo4j.json`
+
+For larger graphs better export in [CSV format](#csv) to multiple files and
+bulk import the CSV files with `neo4j-admin database import`. Note that CSV
+format cannot express semicolon in repeated property values! Cypher command
+`LOAD CSV` will not work because it expects an additional `MERGE` clause and
+node/edges must have uniform labels.
 
 The [pgraphs git repository](https://github.com/pg-format/pgraphs/) contains
 shell scripts [in directory neo4j](https://github.com/pg-format/pgraphs/blob/main/neo4j/)

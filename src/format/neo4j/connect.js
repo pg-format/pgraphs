@@ -1,3 +1,5 @@
+import fs from "fs"
+import cypher from "../cypher/index.js"
 import { IDMap } from "../../utils.js"
 
 var neo4j
@@ -8,7 +10,7 @@ function connect(json) {
   if (!neo4j) {
     throw new Error("Missing npm package neo4j-driver-lite!")
   }
-  const config = JSON.parse(json)
+  var config = JSON.parse(json)
   const driver = neo4j.driver(
     config.uri,
     neo4j.auth.basic(config.user, config.password),
@@ -25,6 +27,31 @@ const propertiesMustHaveArrayValues = properties => {
 
   }
 }
+
+
+export function serialize(graph, config) {
+  const json = fs.readFileSync(config)
+  const driver = connect(json)
+  const session = driver.session({ defaultAccessMode: neo4j.session.WRITE })
+
+  const query = cypher.serialize(graph)
+
+  // TODO: use reactive session or transaction instead=
+  return new Promise((resolve, onError) => {
+    session.run(query).subscribe({
+      onNext: record => {
+        console.log(record.get("name"))
+      },
+      onError,
+      onCompleted: async() => session.close().then(() => driver.close()).then(() => {
+        console.log("OK")
+      }),
+    })
+  })
+
+}
+
+serialize.database = true
 
 export function parse(json) {
   const driver = connect(json)
