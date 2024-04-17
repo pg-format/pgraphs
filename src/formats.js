@@ -5,6 +5,7 @@ import cypher from "./format/cypher/index.js"
 import neo4j from "./format/neo4j/index.js"
 import dot from "./format/dot/index.js"
 import tgf from "./format/tgf/index.js"
+import csv from "./format/csv/index.js"
 import ncol from "./format/ncol/index.js"
 import graphml from "./format/graphml/index.js"
 import graphology from "./format/graphology/index.js"
@@ -15,7 +16,6 @@ import gxl from "./format/gxl/index.js"
 import mmd from "./format/mermaid/index.js"
 import serializeYARSPG from "./serializer/yarspg.js"
 import serializeYARSPG3 from "./serializer/yarspg3.js"
-import serializeCSV from "./serializer/csv.js"
 import serializeNeptune from "./serializer/neptune.js"
 
 // Import serializeFlat from "./serializer/flat.js"
@@ -41,10 +41,7 @@ export const pgformat = {
     name: "YARS-PG 3.0.0 with optional labels",
     serialize: serializeYARSPG3,
   },
-  csv: {
-    name: "OpenCypher/Neo4J CSV files",
-    serialize: serializeCSV,
-  },
+  csv,
   neptune: {
     name: "Neptune CSV import (aka Gremlin load data format)",
     serialize: serializeNeptune,

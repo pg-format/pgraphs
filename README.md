@@ -323,13 +323,15 @@ The example graph is serialized as following, in four files:
 
 :ID,:LABEL,name:string[],country:string
 
-101,person,Alice;Carol,United States
+101,person,Alice�Carol,United States
 102,person;student,Bob,Japan
 ~~~
 
-Repeated labels and property values are separated by semicolon so this
-character is automactially stripped from labels and property values.
-Configuration of this character to some other value is not supported yet.
+Repeated labels and property values are separated by a NULL-Byte (shown as �
+above) as array delimited to allow using arbitrary characters in these values
+and NULL-Bytes are removed from string values (see [this Neo4J feature
+request](https://github.com/neo4j/neo4j/issues/13445)).  Configuration of this
+character to some other value is not supported yet.
 
 [Imported into a Neo4J database](#neo4j) and exported again is serialized as
 following in PG. Thus conversion of property graphs between PG and Neo4J or
@@ -348,11 +350,12 @@ semicolon, and support of additional data types:
 
 ### Neptune CSV
 
-Amazon Neptune graph database also supports import of property graph data in
-a CSV format called [Gremlin load data
+Amazon Neptune graph database also supports import of property graph data in a
+CSV format called [Gremlin load data
 format](https://docs.aws.amazon.com/neptune/latest/userguide/bulk-load-tutorial-format-gremlin.html)
-(but only by Amazon, not by Apache TinkerPop community). This CSV format is very similar to
-the more common [CSV](#csv) format but it also allows to use semicolon in values, escaped as `\;`.
+(but only by Amazon, not by Apache TinkerPop community). This CSV format is
+very similar to the more common [CSV](#csv) format but it also allows to escape
+the semicolon used as array delimiter as `\;`.
 
 The example graph is serialized as following, in two files:
 
@@ -472,10 +475,13 @@ format](#cypher-create), so the following should be equivalent:
 - `pgraphs -t neo4j pgraph.pg neo4j.json`
 
 For larger graphs better export in [CSV format](#csv) to multiple files and
-bulk import the CSV files with `neo4j-admin database import`. Note that CSV
-format cannot express semicolon in repeated property values! Cypher command
-`LOAD CSV` will not work because it expects an additional `MERGE` clause and
-node/edges must have uniform labels.
+bulk import the CSV files with `neo4j-admin database import` and these options: 
+
+- `--delimiter=","`
+- `--array-delimiter="\0"` (NULL-Byte)
+
+Cypher command `LOAD CSV` will not work because it expects an additional
+`MERGE` clause and node/edges must have uniform labels.
 
 The [pgraphs git repository](https://github.com/pg-format/pgraphs/) contains
 shell scripts [in directory neo4j](https://github.com/pg-format/pgraphs/blob/main/neo4j/)

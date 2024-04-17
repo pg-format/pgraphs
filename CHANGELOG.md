@@ -1,5 +1,9 @@
 # Changelog
 
+## NEXT
+
+- Use NULL byte as array delimiter in CSV export
+
 ## 0.6.1
 
 - Disallow repeated edge identifiers

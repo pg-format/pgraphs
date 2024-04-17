@@ -18,7 +18,7 @@ require() {
 base="import/$1"
 delimiter=","
 ext=csv
-arrayDelimiter=";"
+arrayDelimiter="\0"
 
 require "$cwd/$base.nodes.header"
 require "$cwd/$base.nodes.$ext"

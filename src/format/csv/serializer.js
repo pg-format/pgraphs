@@ -2,8 +2,8 @@
 // https://neo4j.com/docs/operations-manual/current/tutorial/neo4j-admin-import/
 // https://docs.aws.amazon.com/neptune/latest/userguide/bulk-load-tutorial-format-opencypher.html
 
-import { CSVWriter } from "../utils.js"
-import { MultiTarget } from "../target.js"
+import { CSVWriter } from "../../utils.js"
+import { MultiTarget } from "../../target.js"
 
 const datatype = value => {
   if (typeof value === "number") {
@@ -51,8 +51,14 @@ function addProperties(map, properties, arrayDelimiter) {
     }
   }
 
-  // TODO: escape arrayDelimiter
+    
+  // TODO: remove or escape arrayDelimiter (https://github.com/neo4j/neo4j/issues/13445)
   return Object.keys(map).map(key => (props.get(key) || []).join(arrayDelimiter))
+}
+
+function serializeArray(list, delimiter) {
+  // TODO: escape arrayDelimiter (https://github.com/neo4j/neo4j/issues/13445)
+  return list.map(s => s.replaceAll(delimiter, "")).join(delimiter)
 }
 
 // TODO: escape or restrict property key?
@@ -61,7 +67,7 @@ const props2row = props => Object.entries(props)
 
 const serialize = ({ nodes, edges }, target, options = {}) => {
   // Configure CSV dialect
-  const arrayDelimiter = options?.arrayDelimiter || ";" // TODO: customize, e.g. "\t" or "\x1F"
+  const arrayDelimiter = options?.arrayDelimiter || "\0"
   const separator = options?.delimiter || ","
   const csv = new CSVWriter({ newline:"\n", separator })
   const ext = separator === "\t" ? "tsv" : "csv"
@@ -71,7 +77,7 @@ const serialize = ({ nodes, edges }, target, options = {}) => {
 
   const node2row = ({ id, labels, properties }) => {
     // TODO: escape id and labels
-    labels = labels.map(l => l.replaceAll(arrayDelimiter, "\\" + arrayDelimiter)).join(arrayDelimiter) 
+    labels = serializeArray(labels, arrayDelimiter)
     const row = [id, labels]
     row.push(...addProperties(nodeProps, properties, arrayDelimiter))
     return row
