@@ -89,6 +89,7 @@ const invalid = {
   "x \"\":1": "Property keys cannot be empty",
   "\"x\\xy\"": "Invalid string escape sequence",
   "-> x": "Expected identifier",
+  "1: a -> b\n1: a -> b": "Repeated edge identifier",
 }
 
 describe("parsing errors", () => {

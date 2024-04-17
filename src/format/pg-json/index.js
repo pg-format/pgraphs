@@ -1,3 +1,11 @@
+function parse(string) {
+  const graph = JSON.parse(string)
+  // TODO: validate!
+  // - Disallow repeated edge identifiers
+  // 
+  return graph
+}
+
 export default {
   name: "PG-JSON",
 
@@ -19,7 +27,6 @@ export default {
 
   url: "https://github.com/pg-format/specification",
 
-  // TODO: validate
-  parse: string => JSON.parse(string),
+  parse,
   serialize: graph => JSON.stringify(graph, null, 2),
 }

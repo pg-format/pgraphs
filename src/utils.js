@@ -69,3 +69,4 @@ export const isValue = x => typeof x === "number" || typeof x === "string" || ty
 
 export const definedFields = obj => Object.fromEntries(Object.entries(obj).filter(e => e[1] !== undefined))
 
+export const uniq = list => Array.from(new Set(list))

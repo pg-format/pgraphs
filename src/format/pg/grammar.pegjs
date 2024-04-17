@@ -1,10 +1,11 @@
 {{
-  import { graph, addProperties } from "../../utils.js"
+  import { graph, addProperties, uniq } from "../../utils.js"
 }}
 
 {
   const nodes = {}
   const edges = []
+  const edgeIds = new Set()
 }
 
 PG = ( Entity TrailingSpace? EntitySeparator / TrailingSpace LineBreak )* TrailingSpace
@@ -38,12 +39,11 @@ WS
 
 Node
   = id:Identifier labels:Label* props:Property* {
-      labels = Array.from(new Set(labels))
       if (id in nodes) {
-        nodes[id].labels = Array.from(new Set([...nodes[id].labels, ...labels]))
+        nodes[id].labels = uniq([...nodes[id].labels, ...labels])
         nodes[id].properties = addProperties(props, nodes[id].properties)
       } else {
-        nodes[id] = { id, labels, properties: addProperties(props) }
+        nodes[id] = { id, labels: uniq(labels), properties: addProperties(props) }
       }
   }
 
@@ -59,22 +59,19 @@ Edge
     to:Identifier
     labels:Label*
     props:Property* {
+    if (!id && !from) { expected("identifier") }
+    if (!from) { from = id; id=null }
 
-    labels = Array.from(new Set(labels))
-    const e = { from, to, labels, properties: addProperties(props) }
-    if (from) {
-      if (id) { e.id = id }
-    } else {
-      if (id) {
-        e.from = id
-      } else {
-        expected("identifier")
+    const edge = { from, to, labels: uniq(labels), properties: addProperties(props) }
+    if (direction === "--") { edge.undirected = true }
+    if (id) {
+      if (edgeIds.has(id)) {
+        error(`Repeated edge identifier "${id}"`)
       }
+      edge.id = id
+      edgeIds.add(id)
     }
-    if (direction === "--") {
-      e.undirected = true
-    }
-    edges.push(e)
+    edges.push(edge)
  }
 
 Direction
@@ -103,9 +100,7 @@ UnquotedIdentifier
   = $( PlainStart PlainChar* )
 
 UnquotedIdentifierFollowedByColonAndSpace
- = id:( $PlainStart $( ( !":" PlainChar )* ":" )+ ) WS {
-      return id.join("").slice(0,-1)
-    }
+ = @( PlainStart ( ( !":" PlainChar )* ":" )+ { return text().slice(0,-1) } ) WS
 
 Property "property"
   = WS name:Key value:ValueList { return [ name, value ] }

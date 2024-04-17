@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.6.1
+
+- Disallow repeated edge identifiers
+
 ## 0.6.0
 
 - Support directly writing into Neo4J 
