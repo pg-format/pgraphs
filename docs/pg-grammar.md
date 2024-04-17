@@ -93,8 +93,9 @@ a -> b :knows since:2020
 An **identifier** is either given as quoted string or unquoted. An unquoted
 identifier must not contain spaces, tabs, or any of the characters `"`, `|`,
 `<`, `>`, `\ `, and `^`. It further must not start with colon (`:`), minus
-(`-`), opening parenthesis (`(`), or hash (`#`). These restrictions do not
-apply for quoted identifiers but identifiers must never be the empty string:
+(`-`), opening bracket or parenthesis (`[` and `(`), or hash (`#`). These
+restrictions do not apply for quoted identifiers but identifiers must never be
+the empty string:
 
 ![](img/Identifier.svg)
 

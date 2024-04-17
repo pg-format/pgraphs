@@ -2,6 +2,7 @@
 
 ## NEXT
 
+- PG format: disallow unquoted identifier to start with opening bracket
 - Use NULL byte as array delimiter in CSV export
 
 ## 0.6.1

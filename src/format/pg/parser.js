@@ -203,7 +203,7 @@ function peg$parse(input, options) {
   var peg$r1 = /^[ \t]/;
   var peg$r2 = /^[^\r\n]/;
   var peg$r3 = /^[^ \t\n\r<>"{}|\^`\\]/;
-  var peg$r4 = /^[:(#\-]/;
+  var peg$r4 = /^[:([#\-]/;
   var peg$r5 = /^[^\0-\x1F"'\\]/;
   var peg$r6 = /^["'\/\\]/;
   var peg$r7 = /^[1-9]/;
@@ -226,7 +226,7 @@ function peg$parse(input, options) {
   var peg$e11 = peg$literalExpectation("--", false);
   var peg$e12 = peg$otherExpectation("label");
   var peg$e13 = peg$classExpectation([" ", "\t", "\n", "\r", "<", ">", "\"", "{", "}", "|", "^", "`", "\\"], true, false);
-  var peg$e14 = peg$classExpectation([":", "(", "#", "-"], false, false);
+  var peg$e14 = peg$classExpectation([":", "(", "[", "#", "-"], false, false);
   var peg$e15 = peg$otherExpectation("property");
   var peg$e16 = peg$literalExpectation(",", false);
   var peg$e17 = peg$otherExpectation("value");
