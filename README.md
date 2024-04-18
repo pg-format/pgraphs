@@ -485,6 +485,11 @@ format](#cypher-create), so the following should be equivalent:
 - `pgraphs graph.pg query.cypher` and manually execute query `query.cypher`
 - `pgraphs -t neo4j pgraph.pg neo4j.json`
 
+Reading from and writing to other graph database systems supporting Cypher and
+Bolt protocol ([Memgraph](https://memgraph.com/), [Kuzú](https://kuzudb.com/),
+[FalkorDB](https://www.falkordb.com/), [TuGraph](https://tugraph.tech/)...) may
+be possible but has not been tested so far.
+
 For larger graphs better export in [CSV format](#csv) to multiple files and
 bulk import the CSV files with `neo4j-admin database import` and these options: 
 
