@@ -135,8 +135,9 @@ written from with this package:
 | yes  | yes   | [PG-JSON](#pg-json-and-jsonl)           |
 | yes  | yes   | [PG-JSONL](#pg-json-and-jsonl)          |
 | yes  | yes   | [Cypher CREATE](#cypher-create)         |
-| yes  | yes   | [GraphViz DOT](#graphviz-dot)           |
+| yes  | yes   | [Neo4J or compatible](#Neo4J)           |
 | yes  | yes   | [Trivial Graph Format (TGF)](#tgf)      |
+| yes  | yes   | [GraphViz DOT](#graphviz-dot)           |
 | yes  | yes   | [JSON Canvas](#json-canvas)             |
 | yes  | yes   | [Graphology](#graphology)               |
 | yes  | yes   | [NCOL](#ncol)                           |
@@ -145,7 +146,6 @@ written from with this package:
 |      | yes   | OpenCypher/Neo4J [CSV](#csv)            |
 |      | yes   | Amazon [Neptune CSV](#neptune-csv)      |
 |      | yes   | [Mermaid](#mermaid)                     |
-| yes  | -     | Cypher MATCH query                      |
 
 The repository of pgraphs contains [a CSV
 file](https://github.com/pg-format/pgraphs/blob/main/docs/features.csv)
@@ -233,6 +233,12 @@ Parsed again from dot to PG format all edges are undirected, except for digraphs
 102 country:Japan name:Bob
 101 -- 102 since:2012
 101 -- 102 since:2015
+~~~
+
+Graphviz can be generate image files from any other graph source:
+
+~~~sh
+pgraph graph.pg -t dot | dot -Tsvg -o graph.svg
 ~~~
 
 ### GraphML
@@ -438,7 +444,12 @@ With experimental option `--html` the full labels and properties of nodes and ed
 ![](mermaid.png)
 
 [mermaid-cli](https://www.npmjs.com/package/@mermaid-js/mermaid-cli) can be
-used to generate SVG files from Mermaid diagram files.
+used to generate image files from Mermaid diagram files or from any other graph
+source:
+
+~~~sh
+pgraph graph.pg --html -t mmd | mmdc -i - -o graph.svg
+~~~
 
 ### NCOL
 
