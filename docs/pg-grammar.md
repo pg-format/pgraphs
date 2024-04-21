@@ -130,9 +130,24 @@ node a:b: c  # read as node "a:b": "c"
 
 ### Values
 
-An individual **value** can be given strictly following JSON grammar (RFC 7159)
-or as unquoted string. The latter is like an unquoted [identifier](#identifiers)
-but in addition it must not contain comma (`,`). In addition to JSON strings, quoted string can also use the escape sequence `\'` and can use single quotes (`'`) instead of double quotes (`"`):
+An individual **value** can be given as quoted string, as verbatim string or as
+unquoted value. 
+
+- A Quoted string follows JSON grammar (RFC 7149) but it can also include the
+  escape sequence `\'` and it can also be quoted by single quotes (`'`) in
+  addition to double quotes (`"`)
+
+- A verbatim string is quoted by a sequence of one or more backtick characters
+  (`` ` ``) and ends with a sequence of backtick characters of equal length.
+  The string value of the verbatim string is the characters in between.
+  If the string both begins and ends with a line break, both line breaks are
+  removed from the string value. If the string both begins and ends with a space,
+  character, both characters are removed from the string value.
+
+- An unquoted value is like an unquoted [identifier](#identifiers) but in
+  addition it must not contain comma (`,`). An unquoted value is read as number
+  or boolean, if it follows JSON grammar (RFC 7159) for numbers or boolean
+  values, respecively.
 
 ![](img/Value-1.svg)
 

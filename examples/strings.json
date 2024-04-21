@@ -1,0 +1,35 @@
+{
+  "nodes": [
+    {
+      "id": "\nA",
+      "labels": [],
+      "properties": {}
+    },
+    {
+      "id": " ",
+      "labels": [],
+      "properties": {}
+    },
+    {
+      "id": "X",
+      "labels": [],
+      "properties": {}
+    },
+    {
+      "id": "Y",
+      "labels": [],
+      "properties": {}
+    },
+    {
+      "id": "\\\"A",
+      "labels": [],
+      "properties": {}
+    },
+    {
+      "id": "``",
+      "labels": [],
+      "properties": {}
+    }
+  ],
+  "edges": []
+}

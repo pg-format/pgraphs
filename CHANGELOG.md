@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.6.3
+
+- Add verbatim strings to PG format
+
 ## 0.6.2
 
 - Warn when graph is reduced (at least in some cases)

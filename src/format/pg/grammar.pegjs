@@ -6,6 +6,7 @@
   const nodes = {}
   const edges = []
   const edgeIds = new Set()
+  var backticks
 }
 
 PG = ( Entity TrailingSpace? EntitySeparator / TrailingSpace LineBreak )* TrailingSpace
@@ -89,6 +90,7 @@ QuotedIdentifier
       if (id === "") { error("Identifier must not be empty") }
       return id
     }
+    / VerbatimString
 
 PlainChar
   = [^\x20\x09\x0A\x0D<>"{}|^`\\]
@@ -138,6 +140,20 @@ Scalar
 QuotedString
   = '"' chars:( Char / "'" )* '"' { return chars.join("") }
   / "'" chars:( Char / '"' )* "'" { return chars.join("") }
+
+VerbatimString
+  = ( "`"+ { backticks = text().length } ) 
+    ( [^`]+ "`"|0..{ return backticks-1 }| )+
+    ( [^`]* "`" / "`"|{ return backticks }| )
+    {
+        var str = text().slice(backticks,-backticks)
+        if (str.match(/^ .+ $/)) {
+          str = str.slice(1,-1)
+        } else {
+          str = str.replace(/^(\n|\r\n?)(.+)(\n|\r\n?)$/,"$2")
+        }
+        return str
+    } 
 
 Char
   = Unescaped
