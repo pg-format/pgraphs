@@ -25,7 +25,9 @@ function parse(string) {
     if (!nodeIds.has(edge.to)) {
       nodes.push({ id: edge.to, labels: [], properties: {} })
     }
-    edgeIds.add(edge.id)
+    if (edge.id) {
+      edgeIds.add(edge.id)
+    }
   }
 
   return { nodes, edges }

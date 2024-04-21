@@ -17,10 +17,11 @@ cli.usage("pgraph [options] [<source> [<target>]]")
   .description("Convert between property graph formats and databases.")
   .option("-f, --from [format]   source format")
   .option("-t, --to [format]     target format")
-  .option("-e, --errors          verbose error messages")
   .option("-i, --id [key]        copy node id to property")
   .option("-h, --html            generate HTML label (experimental)")
   .option("-s, --scale [factor]  scale spatial properties x,y,width,height,pos")
+  .option("-e, --errors          verbose error messages")
+  .option("-q, --quiet           don't warn when graph is reduced")
   .details(`Supported conversion formats:\n${formats}`)
   .action(async(args, opt) => {
     // Check arguments

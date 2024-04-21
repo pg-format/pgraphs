@@ -75,10 +75,11 @@ Convert between property graph formats and databases.
 Options:
   -f, --from [format]   source format
   -t, --to [format]     target format
-  -e, --errors          verbose error messages
   -i, --id [key]        copy node id to property
   -h, --html            generate HTML label (experimental)
   -s, --scale [factor]  scale spatial properties x,y,width,height,pos
+  -e, --errors          verbose error messages
+  -q, --quiet           don't warn when graph is reduced
   -h, --help            show usage information
   -V, --version         show the version number
 
@@ -155,11 +156,10 @@ listing these and more graph formats with their capabilities to store
 
 ### PG format
 
-
 PG format was first proposed by Hirokazu Chiba, Ryota Yamanaka, and Shota
 Matsumoto ([2019](https://arxiv.org/abs/1907.03936),
 [2022](https://arxiv.org/abs/2203.06393)). A revision is currently taking place
-to get to a final specification.
+to get to [a final specification](https://github.com/pg-format/specification/).
 
 The [following graph](examples/example.pg) in **PG format** with two nodes and
 two edges uses features such as multiple labels, and property values, numbers

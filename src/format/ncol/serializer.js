@@ -2,8 +2,10 @@ import { idPatternFilter, noLoopsFilter } from "../../filter.js"
 
 // TODO also emit color file
 
-export default ({ edges }) => {
+export default ({ edges }, warn) => {
+  // TODO: nodes without edges are ignored
   const graph = noLoopsFilter(idPatternFilter(/^[^\s]+$/, { edges }))
+  warn?.graphReduced({ edges }, graph)
 
   // If there is edge A--B, there cannot also be edge B--A nor another edge A--B
   const weights = {}

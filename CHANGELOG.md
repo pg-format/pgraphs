@@ -1,7 +1,9 @@
 # Changelog
 
-## NEXT
+## 0.6.2
 
+- Warn when graph is reduced (at least in some cases)
+- Fix bug in PG-JSON parser
 - PG format: disallow unquoted identifier to start with opening bracket
 - Use NULL byte as array delimiter in CSV export
 

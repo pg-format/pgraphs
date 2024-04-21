@@ -47,8 +47,10 @@ function serializeEdge({ from, to, labels, properties }) {
   return `CREATE (${escape(from)})-[:${escape(type)}${propertyMap(properties)}]->(${escape(to)})`
 }
 
-function serialize({ nodes, edges }) {
-  return [...nodes.map(serializeNode), ...edges.filter(e => !e.undirected).map(serializeEdge)].map(s => s+"\n").join("")
+function serialize({ nodes, edges }, warn) {
+  const directedEdges = edges.filter(e => !e.undirected)
+  warn?.graphReduced({ edges }, { edges: directedEdges }, { edges: "undirected" })
+  return [...nodes.map(serializeNode), ...directedEdges.map(serializeEdge)].map(s => s+"\n").join("")
 }
 
 export default {

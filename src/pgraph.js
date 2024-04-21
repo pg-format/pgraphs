@@ -2,6 +2,7 @@ import fs from "fs"
 import { pgformat } from "./formats.js"
 import { GraphTarget, StreamTarget } from "./target.js"
 import { addIdProperty, addHtmlSummary, scaleSpatial } from "./transform.js"
+import { warn } from "./filter.js"
 
 pgformat.pg.name += " (default source format)"
 pgformat.jsonl.name += " (default target format)"
@@ -67,11 +68,13 @@ export async function pgraph(source, target, opts) {
     scaleSpatial(graph, opts.scale)
   }
 
+  const warner = opts.quiet ? undefined : warn
+
   // send graph to target
 
   if (typeof target === "string" || target instanceof GraphTarget) {
-    to.serialize(graph, target)
+    to.serialize(graph, target, warner)
   } else {
-    target.write(to.serialize(graph))
+    target.write(to.serialize(graph, warner))
   }
 }

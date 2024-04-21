@@ -15,9 +15,10 @@ function serializeEdge({from, to, properties, undirected}) {
     : `${from} ${head} ${to}`
 }
 
-export default graph => {
-  // TODO: rewrite ids instead?
+export default (graph, warn) => {
   const { nodes, edges } = idPatternFilter(/^[\p{L}\p{N}_]+$/u,graph)
+  warn?.graphReduced(graph, { nodes, edges })
+
   const lines = [
     ...nodes.map(serializeNode),
     ...edges.map(serializeEdge)

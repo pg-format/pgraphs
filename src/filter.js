@@ -13,3 +13,20 @@ export function noLoopsFilter({nodes, edges}) {
     edges: (edges||[]).filter(e => e.from !== e.to)
   }
 }
+
+export const warn = {
+  graphReduced(before, after, subtype={}) {
+    const removed = []
+    for (let type of ["nodes", "edges"]) {
+      const diff = before?.[type]?.length - after?.[type]?.length
+      if (diff > 0) {
+        var name = subtype[type] ? subtype[type] + " " + type : type
+        if (diff === 1) {name = name.replace(/s$/,"")}
+        removed.push(`${diff} ${name}`)
+      }
+    }
+    if (removed.length > 0) {
+      console.error(`Removed ${removed.join(" and ")}!`)
+    }
+  }
+}
