@@ -2,3 +2,5 @@ node_modules
 npm-debug.log
 Dockerfile
 .dockerignore
+test
+neo4j

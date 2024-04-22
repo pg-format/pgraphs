@@ -114,13 +114,13 @@ Supported conversion formats:
 Command `pgraph` is executable when installed as Docker image this way:
 
 ~~~sh
-docker run -i ghcr.io/pg-format/pgraphs
+docker run -it --rm ghcr.io/pg-format/pgraphs
 ~~~
 
 The long command can be abbreviated for instance with an alias:
 
 ~~~sh
-alias pgraph='docker run -i ghcr.io/pg-format/pgraphs'
+alias pgraph='docker run -it --rm ghcr.io/pg-format/pgraphs'
 ~~~
 
 Note that the command cannot access file outside of the Docker

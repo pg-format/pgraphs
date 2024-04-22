@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.6.5
+
+- Fix Docker image
+
 ## 0.6.4
 
 - Release and document Docker images
