@@ -2,9 +2,7 @@ import fs from "fs"
 import cypher from "../cypher/index.js"
 import { IDMap } from "../../utils.js"
 
-var neo4j
-import("neo4j-driver-lite").then(n => { neo4j = n })
-  .catch(e => null) // eslint-disable-line
+const neo4j = await import("neo4j-driver-lite").catch(() => null)
 
 function connect(json) {
   if (!neo4j) {
@@ -29,7 +27,7 @@ const propertiesMustHaveArrayValues = properties => {
 }
 
 
-export function serialize(graph, config) {
+function serializeGraph(graph, config) {
   const json = fs.readFileSync(config)
   const driver = connect(json)
   const session = driver.session({ defaultAccessMode: neo4j.session.WRITE })
@@ -48,9 +46,9 @@ export function serialize(graph, config) {
 
 }
 
-serialize.database = true
+serializeGraph.database = true
 
-export function parse(json) {
+function parseGraph(json) {
   const driver = connect(json)
   const session = driver.session({ defaultAccessMode: neo4j.session.READ })
 
@@ -92,3 +90,5 @@ RETURN COLLECT(DISTINCT n) AS nodes, COLLECT(DISTINCT r) AS edges`
   })
 }
 
+export const parse = neo4j ? parseGraph : undefined
+export const serialize = neo4j ? serializeGraph : undefined
