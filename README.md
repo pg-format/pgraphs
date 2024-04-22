@@ -124,7 +124,7 @@ alias pgraph='docker run -it --rm ghcr.io/pg-format/pgraphs'
 ~~~
 
 Note that the command cannot access file outside of the Docker
-image by default, so usage is limted to reading/writing from/to
+image by default, so usage is limited to reading/writing from/to
 standard input/output:
 
 ~~~sh
@@ -436,7 +436,7 @@ Parsed back from TGF and serialized as PG format, this is equivalent to:
 
 The spatial hypertext [JSON Canvas format](https://jsoncanvas.org/) can store
 a spatial graph with nodes of text (in Markdown), links, or files. Each node
-requires a position and size at least. The corresponding properties (`with`,
+requires a position and size at least. The corresponding properties (`width`,
 `height`, `x`, `y`) are not included in the example graph but GraphViz can be
 used to generate them. As GraphViz uses dpi instead of pixel, the numbers
 should be scaled with pgraph option `--scale`. This command line pipeline
