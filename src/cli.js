@@ -7,11 +7,13 @@ class Options {
   }
 
   option(option) {
-    const [show, letter, name, value, info]
-        = option.match(/^(-(\w), --(\w[\w-]*)( [^ ]+)?)\s+(.+)$/).slice(1)
+    const [show, _, letter, name, value, info] // eslint-disable-line
+        = option.match(/^((-(\w), )?--(\w[\w-]*)( [^ ]+)?)\s+(.+)$/).slice(1)
     const spec = { letter, name, value, info }
     this.optionSpec[show] = spec
-    this.optionLookup[letter] = spec
+    if (letter) {
+      this.optionLookup[letter] = spec
+    }
     this.optionLookup[name] = spec
     return this
   }
