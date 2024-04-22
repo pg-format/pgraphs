@@ -47,19 +47,26 @@ various formats.
 
 ## Install
 
-Requires node >= 18.0.0 for use and >= 20.0.0 for development.
+Default installation requires node >= 18.0.0 (or node >= 20.0.0 for
+development).
 
-~~~
+~~~sh
 npm install -g pgraphs
 ~~~
 
 To [connect to Neo4J databases](#neo4j), also install:
 
-~~~
+~~~sh
 npm install -g neo4j-driver-lite
 ~~~
 
 Browser bundles have not been created yet.
+
+Alternatively install as Docker image (see [Docker usage](#docker) below):
+
+~~~sh
+docker pull ghcr.io/pg-format/pgraphs
+~~~
 
 ## Usage
 
@@ -100,6 +107,32 @@ Supported conversion formats:
   csv        to OpenCypher/Neo4J CSV files
   neptune    to Neptune CSV import (aka Gremlin load data format)
   mmd        to Meermaid Flowchart (experimental)
+~~~
+
+### Docker
+
+Command `pgraph` is executable when installed as Docker image this way:
+
+~~~sh
+docker run -i ghcr.io/pg-format/pgraphs
+~~~
+
+The long command can be abbreviated for instance with an alias:
+
+~~~sh
+alias pgraph='docker run -i ghcr.io/pg-format/pgraphs'
+~~~
+
+Note that the command cannot access file outside of the Docker
+image by default, so usage is limted to reading/writing from/to
+standard input/output:
+
+~~~sh
+# this won't work
+docker run -i ghcr.io/pg-format/pgraphs graph.pg graph.jsonl
+
+# this will
+<graph.pg docker run -i ghcr.io/pg-format/pgraphs > graph.jsonl
 ~~~
 
 ### API
