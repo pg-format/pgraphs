@@ -52,8 +52,7 @@ const valid = {
   "a -> b | a :foo; |a :bar": graph([{id:"a",labels:["foo;","bar"]},{id:"b"}],[{from:"a",to:"b"}]),
   "a b:0|c": graph([{id:"a",properties:{b:[0]}},"c"]),
   "x a:1|x a:2,3": graph([{id:"x",properties:{a:[1,2,3]}}]),
-  "a ->b": graph("a|b", [["a","b"]]),
-  "a-\na--b": graph("a-|a--b"),
+  "a--": graph("a--"),
   "\"\\\"\"": graph("\""),
   "\"\\'\"": graph("'"),
   "'\\\"'": graph("\""),
@@ -90,6 +89,7 @@ const invalid = {
   "\"x\\xy\"": "Invalid string escape sequence",
   "-> x": "Expected identifier",
   "1: a -> b\n1: a -> b": "Repeated edge identifier",
+  "a --b": "Missing whitespace after delimiter",
 }
 
 describe("parsing errors", () => {

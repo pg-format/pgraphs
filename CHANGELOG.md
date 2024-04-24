@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.6.6
+
+- Require whitespace around direction
+
 ## 0.6.5
 
 - Fix Docker image

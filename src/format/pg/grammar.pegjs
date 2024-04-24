@@ -76,7 +76,7 @@ Edge
  }
 
 Direction
-  = WS? @( "->" / "--" ) WS?
+  = WS @( "->" / "--" ) WS
 
 Label "label"
   = WS ":" Space? id:Identifier { return id }
