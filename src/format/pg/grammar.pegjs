@@ -18,7 +18,7 @@ End
   = !.
 
 EntitySeparator
-  = ( "|" Space* / LineBreak / End )
+  = ( "|" Space? / LineBreak / End )
 
 Entity
   = ( Edge / Node ) 

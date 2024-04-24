@@ -575,7 +575,7 @@ function peg$parse(input, options) {
   }
 
   function peg$parseEntitySeparator() {
-    var s0, s1, s2, s3;
+    var s0, s1, s2;
 
     s0 = peg$currPos;
     if (input.charCodeAt(peg$currPos) === 124) {
@@ -586,11 +586,9 @@ function peg$parse(input, options) {
       if (peg$silentFails === 0) { peg$fail(peg$e1); }
     }
     if (s1 !== peg$FAILED) {
-      s2 = [];
-      s3 = peg$parseSpace();
-      while (s3 !== peg$FAILED) {
-        s2.push(s3);
-        s3 = peg$parseSpace();
+      s2 = peg$parseSpace();
+      if (s2 === peg$FAILED) {
+        s2 = null;
       }
       s1 = [s1, s2];
       s0 = s1;
