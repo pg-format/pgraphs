@@ -1,0 +1,5 @@
+a            # line break
+b | a -> b   # statement separator
+c |          # optional statement separator before line break
+d|e          # condense
+f            # end of input also terminates statement
