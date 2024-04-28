@@ -88,6 +88,11 @@ export const pgformat = {
   tp: { name: "Tulip TP" },
   vna: { name: "Netdraw VNA" },
   yed: { name: "yED CSV" },
+  dgs: {
+    name: "DGS",
+    // see https://github.com/graphstream/gs-core/blob/dev/src/org/graphstream/stream/file/dgs/DGSParser.java
+    url: "https://graphstream-project.org/doc/Advanced-Concepts/The-DGS-File-Format/"
+  },
   cyjs,
 }
 

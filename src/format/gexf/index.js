@@ -1,4 +1,4 @@
-// import serialize from "./serializer.js"
+import serialize from "./serializer.js"
 
 export default {
   name: "Graph Exchange XML Format (GEXF)",
@@ -21,5 +21,6 @@ export default {
   //dynamic: true,
 
   url: "https://gexf.net/",
-  // serialize
+  parse: undefined,
+  serialize
 }

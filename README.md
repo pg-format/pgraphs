@@ -107,6 +107,7 @@ Supported conversion formats:
   csv        to OpenCypher/Neo4J CSV files
   neptune    to Neptune CSV import (aka Gremlin load data format)
   mmd        to Meermaid Flowchart (experimental)
+  gexf       to Graph Exchange XML Format (GEXF)
 ~~~
 
 ### Docker
@@ -176,6 +177,7 @@ written from with this package:
 | yes  | yes   | [Graphology](#graphology)               |
 | yes  | yes   | [NCOL](#ncol)                           |
 |      | yes   | [GraphML](#graphml)                     |
+|      | yes   | [GEXF](#gexf)                           |
 |      | yes   | [YARS-PG](#yars-pg)                     |
 |      | yes   | OpenCypher/Neo4J [CSV](#csv)            |
 |      | yes   | Amazon [Neptune CSV](#neptune-csv)      |
@@ -302,6 +304,12 @@ values are converted to strings:
   </graph>
 </graphml>
 ~~~
+
+### GEXF
+
+When exported to [GEXF 1.3](https://gexf.net/), labels but the first edge label
+and multi-edges of same label are ignored. Export of properties as GEXF
+attributes has not been implemented yet, so this export format is experimental.
 
 ### Cypher CREATE
 

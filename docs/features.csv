@@ -31,4 +31,5 @@ dl,UCINET DL,,,,,,,,,,,,,,,,,
 tp,Tulip TP,,,,,,,,,,,,,,,,,
 vna,Netdraw VNA,,,,,,,,,,,,,,,,,
 yed,yED CSV,,,,,,,,,,,,,,,,,
+dgs,DGS,,,,,,,,,,,,,,,,,https://graphstream-project.org/doc/Advanced-Concepts/The-DGS-File-Format/
 cyjs,Cytoscape.js JSON,directed,✓,-,✓,✓,✓,✓,,,*,*,label,label,✓,-,JSON,http://manual.cytoscape.org/en/stable/Supported_Network_File_Formats.html#cytoscape-js-json
