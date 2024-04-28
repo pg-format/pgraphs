@@ -65,6 +65,7 @@ export default {
 
   nodeTypes: false,
   edgeTypes: false,
+  edgeWeight: false,
 
   nodeName: "text",
   edgeName: "label",

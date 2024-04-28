@@ -56,6 +56,7 @@ for each format:
 |nodeAttributes|Nodes can have arbitrary attributes|
 |edgeAttributes|Edges can have arbitrary attributes|
 |visualAttributes|Nodes and edges can have special attributes for visual layout|
+|edgeWeight|Edges can have a numeric weight value|
 |nodeTypes|Type or category of a node. Known as 'label' in labeled property graphs|
 |edgeTypes|Type or category of an edge. Known as 'label' in labeled property graphs|
 |nodeName|Special field to name an individual node|
@@ -67,7 +68,7 @@ for each format:
 Note that generic attributes *can* be used to encode visual attributes, types,
 and names but if the format does not explicitly specify the latter (possibly as
 attributes of known name), the format does not natively support visual
-attributes, types, and/or names!
+attributes, types, and/or names! An example is the support of edge weight. Graphml exemplifies edge attributes by showing how to define a custom attribute named "weight" but the Graphml specification does not enforce this attribute nor its semantics, so GraphML *can* be used to encode edge weights but it does not support edge weights out-of-the-box.
 
 ## Additional graph formats
 

@@ -9,6 +9,7 @@ export default {
   edgeIdentifier: false,
   edgeName: true,
   edgeTypes: false,
+  edgeWeight: false, // but planned, see https://github.com/mermaid-js/mermaid/issues/1736
   graphAttributes: false,
   hierarchy: true,
   hyperEdges: false,

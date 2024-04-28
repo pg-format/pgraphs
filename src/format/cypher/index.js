@@ -68,6 +68,7 @@ export default {
 
   nodeName: false,
   edgeName: false,
+  edgeWeight: false,
 
   graphAttributes: false,
   nodeAttributes: true,
@@ -76,6 +77,7 @@ export default {
 
   hierarchy: false,
   hyperEdges: false,
+  multiEdges: true,
 
   datatypes: "Cypher data types",
 

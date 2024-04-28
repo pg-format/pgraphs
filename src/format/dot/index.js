@@ -5,22 +5,19 @@ export default {
   name: "GraphViz DOT",
 
   direction: "uniform",
-
-  nodeTypes: false,
-  edgeTypes: false,
-
-  nodeName: "label",
-  edgeName: "label",
-  edgeIdentifier: false,
-
-  graphAttributes: true,
-  nodeAttributes: true,
   edgeAttributes: true,
-  visualAttributes: true, // TODO: subset of all attributes
-
+  edgeIdentifier: false,
+  edgeName: "label",
+  edgeTypes: false,
+  edgeWeight: true, // integer (1,2,3...), default: 1
+  graphAttributes: true,
   hierarchy: true,
   hyperEdges: false,
   multiEdges: true,
+  nodeAttributes: true,
+  nodeName: "label",
+  nodeTypes: false,
+  visualAttributes: true, // TODO: subset of all attributes
 
   url: "https://graphviz.org/doc/info/lang.html",
   parse, serialize

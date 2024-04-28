@@ -10,6 +10,7 @@ export default {
   nodeName: false,
   edgeName: false,
   edgeIdentifier: true,
+  edgeWeight: false,     // but it's recommended to use edge attributes
 
   graphAttributes: true,
   nodeAttributes: true,
