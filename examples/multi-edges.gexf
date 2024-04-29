@@ -2,12 +2,12 @@
 <gexf xmlns="http://gexf.net/1.3" version="1.3">
   <graph defaultedgetype="directed">
     <nodes>
-      <node id="101"/>
-      <node id="102"/>
+      <node id="a"/>
+      <node id="b"/>
     </nodes>
     <edges>
-      <edge source="101" target="102" kind="same_school" type="undirected"/>
-      <edge source="101" target="102" kind="likes"/>
+      <edge source="a" target="b" kind="y" type="undirected"/>
+      <edge source="a" target="b" kind="x"/>
     </edges>
   </graph>
 </gexf>

@@ -6,8 +6,10 @@ import { StringTargets } from "../src/target.js"
 
 const { parse, serialize } = pgformat.pg
 
+const files = fs.readdirSync(localPath("../examples"))
+
 describe("serialize PG", () => {
-  fs.readdirSync(localPath("../examples")).forEach(file => {
+  files.forEach(file => {
     if (file.match(/\.json$/)) {
       it(file, () => {
         const graph = JSON.parse(readExample(file))
@@ -41,11 +43,9 @@ describe("serialize PG", () => {
   })
 })
 
-const files = fs.readdirSync(localPath("../examples"))
-
 const graphs = Object.fromEntries(
-  files.filter(f => f.match(/\.json$/)).map(file => [
-    file, JSON.parse(readExample(file)),
+  files.filter(f => f.match(/\.pg$/)).map(file => [
+    file.slice(0,-3), parse(readExample(file)),
   ]),
 )
 
@@ -53,7 +53,7 @@ describe("serialize lossy formats", () => {
   for (const file of files) {
     const [name, type] = file.split(".")
     const { parse, serialize } = pgformat[type] || {}
-    const graph = graphs[`${name}.json`]
+    const graph = graphs[name]
     if (graph && serialize && !/^(json|pg)$/.test(type)) {
       it(file, () => {
         const s = serialize(graph)
@@ -73,7 +73,7 @@ describe("serialize multifile formats", () => {
     const name = "example"
     if (pgformat[format]?.serialize) {
       it(`${name} in ${format}`, () => {
-        const graph = graphs[`${name}.json`]
+        const graph = graphs[name]
         const target = new StringTargets()
         pgformat[format].serialize(graph, target)
         fs.readdirSync(localPath(`../examples/${format}`)).forEach(file => {
@@ -83,4 +83,3 @@ describe("serialize multifile formats", () => {
     }
   }
 })
-

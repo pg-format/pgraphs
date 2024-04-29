@@ -37,7 +37,7 @@ export default class XMLWriter {
   }
 
   _attr(attr) {
-    if (!Object.keys(attr)) {return ""}
+    if (!Object.keys(attr).length) {return ""}
     return " " + Object.keys(attr).map(key => `${key}="${xmlEscape(attr[key])}"`).join(" ")
   }
 
