@@ -4,88 +4,28 @@
 
 import { CSVWriter } from "../../utils.js"
 import { MultiTarget } from "../../target.js"
-
-const datatype = value => {
-  if (typeof value === "number") {
-    return Number.isInteger(value) ? "int" : "float"
-  } else if (typeof value === "boolean") {
-    return "boolean"
-  } else {
-    return "string"
-  }
-}
-
-// TODO: Space, comma/delimiter, carriage return and newline characters are not allowed in the column headers, so property names cannot include these characters
+import { FieldSchema } from "../../schema.js"
 
 function addProperties(map, properties, arrayDelimiter) {
-  const props = new Map(Object.entries(properties))
-
-  for (let [key, values] of props.entries()) {
-    values = values.filter(v => v !== null)   // Ignore null values
-
-    if (values.length) {
-      const array = values.length > 1
-      let { type } = map[key] || {}
-
-      for (const value of values) {
-        let valuetype = datatype(value)
-
-        if (type == null) {
-          type = valuetype
-        } else if (type !== valuetype) {
-          if ((type == "int" || valuetype == "int")
-              && (type == "float" || valuetype == "float")) {
-            valuetype = "float"
-            type = "float"
-          } else {
-            console.log("WARNING: Neo4j CSV cannot serialize mixed property types, using string instead!")
-            valuetype = "string"
-            type = "string"
-          }
-        }
-      }
-
-      if (!(key in map) || map[key].type != type || (array && !map[key].array)) {
-        map[key] = { type, array }
-      }
-    }
-  }
-
-    
   // TODO: remove or escape arrayDelimiter (https://github.com/neo4j/neo4j/issues/13445)
-  return Object.keys(map).map(key => (props.get(key) || []).join(arrayDelimiter))
+  return Array.from(map).map(([key]) => (properties[key] || []).join(arrayDelimiter))
 }
 
-function serializeArray(list, delimiter) {
-  // TODO: escape arrayDelimiter (https://github.com/neo4j/neo4j/issues/13445)
-  return list.map(s => s.replaceAll(delimiter, "")).join(delimiter)
-}
-
-// TODO: escape or restrict property key?
-const props2row = props => Object.entries(props)
-  .map(([key, { type, array }]) => `${key}:${type}${array ? "[]" : ""}`)
+const props2row = props => Array.from(props)
+  .map(([key, { type, repeated }]) => `${key}:${type}${repeated ? "[]" : ""}`)
 
 const serialize = ({ nodes, edges }, target, options = {}) => {
+  // build schema
+  const nodeProps = new FieldSchema({ namePattern: /^[^\s,]+$/ })
+  const edgeProps = new FieldSchema({ namePattern: /^[^\s,]+$/ })
+  nodes.forEach(node => nodeProps.extend(node.properties))
+  edges.forEach(edge => edgeProps.extend(edge.properties))
+  
   // Configure CSV dialect
   const arrayDelimiter = options?.arrayDelimiter || "\0"
   const separator = options?.delimiter || ","
   const csv = new CSVWriter({ newline:"\n", separator })
   const ext = separator === "\t" ? "tsv" : "csv"
-
-  const nodeProps = new Map()
-  const edgeProps = new Map()
-
-  const node2row = ({ id, labels, properties }) => {
-    // TODO: escape id and labels
-    labels = serializeArray(labels, arrayDelimiter)
-    const row = [id, labels]
-    row.push(...addProperties(nodeProps, properties, arrayDelimiter))
-    return row
-  }
-
-  const edge2row = ({ from, to, labels, properties }) =>
-    // TODO: escape: from, to, labels?
-    [from, to, labels[0] ?? "", ...addProperties(edgeProps, properties, arrayDelimiter)]
 
   if (typeof target === "string") {
     target = new MultiTarget(target)
@@ -96,10 +36,21 @@ const serialize = ({ nodes, edges }, target, options = {}) => {
   const nodeHeader = target.open(".nodes.header")
   const edgeHeader = target.open(".edges.header")
 
-  nodes.forEach(node => nodeTarget.write(csv.writeRow(node2row(node))))
-  edges.forEach(edge => edgeTarget.write(csv.writeRow(edge2row(edge))))
   nodeHeader.write(csv.writeRow([":ID", ":LABEL", ...props2row(nodeProps)]))
+  for (let { id, labels, properties } of nodes) {
+    // TODO: warn 
+    labels = labels.map(s => s.replaceAll(arrayDelimiter, "")).join(arrayDelimiter)
+    const row = [id, labels]
+    row.push(...addProperties(nodeProps, properties, arrayDelimiter))
+    nodeTarget.write(csv.writeRow(row))
+  }
+
   edgeHeader.write(csv.writeRow([":START_ID", ":END_ID", ":TYPE", ...props2row(edgeProps)]))
+  for (let { from, to, labels, properties } of edges) {
+    const row = [from, to, labels[0] ?? ""]
+    row.push(...addProperties(edgeProps, properties, arrayDelimiter))
+    edgeTarget.write(csv.writeRow(row))
+  }
 }
 
 serialize.multi = true
