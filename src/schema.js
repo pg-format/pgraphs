@@ -10,7 +10,6 @@ const datatype = value => {
   }
 }
 
-
 export class FieldSchema extends Map {
   #options
 

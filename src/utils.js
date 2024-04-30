@@ -1,5 +1,6 @@
 import { Writer } from "@pinemach/csv"
 export const CSVWriter = Writer
+// FIXME: leading and trailing spaces require escaping!
 
 // Maps arbitrary identifier strings to enumerated identifiers
 export class IDMap extends Map {

@@ -11,6 +11,7 @@ function addProperties(map, properties, arrayDelimiter) {
   return Array.from(map).map(([key]) => (properties[key] || []).join(arrayDelimiter))
 }
 
+// TODO: if a colon appears within a property name, it must be escaped by preceding it with a backslash: \:.
 const props2row = props => Array.from(props)
   .map(([key, { type, repeated }]) => `${key}:${type}${repeated ? "[]" : ""}`)
 

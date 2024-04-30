@@ -1,4 +1,4 @@
-import serialize from "./serializer.js"
+import serialize from "./serialize.js"
 
 // https://neo4j.com/docs/operations-manual/current/tutorial/neo4j-admin-import/
 // https://docs.aws.amazon.com/neptune/latest/userguide/bulk-load-tutorial-format-opencypher.html
