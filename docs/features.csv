@@ -7,7 +7,7 @@ neo4j,Neo4J database (via Cypher query),directed,✓,-,✓,✓,-,-,-,,*,1,-,-,-,
 dot,GraphViz DOT,uniform,✓,✓,✓,✓,✓,-,✓,,-,-,label,label,✓,-,,https://graphviz.org/doc/info/lang.html
 tgf,Trivial Graph Format,directed,,-,-,-,-,-,,,-,-,✓,✓,-,-,-,
 canvas,JSON Canvas (experimental),directed,✓,-,-,-,✓,✓,-,,-,-,text,label,✓,-,-,https://jsoncanvas.org/
-graphology,Graphology import/export,mixed,✓,✓,✓,✓,-,✓,,,-,-,-,-,-,-,JSON,https://graphology.github.io/serialization.html
+graphology,Graphology import/export,mixed,✓,✓,✓,✓,-,✓,-,,-,-,-,-,-,-,JSON,https://graphology.github.io/serialization.html
 ncol,NCOL file format,undirected,-,-,-,-,-,,✓,-,-,-,-,-,-,-,-,https://github.com/TheOpteProject/LGL?tab=readme-ov-file#input-format-lgl
 xml,GraphML,mixed,,✓,✓,✓,-,✓,-,,-,-,-,-,✓,✓,bool|int|long|float|double|string,http://graphml.graphdrawing.org/
 yarspg,YARS-PG 5.0.0 without data types,,,,,,,,,,,,,,,,,
