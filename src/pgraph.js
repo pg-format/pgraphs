@@ -61,7 +61,7 @@ export async function pgraph(source, target, opts) {
   }
 
   if (opts.html) {
-    addHtmlSummary(graph)
+    addHtmlSummary(graph, to)
   }
 
   if (opts.scale > 0) {

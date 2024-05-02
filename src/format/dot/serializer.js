@@ -13,13 +13,27 @@ const serializeId = id => (idPattern.test(id)
   ? id
   : "\"" +  id.replaceAll(/[\t\b\f\n\r]/g, " ").replaceAll("\"", "\\\"") + "\"")
 
-const serializeKeyValue = (key, value) => value.map(value => serializeId(key) + "=" + serializeId(value)).join(" ")
+const htmlLabel = new RegExp("^<[a-z]+.*</[a-z]+>$","i")
+
+const serializeKeyValue = ([key, value]) => {
+  // see https://graphviz.org/doc/info/shapes.html#html
+  if (key.match(/^(head|tail)?label$/) && htmlLabel.test(value)) {
+    return `label=<${value}>`
+  } else {
+    return serializeId(key) + "=" + serializeId(value)
+  }
+}
 
 const serializeProperties = properties => {
   const keys = Object.keys(properties)
-  return keys.length
-    ? " [" + keys.sort().map(key => serializeKeyValue(key, properties[key])).join(" ") + "]"
-    : ""
+  if (!keys.length) { return "" }
+  const kv = []
+  for (let key of keys.sort()) {
+    for (let value of properties[key]) {
+      kv.push([key, value])
+    }
+  }
+  return " [" + kv.map(serializeKeyValue).join(" ") + "]"
 }
 
 const serializeNode = ({ id, properties }) => "  " + serializeId(id) + serializeProperties(properties) + ";"

@@ -12,32 +12,40 @@ export function addIdProperty(graph, idprop) {
   }
 }
 
-function addHtmlSummaryProperty(element) {
+import { xmlEscape } from "./xmlwriter.js"
+
+function htmlElement(tag, text) {
+  return `<${tag}>${xmlEscape(text)}</${tag}>`
+}
+
+function addHtmlSummaryProperty(element, prop) {
   var name = []
-  // TODO: HTML-Escape strings
-  if (element.id) { name.push(`<b>${element.id}</b>`) }
-  name.push(...(element.labels||[]).map(l => `<i>${l}</i>`))
+  if (element.id) {
+    name.push(htmlElement("b",element.id)) 
+  }
+  name.push(...(element.labels||[]).map(l => htmlElement("u",l)))
   for (let [key,values] of Object.entries(element.properties || {})) {
-    // TODO:escape values
-    name.push(`<tt>${key}:${values.join("|")}</tt>`)
+    name.push(htmlElement("i",`${key}:${values.join("|")}`))
   }
 
-  name = name.join("<br>")
-  if (name !== "") {
-    if ("name" in element.properties) {
-      element.properties.name.unshift(name)
+  if (name.length) {
+    name = name.join("<br/>")
+    if (prop in element.properties) {
+      element.properties[prop].unshift(name)
     } else {
-      element.properties.name = [name]
+      element.properties[prop] = [name]
     }
   }
 }
 
-export function addHtmlSummary(graph) {
+export function addHtmlSummary(graph, format) {
   for (let node of graph.nodes) {
-    addHtmlSummaryProperty(node)
+    const name = typeof format.nodeName === "string" ? format.nodeName : "label"
+    addHtmlSummaryProperty(node, name)
   }
   for (let edge of graph.edges) {
-    addHtmlSummaryProperty(edge)
+    const name = typeof format.edgeName === "string" ? format.edgeName : "label"
+    addHtmlSummaryProperty(edge, name)
   }
 }
 

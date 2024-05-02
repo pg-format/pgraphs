@@ -83,7 +83,7 @@ Options:
   -f, --from [format]   source format
   -t, --to [format]     target format
   -i, --id [key]        copy node id to property
-  -h, --html            generate HTML label (experimental)
+  --html                generate HTML label
   -s, --scale [factor]  scale spatial properties x,y,width,height,pos
   -e, --errors          verbose error messages
   -q, --quiet           don't warn when graph is reduced
@@ -275,6 +275,11 @@ Graphviz can be generate image files from any other graph source:
 ~~~sh
 pgraph graph.pg -t dot | dot -Tsvg -o graph.svg
 ~~~
+
+With option `--html` the full labels and properties of nodes and edges are
+converted to HTML labels, resulting in the following diagram:
+
+![](dot.png)
 
 ### GraphML
 
@@ -480,10 +485,6 @@ flowchart LR
     101 --> 102
 ~~~
 
-With experimental option `--html` the full labels and properties of nodes and edges are converted to HTML labels, resulting in the following diagram:
-
-![](mermaid.png)
-
 [mermaid-cli](https://www.npmjs.com/package/@mermaid-js/mermaid-cli) can be
 used to generate image files from Mermaid diagram files or from any other graph
 source:
@@ -491,6 +492,11 @@ source:
 ~~~sh
 pgraph graph.pg --html -t mmd | mmdc -i - -o graph.svg
 ~~~
+
+With option `--html` the full labels and properties of nodes and edges are
+converted to HTML labels, resulting in the following diagram:
+
+![](mermaid.png)
 
 ### NCOL
 

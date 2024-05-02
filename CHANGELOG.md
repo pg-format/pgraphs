@@ -3,6 +3,7 @@
 ## 0.6.6
 
 - Require whitespace around direction
+- Support HTML labels in DOT output
 
 ## 0.6.5
 

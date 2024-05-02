@@ -6,7 +6,7 @@ const xmlEntity = {
   "&": "&amp;",
 }
 
-const xmlEscape = s => `${s}`.replaceAll(/[&"<>']/g, c => xmlEntity[c])
+export const xmlEscape = s => `${s}`.replaceAll(/[&"<>']/g, c => xmlEntity[c])
 
 export default class XMLWriter {
   constructor(name, attr={}) {
