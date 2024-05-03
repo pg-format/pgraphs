@@ -17,15 +17,15 @@ This package implements parsers and serializers to convert between labeled prope
 - [Formats](#formats)
   - [PG format](#pg-format)
   - [PG JSON and JSONL](#pg-json-and-jsonl)
-  - [GraphViz DOT](#graphviz-dot)
   - [GraphML](#graphml)
   - [Cypher CREATE](#cypher-create)
   - [YARS-PG](#yars-pg)
   - [CSV](#csv)
   - [Neptune CSV](#neptune-csv)
   - [TGF](#tgf)
-  - [JSON Canvas](#json-canvas)
+  - [GraphViz DOT](#graphviz-dot)
   - [Mermaid](#mermaid)
+  - [JSON Canvas](#json-canvas)
   - [Graphology](#graphology)
   - [NCOL](#ncol)
 - [Databases](#databases)
@@ -250,27 +250,19 @@ and a [JSON Schema for PG-JSONL](https://github.com/pg-format/specification/raw/
 
 ### GraphViz DOT
 
-When exported [to GraphViz DOT](examples/example.dot) format, labels are ignored:
+When exported [to GraphViz DOT](examples/example.dot) format, labels are ignored and edges become either all undirected or stay all directed.
 
 ~~~dot
 graph {
   101 [country="United States" name=Alice];
   102 [country=Japan name=Bob];
   101 -- 102 [since=2012];
-  101 -> 102 [since=2015];
+  101 -- 102 [since=2015];
 }
 ~~~
 
-Parsed again from dot to PG format all edges are undirected, except for digraphs:
-
-~~~
-101 country:"United States" name:Alice
-102 country:Japan name:Bob
-101 -- 102 since:2012
-101 -- 102 since:2015
-~~~
-
-Graphviz can be generate image files from any other graph source:
+[Graphviz](https://graphviz.org/) can generate image files from DOT, so pgraph
+can be used to create diagrams from any other graph source:
 
 ~~~sh
 pgraph graph.pg -t dot | dot -Tsvg -o graph.svg
