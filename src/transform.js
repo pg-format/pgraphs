@@ -25,7 +25,7 @@ function addHtmlSummaryProperty(element, prop) {
   }
   name.push(...(element.labels||[]).map(l => htmlElement("u",l)))
   for (let [key,values] of Object.entries(element.properties || {})) {
-    name.push(htmlElement("i",`${key}:${values.join("|")}`))
+    name.push(htmlElement("i",`${key}: ${values.join("|")}`))
   }
 
   if (name.length) {
