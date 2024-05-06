@@ -1,4 +1,4 @@
-<svg class="railroad-diagram" width="259" height="94" viewBox="0 0 259 94" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<svg class="railroad-diagram" width="352.5" height="94" viewBox="0 0 352.5 94" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
 <g transform="translate(.5 .5)">
 <g class="Start">
 <path d="M20 45v20m0 -10h20"></path>
@@ -6,13 +6,13 @@
 <path d="M40 55h10"></path>
 <g class="Group rule">
 <path d="M50 55h0"></path>
-<path d="M209 55h0"></path>
-<rect x="50" y="36" width="159" height="38" rx="10" ry="10" class="group-box"></rect>
+<path d="M302.5 55h0"></path>
+<rect x="50" y="36" width="252.5" height="38" rx="10" ry="10" class="group-box"></rect>
 <g class="terminal class">
 <path d="M50 55h10"></path>
-<path d="M199 55h10"></path>
-<rect x="60" y="44" width="139" height="22" rx="10" ry="10"></rect>
-<text x="129.5" y="59">&#91;^\0-\x1F"'\\&#93;</text>
+<path d="M292.5 55h10"></path>
+<rect x="60" y="44" width="232.5" height="22" rx="10" ry="10"></rect>
+<text x="176.25" y="59">&#91;^\0-\b\v\f\x0E-\x1F"'\\&#93;</text>
 </g>
 <g class="comment">
 <path d="M50 28h0"></path>
@@ -20,8 +20,8 @@
 <text x="86.5" y="33" class="comment">Unescaped</text>
 </g>
 </g>
-<path d="M209 55h10"></path>
-<path class="End" d="M 219 55 h 20 m 0 -10 v 20"></path>
+<path d="M302.5 55h10"></path>
+<path class="End" d="M 312.5 55 h 20 m 0 -10 v 20"></path>
 </g>
 <style>  svg {
     background-color: hsl(30,20%,95%);

@@ -159,9 +159,9 @@ Char
   = Unescaped
   / Escaped
 
-// Disallow control characters, including newline and " ' \
+// Excludes quotes, backslash, and control codes but includes \t, \n, \r
 Unescaped
-  = [^\0-\x1F"'\\]
+  = [^\x00-\x08\x0B\x0C\x0E-\x1F"'\\] 
 
 Escaped
   = "\\"

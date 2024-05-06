@@ -30,6 +30,7 @@ const valid = {
   " ": graph(),
   "\u3007\r0": graph("0|\u3007"),                       // Plain /r is newline, numbers as unquoted identifiers
   "a,b": graph("a,b"),
+  "'\n\r\t'": graph("\n\r\t"),
   // FIXME:
   // "c: -> a:b": graph("a:b|c:", [["c:", "a:b"]]),        // Id can contain and end colon
   "a(:# -> 本-²": graph("a(:#|本-²", [["a(:#", "本-²"]]),     // Id can contain special characters

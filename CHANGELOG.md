@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.6.7
+
+- PG format: allow linebreaks in quoted strings
+- Add space in HTML view
+
 ## 0.6.6
 
 - Require whitespace around direction
