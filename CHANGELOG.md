@@ -1,14 +1,21 @@
 # Changelog
 
-## 0.6.7
+## 0.6.9
 
 - PG format: allow linebreaks in quoted strings
 - Add space in HTML view
 
+## 0.6.8
+
+- Add missing file
+
+## 0.6.7
+
+- Support HTML labels in DOT output
+
 ## 0.6.6
 
-- Require whitespace around direction
-- Support HTML labels in DOT output
+- PG format: require whitespace around direction
 
 ## 0.6.5
 
