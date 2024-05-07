@@ -521,8 +521,8 @@ Reading from a database uses a Cypher `MATCH` query. Writing into a database
 uses the list of Cypher `CREATE` queries as exported with [Cypher target
 format](#cypher-create), so the following should be equivalent:
 
-- `pgraphs graph.pg query.cypher` and manually execute query `query.cypher`
-- `pgraphs -t neo4j pgraph.pg neo4j.json`
+- `pgraph graph.pg query.cypher` and manually execute query `query.cypher`
+- `pgraph -t neo4j pgraph.pg neo4j.json`
 
 Reading from and writing to other graph database systems supporting Cypher and
 Bolt protocol ([Memgraph](https://memgraph.com/), [Kuzú](https://kuzudb.com/),
