@@ -62,7 +62,7 @@ npm install -g neo4j-driver-lite
 
 Browser bundles have not been created yet.
 
-Alternatively install as Docker image (see [Docker usage](#docker) below):
+Alternatively install or update a Docker image (see [Docker usage](#docker) below):
 
 ~~~sh
 docker pull ghcr.io/pg-format/pgraphs
@@ -115,13 +115,13 @@ Supported conversion formats:
 Command `pgraph` is executable when installed as Docker image this way:
 
 ~~~sh
-docker run -it --rm ghcr.io/pg-format/pgraphs
+docker run -i --rm ghcr.io/pg-format/pgraphs
 ~~~
 
 The long command can be abbreviated for instance with an alias:
 
 ~~~sh
-alias pgraph='docker run -it --rm ghcr.io/pg-format/pgraphs'
+alias pgraph='docker run -i --rm ghcr.io/pg-format/pgraphs'
 ~~~
 
 Note that the command cannot access file outside of the Docker
