@@ -47,9 +47,11 @@ export async function pgraph(source, target, opts) {
     }
   }
 
+  const warner = opts.quiet ? undefined : warn
+
   // read graph from source
 
-  var graph = from.parse(await readStream(source))
+  var graph = from.parse(await readStream(source), warner)
   if (graph instanceof Promise) {
     graph = await graph
   }
@@ -67,8 +69,6 @@ export async function pgraph(source, target, opts) {
   if (opts.scale > 0) {
     scaleSpatial(graph, opts.scale)
   }
-
-  const warner = opts.quiet ? undefined : warn
 
   // send graph to target
 

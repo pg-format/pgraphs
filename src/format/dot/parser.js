@@ -5,7 +5,7 @@ import { graph } from "../../utils.js"
  * Parse and convert DOT to PG.
  * Graph attributes and subgraphs are ignored.
  */
-export default string => {
+export default (string, warn) => {
   const nodes = {}; const edges = []
 
   const dot = dotparser(string)?.[0] || {}
@@ -14,6 +14,7 @@ export default string => {
 
   // DOT does not have note labels in the sense of PG
   const labels = []
+  const ignored = {}
 
   for (const { type, attr_list, node_id, edge_list } of children) {
     // Properties can be strings or numbers
@@ -33,8 +34,12 @@ export default string => {
         edge.undirected = true
       }
       edges.push(edge)
+    } else {
+      type in ignored ? ignored[type]++ : ignored[type] = 1
     }
   }
+
+  warn?.message(ignored)
 
   return graph(nodes, edges)
 }
