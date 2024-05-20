@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.6.10
+
+- Fix serialization of mixed graph in GraphML
+- Dot parser: warn when subgraph is ignored
+
 ## 0.6.9
 
 - PG format: allow linebreaks in quoted strings

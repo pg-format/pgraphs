@@ -22,10 +22,10 @@ function writeProperties (properties, xml) {
 }
 
 export default ({ nodes, edges }) => {
-  const edgedefault = edges.some(e => e.undirected) ? "undirected" : "directed"
+  const defaultDirected = !edges.some(e => e.undirected)
 
   const xml = new XMLWriter("graphml", { xmlns: "http://graphml.graphdrawing.org/xmlns" })
-  xml.start("graph", { edgedefault })
+  xml.start("graph", { edgedefault: defaultDirected ? "directed" : "undirected" })
 
   for (let { id, properties } of nodes) {
     if (empty(properties)) {
@@ -37,13 +37,14 @@ export default ({ nodes, edges }) => {
     }
   }
 
-  for (let { id, from, to, properties } of edges) {
+  for (let { id, from, to, properties, undirected } of edges) {
+    const directed = defaultDirected != !undirected ? { directed: !undirected }  : {}
     if (empty(properties)) {
-      const edge = { source: from, target: to }
+      const edge = { source: from, target: to, ...directed }
       if (id) { edge.id = id } 
       xml.element("edge", edge)
     } else {
-      xml.start("edge", { source: from, target: to })
+      xml.start("edge", { source: from, target: to, ...directed })
       writeProperties(properties, xml)
       xml.end()
     }

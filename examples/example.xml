@@ -13,7 +13,7 @@
     <edge source="101" target="102">
       <data key="since">2012</data>
     </edge>
-    <edge source="101" target="102">
+    <edge source="101" target="102" directed="true">
       <data key="engaged">false</data>
       <data key="since">2015</data>
     </edge>
