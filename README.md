@@ -41,7 +41,7 @@ between these nodes. Nodes and edges can each have **labels** and
 **properties**. Property graph [formats and databases](#formats) slightly
 differ in their data model by restrictions, support of data types etc.
 
-This package implements the **[Property Graph Exchange Format (PG)](#pg-format)**,
+This package implements the **[Property Graph Exchange Format (PG)](https://pg-format.github.io/)**,
 aimed to be a superset of common models, with parsers and serializers from and to
 various formats.
 
@@ -194,7 +194,9 @@ listing these and more graph formats with their capabilities to store
 PG format was first proposed by Hirokazu Chiba, Ryota Yamanaka, and Shota
 Matsumoto ([2019](https://arxiv.org/abs/1907.03936),
 [2022](https://arxiv.org/abs/2203.06393)). A revision is currently taking place
-to get to [a final specification](https://github.com/pg-format/specification/).
+to get to [a final specification](https://pg-format.github.io/specification/).
+See the [Property Graph Exchange Format Homepage](https://pg-format.github.io/)
+for details.
 
 The [following graph](examples/example.pg) in **PG format** with two nodes and
 two edges uses features such as multiple labels, and property values, numbers
