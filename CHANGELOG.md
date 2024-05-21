@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.6.11
+
+- PG format: disallow space between property key and colon
+
 ## 0.6.10
 
 - Fix serialization of mixed graph in GraphML

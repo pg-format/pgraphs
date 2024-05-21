@@ -108,8 +108,7 @@ Property "property"
   = WS name:Key value:ValueList { return [ name, value ] }
 
 Key
-  = ( @QuotedIdentifier Space? ":" )
-  / ( @UnquotedIdentifier Space ":" )
+  = ( @QuotedIdentifier ":" )
   / UnquotedIdentifierFollowedByColonAndSpace
   / @UnquotedIdentifierWithoutColon ":"
 

@@ -46,7 +46,7 @@ const valid = {
     "a|b",
     [{ from: "a", to: "b", labels: [], properties: { a: ["", 2, -200, "null", "xyz", "b:c"] } }],
   ),
-  "a b:c:d b:c :d": graph([{id:"a",properties:{b:["c:d"],"b:c":["d"]}}]),
+  "a b:c:d b:c: d": graph([{id:"a",properties:{b:["c:d"],"b:c":["d"]}}]),
   "a:0 a:0 a:0": graph([{ id:"a:0", properties:{ a:[0,0] } }]),
   "ab ->  b x:1 c:false": graph("ab|b",[{from:"ab",to:"b",properties:{x:[1],c:[false]}}]),
   "0 bc:d": graph([{id:"0",properties:{bc:["d"]}}]),
@@ -91,6 +91,7 @@ const invalid = {
   "-> x": "Expected identifier",
   "1: a -> b\n1: a -> b": "Repeated edge identifier",
   "a --b": "Missing whitespace after delimiter",
+  "a b:c:d b:c :d": "No label after properties",
 }
 
 describe("parsing errors", () => {
