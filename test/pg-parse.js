@@ -24,14 +24,8 @@ describe("parse", () => {
 })
 
 const validGraphs = {
-  "": graph(),
-  "#": graph(),
-  " #": graph(),
-  " ": graph(),
   "\u3007\r0": graph("0|\u3007"),                       // Plain /r is newline, numbers as unquoted identifiers
-  "a,b": graph("a,b"),
   "'\n\r\t'": graph("\n\r\t"),
-  // FIXME:
   "c: -> a:b": graph("a:b|c:", [["c:", "a:b"]]),        // Id can contain and end colon
   "a(:# -> 本-²": graph("a(:#|本-²", [["a(:#", "本-²"]]),     // Id can contain special characters
   "x\nxy\r\nxyz # comment\n\"X\"": graph("X|x|xy|xyz"), // Node ids
@@ -53,7 +47,6 @@ const validGraphs = {
   "a -> b | a :foo; |a :bar": graph([{id:"a",labels:["foo;","bar"]},{id:"b"}],[{from:"a",to:"b"}]),
   "a b:0|c": graph([{id:"a",properties:{b:[0]}},"c"]),
   "x a:1|x a:2,3": graph([{id:"x",properties:{a:[1,2,3]}}]),
-  "a--": graph("a--"),
   "\"\\\"\"": graph("\""),
   "\"\\'\"": graph("'"),
   "'\\\"'": graph("\""),
@@ -64,21 +57,27 @@ const validGraphs = {
   "\"a\": b -> c": graph("b|c",[{id:"a", from:"b",to:"c"}]),
 }
 
+// console.log(JSON.stringify(validGraphs,null,2))
+
 describe("parsing valid short examples", () => {
   for (const [pg, g] of Object.entries(validGraphs)) {
     it(JSON.stringify(pg), () => assert.deepEqual(parse(pg), g))
   }
 })
 
-const valid = JSON.parse(fs.readFileSync("test/valid.json"))
+// OFFICIAL TEST SUITE
+
+const valid = JSON.parse(fs.readFileSync("test/pg-format-valid.json"))
 describe("parse valid snippets", () => {
-  valid.forEach(({pg,about,TODO}) => {
-    if (!TODO) {it(about, () => assert.ok(parse(pg)))}
+  valid.forEach(({pg,about,graph}) => {
+    it(about, () => {
+      graph ? assert.deepEqual(parse(pg),graph)
+        : assert.ok(parse(pg))
+    })
   })
 })
 
-const invalid = JSON.parse(fs.readFileSync("test/invalid.json"))
-
+const invalid = JSON.parse(fs.readFileSync("test/pg-format-invalid.json"))
 describe("detect syntax errors", () => {
   for (let pg in invalid) {
     it(invalid[pg], () => assert.throws(() => parse(pg)))

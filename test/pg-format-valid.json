@@ -2,27 +2,51 @@
   {
     "pg": "",
     "formatted": "",
-    "about": "empty graph"
+    "about": "empty graph",
+    "graph": { "nodes": [], "edges": [] }
   },
   {
     "pg": " \t",
     "formatted": "",
-    "about": "empty graph"
+    "about": "empty graph",
+    "graph": { "nodes": [], "edges": [] }
   },
   {
     "pg": "# comment",
     "formatted": "# comment",
-    "about": "empty graph"
+    "about": "empty graph",
+    "graph": { "nodes": [], "edges": [] }
+  },
+  {
+    "pg": " #",
+    "about": "empty graph",
+    "graph": { "nodes": [], "edges": [] }
+  },
+  {
+    "pg": "a,b",
+    "about": "node id with comma",
+    "graph": {
+      "nodes": [
+        { "id": "a,b", "labels": [], "properties": {} }
+      ],
+      "edges": []
+    }
   },
   {
     "pg": "a--",
     "formatted": "a--",
-    "about": "node with minus"
+    "about": "node with minus",
+    "graph": {
+      "nodes": [
+        { "id": "a--", "labels": [], "properties": {} }
+      ],
+      "edges": []
+    }
   },
   {
     "pg": "a(:# -> 本-²",
     "formatted": "a(:# -> 本-²",
-    "about": "node with special characters"
+    "about": "node ids with special characters"
   },
   {
     "pg": "a: :b",
@@ -53,6 +77,10 @@
     "pg": "x\nxy\r\nxyz # comment\n\"X\"",
     "formatted": "x\nxy\nxyz # comment\n\"X\"",
     "about": "folded line"
+  },
+  {
+    "pg": "x\n#\n :y",
+    "about": "folded line with comment in between"
   },
   {
     "pg": "a -> b a:\"\",2\t, -2e2,null ,\n xyz # comment",

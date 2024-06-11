@@ -33,6 +33,7 @@
     "test": "mocha",
     "lint": "eslint --fix './**/*.js' && eslint './**/*.pegjs'",
     "update-example": "pgraph examples/example.pg -t csv examples/csv/example",
+    "update": "cd test && wget -N https://github.com/pg-format/specification/raw/main/tests/pg-format-valid.json && wget -N https://github.com/pg-format/specification/raw/main/tests/pg-format-invalid.json",
     "parser": "peggy --format es -o src/format/pg/parser.js ./src/format/pg/grammar.pegjs",
     "parser:cypher": "peggy --format es -o src/format/cypher/parser.js ./src/format/cypher/grammar.pegjs",
     "peggy": "peggy",
