@@ -1,0 +1,117 @@
+[
+  {
+    "pg": "",
+    "formatted": "",
+    "about": "empty graph"
+  },
+  {
+    "pg": " \t",
+    "formatted": "",
+    "about": "empty graph"
+  },
+  {
+    "pg": "# comment",
+    "formatted": "# comment",
+    "about": "empty graph"
+  },
+  {
+    "pg": "a--",
+    "formatted": "a--",
+    "about": "node with minus"
+  },
+  {
+    "pg": "a(:# -> 本-²",
+    "formatted": "a(:# -> 本-²",
+    "about": "node with special characters"
+  },
+  {
+    "TODO": true,
+    "pg": "a: :b",
+    "formatted": "a: :b",
+    "about": "node id with colon"
+  },
+  {
+    "pg": "a\r :b",
+    "formatted": "a :b",
+    "about": "plain \\r is valid line break"
+  },
+  {
+    "pg": "a : x",
+    "formatted": "a :x",
+    "about": "space between colon and label"
+  },
+  {
+    "pg": "a b:\"\"",
+    "formatted": "a b:\"\"",
+    "about": "empty string value"
+  },
+  {
+    "pg": "a b:c:d",
+    "formatted": "a b:c:d",
+    "about": "parsed as property key \"b\" with value \"c:d\""
+  },
+  {
+    "pg": "x\nxy\r\nxyz # comment\n\"X\"",
+    "formatted": "x\nxy\nxyz # comment\n\"X\"",
+    "about": "folded line"
+  },
+  {
+    "pg": "a -> b a:\"\",2\t, -2e2,null ,\n xyz # comment",
+    "formatted": "a -> b a:\"\",2,-200,null,xyz # comment",
+    "about": "value list"
+  },
+  {
+    "pg": "http://example.org/",
+    "formatted": "http://example.org/",
+    "about": "plain URI as node ID"
+  },
+  {
+    "pg": "\"\\u1234\"",
+    "formatted": "\"\\u1234\"",
+    "about": "Unicode escape sequence"
+  },
+  {
+    "pg": "\"\n \r \t\"",
+    "formatted": "\"\n \r \t\"",
+    "about": "multiline string"
+  },
+  {
+    "pg": "2 -> 3",
+    "formatted": "2 -> 3",
+    "about": "edge identifier"
+  },
+  {
+    "pg": "1: 2 -> 3",
+    "formatted": "1: 2 -> 3",
+    "about": "edge identifier"
+  },
+  {
+    "TODO": true,
+    "pg": "1: -> 2",
+    "formatted": "1: -> 2",
+    "about": "edge with first identifier ending in colon"
+  },
+  {
+    "TODO": true,
+    "pg": "a\\fb",
+    "formatted": "a\\fb",
+    "about": "form feed is no space"
+  },
+  {
+    "TODO": true,
+    "pg": "a\\vb",
+    "formatted": "a\\vb",
+    "about": "vertical tab is no space"
+  },
+  {
+    "TODO": true,
+    "pg": "a\\xA0b",
+    "formatted": "a\\xA0b",
+    "about": "non-break space is no space"
+  },
+  {
+    "pg": "a\uFEFFb",
+    "formatted": "a\uFEFFb",
+    "about": "zero-width space is no space"
+  }
+]

@@ -23,7 +23,7 @@ describe("parse", () => {
   })
 })
 
-const valid = {
+const validGraphs = {
   "": graph(),
   "#": graph(),
   " #": graph(),
@@ -65,15 +65,22 @@ const valid = {
 }
 
 describe("parsing valid short examples", () => {
-  for (const [pg, g] of Object.entries(valid)) {
+  for (const [pg, g] of Object.entries(validGraphs)) {
     it("is valid", () => assert.deepEqual(parse(pg), g))
   }
 })
 
-const invalid = {
-  "|": "",
-  "a ::": "",
-  "a\"": "",
+const valid = JSON.parse(fs.readFileSync("test/valid.json"))
+describe("parse valid snippets", () => {
+  valid.forEach(({pg,about,TODO}) => {
+    if (!TODO) {it(about, () => assert.ok(parse(pg)))}
+  })
+})
+
+const invalid1 = {
+  "|": "empty statement",
+  "a ::": "double colon",
+  "a\"": "quote in node id",
   "\"": "line 1 must start with node or edge",
   "\"\\": "line 1 must start with node or edge", // Malformed escaped string
   "\"\\\\\"\"": "invalid node identifier at line 1 character 5 is \"",
@@ -94,11 +101,16 @@ const invalid = {
   "a b:c:d b:c :d": "No label after properties",
 }
 
-describe("parsing errors", () => {
-  for (const [input] of Object.entries(invalid)) {
-    it(input, () => {
-      assert.throws(() => parse(input)) // TODO: check error message
-    })
+describe("detect syntax errors", () => {
+  for (let pg in invalid1) {
+    it(invalid1[pg], () => assert.throws(() => parse(pg)))
+  }
+})
+
+const invalid = JSON.parse(fs.readFileSync("test/invalid.json"))
+describe("detect syntax errors", () => {
+  for (let pg in invalid) {
+    it(invalid[pg], () => assert.throws(() => parse(pg)))
   }
 })
 
