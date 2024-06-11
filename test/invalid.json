@@ -35,6 +35,7 @@
   "a : b -> d":     "invalid space after edge identfier",
   "`x`":            "backquoted string is not part of the specification",
   "\"\\x0B\\\"":    "control code in quoted string",
+  "a\fb":           "control code in unquoted string",
   "a b : true":     "space before/after colon of property",
   "a b:c :d":       "space before/after colon of property",
   "a --b":          "Missing whitespace after direction",

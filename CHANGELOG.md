@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.6.12
+
+- PG format: more align with current specification
+
 ## 0.6.11
 
 - PG format: disallow space between property key and colon

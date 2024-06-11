@@ -25,7 +25,6 @@
     "about": "node with special characters"
   },
   {
-    "TODO": true,
     "pg": "a: :b",
     "formatted": "a: :b",
     "about": "node id with colon"
@@ -86,20 +85,9 @@
     "about": "edge identifier"
   },
   {
-    "TODO": true,
     "pg": "1: -> 2",
     "formatted": "1: -> 2",
     "about": "edge with first identifier ending in colon"
-  },
-  {
-    "pg": "a\f:b",
-    "formatted": "a\f:b",
-    "about": "form feed is no space"
-  },
-  {
-    "pg": "a\u000Bb",
-    "formatted": "a\u000Bb",
-    "about": "vertical tab is no space"
   },
   {
     "pg": "a\u00A0b",

@@ -48,23 +48,33 @@ Node
   }
 
 EdgeIdentifier
- = ( @QuotedIdentifier ":" WS )
-  / ( @UnquotedIdentifier ":" WS )
-  / UnquotedIdentifierFollowedByColonAndSpace
+ = ( id:QuotedIdentifier ":" WS { return { id, from: id } } )
+  / ( id:UnquotedIdentifier ":" WS { return { id, from: id + ":" } } )
+  / ( id:UnquotedIdentifierFollowedByColonAndSpace { return { id, from: id + ":" } } )
 
 Edge
   = id:( EdgeIdentifier? )
-    from:( Identifier? ) 
+    from:( ( @Identifier WS )? ) 
     direction:Direction 
+    WS
     to:Identifier
     labels:Label*
     props:Property* {
-    if (!id && !from) { expected("identifier") }
-    if (!from) { from = id; id=null } // TODO: may end with colon
+
+    // first id may be either edge identifier or first node identifier
+    if (!from) {
+      if (id) {
+        from = id.from
+        id = null 
+      } else {
+        expected("identifier")
+      }
+    }
 
     const edge = { from, to, labels: uniq(labels), properties: addProperties(props) }
     if (direction === "--") { edge.undirected = true }
     if (id) {
+      id = id.id
       if (edgeIds.has(id)) {
         error(`Repeated edge identifier "${id}"`)
       }
@@ -75,7 +85,7 @@ Edge
  }
 
 Direction
-  = WS @( "->" / "--" ) WS
+  = ( "->" / "--" )
 
 Label "label"
   = WS ":" Space? id:Identifier { return id }
@@ -91,7 +101,7 @@ QuotedIdentifier
     }
 
 PlainChar
-  = [^\x20\x09\x0A\x0D<>"{}|^`\\]
+  = [^\x00-\x20<>"{}|^`\\]
 
 PlainStart
   = ![#:,-] PlainChar

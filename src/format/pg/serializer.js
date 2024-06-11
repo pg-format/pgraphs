@@ -1,6 +1,7 @@
 import { isValue } from "../../utils.js"
 
-const plainId = /^[^\s<>"{}|^`\\#:([-][^\s<>"{}|^`\\]*$/
+// eslint-disable-next-line no-control-regex
+const plainId = /^[^\u0000-\u0020<>"{}|^`\\#:([-][^\u0000-\u0020<>"{}|^`\\]*$/
 
 export const quoteId = s => plainId.test(s) && !/--/.test(s) ? s : JSON.stringify(s)
 

@@ -32,7 +32,7 @@ const validGraphs = {
   "a,b": graph("a,b"),
   "'\n\r\t'": graph("\n\r\t"),
   // FIXME:
-  // "c: -> a:b": graph("a:b|c:", [["c:", "a:b"]]),        // Id can contain and end colon
+  "c: -> a:b": graph("a:b|c:", [["c:", "a:b"]]),        // Id can contain and end colon
   "a(:# -> 本-²": graph("a(:#|本-²", [["a(:#", "本-²"]]),     // Id can contain special characters
   "x\nxy\r\nxyz # comment\n\"X\"": graph("X|x|xy|xyz"), // Node ids
   // labels and line folding
@@ -66,7 +66,7 @@ const validGraphs = {
 
 describe("parsing valid short examples", () => {
   for (const [pg, g] of Object.entries(validGraphs)) {
-    it("is valid", () => assert.deepEqual(parse(pg), g))
+    it(JSON.stringify(pg), () => assert.deepEqual(parse(pg), g))
   }
 })
 
@@ -86,27 +86,12 @@ describe("detect syntax errors", () => {
 })
 
 // additional errors
-const invalid1 = {
+
+const invalidGraph = {
   "1: a -> b\n1: a -> b": "Repeated edge identifier",
 }
 describe("detect syntax errors", () => {
-  for (let pg in invalid1) {
-    it(invalid1[pg], () => assert.throws(() => parse(pg)))
-  }
-})
-
-describe("special whitespace characters", () => {
-  const whitespace = {
-    "vertical tab": "\v",
-    "form feed": "\f",
-    "non-break space": "\xA0",
-    "zero-width space": "\uFEFF",
-  }
-  for (const [name, space] of Object.entries(whitespace)) {
-    it(name, () => {
-      const id = `x${space}:y`
-      const g = { nodes: [{ id, labels: [], properties: {} }], edges: [] }
-      assert.deepEqual(parse(id), g)
-    })
+  for (let pg in invalidGraph) {
+    it(invalidGraph[pg], () => assert.throws(() => parse(pg)))
   }
 })
