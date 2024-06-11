@@ -92,21 +92,18 @@
     "about": "edge with first identifier ending in colon"
   },
   {
-    "TODO": true,
-    "pg": "a\\fb",
-    "formatted": "a\\fb",
+    "pg": "a\f:b",
+    "formatted": "a\f:b",
     "about": "form feed is no space"
   },
   {
-    "TODO": true,
-    "pg": "a\\vb",
-    "formatted": "a\\vb",
+    "pg": "a\u000Bb",
+    "formatted": "a\u000Bb",
     "about": "vertical tab is no space"
   },
   {
-    "TODO": true,
-    "pg": "a\\xA0b",
-    "formatted": "a\\xA0b",
+    "pg": "a\u00A0b",
+    "formatted": "a\u00A0b",
     "about": "non-break space is no space"
   },
   {

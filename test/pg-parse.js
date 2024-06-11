@@ -77,40 +77,21 @@ describe("parse valid snippets", () => {
   })
 })
 
-const invalid1 = {
-  "|": "empty statement",
-  "a ::": "double colon",
-  "a\"": "quote in node id",
-  "\"": "line 1 must start with node or edge",
-  "\"\\": "line 1 must start with node or edge", // Malformed escaped string
-  "\"\\\\\"\"": "invalid node identifier at line 1 character 5 is \"",
-  ":a": "node identifier must not start with colon at line 1",
-  " a": "line 1 must not start with whitespace",
-  "x :": "invalid label or property key at line 1, character 3 is :",
-  "x -": "invalid label or property key at line 1, character 3 is -",
-  "x k:": "missing property value at line 1, character 5",
-  "x k:\"xy": "invalid property value at line 1, character 5: \"\\\"xy\"",
-  "(a": "line 1 must start with node or edge",
-  "\"\"": "Identifiers cannot be empty",
-  "x :\"\"": "Identifiers cannot be empty",
-  "x \"\":1": "Property keys cannot be empty",
-  "\"x\\xy\"": "Invalid string escape sequence",
-  "-> x": "Expected identifier",
-  "1: a -> b\n1: a -> b": "Repeated edge identifier",
-  "a --b": "Missing whitespace after delimiter",
-  "a b:c:d b:c :d": "No label after properties",
-}
-
-describe("detect syntax errors", () => {
-  for (let pg in invalid1) {
-    it(invalid1[pg], () => assert.throws(() => parse(pg)))
-  }
-})
-
 const invalid = JSON.parse(fs.readFileSync("test/invalid.json"))
+
 describe("detect syntax errors", () => {
   for (let pg in invalid) {
     it(invalid[pg], () => assert.throws(() => parse(pg)))
+  }
+})
+
+// additional errors
+const invalid1 = {
+  "1: a -> b\n1: a -> b": "Repeated edge identifier",
+}
+describe("detect syntax errors", () => {
+  for (let pg in invalid1) {
+    it(invalid1[pg], () => assert.throws(() => parse(pg)))
   }
 })
 
