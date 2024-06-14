@@ -11,14 +11,14 @@ function addProperties(map, properties) {
 }
 
 const typeNames = {
-  float: "Double",
-  int: "Int",
-  boolean: "Bool",
-  string: "String"
+  FLOAT: "Double",
+  INT: "Int",
+  BOOLEAN: "Bool",
+  STRING: "String"
 }
 
 const props2row = props => Array.from(props)
-  .map(([key, { type, repeated }]) => `${key}:${typeNames[type]}${repeated ? "[]" : ""}`)
+  .map(([key, { type, repeatable }]) => `${key}:${typeNames[type]}${repeatable ? "[]" : ""}`)
 
 const serialize = ({ nodes, edges }, target) => {
   // build schema

@@ -13,7 +13,7 @@ function addProperties(map, properties, arrayDelimiter) {
 
 // TODO: if a colon appears within a property name, it must be escaped by preceding it with a backslash: \:.
 const props2row = props => Array.from(props)
-  .map(([key, { type, repeated }]) => `${key}:${type}${repeated ? "[]" : ""}`)
+  .map(([key, { type, repeatable }]) => `${key}:${type.toLowerCase()}${repeatable ? "[]" : ""}`)
 
 const serialize = ({ nodes, edges }, target, options = {}) => {
   // build schema
