@@ -1,28 +1,12 @@
 import { assert } from "chai"
-import fs from "fs"
-import { localPath, readFile, graph } from "./utils.js"
+import { graph } from "./utils.js"
 
 import pgFormat from "../src/format/pg/index.js"
 const { parse } = pgFormat
 
-describe("parse", () => {
-  fs.readdirSync(localPath("../examples")).forEach(file => {
-    if (file.match(/\.pg$/)) {
-      it(file, () => {
-        const pgstring = readFile(`../examples/${file}`)
-        const g = parse(pgstring)
-        const jsonFile = localPath(`../examples/${file.replace(/\.pg$/, ".json")}`)
-        if (fs.existsSync(jsonFile)) {
-          const json = JSON.parse(readFile(jsonFile))
-          assert.deepEqual(g, json)
-        } else {
-          // Console.log(JSON.stringify(g))
-        }
-      })
-    }
-  })
-})
+// TODO: test examples/statement-separator.pg
 
+// FIXME: move to pg-test-suite
 const validGraphs = {
   "\u3007\r0": graph("0|\u3007"),                       // Plain /r is newline, numbers as unquoted identifiers
   "'\n\r\t'": graph("\n\r\t"),
@@ -65,26 +49,7 @@ describe("parsing valid short examples", () => {
   }
 })
 
-// OFFICIAL TEST SUITE
-
-const valid = JSON.parse(fs.readFileSync("test/pg-format-valid.json"))
-describe("parse valid snippets", () => {
-  valid.forEach(({pg,about,graph}) => {
-    it(about, () => {
-      graph ? assert.deepEqual(parse(pg),graph)
-        : assert.ok(parse(pg))
-    })
-  })
-})
-
-const invalid = JSON.parse(fs.readFileSync("test/pg-format-invalid.json"))
-describe("detect syntax errors", () => {
-  for (let pg in invalid) {
-    it(invalid[pg], () => assert.throws(() => parse(pg)))
-  }
-})
-
-// additional errors
+// FIXME: not included in test suite yet:
 
 const invalidGraph = {
   "1: a -> b\n1: a -> b": "Repeated edge identifier",
