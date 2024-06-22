@@ -10,8 +10,7 @@ canvas,JSON Canvas (experimental),directed,✓,-,-,-,✓,✓,-,,-,-,text,label,�
 graphology,Graphology import/export,mixed,✓,✓,✓,✓,-,✓,-,,-,-,-,-,-,-,JSON,https://graphology.github.io/serialization.html
 ncol,NCOL file format,undirected,-,-,-,-,-,,✓,-,-,-,-,-,-,-,-,https://github.com/TheOpteProject/LGL?tab=readme-ov-file#input-format-lgl
 xml,GraphML,mixed,,✓,✓,✓,-,✓,-,,-,-,-,-,✓,✓,bool|int|long|float|double|string,http://graphml.graphdrawing.org/
-yarspg,YARS-PG 5.0.0 without data types,,,,,,,,,,,,,,,,,
-yarspg3,YARS-PG 3.0.0 with optional labels,,,,,,,,,,,,,,,,,
+yarspg,YARS-PG,mixed,,✓,✓,✓,-,✓,-,,-,-,-,-,-,-,,https://github.com/lszeremeta/yarspg?tab=readme-ov-file#yars-pg-grammar
 csv,OpenCypher/Neo4J CSV files,directed,✓,-,✓,✓,-,✓,,✓,*,1,-,-,-,-,✓,
 neptune,Neptune CSV import (aka Gremlin load data format),,,,,,,,,,,,,,,,,https://docs.aws.amazon.com/neptune/latest/userguide/load-data.html
 gxl,Graph eXchange Language (GXL),mixed,,✓,✓,✓,,✓,,,0/1,0/1,,,,✓,✓,https://userpages.uni-koblenz.de/~ist/GXL/index.php
