@@ -102,8 +102,7 @@ Supported conversion formats:
   graphology from/to Graphology import/export
   ncol       from/to NCOL file format
   xml        to GraphML
-  yarspg     to YARS-PG 5.0.0 without data types
-  yarspg3    to YARS-PG 3.0.0 with optional labels
+  yarspg     to YARS-PG
   csv        to OpenCypher/Neo4J CSV files
   neptune    to Neptune CSV import (aka Gremlin load data format)
   mmd        to Meermaid Flowchart (experimental)

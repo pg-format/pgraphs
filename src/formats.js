@@ -15,8 +15,7 @@ import cyjs from "./format/cyjs/index.js"
 import gxl from "./format/gxl/index.js"
 import mmd from "./format/mermaid/index.js"
 import neptune from "./format/neptune/index.js"
-import serializeYARSPG from "./serializer/yarspg.js"
-import serializeYARSPG3 from "./serializer/yarspg3.js"
+import yarspg from "./format/yarspg/index.js"
 
 // Import serializeFlat from "./serializer/flat.js"
 
@@ -33,14 +32,7 @@ export const pgformat = {
   ncol,
   xml: graphml,
   // graphmlz: { name: "Compressed GraphML" }
-  yarspg: {
-    name: "YARS-PG 5.0.0 without data types",
-    serialize: serializeYARSPG,
-  },
-  yarspg3: {
-    name: "YARS-PG 3.0.0 with optional labels",
-    serialize: serializeYARSPG3,
-  },
+  yarspg,
   csv,
   neptune,
   gxl,

@@ -1,4 +1,0 @@
-(node1{"person"}["country":"United States","name":["Alice","Carol"]])
-(node2{"person","student"}["country":"Japan","name":"Bob"])
-(node1)-["same_school"]["since":"2012"]-(node2)
-(node1)-["likes"]["engaged":"false","since":"2015"]-(node2)

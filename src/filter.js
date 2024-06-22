@@ -14,13 +14,25 @@ export function noLoopsFilter({nodes, edges}) {
   }
 }
 
+export function filterLabels(pattern, { nodes, edges }, warn) {
+  var labels = 0
+  const f = e => { 
+    labels += e.labels.length 
+    e.labels = e.labels.filter(label => pattern.test(label))
+    labels -= e.labels.length 
+  }
+  nodes.forEach(f)
+  edges.forEach(f)
+  warn?.message({ labels })
+}
+
 export const warn = {
   message(removed) {
     const msg = Object.entries(removed)
       .filter(e => e[1] > 0)
       .map(e => `${e[1]} ${e[0]}`)
     if (msg.length > 0) {
-      console.error(`Removed ${msg.join(", ")}`)
+      console.error(`Removed ${msg.join(" and ")}.`)
     }
   },
 
@@ -35,5 +47,6 @@ export const warn = {
         removed[name] = diff
       }
     }
+    this.message(removed)
   }
 }

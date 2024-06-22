@@ -1,0 +1,6 @@
+(Anakin{person}["gender":"male"])
+(Luke{person}["gender":"male"])
+(R2D2{robot})
+(Anakin)-({owns}["episode":"II"])->(R2D2)
+(Anakin)-({father}["episode":"III"])->(Luke)
+(R2D2)-({owns}["episode":"IV"])->(Luke)

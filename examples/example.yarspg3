@@ -1,4 +1,0 @@
-<"101">{"person"}["country":"United States","name":["Alice","Carol"]]
-<"102">{"person","student"}["country":"Japan","name":"Bob"]
-("101")-["same_school"]["since":2012]-("102")
-("101")-["likes"]["engaged":false,"since":2015]-("102")
