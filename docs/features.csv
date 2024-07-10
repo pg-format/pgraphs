@@ -1,34 +1,34 @@
-id,name,direction,multiEdges,graphAttributes,nodeAttributes,edgeAttributes,visualAttributes,edgeIdentifier,edgeWeight,loops,nodeTypes,edgeTypes,nodeName,edgeName,hierarchy,hyperEdges,datatypes,url
-pg,PG format,mixed,✓,-,✓,✓,-,✓,-,✓,*,*,-,-,-,-,string|number,https://github.com/pg-format/specification
-json,PG-JSON,mixed,✓,-,✓,✓,-,✓,-,✓,*,*,-,-,-,-,string|number,https://github.com/pg-format/specification
-jsonl,PG-JSONL,mixed,✓,-,✓,✓,-,✓,-,✓,*,*,-,-,-,-,string|number,https://github.com/pg-format/specification
-cypher,Cypher CREATE statements,directed,✓,-,✓,✓,-,-,-,,*,1,-,-,-,-,Cypher data types,https://opencypher.org/
-neo4j,Neo4J database (via Cypher query),directed,✓,-,✓,✓,-,-,-,,*,1,-,-,-,-,Cypher data types,
-dot,GraphViz DOT,uniform,✓,✓,✓,✓,✓,-,✓,,-,-,label,label,✓,-,,https://graphviz.org/doc/info/lang.html
-tgf,Trivial Graph Format,directed,,-,-,-,-,-,,,-,-,✓,✓,-,-,-,
-canvas,JSON Canvas (experimental),directed,✓,-,-,-,✓,✓,-,,-,-,text,label,✓,-,-,https://jsoncanvas.org/
-graphology,Graphology import/export,mixed,✓,✓,✓,✓,-,✓,-,,-,-,-,-,-,-,JSON,https://graphology.github.io/serialization.html
-ncol,NCOL file format,undirected,-,-,-,-,-,,✓,-,-,-,-,-,-,-,-,https://github.com/TheOpteProject/LGL?tab=readme-ov-file#input-format-lgl
-xml,GraphML,mixed,,✓,✓,✓,-,✓,-,,-,-,-,-,✓,✓,bool|int|long|float|double|string,http://graphml.graphdrawing.org/
-yarspg,YARS-PG,mixed,,✓,✓,✓,-,✓,-,,-,-,-,-,-,-,,https://github.com/lszeremeta/yarspg?tab=readme-ov-file#yars-pg-grammar
-csv,OpenCypher/Neo4J CSV files,directed,✓,-,✓,✓,-,✓,,✓,*,1,-,-,-,-,✓,
-neptune,Neptune CSV import (aka Gremlin load data format),,,,,,,,,,,,,,,,,https://docs.aws.amazon.com/neptune/latest/userguide/load-data.html
-gxl,Graph eXchange Language (GXL),mixed,,✓,✓,✓,,✓,,,0/1,0/1,,,,✓,✓,https://userpages.uni-koblenz.de/~ist/GXL/index.php
-mmd,Meermaid Flowchart (experimental),mixed,✓,-,-,-,✓,-,-,,-,-,name,name,✓,-,,https://mermaid.js.org/syntax/flowchart.html
-flat,Oracle Flat File Format,,,,,,,,,,,,,,,,,
-kuzudb,Kùzu Database,directed,,-,✓,✓,-,,,,1,1,-,-,-,-,✓,https://kuzudb.com/
-dgml,Directed Graph Markup Language (DGML),,,,,,,,,,,,,,,,,
-gml,Graph Modelling Language (GML),,,,,,,,,,,,,,,,,
-gexf,Graph Exchange XML Format (GEXF),mixed,,✓,✓,✓,✓,✓,✓,,-,-,label,label,multi,-,,https://gexf.net/
-pgx,Orcacle PGX Flat File format,,,,,,,,,,,,,,,,,
-xgml,Graph Modeling Language XML (XGML),,,,,,,,,,,,,,,,,
-tp2,GraphSON TinkerPop 2,,,,,,,,,,,,,,,,,
-tp3,GraphSON TinkerPop 3,,,,,,,,,,,,,,,,,
-net,Pajek NET,,,,,,,,,,,,,,,,,
-gdf,Graph Definition File (GDF),,,,,,,,,,,,,,,,,
-dl,UCINET DL,,,,,,,,,,,,,,,,,
-tp,Tulip TP,,,,,,,,,,,,,,,,,
-vna,Netdraw VNA,,,,,,,,,,,,,,,,,
-yed,yED CSV,,,,,,,,,,,,,,,,,
-dgs,DGS,,,,,,,,,,,,,,,,,https://graphstream-project.org/doc/Advanced-Concepts/The-DGS-File-Format/
-cyjs,Cytoscape.js JSON,directed,✓,-,✓,✓,✓,✓,,,*,*,label,label,✓,-,JSON,http://manual.cytoscape.org/en/stable/Supported_Network_File_Formats.html#cytoscape-js-json
+id,name,direction,multiEdges,graphAttributes,graphLabels,nodeAttributes,edgeAttributes,visualAttributes,edgeIdentifier,edgeWeight,loops,nodeTypes,edgeTypes,nodeName,edgeName,hierarchy,hyperEdges,idPattern,labelPattern,datatypes,url
+pg,PG format,mixed,✓,-,,✓,✓,-,✓,-,✓,*,*,-,-,-,-,,,string|number,
+json,PG-JSON,mixed,✓,-,,✓,✓,-,✓,-,✓,*,*,-,-,-,-,,,string|number,https://github.com/pg-format/specification
+jsonl,PG-JSONL,mixed,✓,-,,✓,✓,-,✓,-,✓,*,*,-,-,-,-,,,string|number,https://github.com/pg-format/specification
+cypher,Cypher CREATE statements,directed,✓,-,,✓,✓,-,-,-,,*,1,-,-,-,-,,,Cypher data types,https://opencypher.org/
+neo4j,Neo4J database (via Cypher query),directed,✓,-,,✓,✓,-,-,-,,*,1,-,-,-,-,,,Cypher data types,
+dot,GraphViz DOT,uniform,✓,✓,,✓,✓,✓,-,✓,,-,-,label,label,✓,-,,,,https://graphviz.org/doc/info/lang.html
+tgf,Trivial Graph Format,directed,,-,,-,-,-,-,,,-,-,✓,✓,-,-,,,-,
+canvas,JSON Canvas (experimental),directed,✓,-,,-,-,✓,✓,-,,-,-,text,label,✓,-,,,-,https://jsoncanvas.org/
+graphology,Graphology import/export,mixed,✓,✓,,✓,✓,-,✓,-,,-,-,-,-,-,-,,,JSON,https://graphology.github.io/serialization.html
+ncol,NCOL file format,undirected,-,-,,-,-,-,,✓,-,-,-,-,-,-,-,,,-,https://github.com/TheOpteProject/LGL?tab=readme-ov-file#input-format-lgl
+xml,GraphML,mixed,,✓,,✓,✓,-,✓,-,,-,-,-,-,✓,✓,,,bool|int|long|float|double|string,http://graphml.graphdrawing.org/
+yarspg,YARS-PG,mixed,,✓,✓,✓,✓,-,✓,-,,-,-,-,-,-,-,,,,https://github.com/lszeremeta/yarspg?tab=readme-ov-file#yars-pg-grammar
+csv,OpenCypher/Neo4J CSV files,directed,✓,-,,✓,✓,-,✓,,✓,*,1,-,-,-,-,,,✓,
+neptune,Neptune CSV import (aka Gremlin load data format),,,,,,,,,,,,,,,,,,,bool|byte|short|int|long|float|double|string|date,https://docs.aws.amazon.com/neptune/latest/userguide/bulk-load-tutorial-format-gremlin.html
+gxl,Graph eXchange Language (GXL),mixed,,✓,,✓,✓,,✓,,,0/1,0/1,,,,✓,,,✓,https://userpages.uni-koblenz.de/~ist/GXL/index.php
+mmd,Meermaid Flowchart (experimental),mixed,✓,-,,-,-,✓,-,-,,-,-,name,name,✓,-,,,,https://mermaid.js.org/syntax/flowchart.html
+flat,Oracle Flat File Format,,,,,,,,,,,,,,,,,,,,
+kuzudb,Kùzu Database,directed,,-,,✓,✓,-,,,,1,1,-,-,-,-,,,✓,https://kuzudb.com/
+dgml,Directed Graph Markup Language (DGML),,,,,,,,,,,,,,,,,,,,
+gml,Graph Modelling Language (GML),,,,,,,,,,,,,,,,,,,,
+gexf,Graph Exchange XML Format (GEXF),mixed,,✓,,✓,✓,✓,✓,✓,,-,-,label,label,multi,-,,,,https://gexf.net/
+pgx,Orcacle PGX Flat File format,,,,,,,,,,,,,,,,,,,,
+xgml,Graph Modeling Language XML (XGML),,,,,,,,,,,,,,,,,,,,
+tp2,GraphSON TinkerPop 2,,,,,,,,,,,,,,,,,,,,
+tp3,GraphSON TinkerPop 3,,,,,,,,,,,,,,,,,,,,
+net,Pajek NET,,,,,,,,,,,,,,,,,,,,
+gdf,Graph Definition File (GDF),,,,,,,,,,,,,,,,,,,,
+dl,UCINET DL,,,,,,,,,,,,,,,,,,,,
+tp,Tulip TP,,,,,,,,,,,,,,,,,,,,
+vna,Netdraw VNA,,,,,,,,,,,,,,,,,,,,
+yed,yED CSV,,,,,,,,,,,,,,,,,,,,
+dgs,DGS,,,,,,,,,,,,,,,,,,,,https://graphstream-project.org/doc/Advanced-Concepts/The-DGS-File-Format/
+cyjs,Cytoscape.js JSON,directed,✓,-,,✓,✓,✓,✓,,,*,*,label,label,✓,-,,,JSON,http://manual.cytoscape.org/en/stable/Supported_Network_File_Formats.html#cytoscape-js-json

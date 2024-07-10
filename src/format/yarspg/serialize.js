@@ -1,3 +1,5 @@
+import profile from "./profile.js"
+
 import { idPatternFilter, filterLabels } from "../../filter.js"
 
 const serializeNode = ({id, labels, properties}) =>
@@ -21,13 +23,10 @@ const serializeString = s => "\"" + s.toString().replaceAll(/["\\\n\r]/g, c => s
 const serializeValue = value => value.length == 1
   ? serializeString(value[0]) : "[" + value.map(serializeString).join(",") + "]"
 
-const idPattern = /^[a-zA-Z_][a-zA-Z0-9_]*$/u
-const labelPattern = /^[a-zA-Z_][a-zA-Z0-9_]*$/u
-
 export default (graph, warn) => {
-  const { nodes, edges } = idPatternFilter(idPattern,graph)
+  const { nodes, edges } = idPatternFilter(profile.idPattern,graph)
   warn?.graphReduced(graph, { nodes, edges }, {}, "invalid identifiers")
-  filterLabels(labelPattern, { nodes, edges }, warn)
+  filterLabels(profile.labelPattern, { nodes, edges }, warn)
 
   const lines = [
     ...nodes.map(serializeNode),

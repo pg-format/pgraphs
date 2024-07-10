@@ -22,6 +22,10 @@
       "description": "Graphs can have arbitrary attributes",
       "type": "boolean"
     },
+    "graphLabels": {
+      "description": "Graphs can have labels",
+      "type": "boolean"
+    },
     "nodeAttributes": {
       "description": "Nodes can have arbitrary attributes",
       "type": "boolean"
@@ -69,6 +73,12 @@
     "hyperEdges": {
       "description": "Allow edges that connect more than one node",
       "type": "boolean"
+    },
+    "idPattern": {
+      "type": "string"
+    },
+    "labelPattern": {
+      "type": "string"
     },
     "datatypes": {
       "description": "Attributes can have different datatypes",
