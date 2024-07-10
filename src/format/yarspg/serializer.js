@@ -21,12 +21,13 @@ const serializeString = s => "\"" + s.toString().replaceAll(/["\\\n\r]/g, c => s
 const serializeValue = value => value.length == 1
   ? serializeString(value[0]) : "[" + value.map(serializeString).join(",") + "]"
 
-const namePattern = /^[a-zA-Z_][a-zA-Z0-9_]*$/u
+const idPattern = /^[a-zA-Z_][a-zA-Z0-9_]*$/u
+const labelPattern = /^[a-zA-Z_][a-zA-Z0-9_]*$/u
 
 export default (graph, warn) => {
-  const { nodes, edges } = idPatternFilter(namePattern,graph)
-  warn?.graphReduced(graph, { nodes, edges })
-  filterLabels(namePattern, { nodes, edges }, warn)
+  const { nodes, edges } = idPatternFilter(idPattern,graph)
+  warn?.graphReduced(graph, { nodes, edges }, {}, "invalid identifiers")
+  filterLabels(labelPattern, { nodes, edges }, warn)
 
   const lines = [
     ...nodes.map(serializeNode),

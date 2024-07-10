@@ -326,7 +326,9 @@ Further differences between PG data model and Cypher include no support of
 
 ### YARS-PG
 
-Export to YARS-PG 5.0.0 is limited to nodes and edges without schema, so all
+Export to YARS-PG requires node
+...
+5.0.0 is limited to nodes and edges without schema, so all
 property values are mapped to strings:
 
 ~~~
@@ -334,17 +336,6 @@ property values are mapped to strings:
 (node2{"person","student"}["country":"Japan","name":"Bob"])
 (node1)-["same_school"]["since":"2012"]-(node2)
 (node1)-["likes"]["engaged":"false","since":"2015"]-(node2)
-~~~
-
-YARS-PG 3.0.0 supported data types without a schema but labels were mandatory.
-The exported format variant lifts this restriction, so the graph [in this
-format](examples/example.yarspg) is very similar to [PG format](#pg-format):
-
-~~~
-<"101">{"person"}["country":"United States","name":["Alice","Carol"]]
-<"102">{"person","student"}["country":"Japan","name":"Bob"]
-("101")-["same_school"]["since":2012]-("102")
-("101")-["likes"]["engaged":false,"since":2015]-("102")
 ~~~
 
 ### CSV

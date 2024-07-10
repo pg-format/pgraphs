@@ -15,9 +15,11 @@ function serializeEdge({from, to, properties, undirected}) {
     : `${from} ${head} ${to}`
 }
 
+const idPattern = /^[\p{L}\p{N}_]+$/u
+
 export default (graph, warn) => {
-  const { nodes, edges } = idPatternFilter(/^[\p{L}\p{N}_]+$/u,graph)
-  warn?.graphReduced(graph, { nodes, edges })
+  const { nodes, edges } = idPatternFilter(idPattern,graph)
+  warn?.graphReduced(graph, { nodes, edges }, {}, "invalid identifiers")
 
   const lines = [
     ...nodes.map(serializeNode),

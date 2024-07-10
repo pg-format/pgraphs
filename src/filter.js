@@ -27,17 +27,19 @@ export function filterLabels(pattern, { nodes, edges }, warn) {
 }
 
 export const warn = {
-  message(removed) {
-    const msg = Object.entries(removed)
+  message(removed,reason) {
+    var msg = Object.entries(removed)
       .filter(e => e[1] > 0)
       .map(e => `${e[1]} ${e[0]}`)
     if (msg.length > 0) {
-      console.error(`Removed ${msg.join(" and ")}.`)
+      msg = `Removed ${msg.join(" and ")}`
+      if (reason) {msg += ` (${reason})`}
+      console.error(`${msg}.`)
     }
   },
 
   // Detect and warn in number of nodes and/or edges have been reduced
-  graphReduced(before, after, subtype={}) {
+  graphReduced(before, after, subtype={}, reason) {
     const removed = {}
     for (let type of ["nodes", "edges"]) {
       const diff = before?.[type]?.length - after?.[type]?.length
@@ -47,6 +49,6 @@ export const warn = {
         removed[name] = diff
       }
     }
-    this.message(removed)
+    this.message(removed, reason)
   }
 }
