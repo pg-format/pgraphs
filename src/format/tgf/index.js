@@ -1,5 +1,5 @@
-import profile from "./profile.js"
+import features from "./features.js"
 import parse from "./parse.js"
 import serialize from "./serialize.js"
 
-export default { ...profile, parse, serialize }
+export default { ...features, parse, serialize }

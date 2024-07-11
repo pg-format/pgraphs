@@ -1,4 +1,4 @@
-import profile from "./profile.js"
+import features from "./features.js"
 import serialize from "./serialize.js"
 
-export default { ...profile, serialize }
+export default { ...features, serialize }

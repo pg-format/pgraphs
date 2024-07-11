@@ -1,4 +1,4 @@
-import profile from "./profile.js"
+import features from "./features.js"
 
 import { idPatternFilter, filterLabels } from "../../filter.js"
 
@@ -24,9 +24,9 @@ const serializeValue = value => value.length == 1
   ? serializeString(value[0]) : "[" + value.map(serializeString).join(",") + "]"
 
 export default (graph, warn) => {
-  const { nodes, edges } = idPatternFilter(profile.idPattern,graph)
+  const { nodes, edges } = idPatternFilter(features.idPattern,graph)
   warn?.graphReduced(graph, { nodes, edges }, {}, "invalid identifiers")
-  filterLabels(profile.labelPattern, { nodes, edges }, warn)
+  filterLabels(features.labelPattern, { nodes, edges }, warn)
 
   const lines = [
     ...nodes.map(serializeNode),

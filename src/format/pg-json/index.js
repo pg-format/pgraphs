@@ -1,8 +1,8 @@
-import profile from "./profile.js"
+import features from "./features.js"
 import { parse } from "./parse.js"
 
 export default {
-  ...profile,
+  ...features,
   parse,
   serialize: graph => JSON.stringify(graph, null, 2),
 }

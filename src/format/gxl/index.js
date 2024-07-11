@@ -1,3 +1,3 @@
-import profile from "./profile.js"
+import features from "./features.js"
 
-export default { ...profile }
+export default { ...features }
