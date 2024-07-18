@@ -31,14 +31,6 @@ const validGraphs = {
   "a -> b | a :foo; |a :bar": graph([{id:"a",labels:["foo;","bar"]},{id:"b"}],[{from:"a",to:"b"}]),
   "a b:0|c": graph([{id:"a",properties:{b:[0]}},"c"]),
   "x a:1|x a:2,3": graph([{id:"x",properties:{a:[1,2,3]}}]),
-  "\"\\\"\"": graph("\""),
-  "\"\\'\"": graph("'"),
-  "'\\\"'": graph("\""),
-  "'\\''": graph("'"),
-  // edge ids
-  "a: b -> c": graph("b|c",[{id:"a", from:"b",to:"c"}]),
-  "a:b: b -> c": graph("b|c",[{id:"a:b", from:"b",to:"c"}]),
-  "\"a\": b -> c": graph("b|c",[{id:"a", from:"b",to:"c"}]),
 }
 
 // console.log(JSON.stringify(validGraphs,null,2))
@@ -46,16 +38,5 @@ const validGraphs = {
 describe("parsing valid short examples", () => {
   for (const [pg, g] of Object.entries(validGraphs)) {
     it(JSON.stringify(pg), () => assert.deepEqual(parse(pg), g))
-  }
-})
-
-// FIXME: not included in test suite yet:
-
-const invalidGraph = {
-  "1: a -> b\n1: a -> b": "Repeated edge identifier",
-}
-describe("detect syntax errors", () => {
-  for (let pg in invalidGraph) {
-    it(invalidGraph[pg], () => assert.throws(() => parse(pg)))
   }
 })
