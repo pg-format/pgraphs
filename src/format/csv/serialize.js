@@ -2,7 +2,7 @@
 // https://neo4j.com/docs/operations-manual/current/tutorial/neo4j-admin-import/
 // https://docs.aws.amazon.com/neptune/latest/userguide/bulk-load-tutorial-format-opencypher.html
 
-import { CSVWriter } from "../../utils.js"
+import { CSVWriter } from "../../csv.js"
 import { MultiTarget } from "../../target.js"
 import { FieldSchema } from "../../schema.js"
 

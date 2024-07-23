@@ -1,4 +1,4 @@
-import { CSVWriter } from "../../utils.js"
+import { CSVWriter } from "../../csv.js"
 import { MultiTarget } from "../../target.js"
 import { FieldSchema } from "../../schema.js"
 

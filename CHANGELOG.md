@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.6.14 and 0.6.15
+
+- Cleanup dependencies
+
+## 0.6.13
+
+- Give reason when graph is reduced
+
 ## 0.6.12
 
 - PG format: more align with current specification
