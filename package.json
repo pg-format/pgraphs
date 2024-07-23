@@ -55,7 +55,6 @@
   "dependencies": {
     "@pinemach/csv": "^1.0.4",
     "dotparser": "^1.1.1",
-    "fast-xml-parser": "^4.3.6",
-    "pgraphs": "^0.1.0"
+    "fast-xml-parser": "^4.3.6"
   }
 }
