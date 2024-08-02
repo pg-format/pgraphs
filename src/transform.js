@@ -47,6 +47,7 @@ export function addHtmlSummary(graph, format) {
     const name = typeof format.edgeName === "string" ? format.edgeName : "label"
     addHtmlSummaryProperty(edge, name)
   }
+  return graph
 }
 
 export function scaleSpatial(graph, scale) {
