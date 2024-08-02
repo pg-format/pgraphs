@@ -14,7 +14,7 @@ describe("parse examples", () => {
   for(let file of examples) {
     it(file, () => {
       const pg = suiteFile("examples",file)
-      const parsed = parse(pg)
+      const parsed = parse(pg, { sort: true })
       const jsonFile = suitePath("examples",file.replace(/\.pg$/, ".json"))
       if (fs.existsSync(jsonFile)) {
         const json = JSON.parse(suiteFile(jsonFile))
@@ -28,7 +28,7 @@ const valid = JSON.parse(suiteFile("pg-format-valid.json"))
 describe("parse valid test cases", () => {
   valid.forEach(({pg,about,graph}) => {
     it(about||pg, () => { 
-      const parsed = parse(pg)
+      const parsed = parse(pg, { sort: true })
       if (graph) {
         assert.deepEqual(parsed, graph)
       }

@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.6.16
+
+- Sort labels in PG-JSON format
+
 ## 0.6.14 and 0.6.15
 
 - Cleanup dependencies
