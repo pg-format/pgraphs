@@ -1,8 +1,8 @@
-import cypher from "../cypher/index.js"
+import features from "../cypher/features.js"
 import { parse, serialize } from "./connect.js"
 
 export default {
-  ...cypher,
+  ...features,
   name: "Neo4J database (via Cypher query)",
   parse,
   serialize,

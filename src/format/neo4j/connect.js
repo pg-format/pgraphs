@@ -1,5 +1,5 @@
 import fs from "fs"
-import cypher from "../cypher/index.js"
+import { serialize as serializeCypher } from "../cypher/serialize.js"
 import { IDMap } from "../../utils.js"
 
 const neo4j = await import("neo4j-driver-lite").catch(() => null)
@@ -32,7 +32,7 @@ function serializeGraph(graph, config) {
   const driver = connect(json)
   const session = driver.session({ defaultAccessMode: neo4j.session.WRITE })
 
-  const query = cypher.serialize(graph)
+  const query = serializeCypher(graph)
 
   // TODO: use reactive session or transaction instead=
   return new Promise((resolve, onError) => {
