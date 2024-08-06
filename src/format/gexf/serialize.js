@@ -1,6 +1,6 @@
 import XMLWriter from "../../xmlwriter.js"
 
-export default (pg, warn) => {
+export default (pg, { warn } = {}) => {
   const removed = { labels: 0, edges: 0 }
   const edgeHash = new Set()
 

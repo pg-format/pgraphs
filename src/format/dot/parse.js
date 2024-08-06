@@ -5,7 +5,7 @@ import { graph } from "../../utils.js"
  * Parse and convert DOT to PG.
  * Graph attributes and subgraphs are ignored.
  */
-export default (string, warn) => {
+export default (string, { warn } = {}) => {
   const nodes = {}; const edges = []
 
   const dot = dotparser(string)?.[0] || {}

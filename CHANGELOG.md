@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.6.17
+
+- Add CYPHERL format and --merge option
+
 ## 0.6.16
 
 - Sort labels in PG-JSON format

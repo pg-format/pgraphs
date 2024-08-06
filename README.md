@@ -19,6 +19,7 @@ This package implements parsers and serializers to convert between labeled prope
   - [PG JSON and JSONL](#pg-json-and-jsonl)
   - [GraphML](#graphml)
   - [Cypher CREATE](#cypher-create)
+  - [CYPHERL](#cypherl)
   - [YARS-PG](#yars-pg)
   - [CSV](#csv)
   - [Neptune CSV](#neptune-csv)
@@ -83,6 +84,7 @@ Options:
   -f, --from [format]   source format
   -t, --to [format]     target format
   -i, --id [key]        copy node id to property
+  --merge               merge nodes/edges in CYPHER
   --html                generate HTML label
   -s, --scale [factor]  scale spatial properties x,y,width,height,pos
   -e, --errors          verbose error messages
@@ -95,6 +97,7 @@ Supported conversion formats:
   json       from/to PG-JSON
   jsonl      from/to PG-JSONL (default target format)
   cypher     from/to Cypher CREATE statements
+  cypherl    to CYPHERL (one query per line, requires id property)
   neo4j      from/to Neo4J database (via Cypher query)
   dot        from/to GraphViz DOT
   tgf        from/to Trivial Graph Format
@@ -169,6 +172,7 @@ written from with this package:
 | yes  | yes   | [PG-JSON](#pg-json-and-jsonl)           |
 | yes  | yes   | [PG-JSONL](#pg-json-and-jsonl)          |
 | yes  | yes   | [Cypher CREATE](#cypher-create)         |
+|      | yes   | [CYPHERL](#cypherl)                     |
 | yes  | yes   | [Neo4J or compatible](#Neo4J)           |
 | yes  | yes   | [Trivial Graph Format (TGF)](#tgf)      |
 | yes  | yes   | [GraphViz DOT](#graphviz-dot)           |
@@ -323,6 +327,14 @@ CREATE (`101`)-[:likes {since:2015, engaged:false}]->(`102`)
 
 Further differences between PG data model and Cypher include no support of
 `null` in property values and mixed types in repeated property values.
+
+### CYPHERL
+
+The [CYPHERL Format](https://memgraph.com/docs/data-migration/cypherl) is
+a list of CYPHER statements, each on one line. The format requires nodes to
+have a unique identifier property (see command line option `--id`) for
+reference across statements. Option `--merge` with change statements to
+update existing nodes and edges instead of creating new ones new ones.
 
 ### YARS-PG
 

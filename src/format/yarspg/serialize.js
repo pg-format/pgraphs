@@ -23,7 +23,7 @@ const serializeString = s => "\"" + s.toString().replaceAll(/["\\\n\r]/g, c => s
 const serializeValue = value => value.length == 1
   ? serializeString(value[0]) : "[" + value.map(serializeString).join(",") + "]"
 
-export default (graph, warn) => {
+export default (graph, { warn } = {}) => {
   const { nodes, edges } = idPatternFilter(features.idPattern,graph)
   warn?.graphReduced(graph, { nodes, edges }, {}, "invalid identifiers")
   filterLabels(features.labelPattern, { nodes, edges }, warn)

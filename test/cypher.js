@@ -1,5 +1,6 @@
 import { assert } from "chai"
 import cypher from "../src/format/cypher/index.js"
+import cypherl from "../src/format/cypherl/index.js"
 import pg from "../src/format/pg/index.js"
 
 const valid = {
@@ -44,7 +45,33 @@ const serialized = {
 
 describe("serialization edge cases", () => {
   for (const [graph, expect] of Object.entries(serialized)) {
-    const c = cypher.serialize(pg.parse(graph))
-    it(expect, () => assert.equal(c, expect))
+    const a = cypher.serialize(pg.parse(graph))
+    it(expect, () => assert.equal(a, expect))
+  }
+})
+
+describe("CYPHERL", () => {
+  const graph = pg.parse("A :b c:1 d:2 | A -> B :foo")
+
+  const examples = [
+    [{id: "x"}, `CREATE (:b {c:1, d:2, x:"A"});
+CREATE ({x:"B"});
+MATCH (a {x:"A"}), (b {x:"B"}) CREATE (a)-[:foo]->(b);
+`],
+    [{id: "_"}, `CREATE (:b {_:"A", c:1, d:2});
+CREATE ({_:"B"});
+MATCH (a {_:"A"}), (b {_:"B"}) CREATE (a)-[:foo]->(b);
+`],
+    [{id: "_", merge: true}, 
+      "MERGE (n {_:\"A\"}) SET n = {_:\"A\", c:1, d:2}, n:b;\n"+
+      "MERGE (n {_:\"B\"}) SET n = {_:\"B\"};\n" +
+      "MATCH (a {_:\"A\"}), (b {_:\"B\"}) MERGE (a)-[:foo]->(b);\n"
+    ]
+  ]
+
+  for (const [options, expect] of examples) {
+    it(expect, () => {
+      assert.equal(cypherl.serialize(graph, options), expect)
+    })
   }
 })

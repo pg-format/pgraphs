@@ -26,7 +26,7 @@ export function filterLabels(pattern, { nodes, edges }, warn) {
   warn?.message({ labels })
 }
 
-export const warn = {
+export const warner = {
   message(removed,reason) {
     var msg = Object.entries(removed)
       .filter(e => e[1] > 0)

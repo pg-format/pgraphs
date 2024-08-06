@@ -2,7 +2,7 @@ import { idPatternFilter, noLoopsFilter } from "../../filter.js"
 
 // TODO also emit color file
 
-export default ({ edges }, warn) => {
+export default ({ edges }, { warn } = {}) => {
   // TODO: nodes without edges are ignored
   const graph = noLoopsFilter(idPatternFilter(/^[^\s]+$/, { edges }))
   // TODO: warn explicitly for noLoopsFilter

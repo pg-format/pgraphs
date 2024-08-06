@@ -2,6 +2,7 @@ import pg from "./format/pg/index.js"
 import json from "./format/pg-json/index.js"
 import jsonl from "./format/pg-jsonl/index.js"
 import cypher from "./format/cypher/index.js"
+import cypherl from "./format/cypherl/index.js"
 import neo4j from "./format/neo4j/index.js"
 import dot from "./format/dot/index.js"
 import tgf from "./format/tgf/index.js"
@@ -24,6 +25,7 @@ export const pgformat = {
   json,
   jsonl,
   cypher,
+  cypherl,
   neo4j,
   dot,
   tgf,

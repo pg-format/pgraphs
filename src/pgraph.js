@@ -2,7 +2,7 @@ import fs from "fs"
 import { pgformat } from "./formats.js"
 import { GraphTarget, StreamTarget } from "./target.js"
 import { addIdProperty, addHtmlSummary, scaleSpatial } from "./transform.js"
-import { warn } from "./filter.js"
+import { warner } from "./filter.js"
 
 pgformat.pg.name += " (default source format)"
 pgformat.jsonl.name += " (default target format)"
@@ -47,11 +47,11 @@ export async function pgraph(source, target, opts) {
     }
   }
 
-  const warner = opts.quiet ? undefined : warn
+  const warn = opts.quiet ? undefined : warner
 
   // read graph from source
 
-  var graph = from.parse(await readStream(source), warner)
+  var graph = from.parse(await readStream(source), warn)
   if (graph instanceof Promise) {
     graph = await graph
   }
@@ -73,8 +73,8 @@ export async function pgraph(source, target, opts) {
   // send graph to target
 
   if (typeof target === "string" || target instanceof GraphTarget) {
-    to.serialize(graph, target, warner)
+    to.serialize(graph, target, { ...opts, warn })
   } else {
-    target.write(to.serialize(graph, warner))
+    target.write(to.serialize(graph, { ...opts, warn }))
   }
 }
