@@ -333,14 +333,25 @@ Further differences between PG data model and Cypher include no support of
 The [CYPHERL Format](https://memgraph.com/docs/data-migration/cypherl) is
 a list of CYPHER statements, each on one line. The format requires nodes to
 have a unique identifier property (see command line option `--id`) for
-reference across statements. Option `--merge` with change statements to
-update existing nodes and edges instead of creating new ones new ones.
+reference across statements. Add option `--merge` to update existing nodes and
+edges instead of creating new ones. The example graph with identifier property
+set to `id` without and with option `--merge`, respectively:
+
+~~~
+CREATE (:person {country:"United States", id:"101", name:["Alice","Carol"]});
+CREATE (:person:student {country:"Japan", id:"102", name:"Bob"});
+MATCH (a {id:"101"}), (b {id:"102"}) CREATE (a)-[:likes {engaged:false, since:2015}]->(b);
+~~~
+
+~~~
+MERGE (n {id:"101"}) SET n = {country:"United States", id:"101", name:["Alice","Carol"]}, n:person;
+MERGE (n {id:"102"}) SET n = {country:"Japan", id:"102", name:"Bob"}, n:person:student;
+MATCH (a {id:"101"}), (b {id:"102"}) MERGE (a)-[:likes {engaged:false, since:2015}]->(b);
+~~~
 
 ### YARS-PG
 
-Export to YARS-PG requires node
-...
-5.0.0 is limited to nodes and edges without schema, so all
+Export to YARS-PG 5.0.0 is limited to nodes and edges without schema, so all
 property values are mapped to strings:
 
 ~~~
