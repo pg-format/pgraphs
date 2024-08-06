@@ -3,6 +3,7 @@ pg,PG format,mixed,✓,-,,✓,✓,-,✓,-,✓,*,*,-,-,-,-,,,string|number,
 json,PG-JSON,mixed,✓,-,,✓,✓,-,✓,-,✓,*,*,-,-,-,-,,,string|number,https://github.com/pg-format/specification
 jsonl,PG-JSONL,mixed,✓,-,,✓,✓,-,✓,-,✓,*,*,-,-,-,-,,,string|number,https://github.com/pg-format/specification
 cypher,Cypher CREATE statements,directed,✓,-,,✓,✓,-,-,-,,*,1,-,-,-,-,,,Cypher data types,https://opencypher.org/
+cypherl,CYPHERL (one query per line, requires id property),directed,✓,-,,✓,✓,-,-,-,,*,1,-,-,-,-,,,Cypher data types,https://memgraph.com/docs/data-migration/cypherl
 neo4j,Neo4J database (via Cypher query),directed,✓,-,,✓,✓,-,-,-,,*,1,-,-,-,-,,,Cypher data types,
 dot,GraphViz DOT,uniform,✓,✓,,✓,✓,✓,-,✓,,-,-,label,label,✓,-,,,,https://graphviz.org/doc/info/lang.html
 tgf,Trivial Graph Format,directed,,-,,-,-,-,-,,,-,-,✓,✓,-,-,,,-,
