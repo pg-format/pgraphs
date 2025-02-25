@@ -40,6 +40,7 @@ module.exports = {
   ignorePatterns: [
       "src/format/pg/parser.js", 
       "src/format/cypher/parser.js",
-      "tmp.pegjs" 
+      "tmp.pegjs", 
+      "site_libs"
   ],
 }

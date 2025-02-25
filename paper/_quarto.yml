@@ -1,0 +1,11 @@
+project:
+  type: manuscript
+  output-dir: .
+manuscript:
+  article: paper.md
+format:
+  html:
+    #code-line-numbers: false
+    template-partials:
+      # required because JOSS has slightly different way to encode affiliations
+      - title-metadata.html
